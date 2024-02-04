@@ -7,6 +7,8 @@ import java.util.Arrays;
 public class Introduction {
 
 
+    public static final int VALUE_TWO = 6;
+
     /**
      * Method gets two numbers as parameters.
      * Method must answer if the given pair gives bad, normal or good outcome.
@@ -70,7 +72,7 @@ public class Introduction {
         int count = 0;
 
         for (int i = 0; i < numbers.length; i++) {
-            if (numbers[i] % 2 == 0){
+            if (numbers[i] % 2 == 0) {
                 count++;
             }
         }
@@ -130,11 +132,12 @@ public class Introduction {
          */
         int count = 0;
         for (int i = 0; i < word.length() - 2; i++) {
-            if ((i == 0 || word.charAt(i - 1) != word.charAt(i)) &&
-                word.charAt(i + 1) == word.charAt(i) &&
-                word.charAt(i + 2) == word.charAt(i) &&
-                (i + 3 == word.length() || word.charAt(i + 3) != word.charAt(i)))
+            if ((i == 0 || word.charAt(i - 1) != word.charAt(i))
+                && word.charAt(i + 1) == word.charAt(i)
+                && word.charAt(i + 2) == word.charAt(i)
+                && (i + 3 == word.length() || word.charAt(i + 3) != word.charAt(i))) {
                 count++;
+            }
         }
         return count;
     }
@@ -143,11 +146,12 @@ public class Introduction {
      * Run tests.
      * @param args Arguments from command line.
      */
+    /*
     public static void main(String[] args) {
-        // Python -> introduction = Introduction()
+    // Python -> introduction = Introduction()
         // introduction.find()
         Introduction introduction = new Introduction(); // Making new object
-        System.out.println(introduction.howIsOutcome(3, 6)); // "bad"
+        System.out.println(introduction.howIsOutcome(3, VALUE_TWO)); // "bad"
 
         List<Integer> nums = new ArrayList<>(Arrays.asList(4, 7, 5, 2, 1, 2, -2, 0));
         System.out.println(introduction.findEvenNumbersList(nums)); // [4, 2, 2, -2, 0]
@@ -168,4 +172,5 @@ public class Introduction {
         System.out.println(introduction.countTripleChars("aaaa"));  // 0
         System.out.println(introduction.countTripleChars("aaaabbbabbbcCc"));  // 2
     }
-}
+    }
+     */
