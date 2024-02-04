@@ -1,7 +1,6 @@
 
   package ee.taltech.iti0202.idcode;
 
-  import java.security.KeyStore;
   import java.util.ArrayList;
   import java.util.Arrays;
   import java.util.Objects;
@@ -13,7 +12,7 @@
       enum Gender {
           MALE, FEMALE
       }
-    
+
       /**
        * Method returns the id code.
        *
@@ -25,6 +24,9 @@
     
       public IdCode(String idCodeValue) {
           this.idCodeValue = idCodeValue;
+          if (!isCorrect()) {
+              throw new IllegalArgumentException("Invalid ID code");
+          }
       }
 
       /**
@@ -240,7 +242,7 @@
        * @param args info.
        */
       public static void main(String[] args) {
-          IdCode validMaleIdCode = new IdCode("50002290231");
+          IdCode validMaleIdCode = new IdCode("2734983274327432");
           System.out.println(validMaleIdCode.isCorrect());
           System.out.println(validMaleIdCode.getInformation());
           System.out.println(validMaleIdCode.getGender());
