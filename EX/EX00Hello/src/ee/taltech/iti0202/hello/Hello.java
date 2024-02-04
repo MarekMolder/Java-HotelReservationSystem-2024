@@ -14,6 +14,9 @@ public class Hello {
      */
     // get-greeting(name: str) ->: str
     public static String getGreeting(String name) {
+        if (name.isEmpty()) {
+            return "Hello!";
+        }
         return "Hello, " + name + "!";
     }
     /**
