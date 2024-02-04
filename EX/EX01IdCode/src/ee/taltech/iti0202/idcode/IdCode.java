@@ -25,7 +25,7 @@
       public IdCode(String idCodeValue) {
           this.idCodeValue = idCodeValue;
           if (!isCorrect()) {
-              throw new IllegalArgumentException("Invalid ID code");
+              throw new IllegalArgumentException();
           }
       }
 
@@ -35,11 +35,8 @@
        * @return boolean describing whether or not the id code was correct.
        */
       public boolean isCorrect() {
-          if (isGenderNumberCorrect() && isYearNumberCorrect() && isMonthNumberCorrect()
-                  && isDayNumberCorrect() && isControlNumberCorrect()) {
-              return true;
-          }
-          throw new IllegalArgumentException();
+          return isGenderNumberCorrect() && isYearNumberCorrect() && isMonthNumberCorrect()
+                  && isDayNumberCorrect() && isControlNumberCorrect();
       }
 
 
@@ -242,7 +239,7 @@
        * @param args info.
        */
       public static void main(String[] args) {
-          IdCode validMaleIdCode = new IdCode("2734983274327432");
+          IdCode validMaleIdCode = new IdCode("47605030299");
           System.out.println(validMaleIdCode.isCorrect());
           System.out.println(validMaleIdCode.getInformation());
           System.out.println(validMaleIdCode.getGender());
