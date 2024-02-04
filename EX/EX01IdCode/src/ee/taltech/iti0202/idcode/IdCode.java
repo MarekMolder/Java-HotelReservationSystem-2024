@@ -43,7 +43,7 @@
        * @return String containing information.
        */
       public String getInformation() {
-          return String.format("This is a %s born on %s.%s.%s in %s.", getGender(), idCodeValue.substring(5,7),
+          return String.format("This is a %s born on %s.%s.%s in %s", getGender(), idCodeValue.substring(5,7),
                   idCodeValue.substring(3,5), getFullYear(), getBirthPlace());
       }
 
@@ -69,7 +69,7 @@
        * @return String with the person's birth place.
        */
       public String getBirthPlace() {
-          String cityCode = this.idCodeValue.substring(8,10);
+          String cityCode = this.idCodeValue.substring(7,10);
           if (1 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 10) {
               return "Kuressaare";
           } else if (11 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 20) {
@@ -236,7 +236,7 @@
        * @param args info.
        */
       public static void main(String[] args) {
-          IdCode validMaleIdCode = new IdCode("37605030299");
+          IdCode validMaleIdCode = new IdCode("50402290232");
           System.out.println(validMaleIdCode.isCorrect());
           System.out.println(validMaleIdCode.getInformation());
           System.out.println(validMaleIdCode.getGender());
