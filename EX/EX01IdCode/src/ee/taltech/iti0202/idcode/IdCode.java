@@ -6,7 +6,11 @@
   import java.util.Objects;
 
   public class IdCode {
-  
+      public static final int BIRTHPALCE_KURESSAARE_START = 1;
+      public static final int BIRTHPALCE_TARTU_START = 11;
+      public static final int BIRTHPALCE_TALLINN_START = 21;
+      public static final int BIRTHPALCE_KOHTLA_JARVE_START = 221;
+      public static final int BIRTHPALCE_TARTU2_START = 271;
       private final String idCodeValue;
 
       enum Gender {
@@ -24,6 +28,11 @@
     
       public IdCode(String idCodeValue) {
           this.idCodeValue = idCodeValue;
+          /*
+          if (!isCorrect()) {
+              throw new IllegalArgumentException();
+          }
+           */
       }
 
       /**
@@ -35,7 +44,6 @@
           return isGenderNumberCorrect() && isYearNumberCorrect() && isMonthNumberCorrect()
                   && isDayNumberCorrect() && isControlNumberCorrect();
       }
-
 
       /**
        * Get all information about id code.
@@ -70,15 +78,15 @@
        */
       public String getBirthPlace() {
           String cityCode = this.idCodeValue.substring(7,10);
-          if (1 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 10) {
+          if (BIRTHPALCE_KURESSAARE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 10) {
               return "Kuressaare";
-          } else if (11 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 20) {
+          } else if (BIRTHPALCE_TARTU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 20) {
               return "Tartu";
-          } else if (21 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 220) {
+          } else if (BIRTHPALCE_TALLINN_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 220) {
               return "Tallinn";
-          } else if (221 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 270) {
+          } else if (BIRTHPALCE_KOHTLA_JARVE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 270) {
               return "Kohtla-Järve";
-          }  else if (271 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 370) {
+          }  else if (BIRTHPALCE_TARTU2_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 370) {
               return "Tartu";
           } else if (371 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 420) {
               return "Narva";
