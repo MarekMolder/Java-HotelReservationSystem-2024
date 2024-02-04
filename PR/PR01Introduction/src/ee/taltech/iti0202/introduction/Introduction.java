@@ -98,7 +98,9 @@ public class Introduction {
      * @return String based on the values of first and second
      */
     public String findTheString(String first, String second) {
-        if (first.length() == second.length()) {
+        if (first.isBlank() && second.isBlank()) {
+            return "FALSE";
+        } else if (first.length() == second.length() && !first.isEmpty()) {
             return first + second;
         } else if (first.length() > second.length()) {
             return (first.substring(first.length() - second.length()) + second).toLowerCase();
