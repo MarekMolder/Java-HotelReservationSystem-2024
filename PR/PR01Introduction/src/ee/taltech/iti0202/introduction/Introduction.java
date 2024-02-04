@@ -147,8 +147,8 @@ public class Introduction {
      * @param args Arguments from command line.
      */
     /*
-    public static void main(String[] args) {
-    // Python -> introduction = Introduction()
+        public static void main(String[] args) {
+        // Python -> introduction = Introduction()
         // introduction.find()
         Introduction introduction = new Introduction(); // Making new object
         System.out.println(introduction.howIsOutcome(3, VALUE_TWO)); // "bad"
@@ -172,5 +172,5 @@ public class Introduction {
         System.out.println(introduction.countTripleChars("aaaa"));  // 0
         System.out.println(introduction.countTripleChars("aaaabbbabbbcCc"));  // 2
     }
-    }
      */
+}
