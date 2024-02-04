@@ -195,10 +195,10 @@
        */
       private boolean isControlNumberCorrect() {
           int multiplication = 0;
-          for (int i = 1; i < idCodeValue.length() - 2; i++) {
+          for (int i = 1; i < idCodeValue.length() - 1; i++) {
                 multiplication += i * Integer.parseInt(String.valueOf(idCodeValue.charAt(i - 1)));
           }
-          multiplication += Integer.parseInt(String.valueOf(idCodeValue.charAt(10)));
+          multiplication += Integer.parseInt(String.valueOf(idCodeValue.charAt(9)));
           if (multiplication % 11 == 10) {
               for (int i = 3; i < 10; i++) {
                   multiplication = 0;
@@ -236,7 +236,7 @@
        * @param args info.
        */
       public static void main(String[] args) {
-          IdCode validMaleIdCode = new IdCode("50402290232");
+          IdCode validMaleIdCode = new IdCode("50002290231");
           System.out.println(validMaleIdCode.isCorrect());
           System.out.println(validMaleIdCode.getInformation());
           System.out.println(validMaleIdCode.getGender());
