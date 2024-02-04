@@ -33,9 +33,13 @@
        * @return boolean describing whether or not the id code was correct.
        */
       public boolean isCorrect() {
-          return isGenderNumberCorrect() && isYearNumberCorrect() && isMonthNumberCorrect()
-                  && isDayNumberCorrect() && isControlNumberCorrect();
+          if (isGenderNumberCorrect() && isYearNumberCorrect() && isMonthNumberCorrect()
+                  && isDayNumberCorrect() && isControlNumberCorrect()) {
+              return true;
+          }
+          throw new IllegalArgumentException();
       }
+
 
       /**
        * Get all information about id code.
