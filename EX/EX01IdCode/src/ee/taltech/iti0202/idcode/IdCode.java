@@ -24,9 +24,6 @@
     
       public IdCode(String idCodeValue) {
           this.idCodeValue = idCodeValue;
-          if (!isCorrect()) {
-              throw new IllegalArgumentException();
-          }
       }
 
       /**
