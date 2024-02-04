@@ -98,16 +98,14 @@ public class Introduction {
      * @return String based on the values of first and second
      */
     public String findTheString(String first, String second) {
-        if (first.isEmpty() || second.isEmpty()) {
-            return "FALSE";
-        } else if (first.length() == second.length()) {
+        if (first.length() == second.length()) {
             return first + second;
         } else if (first.length() > second.length()) {
             return (first.substring(first.length() - second.length()) + second).toLowerCase();
         } else if (second.length() > first.length()) {
             return (first + second.substring(second.length() - first.length())).toUpperCase();
         } else {
-            return null;
+            return "FALSE";
         }
     }
 
