@@ -45,7 +45,7 @@ public class DataStructures {
      * @return map containing all word to count mappings.
      */
     public static Map<String, Integer> wordCount(String[] sentence) {
-        Map<String, Integer> wordcount = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+        Map<String, Integer> wordcount = new TreeMap<>();
         for (int i = 0; i < sentence.length; i++) {
             wordcount.merge(sentence[i], 1, Integer::sum);
         }
