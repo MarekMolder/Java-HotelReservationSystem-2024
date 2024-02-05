@@ -7,7 +7,6 @@
 
   public class IdCode {
       public static final int BIRTHPALCE_KURESSAARE_START = 1;
-      public static final int  = 11;
       public static final int BIRTHPALCE_TARTU_START = 11;
       public static final int BIRTHPALCE_TALLINN_START = 21;
       public static final int BIRTHPALCE_KOHTLA_JARVE_START = 221;
