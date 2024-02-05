@@ -1,7 +1,13 @@
 package ee.taltech.iti0202.datastructures;
 
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Comparator;
+import java.util.TreeMap;
 
 public class DataStructures {
 
@@ -41,11 +47,7 @@ public class DataStructures {
     public static Map<String, Integer> wordCount(String[] sentence) {
         Map<String, Integer> wordcount = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         for (int i = 0; i < sentence.length; i++) {
-            if (wordcount.containsKey(sentence[i])) {
-                wordcount.put(sentence[i], wordcount.get(sentence[i]) + 1);
-            } else {
-                wordcount.put(sentence[i], 1);
-            }
+            wordcount.merge(sentence[i], 1, Integer::sum);
         }
         return wordcount;
     }
@@ -72,8 +74,10 @@ public class DataStructures {
         }
         List<String> onlyEvenWords = new ArrayList<>();
         for (Map.Entry<String, Integer> entry: wordcount.entrySet()) {
-            if (entry.getValue() % 2 == 0) {
-                onlyEvenWords.add(entry.getKey());
+            for (int i = 1; i < entry.getValue() + 1; i++) {
+                if (i % 2 == 0) {
+                    onlyEvenWords.add(entry.getKey());
+                }
             }
         } return onlyEvenWords;
     }
@@ -86,7 +90,7 @@ public class DataStructures {
      */
     public void addStudent(String studentInfo) {
         String[] parts = studentInfo.split(":");
-        if(Integer.parseInt(parts[1]) >= 0 && Integer.parseInt(parts[1]) <= 5) {
+        if (Integer.parseInt(parts[1]) >= 0 && Integer.parseInt(parts[1]) <= 5) {
             students.put(parts[0], Integer.valueOf(parts[1]));
         }
     }
@@ -100,9 +104,10 @@ public class DataStructures {
      * @return int student's grade.
      */
     public int getStudentGrade(String name) {
-        if(students.containsKey(name)) {
+        if (students.containsKey(name)) {
             return students.get(name);
-        } return -1;
+        }
+        return -1;
     }
 
     /**
@@ -115,9 +120,11 @@ public class DataStructures {
         System.out.println(findLongestWord("hello ahllo")); // "ahllo"
 
         System.out.println(wordCount(new String[]{})); // empty
-        System.out.println(wordCount(new String[]{"eggs", "SPAM", "eggs", "bacon", "SPAM", "bacon", "SPAM"})); // {bacon=2, eggs=2, SPAM=3}
+        System.out.println(wordCount(new String[]{"eggs", "SPAM", "eggs", "bacon", "SPAM", "bacon", "SPAM"}));
+        // {bacon=2, eggs=2, SPAM=3}
 
-        System.out.println(onlyEvenWords(Arrays.asList("foo", "bar", "baz", "baz", "bar", "foo"))); // [baz, bar, foo] any order
+        System.out.println(onlyEvenWords(Arrays.asList("foo", "bar", "baz", "baz", "bar", "foo")));
+        // [baz, bar, foo] any order
         System.out.println(onlyEvenWords(Arrays.asList("a", "b", "b", "a"))); // [b, a] any order
         System.out.println(onlyEvenWords(Arrays.asList("eggs", "bacon", "SPAM", "ham", "SPAM", "SPAM"))); // [SPAM]
 
