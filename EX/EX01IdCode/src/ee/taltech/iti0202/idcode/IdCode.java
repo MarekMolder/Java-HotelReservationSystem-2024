@@ -212,7 +212,7 @@
           int birthYear = getFullYear();
           ArrayList<String> month31 = new ArrayList<>(Arrays.asList("01", "03", "05", "07", "08", "10", "12"));
           ArrayList<String> month30 = new ArrayList<>(Arrays.asList("04", "06", "09", "11"));
-          String birthMonth = idCodeValue.substring(3,5);
+          String birthMonth = idCodeValue.substring(3, 5);
           int birthDay = Integer.parseInt(idCodeValue.substring(5, 7));
 
           if (month31.contains(birthMonth) && (0 < birthDay && birthDay <= MONTH_MAX_DAY)) {
@@ -248,20 +248,17 @@
               for (int i = 8; i < CONTROL_NUMBER_CONSTANT; i++) {
                   multiplication += i - 7 * Integer.parseInt(String.valueOf(idCodeValue.charAt(i)));
               }
-              if (multiplication % CONTROL_NUMBER_CONSTANT == Integer.parseInt(String.valueOf(idCodeValue.charAt(10)))) {
-                  return true;
-              }
+              return multiplication % CONTROL_NUMBER_CONSTANT
+                      == Integer.parseInt(String.valueOf(idCodeValue.charAt(10)));
           } else {
-              if (multiplication % CONTROL_NUMBER_CONSTANT == Integer.parseInt(String.valueOf(idCodeValue.charAt(10)))) {
-                  return true;
-              }
+              return multiplication % CONTROL_NUMBER_CONSTANT
+                      == Integer.parseInt(String.valueOf(idCodeValue.charAt(10)));
           }
-          return false;
       }
 
       /**
        * Check if the given year is a leap year.
-       * 
+       *
        * @param fullYear
        * @return boolean describing whether the given year is a leap year.
        */
