@@ -48,7 +48,7 @@
       public String getIdCodeValue() {
           return idCodeValue;
       }
-    
+
       public IdCode(String idCodeValue) {
           this.idCodeValue = idCodeValue;
           /*
@@ -70,17 +70,17 @@
 
       /**
        * Get all information about id code.
-       * 
+       *
        * @return String containing information.
        */
       public String getInformation() {
-          return String.format("This is a %s born on %s.%s.%s in %s", getGender(), idCodeValue.substring(5,7),
-                  idCodeValue.substring(3,5), getFullYear(), getBirthPlace());
+          return String.format("This is a %s born on %s.%s.%s in %s", getGender(), idCodeValue.substring(5, 7),
+                  idCodeValue.substring(3, 5), getFullYear(), getBirthPlace());
       }
 
       /**
        * Get gender enum.
-       * 
+       *
        * @return enum describing person's gender
        */
       public Gender getGender() {
@@ -96,36 +96,49 @@
 
       /**
        * Get person's birth location.
-       * 
+       *
        * @return String with the person's birth place.
        */
       public String getBirthPlace() {
-          String cityCode = this.idCodeValue.substring(7,10);
-          if (BIRTHPALCE_KURESSAARE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_KURESSAARE_FINIS) {
+          String cityCode = this.idCodeValue.substring(7, 10);
+          if (BIRTHPALCE_KURESSAARE_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPALCE_KURESSAARE_FINIS) {
               return "Kuressaare";
-          } else if (BIRTHPALCE_TARTU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_TARTU_FINIS) {
+          } else if (BIRTHPALCE_TARTU_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPALCE_TARTU_FINIS) {
               return "Tartu";
-          } else if (BIRTHPALCE_TALLINN_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_TALLINN_FINIS) {
+          } else if (BIRTHPALCE_TALLINN_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPALCE_TALLINN_FINIS) {
               return "Tallinn";
-          } else if (BIRTHPALCE_KOHTLA_JARVE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_KOHTLA_JARVE_FINIS) {
+          } else if (BIRTHPALCE_KOHTLA_JARVE_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPALCE_KOHTLA_JARVE_FINIS) {
               return "Kohtla-Järve";
-          }  else if (BIRTHPALCE_TARTU_2_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_TARTU_2_FINIS) {
+          }  else if (BIRTHPALCE_TARTU_2_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPALCE_TARTU_2_FINIS) {
               return "Tartu";
-          } else if (BIRTHPLACE_NARVA_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_NARVA_FINIS) {
+          } else if (BIRTHPLACE_NARVA_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPLACE_NARVA_FINIS) {
               return "Narva";
-          } else if (BIRTHPALCE_PARNU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_PARNU_FINIS) {
+          } else if (BIRTHPALCE_PARNU_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPLACE_PARNU_FINIS) {
               return "Pärnu";
-          }  else if (BIRTHPLACE_TALLINN_2_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_TALLINN_2_FINIS) {
+          }  else if (BIRTHPLACE_TALLINN_2_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPLACE_TALLINN_2_FINIS) {
               return "Tallinn";
-          } else if (BIRTHPLACE_PAIDE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_PAIDE_FINIS) {
+          } else if (BIRTHPLACE_PAIDE_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPLACE_PAIDE_FINIS) {
               return "Paide";
-          }  else if (BIRTHPLACE_RAKVERE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_RAKVERE_FINIS) {
+          }  else if (BIRTHPLACE_RAKVERE_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPLACE_RAKVERE_FINIS) {
               return "Rakvere";
-          } else if (BIRTHPLACE_VALGA_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_VALGA_FINIS) {
+          } else if (BIRTHPLACE_VALGA_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPLACE_VALGA_FINIS) {
               return "Valga";
-          } else if (BIRTHPLACE_VILJANDI_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_VILJANDI_FINIS) {
+          } else if (BIRTHPLACE_VILJANDI_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPLACE_VILJANDI_FINIS) {
               return "Viljandi";
-          } else if (BIRTHPALCE_VORU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_VORU_FINIS) {
+          } else if (BIRTHPALCE_VORU_START <= Integer.parseInt(cityCode)
+                  && Integer.parseInt(cityCode) <= BIRTHPALCE_VORU_FINIS) {
               return "Võru";
           } else {
               return "unknown";
@@ -140,7 +153,7 @@
        */
       public int getFullYear() {
           char firstNumber = this.idCodeValue.charAt(0);
-          String birthYear = idCodeValue.substring(1,3);
+          String birthYear = idCodeValue.substring(1, 3);
           String firstHalf = "";
           if (firstNumber == '1' || firstNumber == '2'){
               firstHalf = "18";
@@ -172,7 +185,7 @@
        * @return boolean describing whether the year number is correct.
        */
       private boolean isYearNumberCorrect() {
-          String birthYear = idCodeValue.substring(1,3);
+          String birthYear = idCodeValue.substring(1, 3);
           if (0 <= Integer.parseInt(birthYear) && Integer.parseInt(birthYear) <= 99) {
               return true;
           } else {
@@ -186,7 +199,7 @@
        * @return boolean describing whether the month number is correct.
        */
       private boolean isMonthNumberCorrect() {
-          String birthYear = idCodeValue.substring(3,5);
+          String birthYear = idCodeValue.substring(3, 5);
           if (1 <= Integer.parseInt(birthYear) && Integer.parseInt(birthYear) <= 12) {
               return true;
           } else {
@@ -204,7 +217,7 @@
           ArrayList<String> month31 = new ArrayList<>(Arrays.asList("01", "03", "05", "07", "08", "10", "12"));
           ArrayList<String> month30 = new ArrayList<>(Arrays.asList("04", "06", "09", "11"));
           String birthMonth = idCodeValue.substring(3,5);
-          int birthDay = Integer.parseInt(idCodeValue.substring(5,7));
+          int birthDay = Integer.parseInt(idCodeValue.substring(5, 7));
 
           if (month31.contains(birthMonth) && (0 < birthDay && birthDay <= 31)) {
               return true;
