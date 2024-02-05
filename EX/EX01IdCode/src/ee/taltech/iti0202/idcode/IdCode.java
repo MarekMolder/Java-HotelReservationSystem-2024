@@ -7,6 +7,7 @@
 
   public class IdCode {
       public static final int BIRTHPALCE_KURESSAARE_START = 1;
+      public static final int  = 11;
       public static final int BIRTHPALCE_TARTU_START = 11;
       public static final int BIRTHPALCE_TALLINN_START = 21;
       public static final int BIRTHPALCE_KOHTLA_JARVE_START = 221;
@@ -34,6 +35,14 @@
       public static final int BIRTHPALCE_PARNU_START = 421;
       public static final int BIRTHPALCE_VORU_START = 651;
       public static final int BIRTHPALCE_VORU_FINIS = 710;
+      public static final int BIRTYEAR_LAST_NUMBER = 99;
+      public static final int MONTHS_MAX = 12;
+      public static final int MONTH_MAX_DAY = 31;
+      public static final int MONTH_MAX_DAY_1 = 30;
+      public static final int FEBRUARY_MAX_DAY = 29;
+      public static final int FEBRUARY_MAX_DAY_1 = 28;
+      public static final int LEAP_YEAR_DIVIDE_NUMBER = 400;
+      public static final int CONTROL_NUMBER_CONSTANT = 11;
       private final String idCodeValue;
 
       enum Gender {
@@ -148,14 +157,14 @@
 
       /**
        * Get the year that the person was born in.
-       * 
+       *
        * @return int with person's birth year.
        */
       public int getFullYear() {
           char firstNumber = this.idCodeValue.charAt(0);
           String birthYear = idCodeValue.substring(1, 3);
           String firstHalf = "";
-          if (firstNumber == '1' || firstNumber == '2'){
+          if (firstNumber == '1' || firstNumber == '2') {
               firstHalf = "18";
           } else if (firstNumber == '3' || firstNumber == '4') {
               firstHalf = "19";
@@ -164,52 +173,40 @@
           }
           return Integer.parseInt(firstHalf + birthYear);
       }
-    
+
       /**
        * Check if gender number is correct.
-       * 
+       *
        * @return boolean describing whether the gender number is correct.
        */
       private boolean isGenderNumberCorrect() {
           int firstNumber = Integer.parseInt(String.valueOf(idCodeValue.charAt(0)));
-          if (0 < firstNumber && firstNumber < 7) {
-              return true;
-          } else {
-              return false;
-          }
+          return 0 < firstNumber && firstNumber < 7;
       }
 
       /**
        * Check if the year number is correct.
-       * 
+       *
        * @return boolean describing whether the year number is correct.
        */
       private boolean isYearNumberCorrect() {
           String birthYear = idCodeValue.substring(1, 3);
-          if (0 <= Integer.parseInt(birthYear) && Integer.parseInt(birthYear) <= 99) {
-              return true;
-          } else {
-              return false;
-          }
+          return 0 <= Integer.parseInt(birthYear) && Integer.parseInt(birthYear) <= BIRTYEAR_LAST_NUMBER;
       }
 
       /**
        * Check if the month number is correct.
-       * 
+       *
        * @return boolean describing whether the month number is correct.
        */
       private boolean isMonthNumberCorrect() {
           String birthYear = idCodeValue.substring(3, 5);
-          if (1 <= Integer.parseInt(birthYear) && Integer.parseInt(birthYear) <= 12) {
-              return true;
-          } else {
-              return false;
-          }
+          return 1 <= Integer.parseInt(birthYear) && Integer.parseInt(birthYear) <= MONTHS_MAX;
       }
 
       /**
        * Check if the day number is correct.
-       * 
+       *
        * @return boolean describing whether the day number is correct.
        */
       private boolean isDayNumberCorrect() {
@@ -219,14 +216,14 @@
           String birthMonth = idCodeValue.substring(3,5);
           int birthDay = Integer.parseInt(idCodeValue.substring(5, 7));
 
-          if (month31.contains(birthMonth) && (0 < birthDay && birthDay <= 31)) {
+          if (month31.contains(birthMonth) && (0 < birthDay && birthDay <= MONTH_MAX_DAY)) {
               return true;
-          } else if (month30.contains(birthMonth) && (0 < birthDay && birthDay <= 30)) {
+          } else if (month30.contains(birthMonth) && (0 < birthDay && birthDay <= MONTH_MAX_DAY_1)) {
               return true;
           } else if (Objects.equals(birthMonth, "02")) {
-              if (isLeapYear(birthYear) && (0 < birthDay && birthDay <= 29)) {
+              if (isLeapYear(birthYear) && (0 < birthDay && birthDay <= FEBRUARY_MAX_DAY)) {
                   return true;
-              } else if (!isLeapYear(birthYear) && (0 < birthDay && birthDay <= 28)) {
+              } else if (!isLeapYear(birthYear) && (0 < birthDay && birthDay <= FEBRUARY_MAX_DAY_1)) {
                   return true;
               }
           }
@@ -235,7 +232,7 @@
 
       /**
        * Check if the control number is correct.
-       * 
+       *
        * @return boolean describing whether the control number is correct.
        */
       private boolean isControlNumberCorrect() {
@@ -244,19 +241,19 @@
                 multiplication += i * Integer.parseInt(String.valueOf(idCodeValue.charAt(i - 1)));
           }
           multiplication += Integer.parseInt(String.valueOf(idCodeValue.charAt(9)));
-          if (multiplication % 11 == 10) {
+          if (multiplication % CONTROL_NUMBER_CONSTANT == 10) {
               for (int i = 3; i < 10; i++) {
                   multiplication = 0;
                   multiplication += i * Integer.parseInt(String.valueOf(idCodeValue.charAt(i - 3)));
               }
-              for (int i = 8; i < 11; i++) {
+              for (int i = 8; i < CONTROL_NUMBER_CONSTANT; i++) {
                   multiplication += i - 7 * Integer.parseInt(String.valueOf(idCodeValue.charAt(i)));
               }
-              if (multiplication % 11 == Integer.parseInt(String.valueOf(idCodeValue.charAt(10)))) {
+              if (multiplication % CONTROL_NUMBER_CONSTANT == Integer.parseInt(String.valueOf(idCodeValue.charAt(10)))) {
                   return true;
               }
           } else {
-              if (multiplication % 11 == Integer.parseInt(String.valueOf(idCodeValue.charAt(10)))) {
+              if (multiplication % CONTROL_NUMBER_CONSTANT == Integer.parseInt(String.valueOf(idCodeValue.charAt(10)))) {
                   return true;
               }
           }
@@ -270,7 +267,7 @@
        * @return boolean describing whether the given year is a leap year.
        */
       private boolean isLeapYear(int fullYear) {
-          if (fullYear % 400 == 0 || fullYear % 4 == 0) {
+          if (fullYear % LEAP_YEAR_DIVIDE_NUMBER == 0 || fullYear % 4 == 0) {
               return true;
           }
           return false;
