@@ -13,29 +13,27 @@
       public static final int BIRTHPALCE_TARTU2_START = 271;
       public static final int BIRTHPALCE_TARTU_2_START = BIRTHPALCE_TARTU2_START;
       public static final int BIRTHPLACE_NARVA_START = 371;
-      public static final int BIRTHPLACE_PÄRNU_START = 421;
       public static final int BIRTHPLACE_TALLINN2_START = 471;
       public static final int BIRTHPLACE_TALLINN_2_START = BIRTHPLACE_TALLINN2_START;
       public static final int BIRTHPLACE_PAIDE_START = 491;
       public static final int BIRTHPLACE_RAKVERE_START = 521;
       public static final int BIRTHPLACE_VALGA_START = 571;
       public static final int BIRTHPLACE_VILJANDI_START = 601;
-      public static final int BIRTHPLACE_VÕRU_START = 651;
-      public static final int BIRTHPALCE_KURESSAARE_FINIŠ = 10;
-      public static final int BIRTHPALCE_KURESSAARE_FINIS = BIRTHPALCE_KURESSAARE_FINIŠ;
-      public static final int BIRTHPALCE_TARTU_FINIŠ = 20;
-      public static final int BIRTHPALCE_TARTU_FINIS = BIRTHPALCE_TARTU_FINIŠ;
       public static final int BIRTHPALCE_TALLINN_FINIS = 220;
       public static final int BIRTHPALCE_KOHTLA_JARVE_FINIS = 270;
       public static final int BIRTHPALCE_TARTU_2_FINIS = 370;
       public static final int BIRTHPLACE_NARVA_FINIS = 420;
-      public static final int BIRTHPLACE_PÄRNU_FINIS = 470;
+      public static final int BIRTHPLACE_PARNU_FINIS = 470;
       public static final int BIRTHPLACE_TALLINN_2_FINIS = 490;
       public static final int BIRTHPLACE_PAIDE_FINIS = 520;
       public static final int BIRTHPLACE_RAKVERE_FINIS = 570;
       public static final int BIRTHPLACE_VALGA_FINIS = 600;
       public static final int BIRTHPLACE_VILJANDI_FINIS = 650;
-      public static final int BIRTHPLACE_VÕRU_FINIS = 710;
+      public static final int BIRTHPALCE_KURESSAARE_FINIS = 10;
+      public static final int BIRTHPALCE_TARTU_FINIS = 20;
+      public static final int BIRTHPALCE_PARNU_START = 421;
+      public static final int BIRTHPALCE_VORU_START = 651;
+      public static final int BIRTHPALCE_VORU_FINIS = 710;
       private final String idCodeValue;
 
       enum Gender {
@@ -115,7 +113,7 @@
               return "Tartu";
           } else if (BIRTHPLACE_NARVA_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_NARVA_FINIS) {
               return "Narva";
-          } else if (BIRTHPLACE_PÄRNU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_PÄRNU_FINIS) {
+          } else if (BIRTHPALCE_PARNU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_PARNU_FINIS) {
               return "Pärnu";
           }  else if (BIRTHPLACE_TALLINN_2_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_TALLINN_2_FINIS) {
               return "Tallinn";
@@ -127,12 +125,13 @@
               return "Valga";
           } else if (BIRTHPLACE_VILJANDI_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_VILJANDI_FINIS) {
               return "Viljandi";
-          } else if (BIRTHPLACE_VÕRU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_VÕRU_FINIS) {
+          } else if (BIRTHPALCE_VORU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_VORU_FINIS) {
               return "Võru";
           } else {
               return "unknown";
           }
       }
+
 
       /**
        * Get the year that the person was born in.
