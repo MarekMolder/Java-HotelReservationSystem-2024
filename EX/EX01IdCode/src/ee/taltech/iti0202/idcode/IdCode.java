@@ -11,6 +11,31 @@
       public static final int BIRTHPALCE_TALLINN_START = 21;
       public static final int BIRTHPALCE_KOHTLA_JARVE_START = 221;
       public static final int BIRTHPALCE_TARTU2_START = 271;
+      public static final int BIRTHPALCE_TARTU_2_START = BIRTHPALCE_TARTU2_START;
+      public static final int BIRTHPLACE_NARVA_START = 371;
+      public static final int BIRTHPLACE_PÄRNU_START = 421;
+      public static final int BIRTHPLACE_TALLINN2_START = 471;
+      public static final int BIRTHPLACE_TALLINN_2_START = BIRTHPLACE_TALLINN2_START;
+      public static final int BIRTHPLACE_PAIDE_START = 491;
+      public static final int BIRTHPLACE_RAKVERE_START = 521;
+      public static final int BIRTHPLACE_VALGA_START = 571;
+      public static final int BIRTHPLACE_VILJANDI_START = 601;
+      public static final int BIRTHPLACE_VÕRU_START = 651;
+      public static final int BIRTHPALCE_KURESSAARE_FINIŠ = 10;
+      public static final int BIRTHPALCE_KURESSAARE_FINIS = BIRTHPALCE_KURESSAARE_FINIŠ;
+      public static final int BIRTHPALCE_TARTU_FINIŠ = 20;
+      public static final int BIRTHPALCE_TARTU_FINIS = BIRTHPALCE_TARTU_FINIŠ;
+      public static final int BIRTHPALCE_TALLINN_FINIS = 220;
+      public static final int BIRTHPALCE_KOHTLA_JARVE_FINIS = 270;
+      public static final int BIRTHPALCE_TARTU_2_FINIS = 370;
+      public static final int BIRTHPLACE_NARVA_FINIS = 420;
+      public static final int BIRTHPLACE_PÄRNU_FINIS = 470;
+      public static final int BIRTHPLACE_TALLINN_2_FINIS = 490;
+      public static final int BIRTHPLACE_PAIDE_FINIS = 520;
+      public static final int BIRTHPLACE_RAKVERE_FINIS = 570;
+      public static final int BIRTHPLACE_VALGA_FINIS = 600;
+      public static final int BIRTHPLACE_VILJANDI_FINIS = 650;
+      public static final int BIRTHPLACE_VÕRU_FINIS = 710;
       private final String idCodeValue;
 
       enum Gender {
@@ -78,31 +103,31 @@
        */
       public String getBirthPlace() {
           String cityCode = this.idCodeValue.substring(7,10);
-          if (BIRTHPALCE_KURESSAARE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 10) {
+          if (BIRTHPALCE_KURESSAARE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_KURESSAARE_FINIS) {
               return "Kuressaare";
-          } else if (BIRTHPALCE_TARTU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 20) {
+          } else if (BIRTHPALCE_TARTU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_TARTU_FINIS) {
               return "Tartu";
-          } else if (BIRTHPALCE_TALLINN_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 220) {
+          } else if (BIRTHPALCE_TALLINN_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_TALLINN_FINIS) {
               return "Tallinn";
-          } else if (BIRTHPALCE_KOHTLA_JARVE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 270) {
+          } else if (BIRTHPALCE_KOHTLA_JARVE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_KOHTLA_JARVE_FINIS) {
               return "Kohtla-Järve";
-          }  else if (BIRTHPALCE_TARTU2_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 370) {
+          }  else if (BIRTHPALCE_TARTU_2_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPALCE_TARTU_2_FINIS) {
               return "Tartu";
-          } else if (371 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 420) {
+          } else if (BIRTHPLACE_NARVA_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_NARVA_FINIS) {
               return "Narva";
-          } else if (421 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 470) {
+          } else if (BIRTHPLACE_PÄRNU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_PÄRNU_FINIS) {
               return "Pärnu";
-          }  else if (471 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 490) {
+          }  else if (BIRTHPLACE_TALLINN_2_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_TALLINN_2_FINIS) {
               return "Tallinn";
-          } else if (491 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 520) {
+          } else if (BIRTHPLACE_PAIDE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_PAIDE_FINIS) {
               return "Paide";
-          }  else if (521 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 570) {
+          }  else if (BIRTHPLACE_RAKVERE_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_RAKVERE_FINIS) {
               return "Rakvere";
-          } else if (571 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 600) {
+          } else if (BIRTHPLACE_VALGA_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_VALGA_FINIS) {
               return "Valga";
-          } else if (601 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 650) {
+          } else if (BIRTHPLACE_VILJANDI_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_VILJANDI_FINIS) {
               return "Viljandi";
-          } else if (651 <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= 710) {
+          } else if (BIRTHPLACE_VÕRU_START <= Integer.parseInt(cityCode) && Integer.parseInt(cityCode) <= BIRTHPLACE_VÕRU_FINIS) {
               return "Võru";
           } else {
               return "unknown";
