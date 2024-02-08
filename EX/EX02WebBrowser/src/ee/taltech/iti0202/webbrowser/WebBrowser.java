@@ -1,6 +1,10 @@
 package ee.taltech.iti0202.webbrowser;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Stack;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class WebBrowser {
@@ -62,7 +66,9 @@ public class WebBrowser {
      * Add the current webpage as a bookmark.
      */
     public void addAsBookmark() {
-        bookmark.add(currentPage);
+        if (!bookmark.contains(currentPage)) {
+            bookmark.add(currentPage);
+        }
     }
 
     /**
