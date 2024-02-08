@@ -1,6 +1,5 @@
 package ee.taltech.iti0202.webbrowser;
 
-import javax.naming.ldap.SortKey;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -20,7 +19,6 @@ public class WebBrowser {
      * Goes to homepage.
      */
     public void homePage() {
-        //TODO: implement
         goTo(homePage);
     }
 
@@ -28,7 +26,6 @@ public class WebBrowser {
      * Goes back to previous page.
      */
     public void back() {
-        //TODO: implement
         if (back.peek() != null) {
             forward.push(currentPage);
             currentPage = back.pop();
@@ -40,7 +37,6 @@ public class WebBrowser {
      * Goes forward to next page.
      */
     public void forward() {
-        //TODO: implement
         if (!forward.isEmpty()) {
             back.push(currentPage);
             currentPage = forward.pop();
@@ -54,8 +50,7 @@ public class WebBrowser {
      * @param url where to go
      */
     public void goTo(String url) {
-        //TODO: implement
-        if (back.isEmpty() || !currentPage.equals(url)){
+        if (back.isEmpty() || !currentPage.equals(url)) {
             back.push(currentPage);
             currentPage = url;
             forward.clear();
@@ -67,7 +62,6 @@ public class WebBrowser {
      * Add the current webpage as a bookmark.
      */
     public void addAsBookmark() {
-        //TODO: implement
         bookmark.add(currentPage);
     }
 
@@ -77,17 +71,14 @@ public class WebBrowser {
      * @param bookmark to remove
      */
     public void removeBookmark(String bookmark) {
-        //TODO: implement
         this.bookmark.remove(bookmark);
     }
 
     public List<String> getBookmarks() {
-        //TODO: implement
         return bookmark;
     }
 
     public void setHomePage(String homePage) {
-        //TODO: implement
         this.homePage = homePage;
     }
 
@@ -98,7 +89,6 @@ public class WebBrowser {
      * @return a String that contains top three visited pages separated with a newline "\n"
      */
     public String getTop3VisitedPages() {
-        //TODO: implement
         Map<String, Integer> totalCount = new LinkedHashMap<>();
         for (int i = 0; i < history.size(); i++) {
             totalCount.merge(history.get(i), 1, Integer::sum);
@@ -112,7 +102,11 @@ public class WebBrowser {
         List<Map.Entry<String, Integer>> top3Entries = sortedEntries.subList(0, Math.min(3, sortedEntries.size()));
 
         return top3Entries.stream()
-                .map(entry -> String.format("%s - %d visits", entry.getKey(), entry.getValue())).collect(Collectors.joining("\n"));
+                .map(entry -> {
+                    String visitOrVisits = (entry.getValue() == 1) ? "visit" : "visits";
+                    return String.format("%s - %d %s", entry.getKey(), entry.getValue(), visitOrVisits);
+                })
+                .collect(Collectors.joining("\n"));
     }
 
     /**
@@ -125,7 +119,6 @@ public class WebBrowser {
      * @return list of all visited pages
      */
     public List<String> getHistory() {
-        //TODO: implement
         return history;
     }
 
@@ -136,7 +129,6 @@ public class WebBrowser {
      * @return active web page
      */
     public String getCurrentUrl() {
-        //TODO: implement
         return currentPage;
     }
 
