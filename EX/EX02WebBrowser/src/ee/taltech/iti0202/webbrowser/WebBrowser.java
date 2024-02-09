@@ -88,6 +88,10 @@ public class WebBrowser {
         this.homePage = homePage;
     }
 
+    public String getHomePage() {
+        return homePage;
+    }
+
 
     /**
      * Get top 3 visited pages.
@@ -143,7 +147,8 @@ public class WebBrowser {
         System.out.println(webBrowser.getCurrentUrl());
         webBrowser.setHomePage("neti.ee");
         webBrowser.goTo("facebook.com");
-        webBrowser.goTo("facebook.com");
+        webBrowser.goTo("amazon.com");
+        webBrowser.back();
         System.out.println(webBrowser.getHistory());
         System.out.println(webBrowser.getTop3VisitedPages());
     }
