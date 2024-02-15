@@ -63,7 +63,7 @@ public class Person {
             return "No";
         }
 
-        if (getName().equals("Sauron") && getRing() != null) {
+        if (getName().equals("Sauron") && personRing != null) {
             if (ringType == Ring.Type.THE_ONE && ringMaterial == Ring.Material.GOLD) {
                 return "Affirmative";
             } else if (ringType == Ring.Type.THE_ONE) {
