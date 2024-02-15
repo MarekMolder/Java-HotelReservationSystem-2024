@@ -62,6 +62,7 @@ public class Ring {
 
         // check Sauron
         Ring fakeOne = new Ring(Type.THE_ONE, Material.PLASTIC);
+        System.out.println(sauron.isSauron());
         sauron.setRing(fakeOne);
         System.out.println(sauron.isSauron()); // No, the ring is fake!
         System.out.println(frodo.isSauron()); // No, he just stole the ring
