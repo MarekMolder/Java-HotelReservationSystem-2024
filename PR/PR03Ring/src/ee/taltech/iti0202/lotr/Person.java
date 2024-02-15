@@ -53,23 +53,26 @@ public class Person {
     public String isSauron() {
         Ring.Type ringType = getRing().getType();
         Ring.Material ringMaterial = getRing().getMaterial();
-        if (getName().equals("Sauron") && getRing() ==  null) {
+        Ring personRing = getRing();
+
+        if (getName().equals("Sauron") && personRing ==  null) {
             return "No, but he's claiming to be";
         }
+
         if (getName().equals("Sauron") && getRing() != null) {
             if (ringType == Ring.Type.THE_ONE && ringMaterial == Ring.Material.GOLD) {
                 return "Affirmative";
             } else if (ringType == Ring.Type.THE_ONE) {
                 return "No, the ring is fake!";
-            } else if (Objects.equals(getName(), "Sauron")) {
+            } else {
                 return "No, but he's claiming to be";
             }
-        } else if (!Objects.equals(getName(), "Sauron") && ringType == Ring.Type.THE_ONE && ringMaterial == Ring.Material.GOLD) {
-            return "No, he just stole the ring";
-        } else {
-            return "No";
+        } else if (!Objects.equals(getName(), "Sauron") && personRing != null) {
+            if (ringType == Ring.Type.THE_ONE && ringMaterial == Ring.Material.GOLD) {
+                return "No, he just stole the ring";
+            }
         }
-        return null;
+        return "No";
     }
 
     /**
