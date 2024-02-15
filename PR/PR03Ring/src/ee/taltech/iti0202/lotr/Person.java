@@ -1,5 +1,7 @@
 package ee.taltech.iti0202.lotr;
 
+import java.util.Objects;
+
 public class Person {
     private String race;
     private String name;
@@ -57,12 +59,12 @@ public class Person {
         if (getName().equals("Sauron") && getRing() != null) {
             if (ringType == Ring.Type.THE_ONE && ringMaterial == Ring.Material.GOLD) {
                 return "Affirmative";
-            } else if (ringType == Ring.Type.THE_ONE && ringMaterial != Ring.Material.GOLD) {
+            } else if (ringType == Ring.Type.THE_ONE) {
                 return "No, the ring is fake!";
-            } else if (getName() == "Sauron" && ringType != Ring.Type.THE_ONE) {
+            } else if (Objects.equals(getName(), "Sauron")) {
                 return "No, but he's claiming to be";
             }
-        } else if (getName() != "Sauron" && ringType == Ring.Type.THE_ONE && ringMaterial == Ring.Material.GOLD) {
+        } else if (!Objects.equals(getName(), "Sauron") && ringType == Ring.Type.THE_ONE && ringMaterial == Ring.Material.GOLD) {
             return "No, he just stole the ring";
         } else {
             return "No";
