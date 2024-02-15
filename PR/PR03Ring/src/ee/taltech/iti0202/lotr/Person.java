@@ -57,13 +57,9 @@ public class Person {
 
         if (getName().equals("Sauron") && personRing ==  null) {
             return "No, but he's claiming to be";
-        }
-
-        if (getName() != "Sauron" && personRing == null) {
+        } else if (!Objects.equals(getName(), "Sauron") && personRing == null) {
             return "No";
-        }
-
-        if (getName().equals("Sauron") && personRing != null) {
+        }else if (getName().equals("Sauron") && personRing != null) {
             if (ringType == Ring.Type.THE_ONE && ringMaterial == Ring.Material.GOLD) {
                 return "Affirmative";
             } else if (ringType == Ring.Type.THE_ONE) {
