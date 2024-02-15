@@ -36,6 +36,10 @@ public class Ring {
         return material;
     }
 
+    /**
+     * Try it out.
+     * @param args
+     */
     public static void main(String[] args) {
 
         // LOTR simplified play through

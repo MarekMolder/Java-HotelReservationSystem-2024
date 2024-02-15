@@ -38,28 +38,30 @@ public class Person {
     /**
      * Method to check if he is a real Sauron.
      * If person name is Sauron, ring type is THE_ONE and ring material is GOLD.
-     * @return "Affirmative".
+     * return "Affirmative".
      * If person name is Sauron, ring type is THE_ONE and ring material is not GOLD.
-     * @return "No, the ring is fake!".
+     * return "No, the ring is fake!".
      * If person name is not Sauron but the ring type is THE_ONE and ring material is GOLD.
-     * @return "No, he just stole the ring".
+     * return "No, he just stole the ring".
      * If person name is Sauron but ring type is not THE_ONE or getRing() is null.
-     * @return "No, but he's claiming to be".
+     * return "No, but he's claiming to be".
      * Else.
      * @return "No".
      */
     public String isSauron() {
         Ring.Type ringType = getRing().getType();
         Ring.Material ringMaterial = getRing().getMaterial();
-        if (getName().equals("Sauron") && getRing() != null) {;
+        if (getName().equals("Sauron") && getRing() != null) {
             if (ringType == Ring.Type.THE_ONE && ringMaterial == Ring.Material.GOLD) {
                 return "Affirmative";
             } else if (ringType == Ring.Type.THE_ONE && ringMaterial != Ring.Material.GOLD) {
                 return "No, the ring is fake!";
+            } else if (getName() == "Sauron" && ringType != Ring.Type.THE_ONE) {
+                return "No, but he's claiming to be";
             }
         } else if (getName() != "Sauron" && ringType == Ring.Type.THE_ONE && ringMaterial == Ring.Material.GOLD) {
             return "No, he just stole the ring";
-        } else if (getName() == "Sauron" && ringType != Ring.Type.THE_ONE || getRing() == null) {
+        } else if (getName() == "Sauron" && getRing() == null) {
             return "No, but he's claiming to be";
         } else {
             return "No";
