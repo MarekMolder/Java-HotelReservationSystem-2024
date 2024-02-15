@@ -59,6 +59,10 @@ public class Person {
             return "No, but he's claiming to be";
         }
 
+        if (getName() != "Sauron" && personRing == null) {
+            return "No";
+        }
+
         if (getName().equals("Sauron") && getRing() != null) {
             if (ringType == Ring.Type.THE_ONE && ringMaterial == Ring.Material.GOLD) {
                 return "Affirmative";
