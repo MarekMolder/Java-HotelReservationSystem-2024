@@ -10,15 +10,28 @@ public class Ring {
     private final Type type;
     private final Material material;
 
+    /**
+     * Constructs a new ring with the specified type and material.
+     * @param type
+     * @param material
+     */
     public Ring(Type type, Material material) {
         this.type = type;
         this.material = material;
     }
 
+    /**
+     * Method to get ring type.
+     * @return type.
+     */
     public Type getType() {
         return type;
     }
 
+    /**
+     * Method to get ring material.
+     * @return material.
+     */
     public Material getMaterial() {
         return material;
     }
