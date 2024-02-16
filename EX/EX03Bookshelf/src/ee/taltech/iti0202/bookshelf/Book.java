@@ -4,13 +4,13 @@ import java.util.*;
 
 public class Book {
     private static int nextId = 0;
-    private int id;
+    private final int id;
     private Person bookOwner;
-    private String title;
-    private String author;
-    private Integer yearOfPublishing;
-    private Integer price;
-    private static Map<String, List<Book>> ofBooks = new TreeMap(String.CASE_INSENSITIVE_ORDER);
+    private final String title;
+    private final String author;
+    private final Integer yearOfPublishing;
+    private final Integer price;
+    private static final Map<String, List<Book>> ofBooks = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private static Book lastBook;
 
     public static int getAndIncrementNextId() {
@@ -80,6 +80,10 @@ public class Book {
     }
 
     public static Book of(String title, String author, int yearOfPublishing, int price) {
+        return help(title, author, yearOfPublishing, price);
+    }
+
+    private static Book help(String title, String author, int yearOfPublishing, int price) {
         Book newBook = new Book(title, author, yearOfPublishing, price);
 
         if (ofBooks.containsKey(author)) {
@@ -111,27 +115,7 @@ public class Book {
         String author = lastBook.getAuthor();
         int yearOfPublishing = lastBook.getYearOfPublishing();
 
-        Book newBook = new Book(title, author, yearOfPublishing, price);
-
-        if (ofBooks.containsKey(author)) {
-            List<Book> booksByAuthor = ofBooks.get(author);
-
-            for (Book existingBook : booksByAuthor) {
-                if (existingBook.getTitle().equals(title) && existingBook.getAuthor().equals(author)
-                        && existingBook.getYearOfPublishing() == yearOfPublishing) {
-                    return existingBook;
-                }
-            }
-
-            ofBooks.get(author).add(newBook);
-        } else {
-            List<Book> booksByAuthor = new ArrayList<>();
-            booksByAuthor.add(newBook);
-            ofBooks.put(newBook.getAuthor(), booksByAuthor);
-
-        }
-        lastBook = newBook;
-        return newBook;
+        return help(title, author, yearOfPublishing, price);
     }
 
     public static List<Book> getBooksByOwner(Person owner) {
