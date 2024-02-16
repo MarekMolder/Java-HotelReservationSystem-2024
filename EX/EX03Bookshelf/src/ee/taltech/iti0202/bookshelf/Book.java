@@ -16,10 +16,21 @@ public class Book {
     private static final Map<String, List<Book>> BOOKSLIST = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private static Book lastBook;
 
+    /**
+     * Method to get next id.
+     * @return nextid.
+     */
     public static int getAndIncrementNextId() {
         return nextId++;
     }
 
+    /**
+     * Constructs a new book with the specified title, author, yearofpublishing, price.
+     * @param title
+     * @param author
+     * @param yearOfPublishing
+     * @param price
+     */
     public Book(String title, String author, int yearOfPublishing, int price) {
         this.title = title;
         this.author = author;
@@ -28,6 +39,14 @@ public class Book {
         this.id = getAndIncrementNextId();
     }
 
+    /**
+     * Constructs a new book with the specified title, author, yearofpublishing, price.
+     * @param title
+     * @param author
+     * @param yearOfPublishing
+     * @param price
+     * @param bookOwner
+     */
     public Book(String title, String author, int yearOfPublishing, int price, Person bookOwner) {
         this.title = title;
         this.author = author;
@@ -37,34 +56,67 @@ public class Book {
         this.id = getAndIncrementNextId();
     }
 
+    /**
+     * Method to get book title.
+     * @return title
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * Method to get book author.
+     * @return author.
+     */
     public String getAuthor() {
         return author;
     }
 
+    /**
+     * Method to get book year of publishing.
+     * @return year of publishing.
+     */
     public int getYearOfPublishing() {
         return yearOfPublishing;
     }
 
+    /**
+     * Method to get book owner.
+     * @return owner.
+     */
     public Person getOwner() {
         return bookOwner;
     }
 
+    /**
+     * Method to set book owner.
+     * @param person
+     */
     public void setOwner(Person person) {
         this.bookOwner = person;
     }
 
+    /**
+     * Method to get book price
+     * @return price
+     */
     public int getPrice() {
         return price;
     }
 
+    /**
+     * Method to get book id
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * Method for buying a book.
+     * @param buyer
+     * @return
+     */
     public boolean buy(Person buyer) {
         if (this.getOwner() == null && buyer != null && buyer.getMoney() >= this.getPrice()) {
             buyer.buyBook(this);
@@ -82,10 +134,26 @@ public class Book {
         return false;
     }
 
+    /**
+     * Help function for book of instance.
+     * @param title
+     * @param author
+     * @param yearOfPublishing
+     * @param price
+     * @return help(title, author, yearOfPublishing, price).
+     */
     public static Book of(String title, String author, int yearOfPublishing, int price) {
         return help(title, author, yearOfPublishing, price);
     }
 
+    /**
+     * onstructs a new book of with the specified title, author, yearofpublishing, price.
+     * @param title
+     * @param author
+     * @param yearOfPublishing
+     * @param price
+     * @return existingbook || newbook
+     */
     private static Book help(String title, String author, int yearOfPublishing, int price) {
         Book newBook = new Book(title, author, yearOfPublishing, price);
 
@@ -110,6 +178,12 @@ public class Book {
         return newBook;
     }
 
+    /**
+     * Constructs a new book with the specified title, price.
+     * @param title
+     * @param price
+     * @return
+     */
     public static Book of(String title, int price) {
         if (lastBook == null) {
             return null;
@@ -121,10 +195,20 @@ public class Book {
         return help(title, author, yearOfPublishing, price);
     }
 
+    /**
+     * Method to get owners all books.
+     * @param owner
+     * @return owner books list.
+     */
     public static List<Book> getBooksByOwner(Person owner) {
         return owner.getBooks();
     }
 
+    /**
+     * Method to remove book from all lists.
+     * @param book
+     * @return true || false.
+     */
     public static boolean removeBook(Book book) {
         if (book != null && BOOKSLIST.containsKey(book.author)) {
             if (book.bookOwner != null) {
@@ -147,6 +231,11 @@ public class Book {
         return false;
     }
 
+    /**
+     * Method to find specific author books.
+     * @param author
+     * @return author book list.
+     */
     public static List<Book> getBooksByAuthor(String author) {
         if (BOOKSLIST.containsKey(author)) {
             return BOOKSLIST.get(author);
