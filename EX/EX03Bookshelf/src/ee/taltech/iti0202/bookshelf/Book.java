@@ -84,7 +84,8 @@ public class Book {
         if (ofBooks.containsKey(author)) {
             List<Book> booksByAuthor = ofBooks.get(author);
             for (Book existingBook : booksByAuthor) {
-                if (existingBook.equals(newBook)) {
+                if (existingBook.getTitle().equals(title) && existingBook.getAuthor().equals(author)
+                        && existingBook.getYearOfPublishing() == yearOfPublishing) {
                     return existingBook;
                 } else {
                     booksByAuthor.add(newBook);
@@ -115,7 +116,8 @@ public class Book {
         if (ofBooks.containsKey(author)) {
             List<Book> booksByAuthor = ofBooks.get(author);
             for (Book existingBook : booksByAuthor) {
-                if (existingBook.equals(newBook)) {
+                if (existingBook.getTitle().equals(title) && existingBook.getAuthor().equals(author)
+                        && existingBook.getYearOfPublishing() == yearOfPublishing) {
                     return existingBook;
                 } else {
                     booksByAuthor.add(newBook);
