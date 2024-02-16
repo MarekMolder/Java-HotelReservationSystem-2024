@@ -1,7 +1,6 @@
 package ee.taltech.iti0202.bookshelf;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Book {
     private static int nextId = 0;
@@ -14,7 +13,6 @@ public class Book {
     private static HashMap<String, Book> ofBooks = new LinkedHashMap<>();
     private static Book lastBook;
 
-    
     public static int getAndIncrementNextId() {
         return nextId++;
     }
@@ -82,7 +80,7 @@ public class Book {
     }
 
     public static Book of(String title, String author, int yearOfPublishing, int price) {
-        String identificator = title + author + yearOfPublishing;
+        String identificator = title + author + yearOfPublishing + price;
         if (ofBooks.containsKey(identificator)) {
             return ofBooks.get(identificator);
         } else {
@@ -93,6 +91,21 @@ public class Book {
         }
     }
 
+    public static Map organized() {
+        HashMap<String, List<Book>> organizedOfBooks = new LinkedHashMap<>();
+        for (Book book : ofBooks.values()) {
+            if (organizedOfBooks.containsKey(book.getAuthor())) {
+                organizedOfBooks.get(book.getAuthor()).add(book);
+
+            } else {
+                List<Book> booksByAuthor = new ArrayList<>();
+                booksByAuthor.add(book);
+                organizedOfBooks.put(book.getAuthor(), booksByAuthor);
+            }
+        }
+        return organizedOfBooks;
+    }
+
     public static Book of(String title, int price) {
         if (lastBook == null) {
             return null;
@@ -100,15 +113,15 @@ public class Book {
 
         String author = lastBook.getAuthor();
         int yearOfPublishing = lastBook.getYearOfPublishing();
-        String identificator = title + author + yearOfPublishing;
+        String identificator = title + author + yearOfPublishing + price;
 
         if (ofBooks.containsKey(identificator)) {
             return ofBooks.get(identificator);
         } else {
-            Book uusRaamat = new Book(title, author, yearOfPublishing, price);
-            ofBooks.put(identificator, uusRaamat);
-            lastBook = uusRaamat;
-            return uusRaamat;
+            Book newBook = new Book(title, author, yearOfPublishing, price);
+            ofBooks.put(identificator, newBook);
+            lastBook = newBook;
+            return newBook;
         }
     }
 
@@ -118,7 +131,7 @@ public class Book {
 
     public static boolean removeBook(Book book) {
         if (book != null) {
-            String identificator = book.title + book.author + book.yearOfPublishing;
+            String identificator = book.title + book.author + book.yearOfPublishing + book.price;
             if (ofBooks.containsKey(identificator)) {
                 if(book.bookOwner != null) {
                     book.bookOwner.sellBook(book);
@@ -134,13 +147,7 @@ public class Book {
     }
 
     public static List<Book> getBooksByAuthor(String author) {
-        List<Book> authorBooks = new ArrayList<>();
-        for (Book book : ofBooks.values()) {
-            if (book.getAuthor().equalsIgnoreCase(author)) {
-                authorBooks.add(book);
-            }
-        }
-        return authorBooks;
+        return (List<Book>) organized().get(author);
     }
 
     public AbstractMap<String, Book> getOfBooks () {
