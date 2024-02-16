@@ -142,9 +142,8 @@ public class Book {
 
     public static boolean removeBook(Book book) {
         if (book != null) {
-            if (ofBooks.containsValue(book)) {
-                if (book.bookOwner != null) {
-                    book.bookOwner.sellBook(book);
+            if (book.bookOwner != null) {
+                book.bookOwner.sellBook(book);
                     for (Book bo : ofBooks.get(book.author)) {
                         if (bo == book) {
                             ofBooks.get(book.author).remove(bo);
@@ -160,12 +159,14 @@ public class Book {
                     }
                 }
             }
-        }
         return false;
     }
 
     public static List<Book> getBooksByAuthor(String author) {
-        return ofBooks.get(author);
+        if (ofBooks.containsKey(author)) {
+            return ofBooks.get(author);
+        }
+        return new ArrayList<>();
     }
 
 }
