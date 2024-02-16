@@ -4,7 +4,8 @@ import java.util.List;
 
 public class Main {
 
-    public static void main(String[] args) {
+    /*
+     public static void main(String[] args) {
         Book tammsaare = new Book("Truth and Justice", "Tammsaare", 1926, 100);
         Book meri = new Book("Silverwhite", "Meri", 1976, 200);
 
@@ -52,7 +53,6 @@ public class Main {
         Book harry2 = Book.of("Harry Potter: The Chamber of Secrets", "J. K. Rowling", 1998, 1000);
         List<Book> rowlingBooks = Book.getBooksByAuthor("j. k. rowling");
         System.out.println(rowlingBooks.size()); // 2
-        System.out.println(rowlingBooks.get(1).getTitle());
         System.out.println(rowlingBooks.get(0).getTitle()); // Harry Potter: The Philosopher's Stone
         System.out.println(rowlingBooks.get(1).getAuthor()); // J. K. Rowling
 
@@ -71,7 +71,8 @@ public class Main {
         System.out.println(personBooks.size()); // 1
         System.out.println(personBooks.contains(b1)); // false
         System.out.println(bonusPerson.getMoney()); // 9000
+        System.out.println(Book.getBooksByAuthor("Mati"));
+
     }
-
-
+     */
 }
