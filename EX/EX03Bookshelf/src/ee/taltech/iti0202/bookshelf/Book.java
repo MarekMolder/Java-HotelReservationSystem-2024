@@ -142,15 +142,22 @@ public class Book {
 
     public static boolean removeBook(Book book) {
         if (book != null) {
-            String identificator = book.title + book.author + book.yearOfPublishing + book.price;
-            if (ofBooks.containsKey(identificator)) {
-                if(book.bookOwner != null) {
+            if (ofBooks.containsValue(book)) {
+                if (book.bookOwner != null) {
                     book.bookOwner.sellBook(book);
-                    ofBooks.remove(identificator);
-                    return true;
+                    for (Book bo : ofBooks.get(book.author)) {
+                        if (bo == book) {
+                            ofBooks.get(book.author).remove(bo);
+                            return true;
+                        }
+                    }
                 } else {
-                    ofBooks.remove(identificator);
-                    return true;
+                    for (Book bo : ofBooks.get(book.author)) {
+                        if (bo == book) {
+                            ofBooks.get(book.author).remove(bo);
+                            return true;
+                        }
+                    }
                 }
             }
         }
