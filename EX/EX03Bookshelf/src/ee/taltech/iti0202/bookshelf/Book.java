@@ -47,7 +47,7 @@ public class Book {
     }
 
     public Person getOwner() {
-        return bookOwner ;
+        return bookOwner;
     }
 
     public void setOwner(Person person) {
@@ -86,6 +86,11 @@ public class Book {
             for (Book existingBook : booksByAuthor) {
                 if (existingBook.equals(newBook)) {
                     return existingBook;
+                } else {
+                    booksByAuthor.add(newBook);
+                    ofBooks.put(newBook.getAuthor(), booksByAuthor);
+                    lastBook = newBook;
+                    return newBook;
                 }
             }
         } else {
@@ -112,6 +117,11 @@ public class Book {
             for (Book existingBook : booksByAuthor) {
                 if (existingBook.equals(newBook)) {
                     return existingBook;
+                } else {
+                    booksByAuthor.add(newBook);
+                    ofBooks.put(newBook.getAuthor(), booksByAuthor);
+                    lastBook = newBook;
+                    return newBook;
                 }
             }
         } else {
