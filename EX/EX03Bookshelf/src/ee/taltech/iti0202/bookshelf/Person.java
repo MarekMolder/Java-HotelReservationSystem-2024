@@ -6,7 +6,7 @@ import java.util.List;
 public class Person {
     private String name;
     private Integer money;
-    private static List books = new ArrayList<>();
+    private List books = new ArrayList<>();
 
     public Person(String name, int money) {
         this.name = name;
