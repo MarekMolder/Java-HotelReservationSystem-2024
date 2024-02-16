@@ -1,6 +1,7 @@
 package ee.taltech.iti0202.bookshelf;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Book {
     private static int nextId = 0;
@@ -134,13 +135,10 @@ public class Book {
     }
 
     public static List<Book> getBooksByAuthor(String author) {
-        List<Book> authorBooks = new ArrayList<>();
-        for (Book book : ofBooks.values()) {
-            if (book.getAuthor().equalsIgnoreCase(author)) {
-                authorBooks.add(book);
-            }
-        }
-        return authorBooks;
+        return ofBooks.values()
+                .stream()
+                .filter(book -> book.getAuthor().equalsIgnoreCase(author))
+                .collect(Collectors.toList());
     }
 
     public AbstractMap<String, Book> getOfBooks () {
