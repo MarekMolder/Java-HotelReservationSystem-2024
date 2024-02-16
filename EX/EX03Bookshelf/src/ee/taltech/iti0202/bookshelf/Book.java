@@ -92,7 +92,7 @@ public class Book {
     }
 
     public static Map organized() {
-        HashMap<String, List<Book>> organizedOfBooks = new LinkedHashMap<>();
+        HashMap<String, List<Book>> organizedOfBooks = new LinkedHashMap<String, List<Book>>((Map<? extends String, ? extends List<Book>>) String.CASE_INSENSITIVE_ORDER);
         for (Book book : ofBooks.values()) {
             if (organizedOfBooks.containsKey(book.getAuthor())) {
                 organizedOfBooks.get(book.getAuthor()).add(book);
