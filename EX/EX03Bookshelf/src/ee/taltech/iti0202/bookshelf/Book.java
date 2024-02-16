@@ -141,24 +141,15 @@ public class Book {
     }
 
     public static boolean removeBook(Book book) {
-        if (book != null) {
-            if (book.bookOwner != null) {
-                book.bookOwner.sellBook(book);
-                    for (Book bo : ofBooks.get(book.author)) {
-                        if (bo == book) {
-                            ofBooks.get(book.author).remove(bo);
-                            return true;
-                        }
-                    }
-                } else {
-                    for (Book bo : ofBooks.get(book.author)) {
-                        if (bo == book) {
-                            ofBooks.get(book.author).remove(bo);
-                            return true;
-                        }
-                    }
+        if (book != null && book.bookOwner != null && !ofBooks.isEmpty()) {
+            book.bookOwner.sellBook(book);
+            for (Book bo : ofBooks.get(book.author)) {
+                if (bo == book) {
+                    ofBooks.get(book.author).remove(bo);
+                    return true;
                 }
             }
+        }
         return false;
     }
 
