@@ -91,12 +91,11 @@ public class Book {
         }
     }
 
-    public static Map organized() {
-        HashMap<String, List<Book>> organizedOfBooks = new LinkedHashMap<String, List<Book>>((Map<? extends String, ? extends List<Book>>) String.CASE_INSENSITIVE_ORDER);
+    public static Map<String, List<Book>> organized() {
+        Map<String, List<Book>> organizedOfBooks = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
         for (Book book : ofBooks.values()) {
             if (organizedOfBooks.containsKey(book.getAuthor())) {
                 organizedOfBooks.get(book.getAuthor()).add(book);
-
             } else {
                 List<Book> booksByAuthor = new ArrayList<>();
                 booksByAuthor.add(book);
@@ -147,7 +146,7 @@ public class Book {
     }
 
     public static List<Book> getBooksByAuthor(String author) {
-        return (List<Book>) organized().get(author);
+        return organized().get(author);
     }
 
     public AbstractMap<String, Book> getOfBooks () {
