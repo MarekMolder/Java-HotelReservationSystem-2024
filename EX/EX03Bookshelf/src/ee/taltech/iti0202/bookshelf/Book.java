@@ -1,6 +1,7 @@
 package ee.taltech.iti0202.bookshelf;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 public class Book {
@@ -11,7 +12,7 @@ public class Book {
     private String author;
     private Integer yearOfPublishing;
     private Integer price;
-    private static HashMap<String, Book> ofBooks = new LinkedHashMap<>();
+    private static final Map<String, Book> ofBooks = new ConcurrentHashMap<>();
     private static Book lastBook;
 
     
@@ -133,14 +134,14 @@ public class Book {
         return false;
     }
 
-    public static List<Book> getBooksByAuthor(String author) {
+    public static List<Book> getBooksByAuthor(String a) {
         return ofBooks.values()
                 .parallelStream()
-                .filter(book -> book.getAuthor().equalsIgnoreCase(author))
+                .filter(book -> book.getAuthor().equalsIgnoreCase(a))
                 .collect(Collectors.toList());
     }
 
-    public AbstractMap<String, Book> getOfBooks () {
+    public Map<String, Book> getOfBooks () {
         return ofBooks;
     }
 }
