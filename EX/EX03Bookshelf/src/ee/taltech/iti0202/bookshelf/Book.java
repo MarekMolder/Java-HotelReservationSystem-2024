@@ -120,14 +120,16 @@ public class Book {
     }
 
     public static boolean removeBook(Book book) {
-        String identificator = book.title + book.author + book.yearOfPublishing;
-        if (ofBooks.containsKey(identificator)) {
-            if(book.bookOwner != null) {
-                book.bookOwner.sellBook(book);
-                ofBooks.remove(identificator);
-                return true;
-            } else {
-                ofBooks.remove(identificator);
+        if (book != null) {
+            String identificator = book.title + book.author + book.yearOfPublishing;
+            if (ofBooks.containsKey(identificator)) {
+                if(book.bookOwner != null) {
+                    book.bookOwner.sellBook(book);
+                    ofBooks.remove(identificator);
+                    return true;
+                } else {
+                    ofBooks.remove(identificator);
+                }
             }
         }
         return false;
