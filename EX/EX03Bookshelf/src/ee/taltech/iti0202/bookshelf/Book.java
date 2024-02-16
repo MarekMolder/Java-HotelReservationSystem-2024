@@ -1,14 +1,32 @@
 package ee.taltech.iti0202.bookshelf;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+
 public class Book {
-    private Person bookOwner = null;
+    private static int nextId = 0;
+    private int id;
+    private Person bookOwner;
     private String title;
     private String author;
     private Integer yearOfPublishing;
     private Integer price;
+    private static HashMap<String, Book> ofBooks = new LinkedHashMap<>();
+    private static Book lastBook;
+    private static List<Book> authorBooks = new ArrayList<>();
     
     public static int getAndIncrementNextId() {
-        return 0;
+        return nextId++;
+    }
+
+    public Book(String title, String author, int yearOfPublishing, int price) {
+        this.title = title;
+        this.author = author;
+        this.yearOfPublishing = yearOfPublishing;
+        this.price = price;
+        this.id = getAndIncrementNextId();
     }
 
     public Book(String title, String author, int yearOfPublishing, int price, Person bookOwner) {
@@ -17,6 +35,7 @@ public class Book {
         this.yearOfPublishing = yearOfPublishing;
         this.price = price;
         this.bookOwner = bookOwner;
+        this.id = getAndIncrementNextId();
     }
 
     public String getTitle() {
@@ -35,19 +54,91 @@ public class Book {
         return bookOwner ;
     }
 
+    public void setOwner(Person person) {
+        this.bookOwner = person;
+    }
+
     public int getPrice() {
         return price;
     }
 
     public int getId() {
-        return -287;
+        return id;
     }
 
     public boolean buy(Person buyer) {
-        if (this.getOwner() == null && buyer != null && buyer.getMoney() <= this.getPrice()) {
+        if (this.getOwner() == null && buyer != null && buyer.getMoney() >= this.getPrice()) {
+            buyer.buyBook(this);
             this.bookOwner = buyer;
             return true;
+        } else if (this.getOwner() != buyer && buyer != null && buyer.getMoney() >= this.getPrice()) {
+            this.bookOwner.sellBook(this);
+            buyer.buyBook(this);
+            this.bookOwner = buyer;
+            return true;
+        } else if (buyer == null && bookOwner != null) {
+            this.bookOwner.sellBook(this);
+            return true;
         }
-        if(this.getOwner() != buyer)
+        return false;
+    }
+
+    public static Book of(String title, String author, int yearOfPublishing, int price) {
+        String identificator = title + author + yearOfPublishing;
+        if (ofBooks.containsKey(identificator)) {
+            lastBook = ofBooks.get(identificator);
+            return ofBooks.get(identificator);
+        } else {
+            Book newBook = new Book(title, author, yearOfPublishing, price);
+            ofBooks.put(identificator, newBook);
+            lastBook = ofBooks.get(identificator);
+            return newBook;
+        }
+    }
+
+    public static Book of(String title, int price) {
+        if (lastBook == null) {
+            return null;
+        }
+
+        String author = lastBook.getAuthor();
+        int yearOfPublishing = lastBook.getYearOfPublishing();
+        String identificator = title + author + yearOfPublishing;
+
+        if (ofBooks.containsKey(identificator)) {
+            return ofBooks.get(identificator);
+        } else {
+            Book uusRaamat = new Book(title, author, yearOfPublishing, price);
+            ofBooks.put(identificator, uusRaamat);
+            lastBook = uusRaamat;
+            return uusRaamat;
+        }
+    }
+
+    public static List<Book> getBooksByOwner(Person owner) {
+        return owner.getBooks();
+    }
+
+    public static boolean removeBook(Book book) {
+        String identificator = book.title + book.author + book.yearOfPublishing;
+        if (ofBooks.containsKey(identificator)) {
+            if(book.bookOwner != null) {
+                book.bookOwner.sellBook(book);
+                ofBooks.remove(identificator);
+                return true;
+            } else {
+                ofBooks.remove(identificator);
+            }
+        }
+        return false;
+    }
+
+    public static List<Book> getBooksByAuthor(String author) {
+        for (Book book : ofBooks.values()) {
+            if (book.getAuthor().equalsIgnoreCase(author)) {
+                authorBooks.add(book);
+            }
+        }
+        return authorBooks;
     }
 }
