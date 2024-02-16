@@ -10,7 +10,7 @@ public class Book {
     private String author;
     private Integer yearOfPublishing;
     private Integer price;
-    private static Map<String, List<Book>> ofBooks = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private static Map<String, List<Book>> ofBooks = new TreeMap<>();
 
     private static Book lastBook;
 
