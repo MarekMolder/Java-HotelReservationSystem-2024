@@ -89,7 +89,6 @@ public class Book {
                     return existingBook;
                 } else {
                     booksByAuthor.add(newBook);
-                    ofBooks.put(newBook.getAuthor(), booksByAuthor);
                     lastBook = newBook;
                     return newBook;
                 }
@@ -97,7 +96,6 @@ public class Book {
         } else {
             List<Book> booksByAuthor = new ArrayList<>();
             booksByAuthor.add(newBook);
-            ofBooks.put(newBook.getAuthor(), booksByAuthor);
             lastBook = newBook;
             return newBook;
         }
@@ -121,7 +119,6 @@ public class Book {
                     return existingBook;
                 } else {
                     booksByAuthor.add(newBook);
-                    ofBooks.put(newBook.getAuthor(), booksByAuthor);
                     lastBook = newBook;
                     return newBook;
                 }
@@ -129,7 +126,6 @@ public class Book {
         } else {
             List<Book> booksByAuthor = new ArrayList<>();
             booksByAuthor.add(newBook);
-            ofBooks.put(newBook.getAuthor(), booksByAuthor);
             lastBook = newBook;
             return newBook;
         }
