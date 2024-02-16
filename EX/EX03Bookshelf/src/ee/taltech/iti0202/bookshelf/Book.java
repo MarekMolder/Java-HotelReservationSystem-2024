@@ -1,6 +1,9 @@
 package ee.taltech.iti0202.bookshelf;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Book {
     private static int nextId = 0;
@@ -10,7 +13,7 @@ public class Book {
     private final String author;
     private final Integer yearOfPublishing;
     private final Integer price;
-    private static final Map<String, List<Book>> ofBooks = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+    private static final Map<String, List<Book>> BOOKSLIST = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private static Book lastBook;
 
     public static int getAndIncrementNextId() {
@@ -86,8 +89,8 @@ public class Book {
     private static Book help(String title, String author, int yearOfPublishing, int price) {
         Book newBook = new Book(title, author, yearOfPublishing, price);
 
-        if (ofBooks.containsKey(author)) {
-            List<Book> booksByAuthor = ofBooks.get(author);
+        if (BOOKSLIST.containsKey(author)) {
+            List<Book> booksByAuthor = BOOKSLIST.get(author);
 
             for (Book existingBook : booksByAuthor) {
                 if (existingBook.getTitle().equals(title) && existingBook.getAuthor().equals(author)
@@ -96,11 +99,11 @@ public class Book {
                 }
             }
 
-            ofBooks.get(author).add(newBook);
+            BOOKSLIST.get(author).add(newBook);
         } else {
             List<Book> booksByAuthor = new ArrayList<>();
             booksByAuthor.add(newBook);
-            ofBooks.put(newBook.getAuthor(), booksByAuthor);
+            BOOKSLIST.put(newBook.getAuthor(), booksByAuthor);
 
         }
         lastBook = newBook;
@@ -123,19 +126,19 @@ public class Book {
     }
 
     public static boolean removeBook(Book book) {
-        if (book != null && ofBooks.containsKey(book.author)) {
+        if (book != null && BOOKSLIST.containsKey(book.author)) {
             if (book.bookOwner != null) {
                 book.bookOwner.sellBook(book);
-                for (Book bo : ofBooks.get(book.author)) {
+                for (Book bo : BOOKSLIST.get(book.author)) {
                     if (bo == book) {
-                        ofBooks.get(book.author).remove(bo);
+                        BOOKSLIST.get(book.author).remove(bo);
                         return true;
                     }
                 }
             } else {
-                for (Book bo : ofBooks.get(book.author)) {
+                for (Book bo : BOOKSLIST.get(book.author)) {
                     if (bo == book) {
-                        ofBooks.get(book.author).remove(bo);
+                        BOOKSLIST.get(book.author).remove(bo);
                         return true;
                     }
                 }
@@ -145,8 +148,8 @@ public class Book {
     }
 
     public static List<Book> getBooksByAuthor(String author) {
-        if (ofBooks.containsKey(author)) {
-            return ofBooks.get(author);
+        if (BOOKSLIST.containsKey(author)) {
+            return BOOKSLIST.get(author);
         }
         return new ArrayList<>();
     }
