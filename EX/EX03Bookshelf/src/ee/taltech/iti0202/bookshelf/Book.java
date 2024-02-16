@@ -141,7 +141,7 @@ public class Book {
     }
 
     public static boolean removeBook(Book book) {
-        if (book != null && !ofBooks.containsKey(book.author)) {
+        if (book != null && ofBooks.containsKey(book.author)) {
             if (book.bookOwner != null) {
                 book.bookOwner.sellBook(book);
                     for (Book bo : ofBooks.get(book.author)) {
