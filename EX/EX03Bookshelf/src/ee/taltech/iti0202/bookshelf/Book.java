@@ -84,7 +84,6 @@ public class Book {
     public static Book of(String title, String author, int yearOfPublishing, int price) {
         String identificator = title + author + yearOfPublishing;
         if (ofBooks.containsKey(identificator)) {
-            lastBook = ofBooks.get(identificator);
             return ofBooks.get(identificator);
         } else {
             Book newBook = new Book(title, author, yearOfPublishing, price);
