@@ -80,16 +80,13 @@ public class Book {
     }
 
     public static Book of(String title, String author, int yearOfPublishing, int price) {
-        return help(title, author, yearOfPublishing, price);
-    }
-
-    private static Book help(String title, String author, int yearOfPublishing, int price) {
         Book newBook = new Book(title, author, yearOfPublishing, price);
         if (ofBooks.containsKey(author)) {
             List<Book> booksByAuthor = ofBooks.get(author);
             for (Book existingBook : booksByAuthor) {
                 if (existingBook.getTitle().equals(title) && existingBook.getAuthor().equals(author)
                         && existingBook.getYearOfPublishing() == yearOfPublishing) {
+                    existingBook.price = price;
                     return existingBook;
                 } else {
                     ofBooks.get(author).add(newBook);
@@ -115,7 +112,27 @@ public class Book {
         String author = lastBook.getAuthor();
         int yearOfPublishing = lastBook.getYearOfPublishing();
 
-        return help(title, author, yearOfPublishing, price);
+        Book newBook = new Book(title, author, yearOfPublishing, price);
+        if (ofBooks.containsKey(author)) {
+            List<Book> booksByAuthor = ofBooks.get(author);
+            for (Book existingBook : booksByAuthor) {
+                if (existingBook.getTitle().equals(title) && existingBook.getAuthor().equals(author)
+                        && existingBook.getYearOfPublishing() == yearOfPublishing) {
+                    return existingBook;
+                } else {
+                    ofBooks.get(author).add(newBook);
+                    lastBook = newBook;
+                    return newBook;
+                }
+            }
+        } else {
+            List<Book> booksByAuthor = new ArrayList<>();
+            booksByAuthor.add(newBook);
+            ofBooks.put(newBook.getAuthor(), booksByAuthor);
+            lastBook = newBook;
+            return newBook;
+        }
+        return newBook;
     }
 
     public static List<Book> getBooksByOwner(Person owner) {
