@@ -90,7 +90,6 @@ public class Book {
                 } else {
                     ofBooks.get(author).add(newBook);
                     lastBook = newBook;
-                    return newBook;
                 }
             }
         } else {
@@ -121,7 +120,6 @@ public class Book {
                 } else {
                     ofBooks.get(author).add(newBook);
                     lastBook = newBook;
-                    return newBook;
                 }
             }
         } else {
