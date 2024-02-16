@@ -11,6 +11,7 @@ public class Book {
     private Integer yearOfPublishing;
     private Integer price;
     private static Map<String, List<Book>> ofBooks = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+
     private static Book lastBook;
 
     public static int getAndIncrementNextId() {
