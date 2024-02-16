@@ -1,9 +1,6 @@
 package ee.taltech.iti0202.bookshelf;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 
 public class Book {
     private static int nextId = 0;
@@ -129,6 +126,7 @@ public class Book {
                     return true;
                 } else {
                     ofBooks.remove(identificator);
+                    return true;
                 }
             }
         }
@@ -142,5 +140,9 @@ public class Book {
             }
         }
         return authorBooks;
+    }
+
+    public AbstractMap<String, Book> getOfBooks () {
+        return ofBooks;
     }
 }
