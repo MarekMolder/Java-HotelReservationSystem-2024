@@ -11,7 +11,6 @@ public class Book {
     private Integer yearOfPublishing;
     private Integer price;
     private static Map<String, List<Book>> ofBooks = new TreeMap<>();
-
     private static Book lastBook;
 
     public static int getAndIncrementNextId() {
@@ -87,9 +86,12 @@ public class Book {
             for (Book existingBook : booksByAuthor) {
                 if (existingBook.getTitle().equals(title) && existingBook.getAuthor().equals(author)
                         && existingBook.getYearOfPublishing() == yearOfPublishing) {
+                    existingBook.price = price;
                     return existingBook;
                 } else {
                     ofBooks.get(author).add(newBook);
+                    lastBook = newBook;
+                    return newBook;
                 }
             }
         } else {
@@ -99,7 +101,6 @@ public class Book {
             lastBook = newBook;
             return newBook;
         }
-        lastBook = newBook;
         return newBook;
     }
 
@@ -120,6 +121,8 @@ public class Book {
                     return existingBook;
                 } else {
                     ofBooks.get(author).add(newBook);
+                    lastBook = newBook;
+                    return newBook;
                 }
             }
         } else {
@@ -129,7 +132,6 @@ public class Book {
             lastBook = newBook;
             return newBook;
         }
-        lastBook = newBook;
         return newBook;
     }
 
@@ -141,21 +143,21 @@ public class Book {
         if (book != null && ofBooks.containsKey(book.author)) {
             if (book.bookOwner != null) {
                 book.bookOwner.sellBook(book);
-                    for (Book bo : ofBooks.get(book.author)) {
-                        if (bo == book) {
-                            ofBooks.get(book.author).remove(bo);
-                            return true;
-                        }
+                for (Book bo : ofBooks.get(book.author)) {
+                    if (bo == book) {
+                        ofBooks.get(book.author).remove(bo);
+                        return true;
                     }
-                } else {
-                    for (Book bo : ofBooks.get(book.author)) {
-                        if (bo == book) {
-                            ofBooks.get(book.author).remove(bo);
-                            return true;
-                        }
+                }
+            } else {
+                for (Book bo : ofBooks.get(book.author)) {
+                    if (bo == book) {
+                        ofBooks.get(book.author).remove(bo);
+                        return true;
                     }
                 }
             }
+        }
         return false;
     }
 
