@@ -146,7 +146,10 @@ public class Book {
     }
 
     public static List<Book> getBooksByAuthor(String author) {
-        return organized().get(author);
+        if (organized().containsKey(author)) {
+            return organized().get(author);
+        }
+        return new ArrayList<>();
     }
 
     public AbstractMap<String, Book> getOfBooks () {
