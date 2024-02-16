@@ -88,7 +88,7 @@ public class Book {
                         && existingBook.getYearOfPublishing() == yearOfPublishing) {
                     return existingBook;
                 } else {
-                    booksByAuthor.add(newBook);
+                    ofBooks.get(author).add(newBook);
                     lastBook = newBook;
                     return newBook;
                 }
@@ -96,6 +96,7 @@ public class Book {
         } else {
             List<Book> booksByAuthor = new ArrayList<>();
             booksByAuthor.add(newBook);
+            ofBooks.put(newBook.getAuthor(), booksByAuthor);
             lastBook = newBook;
             return newBook;
         }
@@ -118,7 +119,7 @@ public class Book {
                         && existingBook.getYearOfPublishing() == yearOfPublishing) {
                     return existingBook;
                 } else {
-                    booksByAuthor.add(newBook);
+                    ofBooks.get(author).add(newBook);
                     lastBook = newBook;
                     return newBook;
                 }
@@ -126,6 +127,7 @@ public class Book {
         } else {
             List<Book> booksByAuthor = new ArrayList<>();
             booksByAuthor.add(newBook);
+            ofBooks.put(newBook.getAuthor(), booksByAuthor);
             lastBook = newBook;
             return newBook;
         }
