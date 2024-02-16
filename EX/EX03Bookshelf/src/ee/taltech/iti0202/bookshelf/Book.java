@@ -10,7 +10,7 @@ public class Book {
     private String author;
     private Integer yearOfPublishing;
     private Integer price;
-    private static HashMap<String, Book> ofBooks = new LinkedHashMap<>();
+    private static Map<String, List<Book>> ofBooks = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
     private static Book lastBook;
 
     public static int getAndIncrementNextId() {
@@ -80,29 +80,22 @@ public class Book {
     }
 
     public static Book of(String title, String author, int yearOfPublishing, int price) {
-        String identificator = title + author + yearOfPublishing + price;
-        if (ofBooks.containsKey(identificator)) {
-            return ofBooks.get(identificator);
+        Book newBook = new Book(title, author, yearOfPublishing, price);
+        if (ofBooks.containsKey(author)) {
+            List<Book> booksByAuthor = ofBooks.get(author);
+            for (Book existingBook : booksByAuthor) {
+                if (existingBook.equals(newBook)) {
+                    return existingBook;
+                }
+            }
         } else {
-            Book newBook = new Book(title, author, yearOfPublishing, price);
-            ofBooks.put(identificator, newBook);
-            lastBook = ofBooks.get(identificator);
+            List<Book> booksByAuthor = new ArrayList<>();
+            booksByAuthor.add(newBook);
+            ofBooks.put(newBook.getAuthor(), booksByAuthor);
+            lastBook = newBook;
             return newBook;
         }
-    }
-
-    public static Map<String, List<Book>> organized() {
-        Map<String, List<Book>> organizedOfBooks = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
-        for (Book book : ofBooks.values()) {
-            if (organizedOfBooks.containsKey(book.getAuthor())) {
-                organizedOfBooks.get(book.getAuthor()).add(book);
-            } else {
-                List<Book> booksByAuthor = new ArrayList<>();
-                booksByAuthor.add(book);
-                organizedOfBooks.put(book.getAuthor(), booksByAuthor);
-            }
-        }
-        return organizedOfBooks;
+        return newBook;
     }
 
     public static Book of(String title, int price) {
@@ -112,16 +105,23 @@ public class Book {
 
         String author = lastBook.getAuthor();
         int yearOfPublishing = lastBook.getYearOfPublishing();
-        String identificator = title + author + yearOfPublishing + price;
 
-        if (ofBooks.containsKey(identificator)) {
-            return ofBooks.get(identificator);
+        Book newBook = new Book(title, author, yearOfPublishing, price);
+        if (ofBooks.containsKey(author)) {
+            List<Book> booksByAuthor = ofBooks.get(author);
+            for (Book existingBook : booksByAuthor) {
+                if (existingBook.equals(newBook)) {
+                    return existingBook;
+                }
+            }
         } else {
-            Book newBook = new Book(title, author, yearOfPublishing, price);
-            ofBooks.put(identificator, newBook);
+            List<Book> booksByAuthor = new ArrayList<>();
+            booksByAuthor.add(newBook);
+            ofBooks.put(newBook.getAuthor(), booksByAuthor);
             lastBook = newBook;
             return newBook;
         }
+        return newBook;
     }
 
     public static List<Book> getBooksByOwner(Person owner) {
@@ -146,13 +146,7 @@ public class Book {
     }
 
     public static List<Book> getBooksByAuthor(String author) {
-        if (organized().containsKey(author)) {
-            return organized().get(author);
-        }
-        return new ArrayList<>();
+        return ofBooks.get(author);
     }
 
-    public AbstractMap<String, Book> getOfBooks () {
-        return ofBooks;
-    }
 }
