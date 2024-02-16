@@ -86,12 +86,9 @@ public class Book {
             for (Book existingBook : booksByAuthor) {
                 if (existingBook.getTitle().equals(title) && existingBook.getAuthor().equals(author)
                         && existingBook.getYearOfPublishing() == yearOfPublishing) {
-                    existingBook.price = price;
                     return existingBook;
                 } else {
                     ofBooks.get(author).add(newBook);
-                    lastBook = newBook;
-                    return newBook;
                 }
             }
         } else {
@@ -101,6 +98,7 @@ public class Book {
             lastBook = newBook;
             return newBook;
         }
+        lastBook = newBook;
         return newBook;
     }
 
@@ -121,8 +119,6 @@ public class Book {
                     return existingBook;
                 } else {
                     ofBooks.get(author).add(newBook);
-                    lastBook = newBook;
-                    return newBook;
                 }
             }
         } else {
@@ -132,6 +128,7 @@ public class Book {
             lastBook = newBook;
             return newBook;
         }
+        lastBook = newBook;
         return newBook;
     }
 
