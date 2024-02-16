@@ -136,7 +136,7 @@ public class Book {
 
     public static List<Book> getBooksByAuthor(String author) {
         return ofBooks.values()
-                .stream()
+                .parallelStream()
                 .filter(book -> book.getAuthor().equalsIgnoreCase(author))
                 .collect(Collectors.toList());
     }
