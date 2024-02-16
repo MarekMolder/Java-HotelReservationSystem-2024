@@ -12,7 +12,7 @@ public class Book {
     private Integer price;
     private static HashMap<String, Book> ofBooks = new LinkedHashMap<>();
     private static Book lastBook;
-    private List<Book> authorBooks = new ArrayList<>();
+
     
     public static int getAndIncrementNextId() {
         return nextId++;
@@ -133,7 +133,8 @@ public class Book {
         return false;
     }
 
-    public List<Book> getBooksByAuthor(String author) {
+    public static List<Book> getBooksByAuthor(String author) {
+        List<Book> authorBooks = new ArrayList<>();
         for (Book book : ofBooks.values()) {
             if (book.getAuthor().equalsIgnoreCase(author)) {
                 authorBooks.add(book);
