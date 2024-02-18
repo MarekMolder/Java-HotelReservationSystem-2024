@@ -2,14 +2,21 @@ package ee.taltech.iti0202.bookshelf;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class BookshelfTest {
     Person mati = new Person("Mati", 200);
     Person melani = new Person("Melani", 10);
+    Person juri = new Person("Jüri", 1000);
     Book book1 = new Book("Truth and Justice", "Tammsaare", 1926, 100);
     Book book2 = new Book("Inglid ja deemonid", "Brown", 2000, 1000);
     Book book3 = new Book("Da Vinci kood", "Brown", 2003, 100, melani);
+    Book book4 = new Book("Kuidas saavutada finantsvabadus", "Saage", 2024, 100);
 
     @Test
     public void testBookGetTitleFirstConstructor() {
@@ -96,6 +103,26 @@ class BookshelfTest {
     public void testPersonGetName() {
         String expected = melani.getName();
         String actual = "Melani";
+        assertEquals(expected, actual, () -> String.format("Expected: '%s' , but got '%s'", expected, actual));
+    }
+    @Test
+    public void testPersonBuyBook() {
+        boolean expected = mati.buyBook(book3);
+        boolean actual = true;
+        assertEquals(expected, actual, () -> String.format("Expected: '%s' , but got '%s'", expected, actual));
+    }
+    @Test
+    public void testPersonGetBooks() {
+        juri.buyBook(book4);
+        List<Book> expected = new ArrayList<>(Arrays.asList(book4));
+        List<Book> actual = juri.getBooks();
+        assertEquals(expected, actual, () -> String.format("Expected: '%s' , but got '%s'", expected, actual));
+    }
+    @Test
+    public void testBook2GetBooksByAuthor() {
+        juri.buyBook(book4);
+        List<Book> expected = new ArrayList<>(Arrays.asList(book4));
+        List<Book> actual = juri.getBooks();
         assertEquals(expected, actual, () -> String.format("Expected: '%s' , but got '%s'", expected, actual));
     }
 }
