@@ -18,6 +18,7 @@ class BookshelfTest {
     public static final int EXPECTED = 1926;
     public static final int YEAR_OF_PUBLISHING5 = 1997;
     public static final int YEAR_OF_PUBLISHING6 = 1998;
+    public static final int YEAR_OF_PUBLISHING7 = 2018;
     Person mati = new Person("Mati", HOW_MUCH_MONEY_MATI_HAVE);
     Person melani = new Person("Melani", 10);
     Person juri = new Person("Jüri", 1000);
@@ -152,7 +153,7 @@ class BookshelfTest {
     }
     @Test
     public void testBook2OfBooks() {
-        Book b1 = Book.of("Java EX01", "Ago Luberg", 2018, 3);
+        Book b1 = Book.of("Java EX01", "Ago Luberg", YEAR_OF_PUBLISHING7, 3);
         Book b2 = Book.of("Java EX02", 4);
         String expected = "Ago Luberg";
         String actual = b2.getAuthor();
