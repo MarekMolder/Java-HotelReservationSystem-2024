@@ -6,15 +6,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BookshelfTest {
     public static final int HOW_MUCH_MONEY_MATI_HAVE = 200;
-    public static final int YEAR_OF_PUBLISHING_TruthAndJustice = 1926;
     Person mati = new Person("Mati", HOW_MUCH_MONEY_MATI_HAVE);
     Person melani = new Person("Melani", 10);
     Person juri = new Person("Jüri", 1000);
-    Book book1 = new Book("Truth and Justice", "Tammsaare", YEAR_OF_PUBLISHING_TruthAndJustice, 100);
+    Book book1 = new Book("Truth and Justice", "Tammsaare", 1926, 100);
     Book book2;
 
     {
