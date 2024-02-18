@@ -10,32 +10,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BookshelfTest {
     public static final int HOW_MUCH_MONEY_MATI_HAVE = 200;
+    public static final int YEAR_OF_PUBLISHING = 1926;
+    public static final int YEAR_OF_PUBLISHING1 = 2000;
+    public static final int YEAR_OF_PUBLISHING2 = 2003;
+    public static final int YEAR_OF_PUBLISHING3 = 2004;
+    public static final int YEAR_OF_PUBLISHING4 = 2018;
     Person mati = new Person("Mati", HOW_MUCH_MONEY_MATI_HAVE);
     Person melani = new Person("Melani", 10);
     Person juri = new Person("Jüri", 1000);
-    Book book1 = new Book("Truth and Justice", "Tammsaare", 1926, 100);
-    Book book2;
-
-    {
-        int yearOfPublishing = 2000;
-        book2 = new Book("Inglid ja deemonid", "Brown", yearOfPublishing, 1000);
-    }
-
-    Book book3;
-
-    {
-        int yearOfPublishing = 2003;
-        book3 = new Book("Da Vinci kood", "Brown", yearOfPublishing, 100, melani);
-    }
-
-    Book book4;
-
-    {
-        int yearOfPublishing = 2024;
-        book4 = new Book("Kuidas saavutada finantsvabadus", "Saage", yearOfPublishing, 100);
-    }
-
-    Book book5 = Book.of("Java EX01", "Ago Luberg", 2018, 3);
+    Book book1 = new Book("Truth and Justice", "Tammsaare", YEAR_OF_PUBLISHING, 100);
+    Book book2 = new Book("Inglid ja deemonid", "Brown", YEAR_OF_PUBLISHING1, 1000);
+    Book book3 = new Book("Da Vinci kood", "Brown", YEAR_OF_PUBLISHING2, 100, melani);
+    Book book4 = new Book("Kuidas saavutada finantsvabadus", "Saage", YEAR_OF_PUBLISHING3, 100);
+    Book book5 = Book.of("Java EX01", "Ago Luberg", YEAR_OF_PUBLISHING4, 3);
 
     @Test
     public void testBookGetTitleFirstConstructor() {
