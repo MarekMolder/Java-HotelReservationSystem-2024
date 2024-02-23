@@ -1,10 +1,10 @@
 package ee.taltech.iti0202.stock;
 
 import ee.taltech.iti0202.stock.exceptions.StockException;
-import ee.taltech.iti0202.stock.product.Product;
+// import ee.taltech.iti0202.stock.product.Product;
 import ee.taltech.iti0202.stock.stock.Stock;
 
-import java.util.Optional;
+// import java.util.Optional;
 
 public class StockDemo {
 
