@@ -20,6 +20,7 @@ public class Group {
         this.members = new ArrayList<>(Arrays.asList(owner));
         this.messageList = new ArrayList<>();
         this.banList = new HashSet<>();
+        owner.addGroup(this);
     }
 
     public String getName() {
@@ -65,6 +66,7 @@ public class Group {
         if (members.contains(user)) {
             if (user.equals(owner)) {
                 members.remove(user);
+                user.removeGroup(this);
                 messageList.removeIf(message -> message.getAuthor().equals(user));
                 if (!members.isEmpty()) {
                     owner = members.getFirst();
@@ -73,6 +75,7 @@ public class Group {
                 }
             } else {
                 members.remove(user);
+                user.removeGroup(this);
                 messageList.removeIf(message -> message.getAuthor().equals(user));
             }
         }

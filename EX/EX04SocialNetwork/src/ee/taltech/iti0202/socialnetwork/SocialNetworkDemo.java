@@ -25,6 +25,7 @@ public class SocialNetworkDemo {
         Group group1 = new Group("group1", user1);
         System.out.println(group1.getName()); // group1
         System.out.println(group1.getOwner()); // user1
+        System.out.println(user1.getGroups());
 
         group1.setName("newName");
         System.out.println(group1.getName()); // newName
