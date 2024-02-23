@@ -25,4 +25,8 @@ public class Admin extends User {
     public String getName() {
         return "(Admin) " + super.getName();
     }
+
+    public Integer getAge() {
+        return age;
+    }
 }
