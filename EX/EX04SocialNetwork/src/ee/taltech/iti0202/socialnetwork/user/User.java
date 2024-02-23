@@ -11,7 +11,7 @@ import java.util.Set;
 public class User {
 
     private final String name;
-    protected Integer age;
+    private Integer age;
     private final Set<Group> groupList;
 
     public User(String name, Integer age) {

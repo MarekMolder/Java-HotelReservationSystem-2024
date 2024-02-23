@@ -4,6 +4,7 @@ import ee.taltech.iti0202.socialnetwork.SocialNetwork;
 import ee.taltech.iti0202.socialnetwork.user.User;
 
 public class Admin extends User {
+    private Integer age;
     
     public Admin(String name) {
         super(name);
