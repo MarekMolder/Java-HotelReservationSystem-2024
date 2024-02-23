@@ -3,7 +3,11 @@ package ee.taltech.iti0202.stock.stock;
 import ee.taltech.iti0202.stock.exceptions.StockException;
 import ee.taltech.iti0202.stock.product.Product;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * The stock class.
@@ -28,7 +32,7 @@ public class Stock {
 
     /**
      * Create a new stock with the given name and the max capacity for the products.
-     * 
+     *
      * @param name the name of the stock.
      * @param maxCapacity max amount of products allowed in the stock.
      */
@@ -71,15 +75,19 @@ public class Stock {
     public Optional<Product> getProduct(String name) {
         Product result = null;
         for (Product product : stockProducts) {
-            if(product.getName().equals(name) && result == null) {
+            if (product.getName().equals(name) && result == null) {
                 result = product;
-            } else if (product.getName().equals(name) && Objects.requireNonNull(result).getPrice() > product.getPrice()) {
+            } else if (product.getName().equals(name)
+                    && Objects.requireNonNull(result).getPrice() > product.getPrice()) {
                 result = product;
-            } else if (product.getName().equals(name) && Objects.requireNonNull(result).getPrice() < product.getPrice()) {
+            } else if (product.getName().equals(name)
+                    && Objects.requireNonNull(result).getPrice() < product.getPrice()) {
                 continue;
-            } else if (product.getName().equals(name) && Objects.requireNonNull(result).getPrice() == product.getPrice() && result.getId() > product.getId()) {
+            } else if (product.getName().equals(name) && Objects.requireNonNull(result).getPrice()
+                    == product.getPrice() && result.getId() > product.getId()) {
                 result = product;
-            } else if (product.getName().equals(name) && Objects.requireNonNull(result).getPrice() > product.getPrice() && result.getId() < product.getId()) {
+            } else if (product.getName().equals(name) && Objects.requireNonNull(result).getPrice()
+                    > product.getPrice() && result.getId() < product.getId()) {
                 continue;
             }
         }

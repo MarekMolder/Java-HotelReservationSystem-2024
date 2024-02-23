@@ -24,7 +24,7 @@ public class StockException extends Exception {
 
     /**
      * Constructor with the reason.
-     * 
+     *
      * @param reason The reason for exception.
      */
     public StockException(Reason reason) {
@@ -33,7 +33,7 @@ public class StockException extends Exception {
 
     /**
      * Returns the reason of the exception.
-     * 
+     *
      * @return The reason.
      */
     public Reason getReason() {
