@@ -26,6 +26,9 @@ public class Admin extends User {
     }
 
     public Integer getAge() {
+        if (age == null) {
+            return null;
+        }
         return age;
     }
 }

@@ -30,10 +30,11 @@ public class SocialNetwork {
     }
 
     public void banUser(User user) {
-        for (Group group: socialRegisters) {
+        for (Group group: getGroups()) {
             if (group.getParticipants().contains(user)) {
                 group.banUser(user);
             }
+            group.banUser(user);
         }
     }
 }

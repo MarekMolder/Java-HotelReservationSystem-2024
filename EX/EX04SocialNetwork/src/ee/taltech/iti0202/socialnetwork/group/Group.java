@@ -30,6 +30,7 @@ public class Group {
         this.name = name;
     }
 
+
     public User getOwner() {
         return owner;
     }
@@ -63,24 +64,20 @@ public class Group {
     
     public void removeUser(User user) {
         if (members.contains(user)) {
-            members.remove(user);
             if (user.equals(owner)) {
-                if (members.size() > 0) {
+                members.remove(user);
+                user.removeGroup(this);
+                messageList.removeIf(message -> message.getAuthor().equals(user));
+                if (!members.isEmpty()) {
                     owner = members.getFirst();
                 } else {
                     owner = null;
                 }
+            } else {
+                members.remove(user);
+                user.removeGroup(this);
+                messageList.removeIf(message -> message.getAuthor().equals(user));
             }
-            List<Message> removeMessages = new ArrayList<>();
-            for (Message message: messageList) {
-                if (message.getAuthor().equals(user)) {
-                    removeMessages.add(message);
-                }
-            }
-            for (Message message: removeMessages) {
-                messageList.remove(message);
-            }
-            user.removeGroup(this);
         }
     }
     
@@ -94,5 +91,4 @@ public class Group {
     public Set<User> getBannedUsers() {
         return banList;
     }
-    
 }
