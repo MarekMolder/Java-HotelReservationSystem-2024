@@ -1,4 +1,3 @@
-
 package ee.taltech.iti0202.socialnetwork.group;
 
 import ee.taltech.iti0202.socialnetwork.message.Message;

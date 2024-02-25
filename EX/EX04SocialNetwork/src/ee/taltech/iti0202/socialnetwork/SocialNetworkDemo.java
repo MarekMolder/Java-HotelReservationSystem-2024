@@ -29,8 +29,7 @@ public class SocialNetworkDemo {
         group1.setName("newName");
         System.out.println(group1.getName()); // newName
 
-        Group group2 = new Group("group2", user1);
-        Group group3 = new Group("group3", user1);
+        Group group2 = new Group("group2", user3);
 
         group1.addUser(user2);
         System.out.println(group1.getParticipants()); // [user1, user2]
@@ -57,7 +56,6 @@ public class SocialNetworkDemo {
         SocialNetwork socialNetwork = new SocialNetwork();
         socialNetwork.registerGroup(group1);
         socialNetwork.registerGroup(group2);
-        socialNetwork.registerGroup(group3);
         System.out.println(socialNetwork.getGroups()); // [group1, newGroup]
 
         System.out.println(socialNetwork.getFeedForUser(user2).getMessages()); // [message1]
@@ -65,13 +63,8 @@ public class SocialNetworkDemo {
         group1.banUser(user2);
         System.out.println(group1.getParticipants()); // []
         System.out.println(group1.getBannedUsers()); // [user2]
-        group1.addUser(user3);
-        group2.addUser(user3);
-        group3.addUser(user3);
-
 
         admin.banUserFromSocialNetwork(user3, socialNetwork);
-        System.out.println(user3.getGroups());
         System.out.println(group2.getParticipants()); // []
     }
 }
