@@ -12,7 +12,7 @@ public class User {
 
     private final String name;
     private Integer age;
-    private final Set<Group> groupList;
+    private Set<Group> groupList;
 
     public User(String name, Integer age) {
         this.name = name;

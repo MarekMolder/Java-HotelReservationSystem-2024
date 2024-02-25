@@ -11,7 +11,7 @@ public class Group {
     private User owner;
     private final List<User> members;
     private final List<Message> messageList;
-    private final Set<User> banList;
+    private Set<User> banList;
 
     public Group(String name, User owner) {
         this.name = name;
