@@ -9,8 +9,8 @@ public class Group {
 
     private String name;
     private User owner;
-    private final List<User> members;
-    private final List<Message> messageList;
+    private List<User> members;
+    private List<Message> messageList;
     private Set<User> banList;
 
     public Group(String name, User owner) {

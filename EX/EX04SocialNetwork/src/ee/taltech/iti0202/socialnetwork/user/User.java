@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class User {
 
-    private final String name;
+    private String name;
     private Integer age;
     private Set<Group> groupList;
 
