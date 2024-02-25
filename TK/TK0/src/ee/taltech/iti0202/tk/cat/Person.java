@@ -53,7 +53,8 @@ public class Person {
      *
      * @param sellTo The person to sell the cat to.
      * @param cat    The cat to be sold.
-     * @return True if the sale was successful, false otherwise (e.g., if the target person is the same as the seller or if the cat is not owned by the seller).
+     * @return True if the sale was successful, false otherwise.
+     * (e.g., if the target person is the same as the seller or if the cat is not owned by the seller).
      */
     public boolean sellCat(Person sellTo, Cat cat) {
         if (sellTo != this && this.getCats().contains(cat)) {
