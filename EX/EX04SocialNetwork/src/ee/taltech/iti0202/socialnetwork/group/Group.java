@@ -85,7 +85,7 @@ public class Group {
     public void banUser(User user) {
         banList.add(user);
         if (members.contains(user)) {
-            this.removeUser(user);
+            removeUser(user);
         }
     }
     
