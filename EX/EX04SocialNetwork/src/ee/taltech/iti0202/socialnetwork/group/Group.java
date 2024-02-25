@@ -77,6 +77,7 @@ public class Group {
                 user.removeGroup(this);
                 messageList.removeIf(message -> message.getAuthor().equals(user));
             }
+            members.remove(user);
             user.removeGroup(this);
         }
     }
