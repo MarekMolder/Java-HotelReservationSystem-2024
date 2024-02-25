@@ -64,20 +64,16 @@ public class Group {
     
     public void removeUser(User user) {
         if (members.contains(user)) {
+            members.remove(user);
             if (user.equals(owner)) {
-                members.remove(user);
-                user.removeGroup(this);
-                messageList.removeIf(message -> message.getAuthor().equals(user));
                 if (!members.isEmpty()) {
                     owner = members.getFirst();
                 } else {
                     owner = null;
                 }
-            } else {
-                members.remove(user);
-                user.removeGroup(this);
                 messageList.removeIf(message -> message.getAuthor().equals(user));
             }
+            user.removeGroup(this);
         }
     }
     

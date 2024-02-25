@@ -16,10 +16,9 @@ public class Admin extends User {
     }
 
     public void banUserFromSocialNetwork(User user, SocialNetwork socialNetwork) {
-        if (user instanceof Admin) {
-            return;
+        if (!(user instanceof Admin)) {
+            socialNetwork.banUser(user);
         }
-        socialNetwork.banUser(user);
     }
 
     public String getName() {
