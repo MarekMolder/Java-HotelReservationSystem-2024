@@ -1,9 +1,5 @@
 package ee.taltech.iti0202.tk.cat;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-
 public class Cat {
     private final String name;
     private Integer age;

@@ -1,7 +1,6 @@
 package ee.taltech.iti0202.tk;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +21,7 @@ public class Exam {
         int min = nums.get(0);
         int max = nums.get(0);
 
-        for (int i = 1; i < nums.size() ; i++) {
+        for (int i = 1; i < nums.size(); i++) {
             if (nums.get(i) < min) {
                 min = nums.get(i);
             } else if (nums.get(i) > max) {
@@ -36,10 +35,10 @@ public class Exam {
         List<Integer> numbers = new ArrayList<Integer>();
 
         for (int num : nums) {
-            if (num != min && num!= max || numbers.contains(num)) {
+            if (num != min && num != max || numbers.contains(num)) {
                 sum += num;
                 numbers.add(num);
-                count ++;
+                count++;
             }
             numbers.add(num);
         }
@@ -82,7 +81,7 @@ public class Exam {
             c = c - remainderC;
         }
 
-        return a + b +c;
+        return a + b + c;
     }
 
 
