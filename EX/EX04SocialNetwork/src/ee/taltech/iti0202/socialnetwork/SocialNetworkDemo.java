@@ -1,13 +1,8 @@
 package ee.taltech.iti0202.socialnetwork;
 
-import ee.taltech.iti0202.socialnetwork.admin.Admin;
-import ee.taltech.iti0202.socialnetwork.group.Group;
-import ee.taltech.iti0202.socialnetwork.message.Message;
-import ee.taltech.iti0202.socialnetwork.user.User;
-
 public class SocialNetworkDemo {
-
-    public static void main(String[] args) {
+/*/
+ public static void main(String[] args) {
         User user1 = new User("user1");
         System.out.println(user1.getName()); // user1
         System.out.println(user1.getAge()); // null
@@ -67,4 +62,6 @@ public class SocialNetworkDemo {
         admin.banUserFromSocialNetwork(user3, socialNetwork);
         System.out.println(group2.getParticipants()); // []
     }
+ */
+
 }
