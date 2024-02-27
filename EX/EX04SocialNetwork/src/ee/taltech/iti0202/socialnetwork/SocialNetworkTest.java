@@ -7,11 +7,7 @@ import ee.taltech.iti0202.socialnetwork.message.Message;
 import ee.taltech.iti0202.socialnetwork.user.User;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -160,7 +156,7 @@ class SocialNetworkTest {
         socialNetwork.registerGroup(group1);
         group1.addUser(user2);
         admin.banUserFromSocialNetwork(user1, socialNetwork);
-        Set<Group> expected = new HashSet<>(Arrays.asList());;
+        Set<Group> expected = new HashSet<>();;
         Set<Group> actual = user1.getGroups();
         assertEquals(expected, actual, () -> String.format("Expected: '%s' , but got '%s'", expected, actual));
     }
@@ -168,7 +164,7 @@ class SocialNetworkTest {
     @Test
     public void testSocialNetworkGetGroups() {
         socialNetwork.registerGroup(group1);
-        Set<Group> expected = new HashSet<>(Arrays.asList(group1));;
+        Set<Group> expected = new HashSet<>(Collections.singletonList(group1));;
         Set<Group> actual = socialNetwork.getGroups();
         assertEquals(expected, actual, () -> String.format("Expected: '%s' , but got '%s'", expected, actual));
     }
