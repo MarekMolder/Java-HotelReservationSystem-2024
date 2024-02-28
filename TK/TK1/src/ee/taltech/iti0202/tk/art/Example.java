@@ -4,10 +4,12 @@ public class Example {
     public static void main(String[] args) {
 
         Painting painting1 = new Painting("The last supper", "Leonardo");
-        System.out.println(painting1);  // This is a painting named The last supper and made by Leonardo.
+        System.out.println(painting1);
+        // This is a painting named The last supper and made by Leonardo.
 
         Painting painting2 = new Painting("Woman with Red Head Scarf");
-        System.out.println(painting2);  // This is a painting named Woman with Red Head Scarf and made by an unknown artist.
+        System.out.println(painting2);
+        // This is a painting named Woman with Red Head Scarf and made by an unknown artist.
 
         Painting forgery = new Painting("The last supper", "Leonerdo");
         System.out.println(forgery);  // This is a painting named The last supper and made by Leonerdo.
