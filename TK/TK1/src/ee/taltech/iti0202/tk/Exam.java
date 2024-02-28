@@ -36,6 +36,7 @@ public class Exam {
                 if (word.contains(part)) {
                     replacedWord = word.replace(part, "");
                     wordHolder.remove(part);
+                    parts.remove(part);
                     if (wordHolder.contains(replacedWord)) {
                         result.add(word);
                         break;
