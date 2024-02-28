@@ -32,6 +32,7 @@ public class Exam {
                 String replacedWord = null;
                 if (word.contains(part)) {
                     replacedWord = word.replace(part, "");
+                    wordHolder.remove(part);
                     parts.remove(part);
 
                 }
