@@ -1,5 +1,6 @@
 package ee.taltech.iti0202.tk;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -23,7 +24,35 @@ public class Exam {
      *
      */
     public static List<String> compileWords(List<String> parts, List<String> words) {
-        return parts;
+        List<String> result = new ArrayList<>();
+
+        for (String word: words) {
+            if (filterOutWords(parts, word)) {
+                result.add(word);
+            }
+        }
+        return result;
+    }
+
+    private static boolean filterOutWords(List<String> parts, String word) {
+        List<String> wordHolder = new ArrayList<>();
+
+        for (String part : parts) {
+            if (word.contains(part)) {
+                word = word.replace(part, "");
+                wordHolder.add(word);
+                parts.remove(part);
+
+            }
+        }
+        if (!wordHolder.isEmpty()) {
+            for (String part : parts) {
+                if (word.contains(part)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
