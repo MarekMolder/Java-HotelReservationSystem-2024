@@ -1,9 +1,6 @@
 package ee.taltech.iti0202.tk;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class Exam {
 
@@ -24,7 +21,8 @@ public class Exam {
      *
      */
     public static List<String> compileWords(List<String> parts, List<String> words) {
-        List<String> result = new ArrayList<>();
+        Set<String> result = new HashSet<>();
+        List<String> result2 = new ArrayList<>();
 
         for (String word : words) {
             List<String> wordHolder = new ArrayList<>(parts);
@@ -40,7 +38,10 @@ public class Exam {
                 }
             }
         }
-        return result;
+        for (String elements: result) {
+            result2.add(elements);
+        }
+        return result2;
     }
 
     /**
