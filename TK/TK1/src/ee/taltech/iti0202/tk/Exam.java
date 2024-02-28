@@ -25,30 +25,24 @@ public class Exam {
      */
     public static List<String> compileWords(List<String> parts, List<String> words) {
         List<String> result = new ArrayList<>();
-        List<String> wordHolder = new ArrayList<>();
 
-
-        for (String word: words) {
-
+        for (String word : words) {
+            List<String> wordHolder = new ArrayList<>(parts);
             for (String part : parts) {
+                String replacedWord = null;
                 if (word.contains(part)) {
-                    String replacedWord = word.replace(part, "");
-                    wordHolder.add(replacedWord);
+                    replacedWord = word.replace(part, "");
                     parts.remove(part);
 
                 }
-            }
-            if (!wordHolder.isEmpty()) {
-                for (String part : parts) {
-                    if (wordHolder.contains(part)) {
-                        result.add(word);
-                    }
+                if (wordHolder.contains(replacedWord)) {
+                    result.add(word);
+                    break;
                 }
             }
         }
         return result;
     }
-
 
     /**
      * Given 2 int values greater than 0, return whichever value is nearest to 21 without going over.
