@@ -101,8 +101,4 @@ public class Exam {
     }
         return map;
     }
-
-    public static void main(String[] args) {
-        System.out.println(compileWords(List.of("He", "llo", "y", "!", "yo", "i", "H", "yo!"), List.of("Hello", "yo!", "Heyo!", "Hi!", "World", "yooo", "Hi", "llo")));
-    }
 }
