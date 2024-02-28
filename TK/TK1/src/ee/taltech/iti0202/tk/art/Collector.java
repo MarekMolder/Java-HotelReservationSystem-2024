@@ -10,7 +10,7 @@ public class Collector {
         this.paintings = new ArrayList<>();
     }
 
-    boolean addPainting(Painting painting) {
+    public boolean addPainting(Painting painting) {
         List<Painting> sameName = new ArrayList<>();
         for (Painting paintings : paintings) {
             if (paintings.getTitle() == painting.getTitle()) {
@@ -26,7 +26,7 @@ public class Collector {
         }
     }
 
-    boolean sellPainting(Painting painting, Collector fellowCollector) {
+    public boolean sellPainting(Painting painting, Collector fellowCollector) {
         if (paintings.contains(painting) && fellowCollector != this) {
                 if (fellowCollector.addPainting(painting)) {
                     return true;
@@ -35,7 +35,7 @@ public class Collector {
         return false;
     }
 
-    List<Painting> getPaintings() {
+    public List<Painting> getPaintings() {
         return paintings;
     }
 }
