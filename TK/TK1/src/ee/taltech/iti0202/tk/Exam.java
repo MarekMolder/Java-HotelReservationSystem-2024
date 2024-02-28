@@ -1,9 +1,14 @@
 package ee.taltech.iti0202.tk;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class Exam {
 
+
+    public static final int INT = 21;
 
     /**
      * Filter out the words that can be created with exactly 2 parts.
@@ -19,9 +24,8 @@ public class Exam {
      *
      */
     public static List<String> compileWords(List<String> parts, List<String> words) {
-        return null;
+        return parts;
     }
-
 
     /**
      * Given 2 int values greater than 0, return whichever value is nearest to 21 without going over.
@@ -34,13 +38,13 @@ public class Exam {
     public static int blackjack(int a, int b) {
         if (a <= 21 && a > b) {
             return a;
-        } else if (b <= 21 && b > a) {
+        } else if (b <= INT && b > a) {
             return b;
-        } else if (a > 21 && b > 21) {
+        } else if (a > INT && b > INT) {
             return 0;
-        } else if (a > 21) {
+        } else if (a > INT) {
             return b;
-        } else if (b > 21) {
+        } else if (b > INT) {
             return a;
         }
         return a;
@@ -58,7 +62,7 @@ public class Exam {
     public static String repeatEnd(String str, int n) {
         String newWord = str.substring(str.length() - n);
         String result = "";
-        for (int i = 0; i < n ; i++) {
+        for (int i = 0; i < n; i++) {
             result += newWord;
         }
         return result;
