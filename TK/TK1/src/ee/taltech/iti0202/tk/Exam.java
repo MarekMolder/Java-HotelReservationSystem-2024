@@ -1,6 +1,5 @@
 package ee.taltech.iti0202.tk;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -36,7 +35,7 @@ public class Exam {
      * blackjack(19, 22) → 19
      */
     public static int blackjack(int a, int b) {
-        if (a <= 21 && a > b) {
+        if (a <= INT && a > b) {
             return a;
         } else if (b <= INT && b > a) {
             return b;
