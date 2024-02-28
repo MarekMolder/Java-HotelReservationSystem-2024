@@ -36,6 +36,8 @@ public class Exam {
             return a;
         } else if (b <= 21 && b > a) {
             return b;
+        } else if (a > 21 && b > 21) {
+            return 0;
         } else if (a > 21) {
             return b;
         } else if (b > 21) {
@@ -72,7 +74,7 @@ public class Exam {
      mapAB({"a": "aaa", "b": "bbb", "c": "aaa"}) → {"a": "aaa", "b": "bbb", "c": "aaa"}
      */
     public static Map<String, String> mapAB(Map<String, String> map) {
-        if (map.containsKey("a") && map.containsKey("b") && map.get("a") == map.get("b")) {
+        if (map.containsKey("a") && map.containsKey("b") && Objects.equals(map.get("a"), map.get("b"))) {
             map.remove("a");
             map.remove("b");
 
