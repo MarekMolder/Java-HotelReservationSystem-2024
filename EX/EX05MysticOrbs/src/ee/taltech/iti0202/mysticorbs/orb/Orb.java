@@ -11,7 +11,9 @@ public class Orb {
 
     public void charge(String resource, int amount) {
         if (!resource.toLowerCase().equals("dust") && !resource.trim().equals("")) {
-            this.energy += (amount * resource.length());
+            if (amount > 0) {
+                this.energy += (amount * resource.length());
+            }
         }
     }
 
