@@ -117,6 +117,7 @@ public class OrbFactory {
         for (Oven oven : cannotFixOvens) {
             ovenList.remove(oven);
         }
+        cannotFixOvens.clear();
     }
 
     public void optimizeOvensOrder() {
