@@ -16,10 +16,12 @@ public class ResourceStorage {
 
     public void addResource(String resource, int amount) {
         if (amount > 0) {
-            if (resources.containsKey(resource.toLowerCase())) {
-                resources.merge(resource.toLowerCase(), amount, Integer::sum);
-            } else {
-                resources.put(resource.toLowerCase(), amount);
+            if (!resource.isEmpty() && !resource.trim().equals("")) {
+                if (resources.containsKey(resource.toLowerCase())) {
+                    resources.merge(resource.toLowerCase(), amount, Integer::sum);
+                } else {
+                    resources.put(resource.toLowerCase(), amount);
+                }
             }
         }
     }
@@ -44,22 +46,24 @@ public class ResourceStorage {
     }
 
     public boolean takeResource(String resource, int amount) {
-        if (resources.get(resource.toLowerCase()) >= amount) {
-            if (takenOutResources.containsKey(resource.toLowerCase())) {
-                takenOutResources.merge(resource.toLowerCase(), amount, Integer::sum);
-            } else {
-                takenOutResources.put(resource.toLowerCase(), amount);
-            }
-            int remainingAmount = resources.get(resource.toLowerCase()) - amount;
+        if (amount > 0) {
+            if (resources.get(resource.toLowerCase()) >= amount) {
+                if (takenOutResources.containsKey(resource.toLowerCase())) {
+                    takenOutResources.merge(resource.toLowerCase(), amount, Integer::sum);
+                } else {
+                    takenOutResources.put(resource.toLowerCase(), amount);
+                }
+                int remainingAmount = resources.get(resource.toLowerCase()) - amount;
 
-            if (remainingAmount > 0) {
-                resources.put(resource.toLowerCase(), remainingAmount);
-            } else {
-                resources.remove(resource.toLowerCase());
+                if (remainingAmount > 0) {
+                    resources.put(resource.toLowerCase(), remainingAmount);
+                } else {
+                    resources.remove(resource.toLowerCase());
+                }
+                return true;
             }
-            return true;
         }
         return false;
-        }
+    }
 
 }
