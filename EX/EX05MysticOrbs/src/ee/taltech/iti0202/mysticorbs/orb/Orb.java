@@ -22,7 +22,7 @@ public class Orb {
     }
 
     public int setEnergy(Integer amount) {
-        return this.energy = amount;
+        return this.energy += amount;
     }
     
     public String toString(){
