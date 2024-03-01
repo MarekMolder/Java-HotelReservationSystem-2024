@@ -2,7 +2,7 @@ package ee.taltech.iti0202.mysticorbs.orb;
 
 public class Orb {
     private final String creator;
-    private int energy;
+    public int energy;
 
     public Orb(String creator) {
         this.creator = creator;
@@ -22,7 +22,7 @@ public class Orb {
     }
 
     public int setEnergy(Integer amount) {
-        return this.energy += amount;
+        return this.energy = amount;
     }
     
     public String toString(){
