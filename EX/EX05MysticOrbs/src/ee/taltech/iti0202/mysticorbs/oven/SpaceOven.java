@@ -43,21 +43,20 @@ public class SpaceOven extends Oven implements Fixable{
 
     @Override
     public void fix() throws CannotFixException {
-        int Multiplier = (this.fixed == 0) ? 1 : this.fixed;
         if (!this.isBroken()) {
             throw new CannotFixException(this, CannotFixException.Reason.IS_NOT_BROKEN);
         } else {
             if (this.fixed > 5) {
                 throw new CannotFixException(this, CannotFixException.Reason.IS_NOT_BROKEN);
             } else {
-                if (!getResourceStorage().hasEnoughResource("liquid silver", 40 * Multiplier)
-                        && !getResourceStorage().hasEnoughResource("star essence", 10 * Multiplier)) {
+                if (!getResourceStorage().hasEnoughResource("liquid silver", 40)
+                        && !getResourceStorage().hasEnoughResource("star essence", 10)) {
                     throw new CannotFixException(this, CannotFixException.Reason.NOT_ENOUGH_RESOURCES);
                 } else {
-                    if (getResourceStorage().hasEnoughResource("liquid silver", 40 * Multiplier)) {
-                        getResourceStorage().takeResource("liquid silver", 40 * Multiplier);
+                    if (getResourceStorage().hasEnoughResource("liquid silver", 40)) {
+                        getResourceStorage().takeResource("liquid silver", 40);
                     } else {
-                        getResourceStorage().takeResource("star essence", 10 * Multiplier);
+                        getResourceStorage().takeResource("star essence", 10);
                     }
                     this.orbs = 0;
                     this.fixed += 1;
