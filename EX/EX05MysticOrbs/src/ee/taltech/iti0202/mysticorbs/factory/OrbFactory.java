@@ -102,14 +102,16 @@ public class OrbFactory {
 
     public List<Oven> getOvensThatCannotBeFixed() {
         for (Oven oven : ovenList) {
-            if (oven.getClass() == InfinityMagicOven.class) {
-                cannotFixOvens.add(oven);
-            } else if (oven.getClass() == MagicOven.class && oven.fixed > 10) {
-                cannotFixOvens.add(oven);
-            } else if (oven.getClass() == Oven.class && oven.isBroken()) {
-                cannotFixOvens.add(oven);
-            } else if (oven.getClass() == SpaceOven.class && oven.fixed > 5) {
-                cannotFixOvens.add(oven);
+            if (!cannotFixOvens.contains(oven)) {
+                if (oven.getClass() == InfinityMagicOven.class) {
+                    cannotFixOvens.add(oven);
+                } else if (oven.getClass() == MagicOven.class && oven.fixed > 10) {
+                    cannotFixOvens.add(oven);
+                } else if (oven.getClass() == Oven.class && oven.isBroken()) {
+                    cannotFixOvens.add(oven);
+                } else if (oven.getClass() == SpaceOven.class && oven.fixed > 5) {
+                    cannotFixOvens.add(oven);
+                }
             }
         }
         return cannotFixOvens;
