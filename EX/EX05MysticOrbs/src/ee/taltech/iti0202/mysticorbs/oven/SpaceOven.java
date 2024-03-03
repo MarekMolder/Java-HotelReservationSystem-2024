@@ -56,6 +56,7 @@ public class SpaceOven extends Oven implements Fixable{
                     } else {
                         getResourceStorage().takeResource("star essence", 10 * Multiplier);
                     }
+                    this.orbs = 0;
                     this.fixed++;
                 }
             }
