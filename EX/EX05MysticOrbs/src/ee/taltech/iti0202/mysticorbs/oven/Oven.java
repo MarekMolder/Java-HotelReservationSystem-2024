@@ -3,6 +3,7 @@ package ee.taltech.iti0202.mysticorbs.oven;
 import ee.taltech.iti0202.mysticorbs.orb.Orb;
 import ee.taltech.iti0202.mysticorbs.storage.ResourceStorage;
 
+import java.util.Objects;
 import java.util.Optional;
 
 public class Oven implements Comparable<Oven> {
@@ -64,8 +65,8 @@ public class Oven implements Comparable<Oven> {
             return Integer.compare(thisOven, insertedOven);
         }else if (this.getCreatedOrbsAmount() != o.getCreatedOrbsAmount()) {
             return Integer.compare(o.getCreatedOrbsAmount(), this.getCreatedOrbsAmount());
-        } else if (this.name != o.name ) {
-            return this.name.compareTo(o.name);
+        } else if (!Objects.equals(this.name, o.name)) {
+            return o.name.compareTo(this.name);
         }else {
             return 0;
         }
