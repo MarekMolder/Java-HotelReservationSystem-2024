@@ -66,8 +66,10 @@ public class OrbFactory {
                     }
                 }
             }
-            Optional<Orb> craftedOrb = oven.craftOrb();
-            craftedOrb.ifPresent(orb -> orbList.add(orb));
+            if (!oven.isBroken()) {
+                Optional<Orb> craftedOrb = oven.craftOrb();
+                craftedOrb.ifPresent(orb -> orbList.add(orb));
+            }
         }
         return orbList.size();
     }
@@ -92,8 +94,10 @@ public class OrbFactory {
                         }
                     }
                 }
-                Optional<Orb> craftedOrb = oven.craftOrb();
-                craftedOrb.ifPresent(orb -> orbList.add(orb));
+                if (!oven.isBroken()) {
+                    Optional<Orb> craftedOrb = oven.craftOrb();
+                    craftedOrb.ifPresent(orb -> orbList.add(orb));
+                }
             }
         }
         return orbList.size();
