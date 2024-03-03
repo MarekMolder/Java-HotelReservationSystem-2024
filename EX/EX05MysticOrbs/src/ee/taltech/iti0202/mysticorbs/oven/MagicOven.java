@@ -9,11 +9,13 @@ import java.util.Optional;
 
 public class MagicOven extends Oven implements Fixable {
 
+    private int fixed;
     private int magicNumber;
 
     public MagicOven(String name, ResourceStorage resourceStorage) {
         super(name, resourceStorage);
         this.magicNumber = 0;
+        this.fixed = 0;
     }
 
     public boolean isBroken() {
@@ -65,7 +67,7 @@ public class MagicOven extends Oven implements Fixable {
                     getResourceStorage().takeResource("clay", 25 * Multiplier);
                     getResourceStorage().takeResource("freezing powder", 100 * Multiplier);
                     this.orbs = 0;
-                    this.fixed++;
+                    this.fixed += 1;
                 }
             }
         }

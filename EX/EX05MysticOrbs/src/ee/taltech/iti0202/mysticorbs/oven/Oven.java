@@ -11,13 +11,11 @@ public class Oven implements Comparable<Oven> {
     private final String name;
     private final ResourceStorage resourceStorage;
     public int orbs;
-    public int fixed;
 
     public Oven(String name, ResourceStorage resourceStorage) {
         this.name = name;
         this.resourceStorage = resourceStorage;
         this.orbs = 0;
-        this.fixed = 0;
     }
 
     public String getName() {

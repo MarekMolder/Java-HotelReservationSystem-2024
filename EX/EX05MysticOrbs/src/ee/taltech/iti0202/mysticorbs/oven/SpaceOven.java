@@ -8,8 +8,11 @@ import ee.taltech.iti0202.mysticorbs.storage.ResourceStorage;
 import java.util.Optional;
 
 public class SpaceOven extends Oven implements Fixable{
+    private int fixed;
+
     public SpaceOven(String name, ResourceStorage resourceStorage) {
         super(name, resourceStorage);
+        this.fixed = 0;
     }
 
     public Optional<Orb> craftOrb() {
@@ -57,7 +60,7 @@ public class SpaceOven extends Oven implements Fixable{
                         getResourceStorage().takeResource("star essence", 10 * Multiplier);
                     }
                     this.orbs = 0;
-                    this.fixed++;
+                    this.fixed += 1;
                 }
             }
         }
