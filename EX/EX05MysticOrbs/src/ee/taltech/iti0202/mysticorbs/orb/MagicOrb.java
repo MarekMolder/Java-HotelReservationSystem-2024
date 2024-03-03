@@ -6,9 +6,9 @@ public class MagicOrb extends Orb{
     }
 
     public void charge(String resource, int amount) {
-        if (!resource.toLowerCase().equals("dust") && !resource.trim().equals("")) {
+        if (!resource.equalsIgnoreCase("dust") && !resource.trim().isEmpty()) {
             if (amount > 0) {
-                this.energy += this.setEnergy((amount * resource.length() * 2));
+                this.energy += this.setEnergy(amount * resource.length() * 2);
             }
         }
     }

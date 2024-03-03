@@ -7,7 +7,6 @@ public class SpaceOrb extends Orb {
     }
 
     public void charge(String resource, int amount) {
-
     }
 
     public String toString() {

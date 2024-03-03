@@ -45,7 +45,7 @@ public class OrbFactory {
             orbList.clear();
             return result;
         }
-        return new ArrayList<>();
+        return orbList;
     }
 
     public int produceOrbs() {
@@ -66,9 +66,9 @@ public class OrbFactory {
                         }
                     }
                 }
-                Optional<Orb> craftedOrb = oven.craftOrb();
-                craftedOrb.ifPresent(orb -> orbList.add(orb));
             }
+            Optional<Orb> craftedOrb = oven.craftOrb();
+            craftedOrb.ifPresent(orb -> orbList.add(orb));
         }
         return orbList.size();
     }
@@ -107,6 +107,8 @@ public class OrbFactory {
             } else if (oven.getClass() == MagicOven.class && oven.fixed > 10) {
                 cannotFixOvens.add(oven);
             } else if (oven.getClass() == Oven.class && oven.isBroken()) {
+                cannotFixOvens.add(oven);
+            } else if (oven.getClass() == SpaceOven.class && oven.fixed > 5) {
                 cannotFixOvens.add(oven);
             }
         }

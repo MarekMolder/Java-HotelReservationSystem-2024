@@ -10,7 +10,7 @@ public class Orb {
     }
 
     public void charge(String resource, int amount) {
-        if (!resource.toLowerCase().equals("dust") && !resource.trim().equals("")) {
+        if (!resource.equalsIgnoreCase("dust") && !resource.trim().isEmpty()) {
             if (amount > 0) {
                 this.energy += (amount * resource.length());
             }
@@ -32,6 +32,4 @@ public class Orb {
     public String getCreator(){
         return this.creator;
     }
-
-
 }

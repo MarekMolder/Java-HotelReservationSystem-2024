@@ -17,15 +17,12 @@ public class MagicOven extends Oven implements Fixable {
     }
 
     public boolean isBroken() {
-        if (this.orbs >= 5) {
-            return true;
-        }
-        return false;
+        return this.orbs >= 5;
     }
 
     public Optional<Orb> craftOrb() {
-        if (!this.isBroken() && getResourceStorage().hasEnoughResource("gold", 1)
-                && getResourceStorage().hasEnoughResource("dust", 3)) {
+        if (!this.isBroken() && getResourceStorage().hasEnoughResource("gold".toLowerCase(), 1)
+                && getResourceStorage().hasEnoughResource("dust".toLowerCase(), 3)) {
             if (this.magicNumber % 2 == 0) {
                 Orb orb = new Orb(getName());
                 getResourceStorage().takeResource("gold", 1);
@@ -47,7 +44,6 @@ public class MagicOven extends Oven implements Fixable {
             return Optional.empty();
         }
     }
-
 
     @Override
     public void fix() throws CannotFixException {

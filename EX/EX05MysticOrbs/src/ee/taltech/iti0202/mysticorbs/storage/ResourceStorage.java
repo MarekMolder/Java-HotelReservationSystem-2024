@@ -8,15 +8,12 @@ public class ResourceStorage {
     Map<String, Integer> takenOutResources = new HashMap<>();
 
     public boolean isEmpty() {
-        if (resources.isEmpty()) {
-            return true;
-        }
-        return false;
+        return resources.isEmpty();
     }
 
     public void addResource(String resource, int amount) {
         if (amount > 0) {
-            if (!resource.isEmpty() && !resource.trim().equals("")) {
+            if (!resource.isEmpty() && !resource.trim().isEmpty()) {
                 if (resources.containsKey(resource.toLowerCase())) {
                     resources.merge(resource.toLowerCase(), amount, Integer::sum);
                 } else {
@@ -40,7 +37,6 @@ public class ResourceStorage {
             } else if (resources.get(resource.toLowerCase()) >= amount) {
                 return true;
             }
-            return false;
         }
         return false;
     }
@@ -65,5 +61,4 @@ public class ResourceStorage {
         }
         return false;
     }
-
 }

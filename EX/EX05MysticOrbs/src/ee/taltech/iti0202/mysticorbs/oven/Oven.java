@@ -32,21 +32,18 @@ public class Oven implements Comparable<Oven> {
     }
 
     public boolean isBroken() {
-        if (this.orbs >= 15) {
-            return true;
-        }
-        return false;
+        return this.orbs >= 15;
     }
 
     public Optional<Orb> craftOrb() {
-        if (!this.isBroken() && resourceStorage.hasEnoughResource("pearl", 1)
-                && resourceStorage.hasEnoughResource("silver", 1)) {
+        if (!this.isBroken() && resourceStorage.hasEnoughResource("pearl".toLowerCase(), 1)
+                && resourceStorage.hasEnoughResource("silver".toLowerCase(), 1)) {
             Orb orb = new Orb(getName());
-            resourceStorage.takeResource("pearl", 1);
-            resourceStorage.takeResource("silver", 1);
+            resourceStorage.takeResource("pearl".toLowerCase(), 1);
+            resourceStorage.takeResource("silver".toLowerCase(), 1);
             orbs++;
-            orb.charge("pearl", 1);
-            orb.charge("silver", 1);
+            orb.charge("pearl".toLowerCase(), 1);
+            orb.charge("silver".toLowerCase(), 1);
             return Optional.of(orb);
         } else {
             return Optional.empty();
