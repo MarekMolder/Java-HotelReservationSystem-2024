@@ -51,7 +51,7 @@ public class MagicOven extends Oven implements Fixable {
         if (!this.isBroken()) {
             throw new CannotFixException(this, CannotFixException.Reason.IS_NOT_BROKEN);
         } else {
-            if (this.fixed >= 10) {
+            if (this.fixed > 10) {
                 throw new CannotFixException(this, CannotFixException.Reason.FIXED_MAXIMUM_TIMES);
             } else {
                 if (!getResourceStorage().hasEnoughResource("clay", 25 * Multiplier)
