@@ -64,6 +64,7 @@ public class MagicOven extends Oven implements Fixable {
                 } else {
                     getResourceStorage().takeResource("clay", 25 * Multiplier);
                     getResourceStorage().takeResource("freezing powder", 100 * Multiplier);
+                    this.orbs = 0;
                     this.fixed++;
                 }
             }
