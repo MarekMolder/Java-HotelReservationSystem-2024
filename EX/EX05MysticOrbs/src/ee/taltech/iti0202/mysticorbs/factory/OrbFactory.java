@@ -160,6 +160,5 @@ public class OrbFactory {
      */
     public void optimizeOvensOrder() {
         ovenList.sort(Comparable::compareTo);
-        ovenList.reversed();
     }
 }
