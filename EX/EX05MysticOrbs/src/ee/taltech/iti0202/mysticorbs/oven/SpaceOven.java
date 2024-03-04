@@ -59,7 +59,7 @@ public class SpaceOven extends Oven implements Fixable {
         if (!this.isBroken()) {
             throw new CannotFixException(this, CannotFixException.Reason.IS_NOT_BROKEN);
         } else {
-            if (this.fixed > 5) {
+            if (this.fixed > 4) {
                 throw new CannotFixException(this, CannotFixException.Reason.IS_NOT_BROKEN);
             } else {
                 if (!getResourceStorage().hasEnoughResource("liquid silver", LIQUID_SILVER_AMOUNT)
