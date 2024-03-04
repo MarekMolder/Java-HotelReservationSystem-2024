@@ -2,13 +2,15 @@ package ee.taltech.iti0202.mysticorbs.factory;
 
 import ee.taltech.iti0202.mysticorbs.exceptions.CannotFixException;
 import ee.taltech.iti0202.mysticorbs.orb.Orb;
-import ee.taltech.iti0202.mysticorbs.oven.InfinityMagicOven;
 import ee.taltech.iti0202.mysticorbs.oven.MagicOven;
 import ee.taltech.iti0202.mysticorbs.oven.Oven;
 import ee.taltech.iti0202.mysticorbs.oven.SpaceOven;
 import ee.taltech.iti0202.mysticorbs.storage.ResourceStorage;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
 
 public class OrbFactory {
     private List<Oven> ovenList;
@@ -158,39 +160,8 @@ public class OrbFactory {
      * Method to optimize Ovens Order
      */
     public void optimizeOvensOrder() {
-        Collections.sort(ovenList, (o1, o2) -> compareTo(o1, o2));
+        Collections.sort(ovenList, (o1, o2) -> o1.compareTo(o2));
+        Collections.reverse(ovenList);
     }
 
-    public int compareTo(Oven oven1, Oven oven2) {
-        if (!oven2.isBroken() && oven1.isBroken()) {
-            return -1;
-        } else if (oven2.isBroken() && !oven1.isBroken()) {
-            return 1;
-        }
-
-        int insertedOven = getTypePriority(oven2.getClass());
-        int thisOven = getTypePriority(oven1.getClass());
-
-        if (insertedOven != thisOven) {
-            return Integer.compare(thisOven, insertedOven);
-        } else if (oven2.getCreatedOrbsAmount() != oven1.getCreatedOrbsAmount()) {
-            return Integer.compare(oven1.getCreatedOrbsAmount(), oven2.getCreatedOrbsAmount());
-        } else if (!Objects.equals(oven2.getName(), oven1.getName())) {
-            return oven2.getName().compareTo(oven1.getName());
-        } else {
-            return 0;
-        }
-    }
-
-    private int getTypePriority(Class<? extends Oven> clazz) {
-        if (clazz.equals(SpaceOven.class)) {
-            return 4;
-        } else if (clazz.equals(InfinityMagicOven.class)) {
-            return 3;
-        } else if (clazz.equals(MagicOven.class)) {
-            return 2;
-        } else {
-            return 1; // Oven
-        }
-    }
 }
