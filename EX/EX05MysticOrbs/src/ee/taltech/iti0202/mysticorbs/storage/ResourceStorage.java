@@ -8,7 +8,13 @@ public class ResourceStorage {
     Map<String, Integer> takenOutResources = new HashMap<>();
 
     public boolean isEmpty() {
-        return resources.isEmpty();
+        for (Map.Entry<String, Integer> entry : resources.entrySet()) {
+            Integer resource = entry.getValue();
+            if (resource > 0) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
