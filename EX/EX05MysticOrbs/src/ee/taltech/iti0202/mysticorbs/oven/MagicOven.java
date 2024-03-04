@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public class MagicOven extends Oven implements Fixable {
 
-    public final int CLAY_NEEDED = 25;
+    public static final int CLAY_NEEDED = 25;
     public int fixed;
     private int magicNumber;
 
