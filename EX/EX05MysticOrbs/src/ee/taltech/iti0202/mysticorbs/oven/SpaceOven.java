@@ -55,7 +55,7 @@ public class SpaceOven extends Oven implements Fixable {
      * @return
      */
     public boolean isBroken() {
-        if (this.orbs - (this.fixed * MAXIMUM_ORBS) >= 25 && this.fixed < 5) {
+        if (this.orbs - (this.fixed * MAXIMUM_ORBS) >= MAXIMUM_ORBS && this.fixed < 5) {
             return true;
         }
         return false;
