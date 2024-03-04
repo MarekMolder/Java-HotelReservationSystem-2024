@@ -25,8 +25,12 @@ public class MagicOven extends Oven implements Fixable {
         fixed = 0;
     }
 
+    /**
+     * Method to check if oven is broken.
+     * @return
+     */
     public boolean isBroken() {
-        if (this.orbs - (this.fixed * 5) >= 5) {
+        if (this.orbs - (this.fixed * 5) >= 5 && this.fixed < 5) {
             return true;
         }
         return false;
