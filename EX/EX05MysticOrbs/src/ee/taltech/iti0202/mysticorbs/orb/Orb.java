@@ -30,10 +30,23 @@ public class Orb {
         return this.energy;
     }
 
+    /**
+     * Method to set energy.
+     * @param amount
+     * @return
+     */
     public int setEnergy(Integer amount) {
-        return this.energy = amount;
+        if (amount == null) {
+            return 0;
+        }
+        this.energy = amount;
+        return this.energy;
     }
 
+    /**
+     * Method to format a string.
+     * @return
+     */
     public String toString() {
         return String.format("Orb by %s", creator);
     }

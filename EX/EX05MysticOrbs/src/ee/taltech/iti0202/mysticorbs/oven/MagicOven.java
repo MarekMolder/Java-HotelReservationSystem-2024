@@ -13,6 +13,12 @@ public class MagicOven extends Oven implements Fixable {
     public static int fixed;
     private int magicNumber;
 
+    /**
+     * Constructs a new Oven with the specified name and resource storage.
+     * Is a specializzed oven that inherits from the base Oven class.
+     * @param name
+     * @param resourceStorage
+     */
     public MagicOven(String name, ResourceStorage resourceStorage) {
         super(name, resourceStorage);
         this.magicNumber = 0;
@@ -23,6 +29,10 @@ public class MagicOven extends Oven implements Fixable {
         return this.orbs >= 5;
     }
 
+    /**
+     * Method to make a new orb.
+     * @return
+     */
     public Optional<Orb> craftOrb() {
         if (!this.isBroken() && getResourceStorage().hasEnoughResource("gold".toLowerCase(), 1)
                 && getResourceStorage().hasEnoughResource("dust".toLowerCase(), 3)) {

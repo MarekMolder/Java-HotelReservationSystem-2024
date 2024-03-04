@@ -15,7 +15,6 @@ public class Oven implements Comparable<Oven> {
 
     /**
      * Constructs a new Oven with the specified name and resource storage.
-     * Is a specializzed oven that inherits from the base Oven class.
      * @param name
      * @param resourceStorage
      */

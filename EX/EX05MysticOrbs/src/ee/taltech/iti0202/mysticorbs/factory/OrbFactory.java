@@ -42,6 +42,10 @@ public class OrbFactory {
         return ovenList;
     }
 
+    /**
+     * Method to add orb in orbList.
+     * @param orb
+     */
     public static void addOrb(Orb orb) {
         orbList.add(orb);
     }
