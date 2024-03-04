@@ -7,6 +7,10 @@ public class ResourceStorage {
     Map<String, Integer> resources = new HashMap<>();
     Map<String, Integer> takenOutResources = new HashMap<>();
 
+    /**
+     * Method to check if list is empty.
+     * @return
+     */
     public boolean isEmpty() {
         for (Map.Entry<String, Integer> entry : resources.entrySet()) {
             Integer resource = entry.getValue();
