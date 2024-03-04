@@ -51,7 +51,10 @@ public class SpaceOven extends Oven implements Fixable {
     }
 
     public boolean isBroken() {
-        return this.orbs >= MAXIMUM_ORBS && this.fixed < 5;
+        if (this.orbs - (this.fixed * 25) >= 25) {
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -71,7 +74,6 @@ public class SpaceOven extends Oven implements Fixable {
                     } else {
                         getResourceStorage().takeResource("star essence", 10);
                     }
-                    this.orbs = 0;
                     this.fixed += 1;
                 }
             }

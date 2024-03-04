@@ -26,7 +26,10 @@ public class MagicOven extends Oven implements Fixable {
     }
 
     public boolean isBroken() {
-        return this.orbs >= 5;
+        if (this.orbs - (this.fixed * 5) >= 5) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -77,7 +80,6 @@ public class MagicOven extends Oven implements Fixable {
                 } else {
                     getResourceStorage().takeResource("clay", CLAY_NEEDED * multiplier);
                     getResourceStorage().takeResource("freezing powder", 100 * multiplier);
-                    this.orbs = 0;
                     fixed += 1;
                 }
             }
