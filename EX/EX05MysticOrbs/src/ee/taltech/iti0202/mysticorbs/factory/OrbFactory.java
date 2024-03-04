@@ -13,7 +13,7 @@ import java.util.Optional;
 
 public class OrbFactory {
     private List<Oven> ovenList;
-    public static List<Orb> orbList;
+    public List<Orb> orbList;
     public List<Oven> cannotFixOvens;
     private final ResourceStorage resourceStorage;
 
@@ -46,7 +46,7 @@ public class OrbFactory {
      * Method to add orb in orbList.
      * @param orb
      */
-    public static void addOrb(Orb orb) {
+    public void addOrb(Orb orb) {
         orbList.add(orb);
     }
 
