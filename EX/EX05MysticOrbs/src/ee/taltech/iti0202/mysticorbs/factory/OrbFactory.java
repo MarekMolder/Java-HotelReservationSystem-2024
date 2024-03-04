@@ -17,6 +17,10 @@ public class OrbFactory {
     public List<Oven> cannotFixOvens;
     private final ResourceStorage resourceStorage;
 
+    /**
+     * Constructs a new Orbfactory with the specified resource storage.
+     * @param resourceStorage
+     */
     public OrbFactory(ResourceStorage resourceStorage) {
         this.resourceStorage = resourceStorage;
         this.ovenList = new ArrayList<>();
@@ -24,6 +28,10 @@ public class OrbFactory {
         this.cannotFixOvens = new ArrayList<>();
     }
 
+    /**
+     * Method to add oven into factory.
+     * @param oven
+     */
     public void addOven(Oven oven) {
         if (!ovenList.contains(oven) && oven.getResourceStorage() == resourceStorage) {
             ovenList.add(oven);
@@ -38,8 +46,12 @@ public class OrbFactory {
         orbList.add(orb);
     }
 
+    /**
+     * Method to get and clear produced Orbs List.
+     * @return
+     */
     public List<Orb> getAndClearProducedOrbsList() {
-        if(!orbList.isEmpty()) {
+        if (!orbList.isEmpty()) {
             List<Orb> result = new ArrayList<>(orbList);
             orbList.clear();
             return result;
@@ -47,6 +59,10 @@ public class OrbFactory {
         return orbList;
     }
 
+    /**
+     * Method to produce Orbs.
+     * @return
+     */
     public int produceOrbs() {
         for (Oven oven : ovenList) {
             if (oven.isBroken()) {
@@ -74,6 +90,11 @@ public class OrbFactory {
         return orbList.size();
     }
 
+    /**
+     * Method to produce Orbs in cycles.
+     * @param cycles
+     * @return
+     */
     public int produceOrbs(int cycles) {
         for (int i = 0; i < cycles; i++) {
             for (Oven oven: ovenList) {
@@ -103,6 +124,10 @@ public class OrbFactory {
         return orbList.size();
     }
 
+    /**
+     * Method to get ovens that cannot be fixed.
+     * @return
+     */
     public List<Oven> getOvensThatCannotBeFixed() {
         for (Oven oven : ovenList) {
             if (!cannotFixOvens.contains(oven)) {
@@ -116,6 +141,9 @@ public class OrbFactory {
         return cannotFixOvens;
     }
 
+    /**
+     * Method to get rid of Ovens that cannot be fixed.
+     */
     public void getRidOfOvensThatCannotBeFixed() {
         for (Oven oven : cannotFixOvens) {
             ovenList.remove(oven);
@@ -123,6 +151,9 @@ public class OrbFactory {
         cannotFixOvens.clear();
     }
 
+    /**
+     * Method to optimize Ovens Order
+     */
     public void optimizeOvensOrder() {
         ovenList.sort(Comparable::compareTo);
         ovenList.reversed();

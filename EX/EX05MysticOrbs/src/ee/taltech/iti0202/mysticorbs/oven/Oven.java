@@ -8,10 +8,17 @@ import java.util.Optional;
 
 public class Oven implements Comparable<Oven> {
 
+    public static final int MAXIMUM_ORBS = 15;
     private final String name;
     private final ResourceStorage resourceStorage;
     public int orbs;
 
+    /**
+     * Constructs a new Oven with the specified name and resource storage.
+     * Is a specializzed oven that inherits from the base Oven class.
+     * @param name
+     * @param resourceStorage
+     */
     public Oven(String name, ResourceStorage resourceStorage) {
         this.name = name;
         this.resourceStorage = resourceStorage;
@@ -31,9 +38,13 @@ public class Oven implements Comparable<Oven> {
     }
 
     public boolean isBroken() {
-        return this.orbs >= 15;
+        return this.orbs >= MAXIMUM_ORBS;
     }
 
+    /**
+     * Method for making an orb.
+     * @return Optional.of(orb)
+     */
     public Optional<Orb> craftOrb() {
         if (!this.isBroken() && resourceStorage.hasEnoughResource("pearl".toLowerCase(), 1)
                 && resourceStorage.hasEnoughResource("silver".toLowerCase(), 1)) {
@@ -49,6 +60,11 @@ public class Oven implements Comparable<Oven> {
         }
     }
 
+    /**
+     * Method that helps to compare ovens.
+     * @param o the object to be compared.
+     * @return
+     */
     public int compareTo(Oven o) {
         if (!o.isBroken() && this.isBroken()) {
             return -1;
@@ -61,11 +77,11 @@ public class Oven implements Comparable<Oven> {
 
         if (insertedOven != thisOven) {
             return Integer.compare(thisOven, insertedOven);
-        }else if (this.getCreatedOrbsAmount() != o.getCreatedOrbsAmount()) {
+        } else if (this.getCreatedOrbsAmount() != o.getCreatedOrbsAmount()) {
             return Integer.compare(o.getCreatedOrbsAmount(), this.getCreatedOrbsAmount());
         } else if (!Objects.equals(this.name, o.name)) {
             return this.name.compareTo(o.name);
-        }else {
+        } else {
             return 0;
         }
     }

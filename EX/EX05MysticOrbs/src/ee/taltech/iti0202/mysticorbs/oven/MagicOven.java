@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public class MagicOven extends Oven implements Fixable {
 
+    public static final int CLAY_NEEDED = 25;
     public static int fixed;
     private int magicNumber;
 
@@ -49,23 +50,23 @@ public class MagicOven extends Oven implements Fixable {
 
     @Override
     public void fix() throws CannotFixException {
-        int Multiplier = (fixed == 0) ? 1 : fixed;
+        int multiplier = (fixed == 0) ? 1 : fixed;
         if (!this.isBroken()) {
             throw new CannotFixException(this, CannotFixException.Reason.IS_NOT_BROKEN);
         } else {
             if (fixed > 10) {
                 throw new CannotFixException(this, CannotFixException.Reason.FIXED_MAXIMUM_TIMES);
             } else {
-                if (!getResourceStorage().hasEnoughResource("clay", 25 * Multiplier)
-                        && getResourceStorage().hasEnoughResource("freezing powder", 100 * Multiplier)
-                        || !getResourceStorage().hasEnoughResource("clay", 25 * Multiplier)
-                        && !getResourceStorage().hasEnoughResource("freezing powder", 100 * Multiplier)
-                        || getResourceStorage().hasEnoughResource("clay", 25 * Multiplier)
-                        && !getResourceStorage().hasEnoughResource("freezing powder", 100 * Multiplier)) {
+                if (!getResourceStorage().hasEnoughResource("clay", CLAY_NEEDED * multiplier)
+                        && getResourceStorage().hasEnoughResource("freezing powder", 100 * multiplier)
+                        || !getResourceStorage().hasEnoughResource("clay", CLAY_NEEDED * multiplier)
+                        && !getResourceStorage().hasEnoughResource("freezing powder", 100 * multiplier)
+                        || getResourceStorage().hasEnoughResource("clay", CLAY_NEEDED * multiplier)
+                        && !getResourceStorage().hasEnoughResource("freezing powder", 100 * multiplier)) {
                     throw new CannotFixException(this, CannotFixException.Reason.NOT_ENOUGH_RESOURCES);
                 } else {
-                    getResourceStorage().takeResource("clay", 25 * Multiplier);
-                    getResourceStorage().takeResource("freezing powder", 100 * Multiplier);
+                    getResourceStorage().takeResource("clay", CLAY_NEEDED * multiplier);
+                    getResourceStorage().takeResource("freezing powder", 100 * multiplier);
                     this.orbs = 0;
                     fixed += 1;
                 }

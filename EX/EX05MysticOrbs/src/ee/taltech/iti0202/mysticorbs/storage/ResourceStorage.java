@@ -11,6 +11,11 @@ public class ResourceStorage {
         return resources.isEmpty();
     }
 
+    /**
+     * Method to add resources.
+     * @param resource
+     * @param amount
+     */
     public void addResource(String resource, int amount) {
         if (amount > 0) {
             if (!resource.isEmpty() && !resource.trim().isEmpty()) {
@@ -23,6 +28,11 @@ public class ResourceStorage {
         }
     }
 
+    /**
+     * Method to get resources amount.
+     * @param resource
+     * @return
+     */
     public int getResourceAmount(String resource) {
         if (resources.containsKey(resource.toLowerCase())) {
             return resources.get(resource.toLowerCase());
@@ -30,6 +40,12 @@ public class ResourceStorage {
         return 0;
     }
 
+    /**
+     * Method to check resources.
+     * @param resource
+     * @param amount
+     * @return
+     */
     public boolean hasEnoughResource(String resource, int amount) {
         if (resources.containsKey(resource.toLowerCase())) {
             if (amount < 1) {
@@ -41,6 +57,12 @@ public class ResourceStorage {
         return false;
     }
 
+    /**
+     * Method to take resources out.
+     * @param resource
+     * @param amount
+     * @return
+     */
     public boolean takeResource(String resource, int amount) {
         if (amount > 0) {
             if (resources.get(resource.toLowerCase()) >= amount) {
