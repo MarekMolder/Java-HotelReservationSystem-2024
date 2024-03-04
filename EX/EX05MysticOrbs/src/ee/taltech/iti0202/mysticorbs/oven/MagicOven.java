@@ -67,23 +67,22 @@ public class MagicOven extends Oven implements Fixable {
 
     @Override
     public void fix() throws CannotFixException {
-        int multiplier = (fixed == 0) ? 1 : fixed;
         if (!this.isBroken()) {
             throw new CannotFixException(this, CannotFixException.Reason.IS_NOT_BROKEN);
         } else {
             if (fixed >= 10) {
                 throw new CannotFixException(this, CannotFixException.Reason.FIXED_MAXIMUM_TIMES);
             } else {
-                if (!getResourceStorage().hasEnoughResource("clay", CLAY_NEEDED * multiplier)
-                        && getResourceStorage().hasEnoughResource("freezing powder", 100 * multiplier)
-                        || !getResourceStorage().hasEnoughResource("clay", CLAY_NEEDED * multiplier)
-                        && !getResourceStorage().hasEnoughResource("freezing powder", 100 * multiplier)
-                        || getResourceStorage().hasEnoughResource("clay", CLAY_NEEDED * multiplier)
-                        && !getResourceStorage().hasEnoughResource("freezing powder", 100 * multiplier)) {
+                if (!getResourceStorage().hasEnoughResource("clay", CLAY_NEEDED * (fixed + 1))
+                        && getResourceStorage().hasEnoughResource("freezing powder", 100 * (fixed + 1))
+                        || !getResourceStorage().hasEnoughResource("clay", CLAY_NEEDED * (fixed + 1))
+                        && !getResourceStorage().hasEnoughResource("freezing powder", 100 * (fixed + 1))
+                        || getResourceStorage().hasEnoughResource("clay", CLAY_NEEDED * (fixed + 1))
+                        && !getResourceStorage().hasEnoughResource("freezing powder", 100 * (fixed + 1))) {
                     throw new CannotFixException(this, CannotFixException.Reason.NOT_ENOUGH_RESOURCES);
                 } else {
-                    getResourceStorage().takeResource("clay", CLAY_NEEDED * multiplier);
-                    getResourceStorage().takeResource("freezing powder", 100 * multiplier);
+                    getResourceStorage().takeResource("clay", CLAY_NEEDED * (fixed + 1));
+                    getResourceStorage().takeResource("freezing powder", 100 * (fixed + 1));
                     fixed += 1;
                 }
             }
