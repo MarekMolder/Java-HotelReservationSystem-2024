@@ -41,7 +41,6 @@ public class AnimalShelter {
             for (Animal animal : providedAnimals) {
                 if (!uniqueList.contains(animal) && Objects.equals(animal.getColor(), color)) {
                     uniqueList.add(animal);
-                    animalList.add(animal);
 
                     if (uniqueList.size() == count) {
                         break;
