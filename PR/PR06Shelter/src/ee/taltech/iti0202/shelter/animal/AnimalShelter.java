@@ -1,7 +1,7 @@
-package ee.taltech.iti0202.shelter;
+package ee.taltech.iti0202.shelter.animal;
 
 import ee.taltech.iti0202.shelter.animal.Animal;
-import ee.taltech.iti0202.shelter.animalprovider.AnimalProvider;
+import ee.taltech.iti0202.shelter.animal.AnimalProvider;
 
 import java.util.*;
 

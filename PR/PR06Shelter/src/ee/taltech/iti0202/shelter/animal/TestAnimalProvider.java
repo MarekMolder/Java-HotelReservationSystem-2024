@@ -1,6 +1,7 @@
-package ee.taltech.iti0202.shelter.animalprovider;
+package ee.taltech.iti0202.shelter.animal;
 
 import ee.taltech.iti0202.shelter.animal.Animal;
+import ee.taltech.iti0202.shelter.animal.AnimalProvider;
 import ee.taltech.iti0202.shelter.animal.Hirola;
 
 import java.util.ArrayList;

@@ -1,7 +1,4 @@
-package ee.taltech.iti0202.shelter;
-
-import ee.taltech.iti0202.shelter.animal.Animal;
-import ee.taltech.iti0202.shelter.animalprovider.TestAnimalProvider;
+package ee.taltech.iti0202.shelter.animal;
 
 public class TestAnimalShelter {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package ee.taltech.iti0202.shelter.animalprovider;
+package ee.taltech.iti0202.shelter.animal;
 
 import ee.taltech.iti0202.shelter.animal.Animal;
 
