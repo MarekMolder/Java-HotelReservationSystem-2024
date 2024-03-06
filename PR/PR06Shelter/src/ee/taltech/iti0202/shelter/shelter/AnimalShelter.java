@@ -3,11 +3,19 @@ package ee.taltech.iti0202.shelter.shelter;
 import ee.taltech.iti0202.shelter.animal.Animal;
 import ee.taltech.iti0202.shelter.animalprovider.AnimalProvider;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 public class AnimalShelter {
     private final AnimalProvider animalProvider;
 
+    /**
+     * Constructs a new Animal shelter with the specified animal provider.
+     * @param animalProvider
+     */
     public AnimalShelter(AnimalProvider animalProvider) {
         this.animalProvider = animalProvider;
     }

@@ -7,6 +7,10 @@ public abstract class Animal {
     }
     private String color;
 
+    /**
+     * Constructs a new Animal with the specified color.
+     * @param color
+     */
     public Animal(String color) {
         this.color = color;
     }
