@@ -32,33 +32,35 @@ public class MorseTranslator {
         return translatedList;
     }
 
-    private String translateLineToMorse(String line) {
+    public String translateLineToMorse(String line) {
         StringBuilder translated = new StringBuilder(new String());
         String[] parts = line.split(" ");
         for (String word : parts) {
             if (!translated.isEmpty()) {
+                translated.deleteCharAt(translated.length() - 1);
                 translated.append("\t");
             }
-            for (char c : word.toCharArray()) {
-                if (morseCodeMap.containsKey(c)) {
-                    translated.append(morseCodeMap.get(c));
-                    translated.append(" ");
-                }
+            String[] letter = word.split("");
+            for (String c : letter) {
+                translated.append(morseCodeMap.get(c));
+                translated.append(" ");
             }
         }
-        return translated.toString();
+        return translated.toString().trim();
     }
 
-    private String translateLineFromMorse(String line) {
+    public String translateLineFromMorse(String line) {
         StringBuilder translated = new StringBuilder(new String());
         String[] parts = line.split("\t");
         for (String word : parts) {
             if (!translated.isEmpty()) {
                 translated.append(" ");
             }
-            for (char c : word.toCharArray()) {
+            String[] letters = word.split(" ");
+            for (String letter : letters) {
                 for (Map.Entry<String, String> entry : morseCodeMap.entrySet()) {
-                    translated.append(entry.getKey());
+                    if (entry.getValue().equals(letter))
+                        translated.append(entry.getKey());
                 }
             }
         }
