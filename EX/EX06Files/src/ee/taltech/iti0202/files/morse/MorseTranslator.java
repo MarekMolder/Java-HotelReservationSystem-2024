@@ -6,14 +6,16 @@ import java.util.List;
 import java.util.Map;
 
 public class MorseTranslator {
-    Map<String, String> morseCodeMap = new HashMap<>();
+    Map<String, String> morseCodeMapLower = new HashMap<>();
+    Map<String, String> morseCodeMapUpper = new HashMap<>();
 
     public Map<String, String> addMorseCodes(List<String> lines) {
         for (String letter : lines) {
             String[] half = letter.split(" ");
-            morseCodeMap.put(half[0].toLowerCase(), half[1].toLowerCase());
+            morseCodeMapLower.put(half[0].toLowerCase(), half[1].toLowerCase());
+            morseCodeMapUpper.put(half[0].toUpperCase(), half[1].toUpperCase());
         }
-        return morseCodeMap;
+        return morseCodeMapLower;
     }
 
     public List<String> translateLinesToMorse(List<String> lines) {
@@ -42,8 +44,13 @@ public class MorseTranslator {
             }
             String[] letter = word.split("");
             for (String c : letter) {
-                translated.append(morseCodeMap.get(c));
-                translated.append(" ");
+                if (morseCodeMapLower.containsKey(c)) {
+                    translated.append(morseCodeMapLower.get(c));
+                    translated.append(" ");
+                } else {
+                    translated.append(morseCodeMapUpper.get(c));
+                    translated.append(" ");
+                }
             }
         }
         return translated.toString().trim();
@@ -58,7 +65,7 @@ public class MorseTranslator {
             }
             String[] letters = word.split(" ");
             for (String letter : letters) {
-                for (Map.Entry<String, String> entry : morseCodeMap.entrySet()) {
+                for (Map.Entry<String, String> entry : morseCodeMapLower.entrySet()) {
                     if (entry.getValue().equals(letter))
                         translated.append(entry.getKey());
                 }
