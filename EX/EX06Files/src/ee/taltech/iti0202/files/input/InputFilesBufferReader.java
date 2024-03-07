@@ -18,8 +18,8 @@ public class InputFilesBufferReader implements InputFilesReader {
             String line = reader.readLine();
 
             while (line != null) {
-                line = reader.readLine();
                 lines.add(line);
+                line = reader.readLine();
             }
 
             reader.close();
