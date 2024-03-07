@@ -9,6 +9,11 @@ public class MorseTranslator {
     Map<String, String> morseCodeMapLower = new HashMap<>();
     Map<String, String> morseCodeMapUpper = new HashMap<>();
 
+    /**
+     * Method to read morse code into a Map.
+     * @param lines
+     * @return
+     */
     public Map<String, String> addMorseCodes(List<String> lines) {
         for (String letter : lines) {
             String[] half = letter.split(" ");
@@ -18,6 +23,11 @@ public class MorseTranslator {
         return morseCodeMapLower;
     }
 
+    /**
+     * Method to translate lines into morse.
+     * @param lines
+     * @return
+     */
     public List<String> translateLinesToMorse(List<String> lines) {
         List<String> translatedList = new ArrayList<>();
         for (String line : lines) {
@@ -26,6 +36,11 @@ public class MorseTranslator {
         return translatedList;
     }
 
+    /**
+     * Method to translate lines from morse.
+     * @param lines
+     * @return
+     */
     public List<String> translateLinesFromMorse(List<String> lines) {
         List<String> translatedList = new ArrayList<>();
         for (String line : lines) {
@@ -34,6 +49,11 @@ public class MorseTranslator {
         return translatedList;
     }
 
+    /**
+     * Method to translate line into morse.
+     * @param line
+     * @return
+     */
     public String translateLineToMorse(String line) {
         StringBuilder translated = new StringBuilder(new String());
         String[] parts = line.split(" ");
@@ -56,6 +76,11 @@ public class MorseTranslator {
         return translated.toString().trim();
     }
 
+    /**
+     * Method to translate line from morse.
+     * @param line
+     * @return
+     */
     public String translateLineFromMorse(String line) {
         StringBuilder translated = new StringBuilder(new String());
         String[] parts = line.split("\t");
@@ -66,8 +91,9 @@ public class MorseTranslator {
             String[] letters = word.split(" ");
             for (String letter : letters) {
                 for (Map.Entry<String, String> entry : morseCodeMapLower.entrySet()) {
-                    if (entry.getValue().equals(letter))
+                    if (entry.getValue().equals(letter)) {
                         translated.append(entry.getKey());
+                    }
                 }
             }
         }

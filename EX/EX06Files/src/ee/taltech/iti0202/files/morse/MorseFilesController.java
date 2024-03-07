@@ -1,8 +1,7 @@
-package ee.taltech.iti0202.files;
+package ee.taltech.iti0202.files.morse;
 
 import ee.taltech.iti0202.files.input.InputFilesBufferReader;
 import ee.taltech.iti0202.files.input.InputFilesScanner;
-import ee.taltech.iti0202.files.morse.MorseTranslator;
 import ee.taltech.iti0202.files.output.OutputFilesWriter;
 
 import java.util.List;
@@ -12,7 +11,7 @@ public class MorseFilesController {
 
     public static void main(String[] args) {
         InputFilesScanner scanner = new InputFilesScanner();
-        List<String> lines = scanner.readTextFromFile("morse.txt");
+        List<String> lines = scanner.readTextFromFile("test-file.txt");
         lines.forEach(System.out::println); //lines in morse.txt which contains Morse codes
 
         InputFilesBufferReader bufferReader = new InputFilesBufferReader();

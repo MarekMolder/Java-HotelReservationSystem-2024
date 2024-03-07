@@ -7,6 +7,12 @@ import java.util.List;
 
 public class OutputFilesWriter {
 
+    /**
+     * Method to write lines into file.
+     * @param lines
+     * @param filename
+     * @return
+     */
     public boolean writeLinesToFile(List<String> lines, String filename) {
         if (filename.isEmpty()) {
             return false;
