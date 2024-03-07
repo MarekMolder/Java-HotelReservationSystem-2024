@@ -21,7 +21,7 @@ public class InputFilesLines implements InputFilesReader {
 
         } catch (FileReaderException | IOException e) {
             e.getCause();
-            throw new FileReaderException("no such file", e);
+            throw new FileReaderException("No such file", e);
         }
         return text;
     }
