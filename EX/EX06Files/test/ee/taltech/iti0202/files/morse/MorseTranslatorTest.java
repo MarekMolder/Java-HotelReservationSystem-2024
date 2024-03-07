@@ -32,8 +32,8 @@ class MorseTranslatorTest {
     @Test
     public void testTranslateLinesToMorse() {
         translator.addMorseCodes(lines.readTextFromFile("morse.txt"));
-        List<String> expected = new ArrayList<>(Arrays.asList("- . .-. .\t... .-\t--- .-.. . -.. --..--\t-.- --- .-.. ."
-                , "-- .. ...\t... ..-\t-. .. -- ..\t--- -. ..--.."));
+        List<String> expected = new ArrayList<>(Arrays.asList
+                ("- . .-. .\t... .-\t--- .-.. . -.. --..--\t-.- --- .-.. .", "-- .. ...\t... ..-\t-. .. -- ..\t--- -. ..--.."));
         List<String> result = translator.translateLinesToMorse(new ArrayList<>(Arrays.asList("tere sa oled, kole"
                 , "mis su nimi on?")));
         assertEquals(expected, result);
@@ -44,18 +44,17 @@ class MorseTranslatorTest {
         translator.addMorseCodes(lines.readTextFromFile("morse.txt"));
         List<String> expected = new ArrayList<>(Arrays.asList("tere sa oled, kole"
                 , "mis su nimi on?"));
-        List<String> result = translator.translateLinesFromMorse(new ArrayList<>(Arrays.asList("- . .-. .\t... .-\t--- .-.. . -.. --..--\t-.- --- .-.. ."
-                , "-- .. ...\t... ..-\t-. .. -- ..\t--- -. ..--..")));
+        List<String> result = translator.translateLinesFromMorse(new ArrayList<>(Arrays.asList
+                ("- . .-. .\t... .-\t--- .-.. . -.. --..--\t-.- --- .-.. .", "-- .. ...\t... ..-\t-. .. -- ..\t--- -. ..--..")));
         assertEquals(expected, result);
     }
 
     @Test
     public void testTranslateLineToMorseUpper() {
         translator.addMorseCodes(lines.readTextFromFile("morse.txt"));
-        List<String> expected = new ArrayList<>(Arrays.asList("- . .-. .\t... .-\t--- .-.. . -.. --..--\t-.- --- .-.. ."
-                , "-- .. ...\t... ..-\t-. .. -- ..\t--- -. ..--.."));
-        List<String> result = translator.translateLinesToMorse(new ArrayList<>(Arrays.asList("TERE sa oled, kole"
-                , "mis su nimi on?")));
+        List<String> expected = new ArrayList<>(Arrays.asList
+                ("- . .-. .\t... .-\t--- .-.. . -.. --..--\t-.- --- .-.. .", "-- .. ...\t... ..-\t-. .. -- ..\t--- -. ..--.."));
+        List<String> result = translator.translateLinesToMorse(new ArrayList<>(Arrays.asList("TERE sa oled, kole", "mis su nimi on?")));
         assertEquals(expected, result);
     }
 }

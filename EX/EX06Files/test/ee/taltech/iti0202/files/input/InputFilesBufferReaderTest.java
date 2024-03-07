@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class InputFilesBufferReaderTest {
     InputFilesBufferReader lines = new InputFilesBufferReader();
@@ -16,8 +16,7 @@ class InputFilesBufferReaderTest {
     @Test
     public void testReadTextFromFile() {
         write.writeLinesToFile(new ArrayList<>(Arrays.asList("tere sa oled, kole", "mis su nimi on?")), "test.txt");
-        List<String> expected = new ArrayList<>(Arrays.asList("tere sa oled, kole"
-                , "mis su nimi on?"));
+        List<String> expected = new ArrayList<>(Arrays.asList("tere sa oled, kole", "mis su nimi on?"));
         List<String> result = lines.readTextFromFile("test.txt");
         assertEquals(expected, result);
     }

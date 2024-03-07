@@ -7,7 +7,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class InputFilesScannerTest {
     InputFilesScanner lines = new InputFilesScanner();
@@ -16,8 +17,7 @@ class InputFilesScannerTest {
     @Test
     public void testWriteLinesToFile() {
         write.writeLinesToFile(new ArrayList<>(Arrays.asList("tere sa oled, kole", "mis su nimi on?")), "test.txt");
-        List<String> expected = new ArrayList<>(Arrays.asList("tere sa oled, kole"
-                , "mis su nimi on?"));
+        List<String> expected = new ArrayList<>(Arrays.asList("tere sa oled, kole", "mis su nimi on?"));
         List<String> result = lines.readTextFromFile("test.txt");
         assertEquals(expected, result);
     }
