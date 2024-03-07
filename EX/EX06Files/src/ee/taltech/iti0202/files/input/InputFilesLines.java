@@ -18,6 +18,7 @@ public class InputFilesLines implements InputFilesReader {
 
         } catch (FileReaderException | IOException e) {
             e.getCause();
+            return null;
         }
         return text;
     }

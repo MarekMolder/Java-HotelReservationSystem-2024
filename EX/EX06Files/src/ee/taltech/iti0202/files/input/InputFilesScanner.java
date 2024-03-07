@@ -20,6 +20,7 @@ public class InputFilesScanner implements InputFilesReader {
                 s.close();
             } catch (FileReaderException | IOException e) {
             e.getCause();
+            return null;
         }
         return lines;
     }

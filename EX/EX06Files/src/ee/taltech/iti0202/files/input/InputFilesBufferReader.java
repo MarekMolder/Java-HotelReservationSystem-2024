@@ -25,6 +25,7 @@ public class InputFilesBufferReader implements InputFilesReader {
             reader.close();
         } catch (FileReaderException | IOException e) {
             e.getCause();
+            return null;
         }
         return lines;
     }
