@@ -10,6 +10,9 @@ public class InputFilesScanner implements InputFilesReader {
 
     @Override
     public List<String> readTextFromFile(String filename) {
+        if (filename == null) {
+            return null;
+        }
         List<String> lines = new ArrayList<>();
         try {
             Scanner s = new Scanner(new File(filename));
@@ -19,8 +22,7 @@ public class InputFilesScanner implements InputFilesReader {
                 }
                 s.close();
             } catch (FileReaderException | IOException e) {
-            e.getCause();
-            return null;
+            throw new FileReaderException("no such file", e);
         }
         return lines;
     }
