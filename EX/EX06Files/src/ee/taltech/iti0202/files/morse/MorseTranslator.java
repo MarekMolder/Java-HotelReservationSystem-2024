@@ -12,6 +12,7 @@ public class MorseTranslator {
         for (String letter : lines) {
             String[] half = letter.split(" ");
             morseCodeMap.put(half[0].toLowerCase(), half[1].toLowerCase());
+            morseCodeMap.put(half[0].toUpperCase(), half[1].toUpperCase());
         }
         return morseCodeMap;
     }
