@@ -40,22 +40,22 @@ public class AnimalShelter {
         List<Animal> animalList = new ArrayList<>();
         Set<Animal> uniqueList = new HashSet<>();
 
-        while (uniqueList.size() < count) {
+        while (animalList.size() < count) {
             List<Animal> providedAnimals = animalProvider.provide(animalType);
             if (providedAnimals.isEmpty()) {
                 break;
             }
 
             for (Animal animal : providedAnimals) {
-                if (!uniqueList.contains(animal) && Objects.equals(animal.getColor(), color)) {
-                    uniqueList.add(animal);
+                if (!animalList.contains(animal) && Objects.equals(animal.getColor(), color)) {
+                    animalList.add(animal);
+
+                    if (animalList.size() == count) {
+                        break;
                     }
-                if (uniqueList.size() == count) {
-                    break;
                 }
             }
         }
-        animalList.addAll(uniqueList);
         return animalList;
     }
 }
