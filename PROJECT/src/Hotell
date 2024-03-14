@@ -1,0 +1,18 @@
+# Hotell
+
+Hotellis on toad
+Igal toal on erinev number
+Toal on erinevad tüübid, millest sõltub hind. Realiseeri vähemalt 3 erinevat tüüpi.
+Toal on hind
+Üks tuba võib olla vaid ühes hotellis
+Klient saab toa broneerida kindlaks päevaks (kasuta näiteks LocalDate)
+Tuba saab broneerida, kui see on valitud päevaks vaba
+Broneeringu saab tühistada
+Broneeringu saab teha vaid siis, kui kliendil on piisavalt raha
+Klient saab kirjutada hotelli kohta tagasiside
+Tagasiside on tekst ja hinnang 5-palli skaalal
+Tagasiside saab kirjutada vaid klient, kellel on broneering hotellis
+Hotellis on meetod klientide järjestamiseks. Eespool on kliendid, kes on rohkem tube broneerinud hotellis. Kui broneeritud tubade arv on sama, siis on eespool kliendid, kelle hinnangud selle hotelli kohta on kõrgema skooriga.
+Hotellil on ülevaade tubadest, klientidest, broneeringutest ja hinnangutest ning keskmisest hinnangust
+Kliendil on ülevaade tema broneeringutest ja tagasisidedest
+Hotellis saab otsida vabu tube vastavalt kuupäevale ja/või tüübile
