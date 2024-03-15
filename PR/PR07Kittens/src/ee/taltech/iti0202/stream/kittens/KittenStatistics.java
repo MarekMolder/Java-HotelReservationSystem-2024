@@ -24,7 +24,8 @@ public class KittenStatistics {
     }
 
     public List<Kitten> findYoungestKittens() {
-        return kittens.stream().min(Comparator.comparingInt(Kitten::getAge)).stream().collect(Collectors.toList());
+        int minAge = kittens.stream().min(Comparator.comparingInt(Kitten::getAge)).get().getAge();
+        return kittens.stream().filter(kitten -> kitten.getAge() == minAge).collect(Collectors.toList());
     }
 
     public List<Kitten> findKittensAccordingToGender(final Kitten.Gender gender) {
@@ -36,14 +37,14 @@ public class KittenStatistics {
     }
 
     public Optional<Kitten> findFirstKittenWithGivenName(final String givenName) {
-        return kittens.stream().filter(kitten -> kitten.getName().equals(givenName)).findFirst();
+        return kittens.stream().filter(kitten -> kitten.getName().equalsIgnoreCase(givenName)).findFirst();
     }
 
     public List<Kitten> kittensSortedByAgeYoungerFirst() {
-        return kittens.stream().sorted().min(Comparator.comparingInt(Kitten::getAge)).stream().collect(Collectors.toList());
+        return kittens.stream().sorted(Comparator.comparingInt(Kitten::getAge)).collect(Collectors.toList());
     }
 
     public List<Kitten> kittensSortedByAgeOlderFirst() {
-        return kittens.stream().sorted().max(Comparator.comparingInt(Kitten::getAge)).stream().collect(Collectors.toList());
+        return kittens.stream().sorted(Comparator.comparingInt(Kitten::getAge).reversed()).collect(Collectors.toList());
     }
 }
