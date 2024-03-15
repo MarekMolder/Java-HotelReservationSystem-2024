@@ -6,6 +6,12 @@ public class Kitten {
     private final String name;
     private final int age;
 
+    /**
+     * Constructs a new Kitten with the specified name, gender and age.
+     * @param name
+     * @param gender
+     * @param age
+     */
     public Kitten(final String name, final Gender gender, final int age) {
         this.name = name;
         this.gender = gender;
@@ -24,5 +30,7 @@ public class Kitten {
         return gender;
     }
 
-    public enum Gender {MALE, FEMALE}
+    public enum Gender {
+        MALE, FEMALE
+    }
 }
