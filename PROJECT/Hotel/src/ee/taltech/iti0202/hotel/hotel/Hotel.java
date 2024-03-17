@@ -10,15 +10,12 @@ import java.util.*;
 public class Hotel {
 
     public Set<Room> hotelRooms = new HashSet<>();
-    public Map<Client, Integer> hotelClientsWithScore = new HashMap<>();
-    public List<Client> hotelClients = new ArrayList<>();
-    public Map<Client, Integer> bestClient = new HashMap<>();
+    public Set<Client> hotelClients = new HashSet<>();
+    public Map<Client, Integer> hotelClientBooking = new HashMap<>();
 
-    public Map<String, Integer> hotelReviewsAnonymus = new HashMap<>();
+    public Map<Client, List<Object>> hotelReviews = new HashMap<>();
 
-    public Map<Client, Integer> hotelReviews = new HashMap<>();
-
-    public ArrayList<Booking> hotelBooked = new ArrayList<>();
+    public ArrayList<Booking> hotelBookings = new ArrayList<>();
 
 
     public Boolean addRoomToHotel(Room room) {
@@ -35,35 +32,34 @@ public class Hotel {
         return hotelRooms;
     }
 
-    public Map<Client, Integer> getClientsWithScore() {
-        return hotelClientsWithScore;
-    }
-
-    public List<Client> getClients() {
+    public Set<Client> getClients() {
         return hotelClients;
     }
 
-    public Map<String, Integer> getReviews() {
-        return hotelReviewsAnonymus;
+    public Map<Client, List<Object>> getHotelReviews() {
+        return hotelReviews;
     }
 
+
     public Integer getReviewsScore() {
-        int sum = hotelReviews.values().stream().mapToInt(i -> i).sum();
-        return sum / hotelReviews.size();
+        int sum = 0;
+        int count = 0;
+        for (List<Object> score : hotelReviews.values()) {
+            sum += (int) score.get(1);
+            count++;
+        }
+        return sum / count;
     }
 
     public ArrayList<Booking> getBooking() {
-        return hotelBooked;
+        return hotelBookings;
     }
 
-    /*
-    Class muuda standardroomiks, kasutada castingut
-     */
     public List<Room> LookUpFreeRoomType(Class room, LocalDate date) {
         List<Room> hotelSearchRoom = new ArrayList<>();
         for (Room suit : hotelRooms) {
             if (room.equals(suit.getClass())) {
-                for (Booking booking : hotelBooked) {
+                for (Booking booking : hotelBookings) {
                     if (booking.getRoom() != suit && booking.getDate() != date) {
                         hotelSearchRoom.add(suit);
                     }
@@ -78,7 +74,7 @@ public class Hotel {
     public List<Room> LookUpFreeRoomDate(LocalDate date) {
         List<Room> hotelSearchRoom = new ArrayList<>();
         for (Room suit : hotelRooms) {
-            for (Booking booking : hotelBooked) {
+            for (Booking booking : hotelBookings) {
                 if (booking.getRoom() != suit && booking.getDate() != date) {
                     hotelSearchRoom.add(suit);
                 }

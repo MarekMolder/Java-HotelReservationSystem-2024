@@ -21,23 +21,25 @@ public class Client {
         this.clientBookings = new ArrayList<>();
     }
 
-    public boolean writeReview(String review, Integer score, Hotel hotel) {
-        for (Booking booking : hotel.hotelBooked) {
-            if (booking.getClient() == this) {
-                if (score >= 1 && score <= 5 && !review.isEmpty()) {
-                    this.clientReviews.put(review, score);
-                    hotel.hotelReviewsAnonymus.put(review, score);
-                    hotel.hotelReviews.put(this, score);
-                    hotel.bestClient.put(this, score);
-                    return true;
-                }
+    public boolean writeReview(String review, int score, Hotel hotel) {
+        List<Object> clientReview = new ArrayList<>();
+        if (hotel.hotelClients.contains(this) && !hotel.hotelReviews.containsKey(this)) {
+            if (score >= 1 && score <= 5 && !review.isEmpty()) {
+                clientReview.add(review);
+                clientReview.add(score);
+                this.clientReviews.put(review, score);
+                hotel.hotelReviews.put(this, clientReview);
+                return true;
             }
         }
         return false;
     }
 
+    /*
+    Saab mitmeks päevaks bronnida
+     */
     public Optional<Booking> bookRoom(Room room, LocalDate date, Hotel hotel) {
-        for (Booking hotelBooking : hotel.hotelBooked) {
+        for (Booking hotelBooking : hotel.hotelBookings) {
             if (hotelBooking.getDate().equals(date) && hotelBooking.getRoom().equals(room)) {
                 return Optional.empty();
             }
@@ -46,15 +48,15 @@ public class Client {
         if (hotel.hotelRooms.contains(room)) {
             if (this.money >= room.getPrice()) {
                 Booking booking = new Booking(room, date, this);
-                hotel.hotelBooked.add(booking);
+                hotel.hotelBookings.add(booking);
                 clientBookings.add(booking);
                 hotel.hotelClients.add(this);
                 this.money -= room.getPrice();
-                if (hotel.hotelClientsWithScore.containsKey(this)) {
-                    hotel.hotelClientsWithScore.merge(this, 1, Integer::sum);
+                if (hotel.hotelClientBooking.containsKey(this)) {
+                    hotel.hotelClientBooking.merge(this, 1, Integer::sum);
                     return Optional.of(booking);
                 } else {
-                    hotel.hotelClientsWithScore.put(this, 1);
+                    hotel.hotelClientBooking.put(this, 1);
                     return Optional.of(booking);
                 }
             }
@@ -62,24 +64,17 @@ public class Client {
         return Optional.empty();
     }
 
-    /*
-    parameeter booking
-
-    kontrollida kas booking on selle hotelli oma
-    hotelClients te set-iks + remove client siis kui ta hotelclientwithscore value on 1, kui on rohkem kui 1 siis öra removi
-     */
-    public Boolean removeBooking(Room room, LocalDate date, Hotel hotel) {
-        for (Booking booking : clientBookings) {
-            if (booking.getRoom().equals(room) && booking.getDate().equals(date)) {
-                clientBookings.remove(booking);
-                hotel.hotelBooked.remove(booking);
+    public Boolean removeBooking(Booking booking, Hotel hotel) {
+        if (hotel.hotelBookings.contains(booking) && clientBookings.contains(booking)) {
+            clientBookings.remove(booking);
+            hotel.hotelBookings.remove(booking);
+            this.money += booking.getRoom().getPrice();
+            if (hotel.hotelClientBooking.containsKey(this) && hotel.hotelClientBooking.get(this) > 1) {
+                hotel.hotelClientBooking.merge(this, 1, Integer::min);
+            } else {
                 hotel.hotelClients.remove(this);
-                this.money += room.getPrice();
-                if (hotel.hotelClientsWithScore.containsKey(this)) {
-                    hotel.hotelClientsWithScore.merge(this, 1, Integer::min);
-                }
-                return true;
             }
+            return true;
         }
         return false;
     }

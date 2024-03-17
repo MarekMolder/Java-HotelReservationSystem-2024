@@ -1,5 +1,6 @@
 package ee.taltech.iti0202.hotel.client;
 
+import ee.taltech.iti0202.hotel.booking.Booking;
 import ee.taltech.iti0202.hotel.hotel.Hotel;
 import ee.taltech.iti0202.hotel.rooms.Room;
 import org.junit.jupiter.api.Assertions;
@@ -8,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -23,13 +25,13 @@ class ClientTest {
         hotel.addRoomToHotel(room1);
         hotel.addRoomToHotel(room2);
 
-        client1.bookRoom(room1, LocalDate.of(2022, 4, 12), hotel);
-        client1.bookRoom(room2, LocalDate.of(2022, 4, 13), hotel);
+        Optional<Booking> firstBooking = client1.bookRoom(room1, LocalDate.of(2022, 4, 12), hotel);
+        Optional<Booking> secondBooking = client1.bookRoom(room2, LocalDate.of(2022, 4, 13), hotel);
 
-        Assertions.assertEquals(true, client1.removeBooking(room2, LocalDate.of(2022, 4, 13), hotel), "First remove booking is wrong.");
-        Assertions.assertEquals(false, client1.removeBooking(room2, LocalDate.of(2022, 4, 13), hotel), "Can't remove booking which doesn't exist.");
-        assertFalse(client1.removeBooking(room1, LocalDate.of(2022, 4, 13), hotel));
-        assertFalse(client1.removeBooking(room2, LocalDate.of(2022, 5, 13), hotel));
+        Assertions.assertTrue(firstBooking.isPresent(), "First booking is not present.");
+        Assertions.assertTrue(client1.removeBooking(firstBooking.get(), hotel), "First remove booking is wrong.");
+
+        Assertions.assertFalse(client1.removeBooking(firstBooking.get(), hotel), "Can't remove booking which doesn't exist.");
     }
 
     @Test

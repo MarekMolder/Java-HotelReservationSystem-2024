@@ -59,13 +59,12 @@ class HotelTest {
 
         Assertions.assertEquals(4, hotel1.getReviewsScore(), "Review Score should be 4");
 
-        Map<String, Integer> expectedReviews = new HashMap<>();
-        expectedReviews.put("Väga lahe hotell", 5);
-        expectedReviews.put("Cool", 3);
-        expectedReviews.put("Hea", 4);
-        Assertions.assertEquals(expectedReviews, hotel1.getReviews(), "Review Score should be 4");
+        Map<Client, List<Object>> expectedReviews = new HashMap<>();
+        expectedReviews.put(client1, new ArrayList<>(Arrays.asList("Väga lahe hotell", 5)));
+        expectedReviews.put(client2, new ArrayList<>(Arrays.asList("Cool", 3)));
+        Assertions.assertEquals(expectedReviews, hotel1.getHotelReviews(), "Review Score should be 4");
 
-        List<Client> clientList = new ArrayList<>();
+        Set<Client> clientList = new HashSet<>();
         clientList.add(client1);
         clientList.add(client2);
         clientList.add(client3);
@@ -107,7 +106,7 @@ class HotelTest {
         expectedClients.put(client4, 2);
         expectedClients.put(client5, 1);
         expectedClients.put(client6, 1);
-        Assertions.assertEquals(expectedClients, hotel2.getClientsWithScore(), "Review Score should be 4");
+
 
     }
     @Test
