@@ -3,7 +3,7 @@ package ee.taltech.iti0202.zoo.animal;
 import ee.taltech.iti0202.zoo.zoo.Zoo;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LambTest {
     Zoo zoo1 = new Zoo();
@@ -16,7 +16,7 @@ public class LambTest {
 
     @Test
     public void testLambMakesAlwaysSameSound() {
-        Lamb lamb = new Lamb("Vuulu",5);
+        Lamb lamb = new Lamb("Vuulu", 5);
         assertEquals("Mää", lamb.getVoice());
     }
 

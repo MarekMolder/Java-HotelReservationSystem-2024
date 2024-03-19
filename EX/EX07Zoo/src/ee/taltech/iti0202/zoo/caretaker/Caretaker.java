@@ -11,27 +11,47 @@ public class Caretaker {
     private final String name;
     private final ArrayList<EAnimalType> task;
 
+    /**
+     * Constructs a new Caretaker with the specified name and task.
+     * @param name
+     * @param task
+     */
     public Caretaker(String name, ArrayList<EAnimalType> task) {
         this.name = name;
         this.task = task;
     }
 
+    /**
+     * Method to get caretaker name.
+     * @return
+     */
     public String getName() {
         return this.name;
     }
 
+    /**
+     * Method to get caretaker task.
+     * @return
+     */
     public ArrayList<EAnimalType> getTask() {
         return this.task;
     }
 
-    public boolean feedAnimals(List<Animal> animal) {
+    /**
+     * Method to feed animals.
+     * @param animal
+     */
+    public void feedAnimals(List<Animal> animal) {
+        List<Animal> animalsAreFed = new ArrayList<>();
+
         for (Animal a : animal) {
-            if (this.getTask().contains(a.getType())) {
-                a.resetHungry();
-                animal.remove(a);
-                return true;
+            if (a.getHungry() == 0) {
+                if (this.getTask().contains(a.getType())) {
+                    a.resetHungry();
+                    animalsAreFed.add(a);
+                }
             }
         }
-        return false;
+        animal.removeAll(animalsAreFed);
     }
 }

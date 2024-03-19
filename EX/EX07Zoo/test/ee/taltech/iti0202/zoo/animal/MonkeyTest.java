@@ -30,7 +30,7 @@ public class MonkeyTest {
         assertTrue(voice.equals("uuh") || voice.equals("ääh"));
 
         List<String> monkeySounds = new ArrayList<>();
-        for (int i = 0; i < 10 ; i++) {
+        for (int i = 0; i < 10; i++) {
             monkeySounds.add(monkey.getVoice());
         }
         System.out.println(monkeySounds);

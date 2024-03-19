@@ -60,6 +60,6 @@ class CaretakerTest {
         animalsThatNeedFeeding.add(fish);
 
         mati.feedAnimals(animalsThatNeedFeeding);
-        assertEquals(new ArrayList<>(Arrays.asList(bird,reptile, fish)), animalsThatNeedFeeding);
+        assertEquals(new ArrayList<>(Arrays.asList(bird, reptile, fish)), animalsThatNeedFeeding);
     }
 }

@@ -1,10 +1,18 @@
 package ee.taltech.iti0202.zoo.zoo;
 
-import ee.taltech.iti0202.zoo.animal.*;
+import ee.taltech.iti0202.zoo.animal.Animal;
+import ee.taltech.iti0202.zoo.animal.EAnimalType;
+import ee.taltech.iti0202.zoo.animal.Lamb;
+import ee.taltech.iti0202.zoo.animal.Monkey;
+import ee.taltech.iti0202.zoo.animal.Turtle;
 import ee.taltech.iti0202.zoo.caretaker.Caretaker;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -73,7 +81,7 @@ class ZooTest {
         howAnimalsFeel.put("Vuulu" + (EAnimalType.MAMMAL), "Mää");
 
 
-        assertEquals(howAnimalsFeel, zoo.HowAnimalsFeel());
+        assertEquals(howAnimalsFeel, zoo.howAnimalsFeel());
 
         zoo.addAnimal(monkey);
         zoo.nextDay();
@@ -86,7 +94,7 @@ class ZooTest {
         howAnimalsFeel2.put("Vuulu" + (EAnimalType.MAMMAL), "Mää");
         howAnimalsFeel2.put("Mõngel" + (EAnimalType.MAMMAL), "BANANA");
 
-        assertEquals(howAnimalsFeel2, zoo.HowAnimalsFeel());
+        assertEquals(howAnimalsFeel2, zoo.howAnimalsFeel());
     }
 
     @Test
@@ -122,7 +130,7 @@ class ZooTest {
         zoo.addCareTaker(kati);
         zoo.addCareTaker(mati);
 
-        for (int i = 0; i < 10 ; i++) {
+        for (int i = 0; i < 10; i++) {
             zoo.nextDay();
         }
 

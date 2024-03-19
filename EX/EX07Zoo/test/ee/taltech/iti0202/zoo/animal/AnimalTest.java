@@ -15,7 +15,7 @@ class AnimalTest {
     @Test
     public void testAnimalThrowExceptionWhenHungryLessThan1() {
         assertThrows(IllegalArgumentException.class, () -> new Animal("Sam", "tsss", EAnimalType.MAMMAL, 0));
-        assertThrows(IllegalArgumentException.class, () -> new Animal("Sam",0));
+        assertThrows(IllegalArgumentException.class, () -> new Animal("Sam", 0));
     }
 
     @Test

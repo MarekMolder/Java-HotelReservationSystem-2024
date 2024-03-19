@@ -3,16 +3,25 @@ package ee.taltech.iti0202.zoo.animal;
 import java.util.Random;
 
 public class Monkey extends Animal {
-    public Monkey(String name, String voice, Integer hungry) {
+
+    /**
+     * Constructs a new Monkey with the specified name and hungry.
+     * @param name
+     * @param hungry
+     */
+    public Monkey(String name, Integer hungry) {
         super(name, hungry);
     }
 
     @Override
     public String getVoice() {
-        String[] voices = {"uuh", "aah"};
-        Random random = new Random();
-        String randomVoice = voices[random.nextInt(voices.length)];
-        return randomVoice;
+        if (getHungry() > 0) {
+            String[] voices = {"uuh", "ääh"};
+            Random random = new Random();
+            String randomVoice = voices[random.nextInt(voices.length)];
+            return randomVoice;
+        }
+        return getHungryVoice();
     }
 
     @Override

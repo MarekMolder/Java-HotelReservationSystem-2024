@@ -3,25 +3,26 @@ package ee.taltech.iti0202.zoo.zoo;
 import ee.taltech.iti0202.zoo.animal.Animal;
 import ee.taltech.iti0202.zoo.caretaker.Caretaker;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Zoo {
 
     public ArrayList<Animal> zooAnimals = new ArrayList<>();
 
-    public ArrayList<Caretaker> zooCareTakers = new ArrayList<>();
+    public ArrayList<Caretaker> zooCaretakers = new ArrayList<>();
 
-    public void addAnimal (Animal animal) {
+    public void addAnimal(Animal animal) {
         zooAnimals.add(animal);
     }
 
-    public void addCareTaker (Caretaker caretaker) {
-        zooCareTakers.add(caretaker);
+    public void addCareTaker(Caretaker caretaker) {
+        zooCaretakers.add(caretaker);
     }
 
+    /**
+     * Method to check what animals need feeding.
+     * @return
+     */
     public List<Animal> whatAnimalsNeedFeeding() {
         List<Animal> animalsThatNeedFeeding = new ArrayList<>();
         for (Animal animal: zooAnimals) {
@@ -32,8 +33,12 @@ public class Zoo {
         return animalsThatNeedFeeding;
     }
 
-    public Map<String, String> HowAnimalsFeel() {
-        Map<String, String> howAnimalsFeel = new HashMap<>();
+    /**
+     * Metod to check how animals feel.
+     * @return
+     */
+    public Map<String, String> howAnimalsFeel() {
+        Map<String, String> howAnimalsFeel = new LinkedHashMap<>();
         for (Animal animal: zooAnimals) {
             if (animal.getHungry() == 0) {
                 howAnimalsFeel.put(animal.getName() + (animal.getType()), animal.getHungryVoice());
@@ -44,10 +49,14 @@ public class Zoo {
         return howAnimalsFeel;
     }
 
-    public Caretaker getMostEfficentCareTaker() {
+    /**
+     * Method to get most efficient caretaker.
+     * @return
+     */
+    public Caretaker getMostEfficientCareTaker() {
         Map<Caretaker, Integer> bestWorker = new HashMap<>();
-        for (Caretaker caretaker : zooCareTakers) {
-            for (Animal animal : zooAnimals) {
+        for (Caretaker caretaker : zooCaretakers) {
+            for (Animal animal : whatAnimalsNeedFeeding()) {
                 if (caretaker.getTask().contains(animal.getType())) {
                     if (bestWorker.containsKey(caretaker)) {
                         bestWorker.merge(caretaker, 1, Integer::sum);
@@ -60,12 +69,18 @@ public class Zoo {
         return bestWorker.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
     }
 
+    /**
+     * Method to feed hungry animals.
+     */
     public void feedHungryAnimals() {
-        for (Caretaker caretaker : zooCareTakers) {
+        for (Caretaker caretaker : zooCaretakers) {
             caretaker.feedAnimals(whatAnimalsNeedFeeding());
         }
     }
 
+    /**
+     * Method to reduce animals hungry by 1.
+     */
     public void nextDay() {
         for (Animal animal: zooAnimals) {
             animal.setHungry();
