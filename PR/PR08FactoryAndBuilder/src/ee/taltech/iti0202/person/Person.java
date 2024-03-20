@@ -17,9 +17,7 @@ public class Person {
     public Person(String idCode, String name, Integer age, Boolean isMale) {
         this.idCode = idCode;
         this.name = name;
-        if (age < 0) {
-            throw new IllegalArgumentException();
-        }
+        this.age = age;
         this.isMale = isMale;
     }
 
