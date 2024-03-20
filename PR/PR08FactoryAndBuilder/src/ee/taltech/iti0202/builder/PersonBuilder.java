@@ -20,6 +20,7 @@ public class PersonBuilder {
     /**
      * Method to get Name;
      * @param name
+     * @return name.
      */
     public PersonBuilder withName(String name) {
         this.name = name;
@@ -29,6 +30,7 @@ public class PersonBuilder {
     /**
      * Method to get age;
      * @param age
+     * @return age.
      */
     public PersonBuilder withAge(Integer age) {
         if (age > 0) {
@@ -42,6 +44,7 @@ public class PersonBuilder {
     /**
      * Method to return isMale.
      * @param isMale
+     * @return isMale.
      */
     public PersonBuilder isMale(Boolean isMale) {
         this.isMale = isMale;
