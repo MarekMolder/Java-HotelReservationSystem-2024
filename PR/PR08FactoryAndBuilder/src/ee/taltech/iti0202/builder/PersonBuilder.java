@@ -34,11 +34,12 @@ public class PersonBuilder {
      * @return
      */
     public PersonBuilder withAge(Integer age) {
-        if (age < 0) {
+        if (age > 0) {
+            this.age = age;
+            return this;
+        } else {
             throw new IllegalArgumentException();
         }
-        this.age = age;
-        return this;
     }
 
     /**
