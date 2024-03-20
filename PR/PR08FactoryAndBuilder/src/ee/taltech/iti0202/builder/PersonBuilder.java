@@ -12,16 +12,14 @@ public class PersonBuilder {
     /**
      * Method to get IdCode.
      * @param idCode
-     * @return
      */
-    public PersonBuilder (String idCode) {
+    public PersonBuilder(String idCode) {
         this.idCode = idCode;
     }
 
     /**
      * Method to get Name;
      * @param name
-     * @return
      */
     public PersonBuilder withName(String name) {
         this.name = name;
@@ -31,7 +29,6 @@ public class PersonBuilder {
     /**
      * Method to get age;
      * @param age
-     * @return
      */
     public PersonBuilder withAge(Integer age) {
         if (age > 0) {
@@ -45,7 +42,6 @@ public class PersonBuilder {
     /**
      * Method to return isMale.
      * @param isMale
-     * @return
      */
     public PersonBuilder isMale(Boolean isMale) {
         this.isMale = isMale;
@@ -54,7 +50,6 @@ public class PersonBuilder {
 
     /**
      * Method to create person.
-     * @return
      */
     public Person build() {
         return new Person(idCode, name, age, isMale);
