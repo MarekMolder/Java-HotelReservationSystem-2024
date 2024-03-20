@@ -8,16 +8,31 @@ public class PersonBuilder {
     private Integer age;
     private Boolean isMale;
 
+    /**
+     * Method to get IdCode.
+     * @param idCode
+     * @return
+     */
     public PersonBuilder setIdCode(String idCode) {
         this.idCode = idCode;
         return this;
     }
 
+    /**
+     * Method to get Name;
+     * @param name
+     * @return
+     */
     public PersonBuilder withName(String name) {
         this.name = name;
         return this;
     }
 
+    /**
+     * Method to get age;
+     * @param age
+     * @return
+     */
     public PersonBuilder withAge(Integer age) {
         if (age < 0) {
             throw new IllegalArgumentException();
@@ -27,11 +42,20 @@ public class PersonBuilder {
         }
     }
 
+    /**
+     * Method to return isMale.
+     * @param isMale
+     * @return
+     */
     public PersonBuilder withIsMale(Boolean isMale) {
         this.isMale = isMale;
         return this;
     }
 
+    /**
+     * Method to create person.
+     * @return
+     */
     public Person createPerson() {
         return new Person(idCode, name, age, isMale);
     }

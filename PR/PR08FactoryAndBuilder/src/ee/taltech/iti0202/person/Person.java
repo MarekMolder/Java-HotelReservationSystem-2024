@@ -9,7 +9,6 @@ public class Person {
 
     /**
      * Construct a new person with given parameters.
-     * 
      * @param idCode id code for person
      * @param name name of person
      * @param age age of person
