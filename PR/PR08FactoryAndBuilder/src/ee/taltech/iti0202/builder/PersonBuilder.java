@@ -53,6 +53,7 @@ public class PersonBuilder {
 
     /**
      * Method to create person.
+     * @return new Person.
      */
     public Person build() {
         return new Person(idCode, name, age, isMale);
