@@ -7,6 +7,7 @@ public class PersonBuilder {
     private String name;
     private Integer age;
     private Boolean isMale;
+    private Person person;
 
     /**
      * Method to get IdCode.
@@ -35,10 +36,9 @@ public class PersonBuilder {
     public PersonBuilder withAge(Integer age) {
         if (age < 0) {
             throw new IllegalArgumentException();
-        } else {
-            this.age = age;
-            return this;
         }
+        this.age = age;
+        return this;
     }
 
     /**
