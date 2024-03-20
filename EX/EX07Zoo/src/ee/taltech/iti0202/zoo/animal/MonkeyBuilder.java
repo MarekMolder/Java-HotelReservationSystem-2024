@@ -1,6 +1,6 @@
 package ee.taltech.iti0202.zoo.animal;
 
-public class TurtleBuilder {
+public class MonkeyBuilder {
     private String name;
     private Integer hungry;
 
@@ -9,7 +9,7 @@ public class TurtleBuilder {
      * @param name
      * @return
      */
-    public TurtleBuilder setName(String name) {
+    public MonkeyBuilder setName(String name) {
         this.name = name;
         return this;
     }
@@ -19,16 +19,16 @@ public class TurtleBuilder {
      * @param hungry
      * @return
      */
-    public TurtleBuilder setHungry(Integer hungry) {
+    public MonkeyBuilder setHungry(Integer hungry) {
         this.hungry = hungry;
         return this;
     }
 
     /**
-     * Method to create turtle.
+     * Method to create monkey.
      * @return
      */
-    public Turtle createTurtle() {
-        return new Turtle(name, hungry);
+    public Monkey createMonkey() {
+        return new Monkey(name, hungry);
     }
 }
