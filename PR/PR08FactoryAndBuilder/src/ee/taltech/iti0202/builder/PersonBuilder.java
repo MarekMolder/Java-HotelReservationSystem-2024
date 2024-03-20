@@ -1,4 +1,6 @@
-package ee.taltech.iti0202.person;
+package ee.taltech.iti0202.builder;
+
+import ee.taltech.iti0202.person.Person;
 
 public class PersonBuilder {
     private String idCode;
