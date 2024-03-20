@@ -13,9 +13,8 @@ public class PersonBuilder {
      * @param idCode
      * @return
      */
-    public PersonBuilder setIdCode(String idCode) {
+    public PersonBuilder (String idCode) {
         this.idCode = idCode;
-        return this;
     }
 
     /**
@@ -47,7 +46,7 @@ public class PersonBuilder {
      * @param isMale
      * @return
      */
-    public PersonBuilder withIsMale(Boolean isMale) {
+    public PersonBuilder isMale(Boolean isMale) {
         this.isMale = isMale;
         return this;
     }
@@ -56,7 +55,7 @@ public class PersonBuilder {
      * Method to create person.
      * @return
      */
-    public Person createPerson() {
+    public Person build() {
         return new Person(idCode, name, age, isMale);
     }
 }
