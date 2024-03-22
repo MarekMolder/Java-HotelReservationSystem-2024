@@ -55,15 +55,24 @@ public class Hotel {
         return hotelBookings;
     }
 
-    public List<Room> LookUpFreeRoomType(Class room, LocalDate date) {
+    public List<Room> LookUpFreeRoomsType(Class room, LocalDate since, LocalDate until) {
         List<Room> hotelSearchRoom = new ArrayList<>();
         for (Room suit : hotelRooms) {
             if (room.equals(suit.getClass())) {
-                for (Booking booking : hotelBookings) {
-                    if (booking.getRoom() != suit && booking.getDate() != date) {
+                if (isRoomAvailable(since, until, suit))
                         hotelSearchRoom.add(suit);
                     }
                 }
+        List<Room> result = new ArrayList<>(hotelSearchRoom);
+        hotelSearchRoom.clear();
+        return result;
+    }
+
+    public List<Room> LookUpFreeRoomDate(LocalDate since, LocalDate until) {
+        List<Room> hotelSearchRoom = new ArrayList<>();
+        for (Room suit : hotelRooms) {
+            if (isRoomAvailable(until, since, suit)) {
+                hotelSearchRoom.add(suit);
             }
         }
         List<Room> result = new ArrayList<>(hotelSearchRoom);
@@ -71,18 +80,29 @@ public class Hotel {
         return result;
     }
 
-    public List<Room> LookUpFreeRoomDate(LocalDate date) {
-        List<Room> hotelSearchRoom = new ArrayList<>();
-        for (Room suit : hotelRooms) {
-            for (Booking booking : hotelBookings) {
-                if (booking.getRoom() != suit && booking.getDate() != date) {
-                    hotelSearchRoom.add(suit);
+    public boolean isRoomAvailable(LocalDate since, LocalDate until, Room room) {
+        List<Room> notAvailable= new ArrayList<>();
+            for (Booking booking: hotelBookings) {
+                if (booking.getRoom().equals(room)) {
+                   List<LocalDate> dateList = booking.getDatesInRange(booking.getSince(), booking.getUntil());
+                        for (LocalDate date: dateList) {
+                            if (this.getDatesInRange(since, until).contains(date)) {
+                                notAvailable.add(room);
+                                break;
+                            }
+                        }
+                    }
                 }
-            }
+        return notAvailable.isEmpty();
+    }
+
+    public List<LocalDate> getDatesInRange(LocalDate since, LocalDate until) {
+        List<LocalDate> datesInRange = new ArrayList<>();
+        while (!since.isAfter(until)) {
+            datesInRange.add(since);
+            since = since.plusDays(1);
         }
-        List<Room> result = new ArrayList<>(hotelSearchRoom);
-        hotelSearchRoom.clear();
-        return result;
+        return datesInRange;
     }
 
     /**

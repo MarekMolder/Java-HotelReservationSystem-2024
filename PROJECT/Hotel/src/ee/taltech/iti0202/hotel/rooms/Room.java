@@ -28,6 +28,8 @@ public class Room {
         }
     }
 
+    public Hotel getHotel() {return this.hotel;}
+
     public Integer getPrice() {
         return this.price;
     }
@@ -39,4 +41,5 @@ public class Room {
     public void setPrice(Integer amount) {
         this.price = amount;
     }
+
 }

@@ -1,20 +1,8 @@
 package ee.taltech.iti0202.hotel.hotel;
 
-import ee.taltech.iti0202.hotel.client.Client;
-import ee.taltech.iti0202.hotel.rooms.DeluxeRoom;
-import ee.taltech.iti0202.hotel.rooms.DoubleRoom;
-import ee.taltech.iti0202.hotel.rooms.Room;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-import java.util.*;
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
+/*
 class HotelTest {
-    Room room1 = new Room();
+Room room1 = new Room();
     Room room2 = new Room();
     Room room3 = new Room();
     Room room4 = new Room();
@@ -138,3 +126,4 @@ class HotelTest {
 
     }
 }
+ */

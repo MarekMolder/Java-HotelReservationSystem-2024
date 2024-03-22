@@ -35,19 +35,14 @@ public class Client {
         return false;
     }
 
-    /*
-    Saab mitmeks päevaks bronnida
-     */
-    public Optional<Booking> bookRoom(Room room, LocalDate date, Hotel hotel) {
-        for (Booking hotelBooking : hotel.hotelBookings) {
-            if (hotelBooking.getDate().equals(date) && hotelBooking.getRoom().equals(room)) {
+    public Optional<Booking> bookRoom(Room room, LocalDate since, LocalDate until, Hotel hotel) {
+        if (!hotel.isRoomAvailable(since, until, room)) {
                 return Optional.empty();
             }
-        }
 
         if (hotel.hotelRooms.contains(room)) {
             if (this.money >= room.getPrice()) {
-                Booking booking = new Booking(room, date, this);
+                Booking booking = new Booking(room, since, until, this);
                 hotel.hotelBookings.add(booking);
                 clientBookings.add(booking);
                 hotel.hotelClients.add(this);
