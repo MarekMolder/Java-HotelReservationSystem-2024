@@ -23,7 +23,7 @@ public class Client {
 
     public boolean writeReview(String review, int score, Hotel hotel) {
         List<Object> clientReview = new ArrayList<>();
-        if (hotel.hotelClients.contains(this) && !hotel.hotelReviews.containsKey(this)) {
+        if (hotel.hotelClients.contains(this)) {
             if (score >= 1 && score <= 5 && !review.isEmpty()) {
                 clientReview.add(review);
                 clientReview.add(score);
@@ -47,15 +47,10 @@ public class Client {
                 clientBookings.add(booking);
                 hotel.hotelClients.add(this);
                 this.money -= room.getPrice();
-                if (hotel.hotelClientBooking.containsKey(this)) {
-                    hotel.hotelClientBooking.merge(this, 1, Integer::sum);
-                    return Optional.of(booking);
-                } else {
-                    hotel.hotelClientBooking.put(this, 1);
-                    return Optional.of(booking);
+                hotel.hotelClientBooking.merge(this, 1, Integer::sum);
+                return Optional.of(booking);
                 }
             }
-        }
         return Optional.empty();
     }
 
@@ -66,10 +61,12 @@ public class Client {
             this.money += booking.getRoom().getPrice();
             if (hotel.hotelClientBooking.containsKey(this) && hotel.hotelClientBooking.get(this) > 1) {
                 hotel.hotelClientBooking.merge(this, 1, Integer::min);
+                return true;
             } else {
                 hotel.hotelClients.remove(this);
+                hotel.hotelClientBooking.remove(this);
+                return true;
             }
-            return true;
         }
         return false;
     }
@@ -80,6 +77,10 @@ public class Client {
 
     public List<Booking> getBookings() {
         return this.clientBookings;
+    }
+
+    public Integer getMoney() {
+        return money;
     }
 
 }

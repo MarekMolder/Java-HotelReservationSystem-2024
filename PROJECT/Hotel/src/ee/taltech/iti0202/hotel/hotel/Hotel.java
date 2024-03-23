@@ -6,6 +6,7 @@ import ee.taltech.iti0202.hotel.rooms.Room;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Hotel {
 
@@ -15,7 +16,7 @@ public class Hotel {
 
     public Map<Client, List<Object>> hotelReviews = new HashMap<>();
 
-    public ArrayList<Booking> hotelBookings = new ArrayList<>();
+    public Set<Booking> hotelBookings = new HashSet<>();
 
 
     public Boolean addRoomToHotel(Room room) {
@@ -41,41 +42,45 @@ public class Hotel {
     }
 
 
-    public Integer getReviewsScore() {
+    public Double getReviewsScore() {
         int sum = 0;
         int count = 0;
         for (List<Object> score : hotelReviews.values()) {
             sum += (int) score.get(1);
             count++;
         }
-        return sum / count;
+        if (count == 0) {
+            return 0.0;
+        } else {
+            return (double) (sum / count);
+        }
     }
 
-    public ArrayList<Booking> getBooking() {
+    public Set<Booking> getBooking() {
         return hotelBookings;
     }
 
-    public List<Room> LookUpFreeRoomsType(Class room, LocalDate since, LocalDate until) {
-        List<Room> hotelSearchRoom = new ArrayList<>();
+    public Set<Room> LookUpFreeRoomsType(Class room, LocalDate since, LocalDate until) {
+        Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
             if (room.equals(suit.getClass())) {
                 if (isRoomAvailable(since, until, suit))
                         hotelSearchRoom.add(suit);
                     }
                 }
-        List<Room> result = new ArrayList<>(hotelSearchRoom);
+        Set<Room> result = new LinkedHashSet<>(hotelSearchRoom);
         hotelSearchRoom.clear();
         return result;
     }
 
-    public List<Room> LookUpFreeRoomDate(LocalDate since, LocalDate until) {
-        List<Room> hotelSearchRoom = new ArrayList<>();
+    public Set<Room> LookUpFreeRoomDate(LocalDate since, LocalDate until) {
+        Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
             if (isRoomAvailable(until, since, suit)) {
                 hotelSearchRoom.add(suit);
             }
         }
-        List<Room> result = new ArrayList<>(hotelSearchRoom);
+        Set<Room> result = new LinkedHashSet<>(hotelSearchRoom);
         hotelSearchRoom.clear();
         return result;
     }
@@ -110,6 +115,7 @@ public class Hotel {
      *
      * @return
      */
-    public void sortClients() {
+    public List<Client> sortClients() {
+        return hotelClientBooking.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).map(Map.Entry::getKey).collect(Collectors.toList());
     }
 }
