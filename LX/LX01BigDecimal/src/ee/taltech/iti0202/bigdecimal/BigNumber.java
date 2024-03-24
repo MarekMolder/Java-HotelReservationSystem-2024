@@ -36,7 +36,7 @@ public class BigNumber {
      * @return add1 + add2
      */
     public BigInteger addBigInteger(int add1, int add2) {
-        return BigInteger.valueOf(add1 + add2);
+        return BigInteger.valueOf(add1).add(BigInteger.valueOf(add2));
     }
 
     /**
@@ -58,8 +58,7 @@ public class BigNumber {
      * @return value multiplied by multiplier and rounded by rounding
      */
     public BigDecimal multiplyAndRoundBigDecimal(double value, int multiplier, int rounding) {
-        BigDecimal result = BigDecimal.valueOf(value).multiply(BigDecimal.valueOf(multiplier));
-        return result.setScale(0, rounding);
+        return null;
     }
 
     /**
@@ -114,9 +113,7 @@ public class BigNumber {
      * @return true or false if val1 and val2 are equal after rounded with rounding
      */
     public boolean isSame(BigDecimal val1, BigDecimal val2, int rounding) {
-        BigDecimal roundedVal1 = val1.setScale(0, rounding);
-        BigDecimal roundedVal2 = val2.setScale(0, rounding);
-        return roundedVal1.equals(roundedVal2);
+        return false;
     }
 
     /**
@@ -125,13 +122,7 @@ public class BigNumber {
      * @return n-th fib number value
      */
     public BigInteger fibonacci(int n) {
-        if (n == 0) {
-            return BigInteger.ZERO;
-        } else if (n == 1) {
-            return BigInteger.ONE;
-        } else {
-            return fibonacci(n - 1).add(fibonacci(n - 2));
-        }
+        return null;
     }
 
     /**
@@ -140,22 +131,6 @@ public class BigNumber {
      * @return n-th lucas number
      */
     public BigInteger lucas(int n) {
-        if (n == 0) {
-            return BigInteger.valueOf(2);
-        } else if (n == 1) {
-            return BigInteger.ONE;
-        } else {
-            BigInteger lucasPrev = BigInteger.valueOf(2);
-            BigInteger lucasCurrent = BigInteger.ONE;
-            BigInteger lucasNext = BigInteger.ZERO;
-
-            for (int i = 2; i <= n; i++) {
-                lucasNext = lucasPrev.add(lucasCurrent);
-                lucasPrev = lucasCurrent;
-                lucasCurrent = lucasNext;
-            }
-
-            return lucasNext;
-        }
+        return null;
     }
 }
