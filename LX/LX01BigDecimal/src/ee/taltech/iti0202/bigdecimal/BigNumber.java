@@ -60,7 +60,7 @@ public class BigNumber {
      */
     public BigDecimal multiplyAndRoundBigDecimal(double value, int multiplier, int rounding) {
         BigDecimal result = BigDecimal.valueOf(value).multiply(BigDecimal.valueOf(multiplier));
-        return result.setScale(rounding, RoundingMode.UP);
+        return result.setScale(rounding, RoundingMode.HALF_UP);
     }
 
     /**
