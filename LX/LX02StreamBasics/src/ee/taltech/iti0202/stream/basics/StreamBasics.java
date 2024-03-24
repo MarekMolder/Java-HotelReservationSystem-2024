@@ -1,6 +1,15 @@
 package ee.taltech.iti0202.stream.basics;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.OptionalDouble;
+import java.util.SequencedCollection;
+import java.util.Set;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Consumer;
@@ -285,7 +294,11 @@ public final class StreamBasics {
         final int[] counter = new int[1];
 
         // Your implementation here.
-        collection.parallelStream().forEachOrdered(element -> { synchronized (counter) {counter[0]++; }});
+        collection.parallelStream().forEachOrdered(element -> {
+            synchronized (counter) {
+                counter[0]++;
+            }
+        });
 
         // Uncomment the line below to return the result.
         return counter[0];
@@ -580,8 +593,8 @@ public final class StreamBasics {
 //        System.out.println();
 
         System.out.println(getSelfDividableNumbersOrNull(numbers)); // [2, 2, -3, null, 2]
-        System.out.println(flattenCollections(List.of
-                (numbers, numbers.reversed()))); // [2, 2, -3, 0, 2, 2, 0, -3, 2, 2]
+        System.out.println(flattenCollections(List.of(
+                numbers, numbers.reversed()))); // [2, 2, -3, 0, 2, 2, 0, -3, 2, 2]
         System.out.println();
 
         System.out.println(sortInNaturalOrder(numbers)); // [-3, 0, 2, 2, 2]
