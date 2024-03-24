@@ -361,17 +361,15 @@ public final class StreamBasics {
      */
     public static SequencedCollection<Integer> getSelfDividableNumbersOrNull(
             final SequencedCollection<Integer> collection) {
-        List<Integer> resultList = new ArrayList<>();
-
-        collection.stream().map(number -> {
-            try {
-                return number == 0 ? 0 : number / number;
-            } catch (ArithmeticException e) {
-                return null;
-            }
-        }).forEach(resultList::add);
-
-        return resultList;
+        return collection.stream()
+                .map(number -> {
+                    try {
+                        return number != 0 && number % 10 != 0 && number % (number % 10) == 0 ? number : null;
+                    } catch (ArithmeticException e) {
+                        return null;
+                    }
+                })
+                .collect(Collectors.toCollection(CopyOnWriteArrayList::new));
     }
 
     /**
