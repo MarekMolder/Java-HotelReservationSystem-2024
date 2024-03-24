@@ -122,10 +122,44 @@ Room room1 = new Room();
         client1.writeReview("Lahe hotell", 5, hotel1);
         client2.writeReview("Cool tuba", 4, hotel1);
         client3.writeReview("hea söök", 3, hotel1);
+        client4.writeReview("mõnus voodi", 2, hotel1);
+
+        assertEquals(3.5 , hotel1.getReviewsScore());
+    }
+
+    @Test
+    public void testHotelGetReviewsScoreWhenNoReviews() {
+        hotel1.addRoomToHotel(room1);
+        hotel1.addRoomToHotel(room2);
+        hotel1.addRoomToHotel(room3);
+        hotel1.addRoomToHotel(room4);
+
+        client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client3.bookRoom(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client4.bookRoom(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+
+        assertEquals(0.0 , hotel1.getReviewsScore());
+    }
+
+    @Test
+    public void testHotelGetReviewsScoreWhenOneWrongReview() {
+        hotel1.addRoomToHotel(room1);
+        hotel1.addRoomToHotel(room2);
+        hotel1.addRoomToHotel(room3);
+        hotel1.addRoomToHotel(room4);
+
+        client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client3.bookRoom(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client4.bookRoom(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+
+        client1.writeReview("Lahe hotell", 5, hotel1);
+        client2.writeReview("Cool tuba", 4, hotel1);
+        client3.writeReview("hea söök", 3, hotel1);
         client4.writeReview("mõnus voodi", 6, hotel1);
 
         assertEquals(4 , hotel1.getReviewsScore());
-        // Aga kui on 14/4 siis annab 3.0 aga peaks 3.5
     }
 
     @Test
@@ -275,17 +309,32 @@ Room room1 = new Room();
         hotel1.addRoomToHotel(room4);
         hotel1.addRoomToHotel(room5);
         hotel1.addRoomToHotel(room6);
+        hotel1.addRoomToHotel(room7);
+        hotel1.addRoomToHotel(room8);
+        hotel1.addRoomToHotel(room9);
 
         Optional<Booking> booking1 = client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
         Optional<Booking> booking2 = client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 13), hotel1);
         Optional<Booking> booking3 = client3.bookRoom(room3, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
-        Optional<Booking> booking4 = client3.bookRoom(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        Optional<Booking> booking5 = client2.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 13), hotel1);
+        Optional<Booking> booking4 = client2.bookRoom(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        Optional<Booking> booking5 = client5.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 13), hotel1);
         Optional<Booking> booking6 = client3.bookRoom(room6, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
+        Optional<Booking> booking7 = client1.bookRoom(room7, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
+        Optional<Booking> booking8 = client3.bookRoom(room8, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
+        Optional<Booking> booking9 = client3.bookRoom(room9, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
 
-        List<Client> sortedClients = new LinkedList<>(Arrays.asList(client3, client2, client1));
+        client1.writeReview("Lahe hotell", 5, hotel1);
+        client2.writeReview("Lahe hotell", 3, hotel1);
+        client3.writeReview("Lahe hotell", 1, hotel1);
+        client5.writeReview("Lahe hotell", 4, hotel1);
 
-        assertEquals(sortedClients, hotel1.sortClients());
+        List<Client> sortedClients = new LinkedList<>(Arrays.asList(client3, client1, client2, client5));
+        List<Client> sort = hotel1.sortClients();
+
+        assertEquals(sortedClients, sort);
+
     }
+
+
 }
 

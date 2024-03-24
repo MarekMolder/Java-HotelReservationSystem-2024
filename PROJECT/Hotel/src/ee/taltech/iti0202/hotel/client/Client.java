@@ -29,6 +29,7 @@ public class Client {
                 clientReview.add(score);
                 this.clientReviews.put(review, score);
                 hotel.hotelReviews.put(this, clientReview);
+                hotel.hotelReviewsScores.put(this,score);
                 return true;
             }
         }

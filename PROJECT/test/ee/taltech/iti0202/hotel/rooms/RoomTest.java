@@ -17,9 +17,9 @@ class RoomTest {
         hotel2.addRoomToHotel(room2);
         hotel2.addRoomToHotel(room3);
 
-        assertEquals(1, room1.getNumber());
-        assertEquals(1, room2.getNumber());
-        assertEquals(2, room3.getNumber());
+        assertNotEquals(room2.getNumber(), room1.getNumber());
+        assertNotEquals(room2.getNumber(), room3.getNumber());
+        assertNotEquals(room1.getNumber(), room3.getNumber());
     }
 
     @Test

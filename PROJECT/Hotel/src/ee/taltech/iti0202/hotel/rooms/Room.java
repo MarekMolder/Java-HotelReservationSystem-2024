@@ -3,7 +3,7 @@ package ee.taltech.iti0202.hotel.rooms;
 import ee.taltech.iti0202.hotel.hotel.Hotel;
 
 public class Room {
-    private int nextRoomNumber = 1;
+    private static int nextRoomNumber = 1;
     private final int number;
     int price;
 

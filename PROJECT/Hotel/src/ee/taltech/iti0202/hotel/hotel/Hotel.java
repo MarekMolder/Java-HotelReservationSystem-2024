@@ -16,6 +16,8 @@ public class Hotel {
 
     public Map<Client, List<Object>> hotelReviews = new HashMap<>();
 
+    public Map<Client, Integer> hotelReviewsScores = new HashMap<>();
+
     public Set<Booking> hotelBookings = new HashSet<>();
 
 
@@ -45,14 +47,14 @@ public class Hotel {
     public Double getReviewsScore() {
         int sum = 0;
         int count = 0;
-        for (List<Object> score : hotelReviews.values()) {
-            sum += (int) score.get(1);
+        for (Integer score : hotelReviewsScores.values()) {
+            sum += score;
             count++;
         }
         if (count == 0) {
             return 0.0;
         } else {
-            return (double) (sum / count);
+            return ((double) sum / count);
         }
     }
 
@@ -115,7 +117,12 @@ public class Hotel {
      *
      * @return
      */
+
     public List<Client> sortClients() {
-        return hotelClientBooking.entrySet().stream().sorted(Map.Entry.comparingByValue(Comparator.reverseOrder())).map(Map.Entry::getKey).collect(Collectors.toList());
+        return hotelClientBooking.entrySet().stream()
+                .sorted(Map.Entry.<Client, Integer>comparingByValue().reversed()
+                        .thenComparing((e1, e2) -> hotelReviewsScores.get(e2.getKey()).compareTo(hotelReviewsScores.get(e1.getKey()))))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
     }
 }
