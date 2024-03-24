@@ -364,7 +364,7 @@ public final class StreamBasics {
         return collection.stream()
                 .map(number -> {
                     try {
-                        return number != 0 && number % 10 != 0 && number % (number % 10) == 0 ? number : null;
+                        return number != 0 ? number : null;
                     } catch (ArithmeticException e) {
                         return null;
                     }
