@@ -192,9 +192,9 @@ public final class StreamBasics {
      */
     public static <T> SequencedCollection<T> getListFromIndex(final SequencedCollection<T> collection,
                                                               final int amount) {
-        return amount >= collection.size() ?
-                collection.stream().skip(collection.size()).collect(Collectors.toList()) :
-                collection.stream().skip(amount).collect(Collectors.toList());
+        return amount >= collection.size()
+                ? collection.stream().skip(collection.size()).collect(Collectors.toList())
+                : collection.stream().skip(amount).collect(Collectors.toList());
     }
 
     /**
@@ -285,7 +285,7 @@ public final class StreamBasics {
         final int[] counter = new int[1];
 
         // Your implementation here.
-        collection.parallelStream().forEachOrdered(element -> {synchronized (counter) {counter[0]++;}});
+        collection.parallelStream().forEachOrdered(element -> { synchronized (counter) {counter[0]++; }});
 
         // Uncomment the line below to return the result.
         return counter[0];
@@ -553,8 +553,10 @@ public final class StreamBasics {
         System.out.println(countValues(numbers)); // 5
         System.out.println(countValuesUsingForEach(numbers)); // 5
         System.out.println(countValuesUsingForEachOrdered(numbers)); // 5
-//        System.out.println(countAllValuesParallelForEach(IntStream.range(0, 10_000_000).boxed().toList())); // !=? 10000000
-//        System.out.println(countAllValuesParallelForEachOrdered(IntStream.range(0, 10_000_000).boxed().toList())); // 10000000
+//        System.out.println(countAllValuesParallelForEach
+//        (IntStream.range(0, 10_000_000).boxed().toList())); // !=? 10000000
+//        System.out.println(countAllValuesParallelForEachOrdered
+//        (IntStream.range(0, 10_000_000).boxed().toList())); // 10000000
         System.out.println();
 
 
@@ -573,12 +575,13 @@ public final class StreamBasics {
         }
         System.out.println();
 
-        System.out.println(generateRandomIntegers(-9, 9, 5)); // [*, *, *, *, *]
-        System.out.println(getRandomIntegers(-9, 9, 5)); // [*, *, *, *, *]
-        System.out.println();
+//        System.out.println(generateRandomIntegers(-9, 9, 5)); // [*, *, *, *, *]
+//        System.out.println(getRandomIntegers(-9, 9, 5)); // [*, *, *, *, *]
+//        System.out.println();
 
         System.out.println(getSelfDividableNumbersOrNull(numbers)); // [2, 2, -3, null, 2]
-        System.out.println(flattenCollections(List.of(numbers, numbers.reversed()))); // [2, 2, -3, 0, 2, 2, 0, -3, 2, 2]
+        System.out.println(flattenCollections(List.of
+                (numbers, numbers.reversed()))); // [2, 2, -3, 0, 2, 2, 0, -3, 2, 2]
         System.out.println();
 
         System.out.println(sortInNaturalOrder(numbers)); // [-3, 0, 2, 2, 2]
