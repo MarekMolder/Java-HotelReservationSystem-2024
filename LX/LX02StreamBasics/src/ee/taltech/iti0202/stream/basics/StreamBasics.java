@@ -265,9 +265,8 @@ public final class StreamBasics {
     public static synchronized int countValuesUsingParallelForEach(final SequencedCollection<?> collection) {
         final int[] counter = new int[1];
 
-        // Your implementation here.
-        collection.parallelStream().forEach(element -> {synchronized (counter) {
-            counter[0]++;}});
+        // Your implementation here.2
+        collection.parallelStream().forEach(element -> counter[0]++);
 
         // Uncomment the line below to return the result.
         return counter[0];
@@ -286,7 +285,7 @@ public final class StreamBasics {
         final int[] counter = new int[1];
 
         // Your implementation here.
-        collection.parallelStream().forEachOrdered(element -> {synchronized (counter) {counter[0]++; }});
+        collection.parallelStream().forEachOrdered(element -> {synchronized (counter) {counter[0]++;}});
 
         // Uncomment the line below to return the result.
         return counter[0];
