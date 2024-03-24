@@ -2,6 +2,7 @@ package ee.taltech.iti0202.bigdecimal;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 
 public class BigNumber {
     /**
@@ -58,7 +59,8 @@ public class BigNumber {
      * @return value multiplied by multiplier and rounded by rounding
      */
     public BigDecimal multiplyAndRoundBigDecimal(double value, int multiplier, int rounding) {
-        return null;
+        BigDecimal result = BigDecimal.valueOf(value).multiply(BigDecimal.valueOf(multiplier));
+        return result.setScale(rounding, RoundingMode.UP);
     }
 
     /**
