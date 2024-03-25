@@ -23,7 +23,7 @@ public class Booking {
      * @param until The end date of the booking.
      * @param client The client who made the booking.
      */
-    public Booking (Room room, LocalDate since, LocalDate until, Client client) {
+    public Booking(Room room, LocalDate since, LocalDate until, Client client) {
         this.room = room;
         this.since = since;
         this.until = until;

@@ -47,7 +47,9 @@ public class Room {
      * This method is used to get hotel where the room belongs.
      * @return The hotel where the room belongs.
      */
-    public Hotel getHotel() {return this.hotel;}
+    public Hotel getHotel() {
+        return this.hotel;
+    }
 
     /**
      * This method is used to get price of the room.

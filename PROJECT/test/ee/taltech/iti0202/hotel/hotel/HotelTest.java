@@ -192,7 +192,7 @@ Room room1 = new Room();
         hotel1.addRoomToHotel(room7);
         hotel1.addRoomToHotel(room8);
 
-        Set<Room> actual = hotel1.LookUpFreeRoomsType(DoubleRoom.class, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17));
+        Set<Room> actual = hotel1.lookUpFreeRoomsType(DoubleRoom.class, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17));
         Set<Room> expected = new LinkedHashSet<>();
         expected.add(room5);
         expected.add(room6);
@@ -204,7 +204,7 @@ Room room1 = new Room();
         Optional<Booking> booking1 = client1.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
         Optional<Booking> booking2 = client2.bookRoom(room6, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
 
-        Set<Room> actual1 = hotel1.LookUpFreeRoomsType(DoubleRoom.class, LocalDate.of(2022, 4, 15), LocalDate.of(2022, 4, 16));
+        Set<Room> actual1 = hotel1.lookUpFreeRoomsType(DoubleRoom.class, LocalDate.of(2022, 4, 15), LocalDate.of(2022, 4, 16));
         Set<Room> expected1 = new LinkedHashSet<>();
         expected1.add(room7);
         expected1.add(room8);
@@ -221,7 +221,7 @@ Room room1 = new Room();
         hotel1.addRoomToHotel(room7);
         hotel1.addRoomToHotel(room8);
 
-        Set<Room> actual = hotel1.LookUpFreeRoomDate(LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17));
+        Set<Room> actual = hotel1.lookUpFreeRoomDate(LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17));
         Set<Room> expected = new LinkedHashSet<>();
         expected.add(room1);
         expected.add(room2);
@@ -235,7 +235,7 @@ Room room1 = new Room();
         Optional<Booking> booking1 = client1.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
         Optional<Booking> booking2 = client2.bookRoom(room6, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
 
-        Set<Room> actual1 = hotel1.LookUpFreeRoomsType(DoubleRoom.class, LocalDate.of(2022, 4, 15), LocalDate.of(2022, 4, 16));
+        Set<Room> actual1 = hotel1.lookUpFreeRoomsType(DoubleRoom.class, LocalDate.of(2022, 4, 15), LocalDate.of(2022, 4, 16));
         Set<Room> expected1 = new LinkedHashSet<>();
         expected.add(room1);
         expected.add(room2);

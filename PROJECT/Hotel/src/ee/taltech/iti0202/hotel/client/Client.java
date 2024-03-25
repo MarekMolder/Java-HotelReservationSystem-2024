@@ -5,7 +5,11 @@ import ee.taltech.iti0202.hotel.hotel.Hotel;
 import ee.taltech.iti0202.hotel.rooms.Room;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 /**
  * Represents a Client who can book rooms, write reviews and remove bookings.
@@ -43,7 +47,7 @@ public class Client {
                 clientReview.add(score);
                 this.clientReviews.put(review, score);
                 hotel.hotelReviews.put(this, clientReview);
-                hotel.hotelReviewsScores.put(this,score);
+                hotel.hotelReviewsScores.put(this, score);
                 return true;
             }
         }

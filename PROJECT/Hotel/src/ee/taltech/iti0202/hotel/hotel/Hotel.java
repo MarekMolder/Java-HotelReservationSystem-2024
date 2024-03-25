@@ -5,7 +5,13 @@ import ee.taltech.iti0202.hotel.client.Client;
 import ee.taltech.iti0202.hotel.rooms.Room;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -15,11 +21,14 @@ public class Hotel {
 
     public Set<Room> hotelRooms = new HashSet<>(); //a set of the rooms in hotel
     public Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
-    public Map<Client, Integer> hotelClientBooking = new HashMap<>(); // a map of clients to the number of bookings they have made at the hotel
+    public Map<Client, Integer> hotelClientBooking = new HashMap<>();
+    // a map of clients to the number of bookings they have made at the hotel
 
-    public Map<Client, List<Object>> hotelReviews = new HashMap<>(); // a map of clients and reviews they have made to hotel
+    public Map<Client, List<Object>> hotelReviews = new HashMap<>();
+    // a map of clients and reviews they have made to hotel
 
-    public Map<Client, Integer> hotelReviewsScores = new HashMap<>(); // a map of clients and scores they have given for the hotel
+    public Map<Client, Integer> hotelReviewsScores = new HashMap<>();
+    // a map of clients and scores they have given for the hotel
 
     public Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
 
@@ -95,12 +104,13 @@ public class Hotel {
      * @param until The end date of the booking period.
      * @return A set of rooms that are available within the specified date range.
      */
-    public Set<Room> LookUpFreeRoomsType(Class room, LocalDate since, LocalDate until) {
+    public Set<Room> lookUpFreeRoomsType(Class room, LocalDate since, LocalDate until) {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
             if (room.equals(suit.getClass())) {
-                if (isRoomAvailable(since, until, suit))
-                        hotelSearchRoom.add(suit);
+                if (isRoomAvailable(since, until, suit)) {
+                    hotelSearchRoom.add(suit);
+                }
                     }
                 }
         Set<Room> result = new LinkedHashSet<>(hotelSearchRoom);
@@ -114,7 +124,7 @@ public class Hotel {
      * @param until The end date of the booking period
      * @return A set of rooms that are available within the specific date range.
      */
-    public Set<Room> LookUpFreeRoomDate(LocalDate since, LocalDate until) {
+    public Set<Room> lookUpFreeRoomDate(LocalDate since, LocalDate until) {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
             if (isRoomAvailable(until, since, suit)) {
@@ -134,7 +144,7 @@ public class Hotel {
      * @return True if the room is available, otherwise false.
      */
     public boolean isRoomAvailable(LocalDate since, LocalDate until, Room room) {
-        List<Room> notAvailable= new ArrayList<>();
+        List<Room> notAvailable = new ArrayList<>();
             for (Booking booking: hotelBookings) {
                 if (booking.getRoom().equals(room)) {
                    List<LocalDate> dateList = booking.getDatesInRange(booking.getSince(), booking.getUntil());
@@ -171,7 +181,8 @@ public class Hotel {
     public List<Client> sortClients() {
         return hotelClientBooking.entrySet().stream()
                 .sorted(Map.Entry.<Client, Integer>comparingByValue().reversed()
-                        .thenComparing((e1, e2) -> hotelReviewsScores.get(e2.getKey()).compareTo(hotelReviewsScores.get(e1.getKey()))))
+                        .thenComparing((e1, e2) ->
+                                hotelReviewsScores.get(e2.getKey()).compareTo(hotelReviewsScores.get(e1.getKey()))))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
