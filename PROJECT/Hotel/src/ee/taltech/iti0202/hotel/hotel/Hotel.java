@@ -8,19 +8,26 @@ import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * Represents a hotel from which you can purchase bookings.
+ */
 public class Hotel {
 
-    public Set<Room> hotelRooms = new HashSet<>();
-    public Set<Client> hotelClients = new HashSet<>();
-    public Map<Client, Integer> hotelClientBooking = new HashMap<>();
+    public Set<Room> hotelRooms = new HashSet<>(); //a set of the rooms in hotel
+    public Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
+    public Map<Client, Integer> hotelClientBooking = new HashMap<>(); // a map of clients to the number of bookings they have made at the hotel
 
-    public Map<Client, List<Object>> hotelReviews = new HashMap<>();
+    public Map<Client, List<Object>> hotelReviews = new HashMap<>(); // a map of clients and reviews they have made to hotel
 
-    public Map<Client, Integer> hotelReviewsScores = new HashMap<>();
+    public Map<Client, Integer> hotelReviewsScores = new HashMap<>(); // a map of clients and scores they have given for the hotel
 
-    public Set<Booking> hotelBookings = new HashSet<>();
+    public Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
 
-
+    /**
+     * This method is used to add room to hotel.
+     * @param room The room to be added in hotel.
+     * @return True if the room is not in another hotel, otherwise false.
+     */
     public Boolean addRoomToHotel(Room room) {
         if (room != null) {
             if (room.setHotel(this)) {
@@ -31,20 +38,35 @@ public class Hotel {
         return false;
     }
 
+    /**
+     * This method is used to get rooms in a hotel
+     * @return A set of rooms in hotel.
+     */
     public Set<Room> getRooms() {
         return hotelRooms;
     }
 
+    /**
+     * This method is used to get clients in a hotel.
+     * @return A set of clients in hotel.
+     */
     public Set<Client> getClients() {
         return hotelClients;
     }
 
+    /**
+     * The method is used to get a map of clients and their reviews.
+     * @return A map of clients and their reviews.
+     */
     public Map<Client, List<Object>> getHotelReviews() {
         return hotelReviews;
     }
 
-
-    public Double getReviewsScore() {
+    /**
+     * This method is used to get an arithmetic of the score.
+     * @return Arithmetic score.
+     */
+    public Double getReviewsArithmeticScore() {
         int sum = 0;
         int count = 0;
         for (Integer score : hotelReviewsScores.values()) {
@@ -58,10 +80,21 @@ public class Hotel {
         }
     }
 
+    /**
+     * This method is used to get a set of bookings in hotel.
+     * @return A set of bookings.
+     */
     public Set<Booking> getBooking() {
         return hotelBookings;
     }
 
+    /**
+     * This method is used to Look up free rooms of a specific type within a given date range.
+     * @param room The type of room to be looked up.
+     * @param since The start date of the booking period.
+     * @param until The end date of the booking period.
+     * @return A set of rooms that are available within the specified date range.
+     */
     public Set<Room> LookUpFreeRoomsType(Class room, LocalDate since, LocalDate until) {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
@@ -75,6 +108,12 @@ public class Hotel {
         return result;
     }
 
+    /**
+     * This method is used to look up free rooms within a given date range.
+     * @param since The start date of the booking period.
+     * @param until The end date of the booking period
+     * @return A set of rooms that are available within the specific date range.
+     */
     public Set<Room> LookUpFreeRoomDate(LocalDate since, LocalDate until) {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
@@ -87,6 +126,13 @@ public class Hotel {
         return result;
     }
 
+    /**
+     * This method is used to look up if specific room is available within a given date range.
+     * @param since The start date of the booking period.
+     * @param until The end date of the booking period.
+     * @param room The room to be looked up
+     * @return True if the room is available, otherwise false.
+     */
     public boolean isRoomAvailable(LocalDate since, LocalDate until, Room room) {
         List<Room> notAvailable= new ArrayList<>();
             for (Booking booking: hotelBookings) {
@@ -103,6 +149,12 @@ public class Hotel {
         return notAvailable.isEmpty();
     }
 
+    /**
+     * This method is used to retrieve a list of dates within the specific range.
+     * @param since The start date of the range.
+     * @param until The end date of the range.
+     * @return A list of dates within the specific range.
+     */
     public List<LocalDate> getDatesInRange(LocalDate since, LocalDate until) {
         List<LocalDate> datesInRange = new ArrayList<>();
         while (!since.isAfter(until)) {
@@ -113,11 +165,9 @@ public class Hotel {
     }
 
     /**
-     * Vaja teha.
-     *
-     * @return
+     * This method is used to Sort clients based on their booking count and review scores.
+     * @return A list of clients sorted in descending order by their booking count and then by their review scores.
      */
-
     public List<Client> sortClients() {
         return hotelClientBooking.entrySet().stream()
                 .sorted(Map.Entry.<Client, Integer>comparingByValue().reversed()

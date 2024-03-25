@@ -133,11 +133,11 @@ class ClientTest {
     public void testClientBookRoomCheckIfHotelTakesMoney() {
         hotel.addRoomToHotel(room1);
 
-        assertEquals(200, client1.getMoney());
+        assertEquals(200, client1.getBalance());
 
         Optional<Booking> booking = client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel);
 
-        assertEquals(100, client1.getMoney());
+        assertEquals(100, client1.getBalance());
     }
 
     @Test
@@ -158,7 +158,7 @@ class ClientTest {
     public void testClientBookRoomNotEnoughMoney() {
         hotel.addRoomToHotel(room1);
 
-        assertEquals(0, client2.getMoney());
+        assertEquals(0, client2.getBalance());
 
         Optional<Booking> booking = client2.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel);
 
@@ -210,8 +210,8 @@ class ClientTest {
         hotel.addRoomToHotel(room1);
         hotel.addRoomToHotel(room3);
 
-        assertEquals(200, client1.getMoney());
-        assertEquals(1000, client3.getMoney());
+        assertEquals(200, client1.getBalance());
+        assertEquals(1000, client3.getBalance());
 
         Optional<Booking> booking1 = client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel);
         Optional<Booking> booking2 = client3.bookRoom(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel);
@@ -219,14 +219,14 @@ class ClientTest {
         assertTrue(booking1.isPresent());
         assertTrue(booking2.isPresent());
 
-        assertEquals(100, client1.getMoney());
-        assertEquals(700, client3.getMoney());
+        assertEquals(100, client1.getBalance());
+        assertEquals(700, client3.getBalance());
 
         client1.removeBooking(booking1.get(), hotel);
         client3.removeBooking(booking2.get(), hotel);
 
-        assertEquals(200, client1.getMoney());
-        assertEquals(1000, client3.getMoney());
+        assertEquals(200, client1.getBalance());
+        assertEquals(1000, client3.getBalance());
     }
 
     @Test
@@ -299,8 +299,8 @@ class ClientTest {
 
     @Test
     public void testClientGetMoney() {
-        assertEquals(200, client1.getMoney());
-        assertEquals(0, client2.getMoney());
-        assertEquals(1000, client3.getMoney());
+        assertEquals(200, client1.getBalance());
+        assertEquals(0, client2.getBalance());
+        assertEquals(1000, client3.getBalance());
     }
 }

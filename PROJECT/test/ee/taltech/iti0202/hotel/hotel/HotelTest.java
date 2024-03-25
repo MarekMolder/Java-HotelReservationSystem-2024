@@ -124,7 +124,7 @@ Room room1 = new Room();
         client3.writeReview("hea söök", 3, hotel1);
         client4.writeReview("mõnus voodi", 2, hotel1);
 
-        assertEquals(3.5 , hotel1.getReviewsScore());
+        assertEquals(3.5 , hotel1.getReviewsArithmeticScore());
     }
 
     @Test
@@ -139,7 +139,7 @@ Room room1 = new Room();
         client3.bookRoom(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
         client4.bookRoom(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
 
-        assertEquals(0.0 , hotel1.getReviewsScore());
+        assertEquals(0.0 , hotel1.getReviewsArithmeticScore());
     }
 
     @Test
@@ -159,7 +159,7 @@ Room room1 = new Room();
         client3.writeReview("hea söök", 3, hotel1);
         client4.writeReview("mõnus voodi", 6, hotel1);
 
-        assertEquals(4 , hotel1.getReviewsScore());
+        assertEquals(4 , hotel1.getReviewsArithmeticScore());
     }
 
     @Test
