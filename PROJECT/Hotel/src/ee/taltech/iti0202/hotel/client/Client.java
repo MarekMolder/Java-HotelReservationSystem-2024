@@ -41,7 +41,7 @@ public class Client {
      */
     public boolean writeReview(String review, int score, Hotel hotel) {
         List<Object> clientReview = new ArrayList<>();
-        if (hotel.hotelClients.contains(this)) {
+        if (hotel.hotelClients.contains(this) && !hotel.hotelReviewsScores.containsKey(this)) {
             if (score >= 1 && score <= 5 && !review.isEmpty()) {
                 clientReview.add(review);
                 clientReview.add(score);
@@ -68,12 +68,12 @@ public class Client {
             }
 
         if (hotel.hotelRooms.contains(room)) {
-            if (this.balance >= room.getPrice()) {
-                Booking booking = new Booking(room, since, until, this);
+            Booking booking = new Booking(room, since, until, this);
+            if (this.balance >= booking.getPrice()) {
                 hotel.hotelBookings.add(booking);
                 clientBookings.add(booking);
                 hotel.hotelClients.add(this);
-                this.balance -= room.getPrice();
+                this.balance -= booking.getPrice();
                 hotel.hotelClientBooking.merge(this, 1, Integer::sum);
                 return Optional.of(booking);
                 }
@@ -91,7 +91,7 @@ public class Client {
         if (hotel.hotelBookings.contains(booking) && clientBookings.contains(booking)) {
             clientBookings.remove(booking);
             hotel.hotelBookings.remove(booking);
-            this.balance += booking.getRoom().getPrice();
+            this.balance += booking.getPrice();
             if (hotel.hotelClientBooking.containsKey(this) && hotel.hotelClientBooking.get(this) > 1) {
                 hotel.hotelClientBooking.merge(this, 1, Integer::min);
                 return true;

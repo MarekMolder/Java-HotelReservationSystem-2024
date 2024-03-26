@@ -12,6 +12,7 @@ import java.util.List;
  */
 public class Booking {
     private final Client client; // The client who made the booking
+    private final int price; // The booking price
     private Room room; // The room booked for the reservation
     private final LocalDate since; // The start date of the booking
     private final LocalDate until; // The end date of the booking
@@ -28,6 +29,7 @@ public class Booking {
         this.since = since;
         this.until = until;
         this.client = client;
+        this.price = room.getPrice() * getDatesInRange(since, until).size();
     }
 
     /**
@@ -75,5 +77,13 @@ public class Booking {
      */
     public Client getClient() {
         return this.client;
+    }
+
+    /**
+     * This method is used to get the price of the booking.
+     * @return The price of the booking.
+     */
+    public Integer getPrice() {
+        return this.price;
     }
 }

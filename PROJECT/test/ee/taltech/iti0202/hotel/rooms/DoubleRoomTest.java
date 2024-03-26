@@ -10,12 +10,13 @@ class DoubleRoomTest {
     Room room2 = new DoubleRoom();
     Hotel hotel1 = new Hotel();
 
+
     @Test
-    public void testStandardRoomGetPrice() {
+    public void testDoubleRoomGetPrice() {
         hotel1.addRoomToHotel(room1);
         hotel1.addRoomToHotel(room2);
 
-        assertEquals(100, room1.getPrice());
-        assertEquals(200, room2.getPrice());
+        assertEquals(40, room1.getPrice());
+        assertEquals(80, room2.getPrice());
     }
 }

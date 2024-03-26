@@ -128,4 +128,21 @@ class BookingTest {
         assertEquals(book3, booking3.get().getDatesInRange(booking3.get().getSince(), booking3.get().getUntil()));
         assertEquals(book4, booking4.get().getDatesInRange(booking4.get().getSince(), booking4.get().getUntil()));
     }
+
+    @Test
+    public void testBookingGetPrice() {
+        hotel.addRoomToHotel(room1);
+        hotel.addRoomToHotel(room2);
+        hotel.addRoomToHotel(room3);
+
+        Optional<Booking> booking1 = client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel);
+        Optional<Booking> booking2 = client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 13), hotel);
+        Optional<Booking> booking3 = client3.bookRoom(room3, LocalDate.of(2023, 4, 1), LocalDate.of(2023, 4, 30), hotel);
+        Optional<Booking> booking4 = client1.bookRoom(room1, LocalDate.of(2024, 3, 29), LocalDate.of(2024, 4, 2), hotel);
+
+        assertEquals(240, booking1.get().getPrice());
+        assertEquals(160, booking2.get().getPrice());
+        assertEquals(4500, booking3.get().getPrice());
+        assertEquals(200, booking4.get().getPrice());
+    }
 }

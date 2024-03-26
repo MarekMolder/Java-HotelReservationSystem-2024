@@ -15,7 +15,7 @@ class DeluxeRoomTest {
         hotel1.addRoomToHotel(room1);
         hotel1.addRoomToHotel(room2);
 
-        assertEquals(100, room1.getPrice());
-        assertEquals(300, room2.getPrice());
+        assertEquals(40, room1.getPrice());
+        assertEquals(150, room2.getPrice());
     }
 }

@@ -44,7 +44,7 @@ Room room1 = new Room();
     }
 
     @Test
-    public void testHotelAddRoomWhichIsInOtherHotel() {
+    public void testHotelCantAddRoomWhichIsInOtherHotel() {
         hotel1.addRoomToHotel(room1);
         hotel1.addRoomToHotel(room2);
         hotel1.addRoomToHotel(room3);
@@ -201,8 +201,8 @@ Room room1 = new Room();
 
         assertEquals(expected, actual);
 
-        Optional<Booking> booking1 = client1.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        Optional<Booking> booking2 = client2.bookRoom(room6, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client1.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client2.bookRoom(room6, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
 
         Set<Room> actual1 = hotel1.lookUpFreeRoomsType(DoubleRoom.class, LocalDate.of(2022, 4, 15), LocalDate.of(2022, 4, 16));
         Set<Room> expected1 = new LinkedHashSet<>();
@@ -232,8 +232,8 @@ Room room1 = new Room();
 
         assertEquals(expected, actual);
 
-        Optional<Booking> booking1 = client1.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        Optional<Booking> booking2 = client2.bookRoom(room6, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client1.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client2.bookRoom(room6, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
 
         Set<Room> actual1 = hotel1.lookUpFreeRoomsType(DoubleRoom.class, LocalDate.of(2022, 4, 15), LocalDate.of(2022, 4, 16));
         Set<Room> expected1 = new LinkedHashSet<>();
@@ -253,7 +253,7 @@ Room room1 = new Room();
         assertTrue(hotel1.isRoomAvailable(LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), room5));
         assertTrue(hotel1.isRoomAvailable(LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), room6));
 
-        Optional<Booking> booking1 = client1.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client1.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
 
         assertFalse(hotel1.isRoomAvailable(LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), room5));
         assertTrue(hotel1.isRoomAvailable(LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), room6));
@@ -313,22 +313,22 @@ Room room1 = new Room();
         hotel1.addRoomToHotel(room8);
         hotel1.addRoomToHotel(room9);
 
-        Optional<Booking> booking1 = client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        Optional<Booking> booking2 = client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 13), hotel1);
-        Optional<Booking> booking3 = client3.bookRoom(room3, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
-        Optional<Booking> booking4 = client2.bookRoom(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        Optional<Booking> booking5 = client5.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 13), hotel1);
-        Optional<Booking> booking6 = client3.bookRoom(room6, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
-        Optional<Booking> booking7 = client1.bookRoom(room7, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
-        Optional<Booking> booking8 = client3.bookRoom(room8, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
-        Optional<Booking> booking9 = client3.bookRoom(room9, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
+        client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 13), hotel1);
+        client3.bookRoom(room3, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
+        client2.bookRoom(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client5.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 13), hotel1);
+        client3.bookRoom(room6, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
+        client1.bookRoom(room7, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
+        client3.bookRoom(room8, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
+        client3.bookRoom(room9, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel1);
 
-        client1.writeReview("Lahe hotell", 5, hotel1);
-        client2.writeReview("Lahe hotell", 3, hotel1);
+        client1.writeReview("Lahe hotell", 3, hotel1);
+        client2.writeReview("Lahe hotell", 5, hotel1);
         client3.writeReview("Lahe hotell", 1, hotel1);
         client5.writeReview("Lahe hotell", 4, hotel1);
 
-        List<Client> sortedClients = new LinkedList<>(Arrays.asList(client3, client1, client2, client5));
+        List<Client> sortedClients = new LinkedList<>(Arrays.asList(client3, client2, client1, client5));
         List<Client> sort = hotel1.sortClients();
 
         assertEquals(sortedClients, sort);

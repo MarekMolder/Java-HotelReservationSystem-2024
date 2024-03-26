@@ -27,8 +27,8 @@ class RoomTest {
         hotel1.addRoomToHotel(room1);
         hotel2.addRoomToHotel(room2);
 
-        assertEquals(100, room1.getPrice());
-        assertEquals(100, room2.getPrice());
+        assertEquals(40, room1.getPrice());
+        assertEquals(40, room2.getPrice());
     }
 
     @Test

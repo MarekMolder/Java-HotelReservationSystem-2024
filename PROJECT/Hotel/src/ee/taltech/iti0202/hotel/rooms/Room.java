@@ -25,7 +25,7 @@ public class Room {
      */
     public Room() {
         this.number = getAndIncrementNextRoomNumber();
-        this.price = 100;
+        this.price = 40;
         this.hotel = null;
     }
 

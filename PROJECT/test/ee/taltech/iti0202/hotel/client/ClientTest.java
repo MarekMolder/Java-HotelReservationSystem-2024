@@ -17,15 +17,9 @@ class ClientTest {
     Room room2 = new DoubleRoom();
     Room room3 = new DeluxeRoom();
     Hotel hotel = new Hotel();
-    Client client1 = new Client("Mati", 200);
+    Client client1 = new Client("Mati", 10000);
     Client client2 = new Client("Mati", 0);
-    Client client3 = new Client("Mati", 1000);
-
-    Optional<Booking> booking1 = client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel);
-    Optional<Booking> booking2 = client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 13), hotel);
-    Optional<Booking> booking3 = client3.bookRoom(room3, LocalDate.of(2023, 4, 12), LocalDate.of(2023, 4, 14), hotel);
-    Optional<Booking> booking4 = client1.bookRoom(room1, LocalDate.of(2024, 3, 29), LocalDate.of(2024, 4, 2), hotel);
-
+    Client client3 = new Client("Mati", 10000);
 
     @Test
     public void testClientWriteReview() {
@@ -46,7 +40,7 @@ class ClientTest {
     }
 
     @Test
-    public void testClientWriteDoubleReview() {
+    public void testClientCantWriteDoubleReview() {
         hotel.addRoomToHotel(room1);
 
         client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel);
@@ -55,27 +49,26 @@ class ClientTest {
 
         Map<String, Integer> Clientexpected1 = new HashMap<>();
         Clientexpected1.put("Lahe hotell", 5);
+
         Map<Client, List<Object>> Hotelexpected1 = new HashMap<>();
         Hotelexpected1.put(client1, new ArrayList<>(Arrays.asList("Lahe hotell", 5)));
 
         assertEquals(Clientexpected1, client1.getReviews());
         assertEquals(Hotelexpected1, hotel.getHotelReviews());
 
-        assertTrue(client1.writeReview("Cool bassein", 3, hotel));
+        assertFalse(client1.writeReview("Cool bassein", 3, hotel));
 
         Map<String, Integer> Clientexpected2 = new HashMap<>();
         Clientexpected2.put("Lahe hotell", 5);
-        Clientexpected2.put("Cool bassein", 3);
 
         Map<Client, List<Object>> Hotelexpected2 = new HashMap<>();
         Hotelexpected2.put(client1, new ArrayList<>(Arrays.asList("Lahe hotell", 5)));
-        Hotelexpected2.put(client1, new ArrayList<>(Arrays.asList("Cool bassein", 3)));
 
         assertEquals(Clientexpected2, client1.getReviews());
         assertEquals(Hotelexpected2, hotel.getHotelReviews());
     }
     @Test
-    public void testClientWriteReviewWithScore6() {
+    public void testClientCantWriteReviewWithScore6() {
         hotel.addRoomToHotel(room1);
 
         client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel);
@@ -83,7 +76,7 @@ class ClientTest {
     }
 
     @Test
-    public void testClientWriteReviewWhenNotInBookingList() {
+    public void testClientCantWriteReviewWhenNotInBookingList() {
         hotel.addRoomToHotel(room1);
 
         assertFalse(client1.writeReview("lahe Hotell", 3, hotel));
@@ -113,7 +106,7 @@ class ClientTest {
     }
 
     @Test
-    public void testClientBookRoomBookingNumberInHotelListIncreases() {
+    public void testClientBookingNumberIncreasesInHotelClientBooking() {
         hotel.addRoomToHotel(room1);
         hotel.addRoomToHotel(room3);
 
@@ -130,14 +123,14 @@ class ClientTest {
     }
 
     @Test
-    public void testClientBookRoomCheckIfHotelTakesMoney() {
+    public void testClientBookingTakesMoney() {
         hotel.addRoomToHotel(room1);
 
-        assertEquals(200, client1.getBalance());
+        assertEquals(10000, client1.getBalance());
 
         Optional<Booking> booking = client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel);
 
-        assertEquals(100, client1.getBalance());
+        assertEquals(9760, client1.getBalance());
     }
 
     @Test
@@ -206,12 +199,12 @@ class ClientTest {
     }
 
     @Test
-    public void testClientGetMoneyBackAfterRemovingBooking() {
+    public void testClientGetMoneyBackAfterRemoveBooking() {
         hotel.addRoomToHotel(room1);
         hotel.addRoomToHotel(room3);
 
-        assertEquals(200, client1.getBalance());
-        assertEquals(1000, client3.getBalance());
+        assertEquals(10000, client1.getBalance());
+        assertEquals(10000, client3.getBalance());
 
         Optional<Booking> booking1 = client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel);
         Optional<Booking> booking2 = client3.bookRoom(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel);
@@ -219,18 +212,18 @@ class ClientTest {
         assertTrue(booking1.isPresent());
         assertTrue(booking2.isPresent());
 
-        assertEquals(100, client1.getBalance());
-        assertEquals(700, client3.getBalance());
+        assertEquals(9760, client1.getBalance());
+        assertEquals(9100, client3.getBalance());
 
         client1.removeBooking(booking1.get(), hotel);
         client3.removeBooking(booking2.get(), hotel);
 
-        assertEquals(200, client1.getBalance());
-        assertEquals(1000, client3.getBalance());
+        assertEquals(10000, client1.getBalance());
+        assertEquals(10000, client3.getBalance());
     }
 
     @Test
-    public void testClientRemoveBookingNumberInHotelListDecreases() {
+    public void testClientBookingNumberDecreasesInHotelClientBooking() {
         hotel.addRoomToHotel(room1);
         hotel.addRoomToHotel(room3);
 
@@ -277,7 +270,6 @@ class ClientTest {
 
         Map<String, Integer> Clientexpected = new HashMap<>();
         Clientexpected.put("Lahe hotell", 5);
-        Clientexpected.put("Cool tuba oli", 5);
 
         assertEquals(Clientexpected, client3.getReviews());
     }
@@ -299,8 +291,8 @@ class ClientTest {
 
     @Test
     public void testClientGetMoney() {
-        assertEquals(200, client1.getBalance());
+        assertEquals(10000, client1.getBalance());
         assertEquals(0, client2.getBalance());
-        assertEquals(1000, client3.getBalance());
+        assertEquals(10000, client3.getBalance());
     }
 }
