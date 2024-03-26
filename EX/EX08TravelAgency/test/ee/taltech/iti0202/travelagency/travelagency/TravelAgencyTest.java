@@ -80,12 +80,12 @@ class TravelAgencyTest {
         travelAgency.addTravelPackages(america);
         travelAgency.addTravelPackages(japan);
 
-        mari.buyPackage(italy);
-        mari.buyPackage(estonia);
-        mari.buyPackage(africa);
-        mari.buyPackage(japan);
-        juri.buyPackage(italy);
-        juri.buyPackage(estonia);
+        mari.buyPackage(italy, travelAgency);
+        mari.buyPackage(estonia, travelAgency);
+        mari.buyPackage(africa, travelAgency);
+        mari.buyPackage(japan, travelAgency);
+        juri.buyPackage(italy, travelAgency);
+        juri.buyPackage(estonia, travelAgency);
 
         assertEquals(mari, travelAgency.getTopClient());
     }
@@ -97,10 +97,10 @@ class TravelAgencyTest {
         travelAgency.addTravelPackages(france);
         travelAgency.addTravelPackages(america);
 
-        mari.buyPackage(japan);
-        mari.buyPackage(italy);
-        juri.buyPackage(america);
-        juri.buyPackage(japan);
+        mari.buyPackage(japan, travelAgency);
+        mari.buyPackage(italy, travelAgency);
+        juri.buyPackage(america, travelAgency);
+        juri.buyPackage(japan, travelAgency);
 
         assertEquals(japan, travelAgency.getTopTravelPackage());
     }

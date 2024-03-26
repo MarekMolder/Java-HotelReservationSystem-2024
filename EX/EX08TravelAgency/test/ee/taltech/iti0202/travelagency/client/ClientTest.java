@@ -30,6 +30,27 @@ class ClientTest {
             .setAge(25)
             .setMoney(200).createClient();
 
+    Client Tonu = new ClientBuilder()
+            .setId(589722314)
+            .setName("Tonu")
+            .setEmail("Tonu@gmail.com")
+            .setAge(25)
+            .setMoney(0).createClient();
+
+    Client Kalle = new ClientBuilder()
+            .setId(589722314)
+            .setName("Kalle")
+            .setEmail("Kalle@gmail.com")
+            .setAge(25)
+            .setMoney(0).createClient();
+
+    Client Malle = new ClientBuilder()
+            .setId(589722314)
+            .setName("Malle")
+            .setEmail("Malle@gmail.com")
+            .setAge(25)
+            .setMoney(0).createClient();
+
     TravelAgency travelAgency = new TravelAgency();
 
     TravelPackage italy = new TravelPackage(1, "italy", 50, LocalDate.of(2024, 3,21),
@@ -118,24 +139,18 @@ class ClientTest {
         assertEquals(EPersonStatus.REGULAR, mari.getStatus());
         assertEquals(EPersonStatus.REGULAR, juri.getStatus());
 
-        mari.buyPackage(italy);
-        mari.buyPackage(estonia);
-        mari.buyPackage(france);
-        mari.buyPackage(america);
-        mari.buyPackage(africa);
+        mari.buyPackage(italy, travelAgency);
+        mari.buyPackage(estonia, travelAgency);
+        mari.buyPackage(france, travelAgency);
+        mari.buyPackage(america, travelAgency);
+        mari.buyPackage(africa, travelAgency);
 
-        juri.buyPackage(italy);
-        juri.buyPackage(estonia);
-        juri.buyPackage(africa);
+        juri.buyPackage(italy, travelAgency);
+        juri.buyPackage(estonia, travelAgency);
+        juri.buyPackage(africa, travelAgency);
 
         assertEquals(EPersonStatus.GOLD, mari.getStatus());
         assertEquals(EPersonStatus.SILVER, juri.getStatus());
-    }
-
-    @Test
-    public void testClientGetStatusWhenHaveBoughtPackages() {
-        assertEquals(EPersonStatus.REGULAR, mari.getStatus());
-        assertEquals(EPersonStatus.REGULAR, juri.getStatus());
     }
 
     @Test
@@ -177,29 +192,29 @@ class ClientTest {
         travelAgency.addTravelPackages(america);
 
 
-        assertTrue(mari.buyPackage(estonia));
-        assertTrue(mari.buyPackage(italy));
-        assertTrue(mari.buyPackage(africa));
-        assertTrue(mari.buyPackage(france));
-        assertTrue(mari.buyPackage(america));
+        assertTrue(mari.buyPackage(estonia, travelAgency));
+        assertTrue(mari.buyPackage(italy, travelAgency));
+        assertTrue(mari.buyPackage(africa, travelAgency));
+        assertTrue(mari.buyPackage(france, travelAgency));
+        assertTrue(mari.buyPackage(america, travelAgency));
     }
 
     @Test
     public void testClientBuyPackageButSheAlreadyBoughtIt() {
         travelAgency.addTravelPackages(italy);
 
-        assertTrue(mari.buyPackage(italy));
-        assertFalse(mari.buyPackage(italy));
+        assertTrue(mari.buyPackage(italy, travelAgency));
+        assertFalse(mari.buyPackage(italy, travelAgency));
     }
 
     @Test
     public void testClientBuyPackageButTravelAgencyDoesntSellThis() {
-        assertFalse(mari.buyPackage(italy));
+        assertFalse(mari.buyPackage(italy, travelAgency));
     }
 
     @Test
     public void testClientBuyPackageButDoesntHaveEnoughMoney() {
-        assertFalse(juri.buyPackage(france));
+        assertFalse(juri.buyPackage(france, travelAgency));
     }
 
     @Test
@@ -208,7 +223,7 @@ class ClientTest {
 
         assertEquals(500, mari.getBalance());
 
-        mari.buyPackage(france);
+        mari.buyPackage(france, travelAgency);
 
         assertEquals(200, mari.getBalance());
     }
@@ -227,9 +242,9 @@ class ClientTest {
         mari.setPackages(italy);
         mari.setPackages(america);
         mari.setPackages(japan);
-        mari.buyPackage(france);
-        mari.buyPackage(estonia);
-        mari.buyPackage(africa);
+        mari.buyPackage(france, travelAgency);
+        mari.buyPackage(estonia, travelAgency);
+        mari.buyPackage(africa, travelAgency);
 
         assertEquals(123, mari.getBalance());
     }
@@ -250,8 +265,35 @@ class ClientTest {
         mari.setPackages(japan);
         mari.setPackages(estonia);
         mari.setPackages(africa);
-        mari.buyPackage(france);
+        mari.buyPackage(france, travelAgency);
 
         assertEquals(230, mari.getBalance());
+    }
+
+    @Test
+    public void testClientBuyPackageButNotEnoughMoney() {
+        travelAgency.addTravelPackages(italy);
+        travelAgency.addTravelPackages(estonia);
+        travelAgency.addTravelPackages(africa);
+        travelAgency.addTravelPackages(france);
+        travelAgency.addTravelPackages(america);
+        travelAgency.addTravelPackages(japan);
+
+        assertEquals(0, Tonu.getBalance());
+        assertEquals(0, Kalle.getBalance());
+        assertEquals(0, Malle.getBalance());
+
+        Tonu.setPackages(italy);
+        Tonu.setPackages(america);
+        Tonu.setPackages(japan);
+        Tonu.setPackages(estonia);
+        Tonu.setPackages(africa);
+        Kalle.setPackages(italy);
+        Kalle.setPackages(america);
+        Kalle.setPackages(japan);
+
+        assertFalse(Tonu.buyPackage(france, travelAgency));
+        assertFalse(Kalle.buyPackage(france, travelAgency));
+        assertFalse(Malle.buyPackage(france, travelAgency));
     }
 }

@@ -19,6 +19,18 @@ public class TravelPackage {
     private final EPackageType type;
     Logger logger = Logger.getLogger(Client.class.getName());
 
+    /**
+     * Constructs a TravelPackage with the specified attributes.
+     *
+     * @param id         The ID of the travel package.
+     * @param name       The name of the travel package.
+     * @param price      The price of the travel package.
+     * @param since      The start date of the travel package.
+     * @param until      The end date of the travel package.
+     * @param country    The destination country of the travel package.
+     * @param activities The list of activities included in the travel package.
+     * @param type       The type of the travel package.
+     */
     public TravelPackage(Integer id, String name, Integer price, LocalDate since, LocalDate until, String country, List<String> activities, EPackageType type) {
         this.id = id;
         this.name = name;
@@ -30,46 +42,91 @@ public class TravelPackage {
         this.type = type;
     }
 
+    /**
+     * Retrieves the ID of the travel package.
+     *
+     * @return The ID of the travel package.
+     */
     public Integer getId() {
         logger.log(Level.INFO, "Return package id");
         return id;
     }
 
+    /**
+     * Retrieves the name of the travel package.
+     *
+     * @return The name of the travel package.
+     */
     public String getName() {
         logger.log(Level.INFO, "Return package name");
         return name;
     }
 
+    /**
+     * Retrieves the price of the travel package.
+     *
+     * @return The price of the travel package.
+     */
     public Integer getPrice() {
         logger.log(Level.INFO, "Return package price");
         return price;
     }
 
+    /**
+     * Retrieves the start date of the travel package.
+     *
+     * @return The start date of the travel package.
+     */
     public LocalDate getSince() {
         logger.log(Level.INFO, "Return package start date");
         return since;
     }
 
+    /**
+     * Retrieves the end date of the travel package.
+     *
+     * @return The end date of the travel package.
+     */
     public LocalDate getUntil() {
         logger.log(Level.INFO, "Return package end date");
         return until;
     }
 
+    /**
+     * Retrieves the destination country of the travel package.
+     *
+     * @return The destination country of the travel package.
+     */
     public String getCountry() {
         logger.log(Level.INFO, "Return package destination");
         return country;
     }
 
+    /**
+     * Retrieves the list of activities included in the travel package.
+     *
+     * @return The list of activities included in the travel package.
+     */
     public List<String> getActivities() {
         logger.log(Level.INFO, "Return package activities");
         return activities;
     }
 
+    /**
+     * Retrieves the type of the travel package.
+     *
+     * @return The type of the travel package.
+     */
     public EPackageType getType() {
         logger.log(Level.INFO, "Return package type");
         return type;
     }
 
+    /**
+     * Calculates and retrieves the duration of the travel package in days.
+     *
+     * @return The duration of the travel package in days.
+     */
     public Integer getTravelDuration() {
         logger.log(Level.INFO, "Return package duration");
         return Math.toIntExact(ChronoUnit.DAYS.between(this.since, this.until));
