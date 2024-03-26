@@ -6,13 +6,13 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TravelPackageTest {
-    TravelPackage italy = new TravelPackage("italy", 50, LocalDate.of(2024, 3,21),
+    TravelPackage italy = new TravelPackage("italy", 50, LocalDate.of(2024, 3, 21),
             LocalDate.of(2024, 3, 26), "Italy", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
-    TravelPackage france = new TravelPackage("france", 300, LocalDate.of(2024, 3,19),
+    TravelPackage france = new TravelPackage("france", 300, LocalDate.of(2024, 3, 19),
             LocalDate.of(2024, 3, 26), "France", new ArrayList<>(List.of("sightseeing")), EPackageType.BEACHVACATION);
 
     @Test
@@ -35,8 +35,8 @@ class TravelPackageTest {
 
     @Test
     public void testTravelPackageGetSince() {
-        assertEquals(LocalDate.of(2024, 3,21), italy.getSince());
-        assertEquals(LocalDate.of(2024, 3,19), france.getSince());
+        assertEquals(LocalDate.of(2024, 3, 21), italy.getSince());
+        assertEquals(LocalDate.of(2024, 3, 19), france.getSince());
     }
 
     @Test

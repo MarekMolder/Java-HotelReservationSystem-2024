@@ -11,7 +11,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class ClientTest {
     Client mari = new ClientBuilder()
@@ -53,22 +57,22 @@ class ClientTest {
 
     TravelAgency travelAgency = new TravelAgency();
 
-    TravelPackage italy = new TravelPackage("italy", 50, LocalDate.of(2024, 3,21),
+    TravelPackage italy = new TravelPackage("italy", 50, LocalDate.of(2024, 3, 21),
             LocalDate.of(2024, 3, 26), "Italy", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
-    TravelPackage france = new TravelPackage("france", 300, LocalDate.of(2024, 3,21),
+    TravelPackage france = new TravelPackage("france", 300, LocalDate.of(2024, 3, 21),
             LocalDate.of(2024, 3, 26), "France", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
-    TravelPackage estonia = new TravelPackage("estonia", 50, LocalDate.of(2024, 3,21),
+    TravelPackage estonia = new TravelPackage("estonia", 50, LocalDate.of(2024, 3, 21),
             LocalDate.of(2024, 3, 26), "Estonia", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
-    TravelPackage africa = new TravelPackage("africa", 50, LocalDate.of(2024, 3,21),
+    TravelPackage africa = new TravelPackage("africa", 50, LocalDate.of(2024, 3, 21),
             LocalDate.of(2024, 3, 26), "Africa", new ArrayList<>(List.of("eating")), EPackageType.HIKINGTRIP);
 
-    TravelPackage america = new TravelPackage("america", 50, LocalDate.of(2024, 3,21),
+    TravelPackage america = new TravelPackage("america", 50, LocalDate.of(2024, 3, 21),
             LocalDate.of(2024, 3, 26), "America", new ArrayList<>(List.of("eating")), EPackageType.BEACHVACATION);
 
-    TravelPackage japan = new TravelPackage("japan", 50, LocalDate.of(2024, 3,21),
+    TravelPackage japan = new TravelPackage("japan", 50, LocalDate.of(2024, 3, 21),
             LocalDate.of(2024, 3, 26), "Japan", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
 
