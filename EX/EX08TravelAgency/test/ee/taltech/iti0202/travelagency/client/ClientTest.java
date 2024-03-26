@@ -140,8 +140,8 @@ class ClientTest {
 
     @Test
     public void testClientGetMoney() {
-        assertEquals(500, mari.getMoney());
-        assertEquals(200, juri.getMoney());
+        assertEquals(500, mari.getBalance());
+        assertEquals(200, juri.getBalance());
     }
 
     @Test
@@ -152,10 +152,10 @@ class ClientTest {
 
     @Test
     public void testClientSetMoney() {
-        mari.setMoney(400);
-        juri.setMoney(300);
-        assertEquals(100, mari.getMoney());
-        assertEquals(-100, juri.getMoney());
+        mari.setBalance(400);
+        juri.setBalance(300);
+        assertEquals(100, mari.getBalance());
+        assertEquals(-100, juri.getBalance());
     }
 
     @Test
@@ -206,11 +206,11 @@ class ClientTest {
     public void testClientBuyPackageWhenStatusIsRegular() {
         travelAgency.addTravelPackages(france);
 
-        assertEquals(500, mari.getMoney());
+        assertEquals(500, mari.getBalance());
 
         mari.buyPackage(france);
 
-        assertEquals(200, mari.getMoney());
+        assertEquals(200, mari.getBalance());
     }
 
     @Test
@@ -222,7 +222,7 @@ class ClientTest {
         travelAgency.addTravelPackages(america);
         travelAgency.addTravelPackages(japan);
 
-        assertEquals(500, mari.getMoney());
+        assertEquals(500, mari.getBalance());
 
         mari.setPackages(italy);
         mari.setPackages(america);
@@ -231,7 +231,7 @@ class ClientTest {
         mari.buyPackage(estonia);
         mari.buyPackage(africa);
 
-        assertEquals(123, mari.getMoney());
+        assertEquals(123, mari.getBalance());
     }
 
     @Test
@@ -243,7 +243,7 @@ class ClientTest {
         travelAgency.addTravelPackages(america);
         travelAgency.addTravelPackages(japan);
 
-        assertEquals(500, mari.getMoney());
+        assertEquals(500, mari.getBalance());
 
         mari.setPackages(italy);
         mari.setPackages(america);
@@ -252,6 +252,6 @@ class ClientTest {
         mari.setPackages(africa);
         mari.buyPackage(france);
 
-        assertEquals(230, mari.getMoney());
+        assertEquals(230, mari.getBalance());
     }
 }
