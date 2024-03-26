@@ -9,7 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class TravelPackage {
-    private final Integer id;
+    private static int nextId = 1;
+    private final int number;
     private final String name;
     private final Integer price;
     private final LocalDate since;
@@ -19,10 +20,12 @@ public class TravelPackage {
     private final EPackageType type;
     Logger logger = Logger.getLogger(Client.class.getName());
 
+    public int getAndIncrementNextId() {
+        return nextId++;
+    }
+
     /**
      * Constructs a TravelPackage with the specified attributes.
-     *
-     * @param id         The ID of the travel package.
      * @param name       The name of the travel package.
      * @param price      The price of the travel package.
      * @param since      The start date of the travel package.
@@ -31,8 +34,9 @@ public class TravelPackage {
      * @param activities The list of activities included in the travel package.
      * @param type       The type of the travel package.
      */
-    public TravelPackage(Integer id, String name, Integer price, LocalDate since, LocalDate until, String country, List<String> activities, EPackageType type) {
-        this.id = id;
+    public TravelPackage(String name, Integer price, LocalDate since,
+                         LocalDate until, String country, List<String> activities, EPackageType type) {
+        this.number = getAndIncrementNextId();
         this.name = name;
         this.price = price;
         this.since = since;
@@ -49,7 +53,7 @@ public class TravelPackage {
      */
     public Integer getId() {
         logger.log(Level.INFO, "Return package id");
-        return id;
+        return number;
     }
 
     /**

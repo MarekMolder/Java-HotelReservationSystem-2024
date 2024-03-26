@@ -33,22 +33,22 @@ class TravelAgencyTest {
 
     TravelAgency travelAgency = new TravelAgency();
 
-    TravelPackage italy = new TravelPackage(1, "italy", 50, LocalDate.of(2024, 3,21),
+    TravelPackage italy = new TravelPackage("italy", 50, LocalDate.of(2024, 3,21),
             LocalDate.of(2024, 3, 26), "Italy", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
-    TravelPackage france = new TravelPackage(2, "france", 300, LocalDate.of(2024, 3,21),
+    TravelPackage france = new TravelPackage("france", 300, LocalDate.of(2024, 3,21),
             LocalDate.of(2024, 3, 26), "France", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
-    TravelPackage estonia = new TravelPackage(3, "estonia", 50, LocalDate.of(2024, 3,21),
+    TravelPackage estonia = new TravelPackage("estonia", 50, LocalDate.of(2024, 3,21),
             LocalDate.of(2024, 3, 26), "Estonia", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
-    TravelPackage africa = new TravelPackage(4, "africa", 50, LocalDate.of(2024, 3,21),
+    TravelPackage africa = new TravelPackage("africa", 50, LocalDate.of(2024, 3,21),
             LocalDate.of(2024, 3, 26), "Africa", new ArrayList<>(List.of("eating")), EPackageType.HIKINGTRIP);
 
-    TravelPackage america = new TravelPackage(5, "america", 50, LocalDate.of(2024, 3,21),
+    TravelPackage america = new TravelPackage("america", 50, LocalDate.of(2024, 3,21),
             LocalDate.of(2024, 3, 26), "America", new ArrayList<>(List.of("eating")), EPackageType.BEACHVACATION);
 
-    TravelPackage japan = new TravelPackage(6, "japan", 50, LocalDate.of(2024, 3,21),
+    TravelPackage japan = new TravelPackage("japan", 50, LocalDate.of(2024, 3,21),
             LocalDate.of(2024, 3, 26), "Japan", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
     @Test
