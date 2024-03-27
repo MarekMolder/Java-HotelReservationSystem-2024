@@ -19,18 +19,66 @@ import java.util.stream.Collectors;
  */
 public class Hotel {
 
-    public Set<Room> hotelRooms = new HashSet<>(); //a set of the rooms in hotel
-    public Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
-    public Map<Client, Integer> hotelClientBooking = new HashMap<>();
+    private Set<Room> hotelRooms = new HashSet<>(); //a set of the rooms in hotel
+    private Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
+    private Map<Client, Integer> hotelClientBookings = new HashMap<>();
     // a map of clients to the number of bookings they have made at the hotel
 
-    public Map<Client, List<Object>> hotelReviews = new HashMap<>();
+    private Map<Client, List<Object>> hotelReviews = new HashMap<>();
     // a map of clients and reviews they have made to hotel
 
-    public Map<Client, Integer> hotelReviewsScores = new HashMap<>();
+    private Map<Client, Integer> hotelReviewsScores = new HashMap<>();
     // a map of clients and scores they have given for the hotel
 
-    public Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
+    private Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
+
+    /**
+     * This method is used to get rooms in a hotel
+     * @return A set of rooms in hotel.
+     */
+    public Set<Room> getHotelRooms() {
+        return hotelRooms;
+    }
+
+    /**
+     * This method is used to get clients in a hotel.
+     * @return A set of clients in hotel.
+     */
+    public Set<Client> getHotelClients() {
+        return hotelClients;
+    }
+
+    /**
+     * This method is used to get map of clients and number of their bookings.
+     * @return A map of clients and number of their bookings.
+     */
+    public Map<Client, Integer> getHotelClientBookings() {
+        return hotelClientBookings;
+    }
+
+    /**
+     * The method is used to get a map of clients and their reviews.
+     * @return A map of clients and their reviews.
+     */
+    public Map<Client, List<Object>> getHotelReviews() {
+        return hotelReviews;
+    }
+
+    /**
+     * The method is used to get a map of hotel clients and their review score.
+     * @return A map of hotel clients and their review score.
+     */
+    public Map<Client, Integer> getHotelReviewsScores() {
+        return hotelReviewsScores;
+    }
+
+    /**
+     * This method is used to get a set of bookings in hotel.
+     * @return A set of bookings.
+     */
+    public Set<Booking> getHotelBookings() {
+        return hotelBookings;
+    }
 
     /**
      * This method is used to add room to hotel.
@@ -45,30 +93,6 @@ public class Hotel {
             }
         }
         return false;
-    }
-
-    /**
-     * This method is used to get rooms in a hotel
-     * @return A set of rooms in hotel.
-     */
-    public Set<Room> getRooms() {
-        return hotelRooms;
-    }
-
-    /**
-     * This method is used to get clients in a hotel.
-     * @return A set of clients in hotel.
-     */
-    public Set<Client> getClients() {
-        return hotelClients;
-    }
-
-    /**
-     * The method is used to get a map of clients and their reviews.
-     * @return A map of clients and their reviews.
-     */
-    public Map<Client, List<Object>> getHotelReviews() {
-        return hotelReviews;
     }
 
     /**
@@ -87,14 +111,6 @@ public class Hotel {
         } else {
             return ((double) sum / count);
         }
-    }
-
-    /**
-     * This method is used to get a set of bookings in hotel.
-     * @return A set of bookings.
-     */
-    public Set<Booking> getBooking() {
-        return hotelBookings;
     }
 
     /**
@@ -179,7 +195,7 @@ public class Hotel {
      * @return A list of clients sorted in descending order by their booking count and then by their review scores.
      */
     public List<Client> sortClients() {
-        return hotelClientBooking.entrySet().stream()
+        return hotelClientBookings.entrySet().stream()
                 .sorted(Map.Entry.<Client, Integer>comparingByValue().reversed()
                         .thenComparing((e1, e2) ->
                                 hotelReviewsScores.get(e2.getKey()).compareTo(hotelReviewsScores.get(e1.getKey()))))

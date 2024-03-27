@@ -93,16 +93,16 @@ class ClientTest {
         assertTrue(booking1.isPresent());
         assertTrue(booking2.isPresent());
 
-        assertEquals(2, hotel.hotelBookings.size());
+        assertEquals(2, hotel.getHotelBookings().size());
 
-        assertTrue(hotel.hotelBookings.contains(booking1.get()));
-        assertTrue(hotel.hotelBookings.contains(booking2.get()));
+        assertTrue(hotel.getHotelBookings().contains(booking1.get()));
+        assertTrue(hotel.getHotelBookings().contains(booking2.get()));
 
         assertTrue(client1.getBookings().contains(booking1.get()));
         assertTrue(client3.getBookings().contains(booking2.get()));
 
-        assertTrue(hotel.hotelClients.contains(client1));
-        assertTrue(hotel.hotelClients.contains(client3));
+        assertTrue(hotel.getHotelClients().contains(client1));
+        assertTrue(hotel.getHotelClients().contains(client3));
     }
 
     @Test
@@ -119,7 +119,7 @@ class ClientTest {
         Map<Client, Integer> clientBooking = new HashMap<>();
         clientBooking.put(client3, 2);
 
-        assertEquals(clientBooking, hotel.hotelClientBooking);
+        assertEquals(clientBooking, hotel.getHotelClientBookings());
     }
 
     @Test
@@ -176,26 +176,26 @@ class ClientTest {
         assertTrue(booking1.isPresent());
         assertTrue(booking2.isPresent());
 
-        assertEquals(2, hotel.hotelBookings.size());
+        assertEquals(2, hotel.getHotelBookings().size());
 
-        assertTrue(hotel.hotelBookings.contains(booking1.get()));
-        assertTrue(hotel.hotelBookings.contains(booking2.get()));
+        assertTrue(hotel.getHotelBookings().contains(booking1.get()));
+        assertTrue(hotel.getHotelBookings().contains(booking2.get()));
 
         assertTrue(client1.getBookings().contains(booking1.get()));
         assertTrue(client3.getBookings().contains(booking2.get()));
 
-        assertTrue(hotel.hotelClients.contains(client1));
-        assertTrue(hotel.hotelClients.contains(client3));
+        assertTrue(hotel.getHotelClients().contains(client1));
+        assertTrue(hotel.getHotelClients().contains(client3));
 
         client1.removeBooking(booking1.get(), hotel);
         client3.removeBooking(booking2.get(), hotel);
 
-        assertEquals(0, hotel.hotelBookings.size());
+        assertEquals(0, hotel.getHotelBookings().size());
         assertEquals(0, client1.getBookings().size());
         assertEquals(0, client2.getBookings().size());
 
-        assertFalse(hotel.hotelClients.contains(client1));
-        assertFalse(hotel.hotelClients.contains(client3));
+        assertFalse(hotel.getHotelClients().contains(client1));
+        assertFalse(hotel.getHotelClients().contains(client3));
     }
 
     @Test
@@ -235,16 +235,16 @@ class ClientTest {
 
         Map<Client, Integer> clientBooking1 = new HashMap<>();
         clientBooking1.put(client3, 2);
-        assertEquals(clientBooking1, hotel.hotelClientBooking);
+        assertEquals(clientBooking1, hotel.getHotelClientBookings());
 
         client3.removeBooking(booking1.get(), hotel);
 
         Map<Client, Integer> clientBooking2 = new HashMap<>();
         clientBooking2.put(client3, 1);
-        assertEquals(clientBooking2, hotel.hotelClientBooking);
+        assertEquals(clientBooking2, hotel.getHotelClientBookings());
 
         client3.removeBooking(booking2.get(), hotel);
-        assertTrue(hotel.hotelClientBooking.isEmpty());
+        assertTrue(hotel.getHotelClientBookings().isEmpty());
     }
 
     @Test

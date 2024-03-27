@@ -36,6 +36,119 @@ Room room1 = new Room();
     Client client6 = new Client("Kalle", 10000000);
 
     @Test
+    public void testHotelGetHotelRooms() {
+        hotel1.addRoomToHotel(room1);
+        hotel1.addRoomToHotel(room2);
+        hotel1.addRoomToHotel(room3);
+        hotel1.addRoomToHotel(room4);
+
+        Set<Room> expected = new HashSet<>();
+        expected.add(room1);
+        expected.add(room2);
+        expected.add(room3);
+        expected.add(room4);
+
+        assertEquals(expected, hotel1.getHotelRooms());
+    }
+
+    @Test
+    public void testHotelGetHotelClients() {
+        hotel1.addRoomToHotel(room1);
+        hotel1.addRoomToHotel(room2);
+        hotel1.addRoomToHotel(room3);
+        hotel1.addRoomToHotel(room4);
+
+        client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client3.bookRoom(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client4.bookRoom(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+
+        Set<Client> expected = new HashSet<>();
+        expected.add(client1);
+        expected.add(client2);
+        expected.add(client3);
+        expected.add(client4);
+
+        assertEquals(expected, hotel1.getHotelClients());
+    }
+
+    @Test
+    public void testHotelGetHotelClientBooking() {
+        hotel1.addRoomToHotel(room1);
+        hotel1.addRoomToHotel(room2);
+        hotel1.addRoomToHotel(room3);
+        hotel1.addRoomToHotel(room4);
+
+        client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client1.bookRoom(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client1.bookRoom(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+
+        Map<Client, Integer> expected = new HashMap<>();
+        expected.put(client1, 3);
+        expected.put(client2, 1);
+
+        assertEquals(expected, hotel1.getHotelClientBookings());
+    }
+
+    @Test
+    public void testHotelGetHotelReviews() {
+        hotel1.addRoomToHotel(room1);
+
+        client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+
+        client1.writeReview("Lahe hotell", 5, hotel1);
+
+        Map<Client, List<Object>> Hotelexpected = new HashMap<>();
+        Hotelexpected.put(client1, new ArrayList<>(Arrays.asList("Lahe hotell", 5)));
+
+        assertEquals(Hotelexpected, hotel1.getHotelReviews());
+    }
+
+    @Test
+    public void testHotelGetHotelReviewsScores() {
+        hotel1.addRoomToHotel(room1);
+        hotel1.addRoomToHotel(room2);
+        hotel1.addRoomToHotel(room3);
+        hotel1.addRoomToHotel(room4);
+
+        client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        client3.bookRoom(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+
+        client1.writeReview("cool hotell", 3, hotel1);
+        client2.writeReview("Väga lahe hotell", 2, hotel1);
+        client3.writeReview("Lahe bassein", 4, hotel1);
+
+
+        Map<Client, Integer> expected = new HashMap<>();
+        expected.put(client1, 3);
+        expected.put(client2, 2);
+        expected.put(client3, 4);
+
+        assertEquals(expected, hotel1.getHotelReviewsScores());
+    }
+
+    @Test
+    public void testHotelGetHotelBookings() {
+        hotel1.addRoomToHotel(room1);
+        hotel1.addRoomToHotel(room2);
+        hotel1.addRoomToHotel(room3);
+        hotel1.addRoomToHotel(room4);
+
+        Optional<Booking> booking1 = client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        Optional<Booking> booking2 = client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        Optional<Booking> booking3 = client3.bookRoom(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+
+        Set<Booking> expected = new HashSet<>();
+        expected.add(booking1.get());
+        expected.add(booking2.get());
+        expected.add(booking3.get());
+
+        assertEquals(expected, hotel1.getHotelBookings());
+    }
+
+    @Test
     public void testHotelAddRoom() {
         assertTrue(hotel1.addRoomToHotel(room1));
         assertTrue(hotel1.addRoomToHotel(room2));
@@ -54,57 +167,6 @@ Room room1 = new Room();
         assertFalse(hotel2.addRoomToHotel(room2));
         assertFalse(hotel2.addRoomToHotel(room3));
         assertFalse(hotel2.addRoomToHotel(room4));
-    }
-
-    @Test
-    public void testHotelGetRooms() {
-        hotel1.addRoomToHotel(room1);
-        hotel1.addRoomToHotel(room2);
-        hotel1.addRoomToHotel(room3);
-        hotel1.addRoomToHotel(room4);
-
-        Set<Room> rooms = new HashSet<>();
-        rooms.add(room1);
-        rooms.add(room2);
-        rooms.add(room3);
-        rooms.add(room4);
-
-        assertEquals(rooms, hotel1.getRooms());
-    }
-
-    @Test
-    public void testHotelGetClients() {
-        hotel1.addRoomToHotel(room1);
-        hotel1.addRoomToHotel(room2);
-        hotel1.addRoomToHotel(room3);
-        hotel1.addRoomToHotel(room4);
-
-        client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        client3.bookRoom(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        client4.bookRoom(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-
-        Set<Client> clients = new HashSet<>();
-        clients.add(client1);
-        clients.add(client2);
-        clients.add(client3);
-        clients.add(client4);
-
-        assertEquals(clients, hotel1.getClients());
-    }
-
-    @Test
-    public void testHotelGetHotelReviews() {
-        hotel1.addRoomToHotel(room1);
-
-        client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-
-        client1.writeReview("Lahe hotell", 5, hotel1);
-
-        Map<Client, List<Object>> Hotelexpected = new HashMap<>();
-        Hotelexpected.put(client1, new ArrayList<>(Arrays.asList("Lahe hotell", 5)));
-
-        assertEquals(Hotelexpected, hotel1.getHotelReviews());
     }
 
     @Test
@@ -180,7 +242,7 @@ Room room1 = new Room();
         bookings.add(booking3.get());
         bookings.add(booking4.get());
 
-        assertEquals(bookings , hotel1.getBooking());
+        assertEquals(bookings , hotel1.getHotelBookings());
     }
 
     @Test

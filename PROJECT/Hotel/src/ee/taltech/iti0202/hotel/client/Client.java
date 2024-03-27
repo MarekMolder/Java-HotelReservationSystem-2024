@@ -41,13 +41,13 @@ public class Client {
      */
     public boolean writeReview(String review, int score, Hotel hotel) {
         List<Object> clientReview = new ArrayList<>();
-        if (hotel.hotelClients.contains(this) && !hotel.hotelReviewsScores.containsKey(this)) {
+        if (hotel.getHotelClients().contains(this) && !hotel.getHotelReviewsScores().containsKey(this)) {
             if (score >= 1 && score <= 5 && !review.isEmpty()) {
                 clientReview.add(review);
                 clientReview.add(score);
                 this.clientReviews.put(review, score);
-                hotel.hotelReviews.put(this, clientReview);
-                hotel.hotelReviewsScores.put(this, score);
+                hotel.getHotelReviews().put(this, clientReview);
+                hotel.getHotelReviewsScores().put(this, score);
                 return true;
             }
         }
@@ -67,14 +67,14 @@ public class Client {
                 return Optional.empty();
             }
 
-        if (hotel.hotelRooms.contains(room)) {
+        if (hotel.getHotelRooms().contains(room)) {
             Booking booking = new Booking(room, since, until, this);
             if (this.balance >= booking.getPrice()) {
-                hotel.hotelBookings.add(booking);
+                hotel.getHotelBookings().add(booking);
                 clientBookings.add(booking);
-                hotel.hotelClients.add(this);
+                hotel.getHotelClients().add(this);
                 this.balance -= booking.getPrice();
-                hotel.hotelClientBooking.merge(this, 1, Integer::sum);
+                hotel.getHotelClientBookings().merge(this, 1, Integer::sum);
                 return Optional.of(booking);
                 }
             }
@@ -88,16 +88,16 @@ public class Client {
      * @return True if the removal was successful, false otherwise.
      */
     public Boolean removeBooking(Booking booking, Hotel hotel) {
-        if (hotel.hotelBookings.contains(booking) && clientBookings.contains(booking)) {
+        if (hotel.getHotelBookings().contains(booking) && clientBookings.contains(booking)) {
             clientBookings.remove(booking);
-            hotel.hotelBookings.remove(booking);
+            hotel.getHotelBookings().remove(booking);
             this.balance += booking.getPrice();
-            if (hotel.hotelClientBooking.containsKey(this) && hotel.hotelClientBooking.get(this) > 1) {
-                hotel.hotelClientBooking.merge(this, 1, Integer::min);
+            if (hotel.getHotelClientBookings().containsKey(this) && hotel.getHotelClientBookings().get(this) > 1) {
+                hotel.getHotelClientBookings().merge(this, 1, Integer::min);
                 return true;
             } else {
-                hotel.hotelClients.remove(this);
-                hotel.hotelClientBooking.remove(this);
+                hotel.getHotelClients().remove(this);
+                hotel.getHotelClientBookings().remove(this);
                 return true;
             }
         }
