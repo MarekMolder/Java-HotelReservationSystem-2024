@@ -57,21 +57,6 @@ public class Booking {
     }
 
     /**
-     * This method is used to retrieve a list of dates within the specific range.
-     * @param since The start date of the range.
-     * @param until The end date of the range.
-     * @return A list of dates within the specific range.
-     */
-    public List<LocalDate> getDatesInRange(LocalDate since, LocalDate until) {
-        List<LocalDate> datesInRange = new ArrayList<>();
-        while (!since.isAfter(until)) {
-            datesInRange.add(since);
-            since = since.plusDays(1);
-        }
-        return datesInRange;
-    }
-
-    /**
      * This method is used to get the client who made the specific booking.
      * @return The client who made the booking.
      */
@@ -85,5 +70,20 @@ public class Booking {
      */
     public Integer getPrice() {
         return this.price;
+    }
+
+    /**
+     * This method is used to retrieve a list of dates within the specific range.
+     * @param since The start date of the range.
+     * @param until The end date of the range.
+     * @return A list of dates within the specific range.
+     */
+    public List<LocalDate> getDatesInRange(LocalDate since, LocalDate until) {
+        List<LocalDate> datesInRange = new ArrayList<>();
+        while (!since.isAfter(until)) {
+            datesInRange.add(since);
+            since = since.plusDays(1);
+        }
+        return datesInRange;
     }
 }

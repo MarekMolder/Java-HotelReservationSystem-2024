@@ -35,7 +35,7 @@ public class Room {
      * @param hotel The hotel where room is added.
      * @return True if room is not in other hotel, otherwise false.
      */
-    public Boolean setHotel(Hotel hotel) {
+    public Boolean addHotel(Hotel hotel) {
         if (this.hotel == null) {
             this.hotel = hotel;
             return true;

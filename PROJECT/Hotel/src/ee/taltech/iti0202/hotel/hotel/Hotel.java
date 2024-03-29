@@ -87,7 +87,7 @@ public class Hotel {
      */
     public Boolean addRoomToHotel(Room room) {
         if (room != null) {
-            if (room.setHotel(this)) {
+            if (room.addHotel(this)) {
                 hotelRooms.add(room);
                 return true;
             }
@@ -143,7 +143,7 @@ public class Hotel {
     public Set<Room> lookUpFreeRoomDate(LocalDate since, LocalDate until) {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
-            if (isRoomAvailable(until, since, suit)) {
+            if (isRoomAvailable(since, until, suit)) {
                 hotelSearchRoom.add(suit);
             }
         }

@@ -1,69 +1,76 @@
 package ee.taltech.iti0202.hotel.rooms;
 
 import ee.taltech.iti0202.hotel.hotel.Hotel;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class RoomTest {
-    Room room1 = new Room();
-    Room room2 = new Room();
-    Room room3 = new Room();
-    Hotel hotel1 = new Hotel();
-    Hotel hotel2 = new Hotel();
-    @Test
-    public void testRoomGetNumber() {
-        hotel1.addRoomToHotel(room1);
-        hotel2.addRoomToHotel(room2);
-        hotel2.addRoomToHotel(room3);
+    private Room room1;
+    private Room room2;
+    private Hotel hotel1;
+    private Hotel hotel2;
 
-        assertNotEquals(room2.getNumber(), room1.getNumber());
-        assertNotEquals(room2.getNumber(), room3.getNumber());
-        assertNotEquals(room1.getNumber(), room3.getNumber());
+    @BeforeEach
+    void setUp() {
+        room1 = new Room();
+        room2 = new Room();
+        hotel1 = new Hotel();
+        hotel2 = new Hotel();
     }
 
     @Test
-    public void testRoomGetPrice() {
+    @DisplayName("Should add room to hotel.")
+    void addHotel_roomNotInHotel_roomAddedToHotel() {
+        assertTrue(room1.addHotel(hotel1));
+        assertTrue(room2.addHotel(hotel2));
+
+        assertEquals(hotel1, room1.getHotel());
+        assertEquals(hotel2, room2.getHotel());
+    }
+
+    @Test
+    @DisplayName("Should not add room to hotel when this room is already in another hotel.")
+    void addHotel_roomInOtherHotel_roomNotAddedToHotel() {
+        assertTrue(room1.addHotel(hotel1));
+
+        assertFalse(room1.addHotel(hotel1));
+        assertFalse(room1.addHotel(hotel2));
+
+        //check if room1 is in hotel1
+        assertEquals(hotel1, room1.getHotel());
+    }
+
+    @Test
+    void getHotel() {
         hotel1.addRoomToHotel(room1);
         hotel2.addRoomToHotel(room2);
+
+        assertEquals(hotel1, room1.getHotel());
+        assertEquals(hotel2, room2.getHotel());
+    }
+
+    @Test
+    void getPrice() {
+        hotel1.addRoomToHotel(room1);
 
         assertEquals(40, room1.getPrice());
-        assertEquals(40, room2.getPrice());
     }
 
     @Test
-    public void testRoomGetHotel() {
+    @DisplayName("Every Room should return their unique number.")
+    void getNumber() {
         hotel1.addRoomToHotel(room1);
         hotel2.addRoomToHotel(room2);
 
-        assertEquals(hotel1, room1.getHotel());
-        assertEquals(hotel2, room2.getHotel());
+        assertNotEquals(room1.getNumber(), room2.getNumber());
     }
 
     @Test
-    public void testRoomSetHotel() {
-        assertTrue(room1.setHotel(hotel1));
-        assertTrue(room2.setHotel(hotel2));
-
-        assertEquals(hotel1, room1.getHotel());
-        assertEquals(hotel2, room2.getHotel());
-    }
-
-    @Test
-    public void testRoomSetHotelWhenItIsAlreadyAddedInHotel() {
-        assertTrue(room1.setHotel(hotel1));
-        assertTrue(room2.setHotel(hotel2));
-        assertFalse(room1.setHotel(hotel1));
-        assertFalse(room2.setHotel(hotel2));
-        assertFalse(room1.setHotel(hotel2));
-        assertFalse(room2.setHotel(hotel1));
-
-        assertEquals(hotel1, room1.getHotel());
-        assertEquals(hotel2, room2.getHotel());
-    }
-
-    @Test
-    public void testRoomSetPrice() {
+    @DisplayName("Should set new price for the room.")
+    public void setPrice() {
         hotel1.addRoomToHotel(room1);
         hotel2.addRoomToHotel(room2);
 

@@ -33,6 +33,30 @@ public class Client {
     }
 
     /**
+     * This method is used to get client written reviews.
+     * @return The map containing client reviews.
+     */
+    public Map<String, Integer> getReviews() {
+        return this.clientReviews;
+    }
+
+    /**
+     * This method is used to get client bookings.
+     * @return The list containing client bookings.
+     */
+    public List<Booking> getBookings() {
+        return this.clientBookings;
+    }
+
+    /**
+     * The method is used to get client balance.
+     * @return The client balance.
+     */
+    public Integer getBalance() {
+        return balance;
+    }
+
+    /**
      * This method is used to write review for a hotel.
      * @param review The review text to be written.
      * @param score The score given to the hotel in review (1-5).
@@ -103,29 +127,4 @@ public class Client {
         }
         return false;
     }
-
-    /**
-     * This method is used to get client written reviews.
-     * @return The map containing client reviews.
-     */
-    public Map<String, Integer> getReviews() {
-        return this.clientReviews;
-    }
-
-    /**
-     * This method is used to get client bookings.
-     * @return The list containing client bookings.
-     */
-    public List<Booking> getBookings() {
-        return this.clientBookings;
-    }
-
-    /**
-     * The method is used to get client balance.
-     * @return The client balance.
-     */
-    public Integer getBalance() {
-        return balance;
-    }
-
 }
