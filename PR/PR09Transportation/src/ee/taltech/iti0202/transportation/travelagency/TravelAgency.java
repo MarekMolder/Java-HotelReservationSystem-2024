@@ -2,7 +2,6 @@ package ee.taltech.iti0202.transportation.travelagency;
 
 import ee.taltech.iti0202.transportation.booking.Booking;
 import ee.taltech.iti0202.transportation.person.Person;
-import ee.taltech.iti0202.transportation.strategy.BookingStrategy;
 import ee.taltech.iti0202.transportation.strategy.PlaneStrategy;
 import ee.taltech.iti0202.transportation.ticket.Ticket;
 
@@ -20,13 +19,7 @@ public class TravelAgency {
     }
 
     public Ticket bookTicket(Booking booking) {
-        BookingStrategy strategy = booking.getStrategy();
-        double price = defaultPrice;
-        if (strategy != null) {
-            Ticket prices = strategy.bookTicket(booking.getPerson(), booking.getDate(), defaultPrice);
-            price = prices.getPrice();
-        }
-        return new Ticket(price);
+        return new Ticket(booking.getStrategy().bookTicket(booking.getPerson(), booking.getDate(), defaultPrice).getPrice());
     }
 
     public static void main(String[] args) {
