@@ -24,7 +24,7 @@ public class OutputFilesWriter {
             }
             return true;
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            return false;
         }
     }
 }

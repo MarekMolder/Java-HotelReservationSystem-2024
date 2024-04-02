@@ -9,9 +9,9 @@ public class PlaneStrategy implements BookingStrategy {
     @Override
     public Ticket bookTicket(Person person, LocalDate date, double price) {
         if (person.getAge() <= 75) {
-            return new Ticket(price - (price * person.getAge() / 100));
+            return new Ticket(Math.round(price - (price * person.getAge() / 100)));
         } else {
-            return new Ticket(price - (price * 75 / 100));
+            return new Ticket(Math.round(price - (price * 75 / 100)));
         }
     }
 }
