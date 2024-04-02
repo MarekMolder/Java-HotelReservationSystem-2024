@@ -9,9 +9,9 @@ public class BusStrategy implements BookingStrategy {
     @Override
     public Ticket bookTicket(Person person, LocalDate date, double price) {
         if (date.getDayOfMonth() % 2 == 0) {
-            return new Ticket(price - (price * 0.5));
+            return new Ticket(Math.round(price - (price * 0.5)));
         } else {
-            return new Ticket(price - (price * person.getName().length() / 100));
+            return new Ticket((Math.round(price - (price * person.getName().length() / 100))));
         }
     }
 }
