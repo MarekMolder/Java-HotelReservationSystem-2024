@@ -11,7 +11,9 @@ public class TitleCaseFormatter implements TextFormatter {
         for (String word : words) {
             if (word.isEmpty()) continue;
 
-            if (word.equalsIgnoreCase("a") || word.equalsIgnoreCase("an") ||
+            if (word.equals(words[0])) {
+                result.append(word.substring(0, 1).toUpperCase()).append(word.substring(1)).append(" ");
+            } else if (word.equalsIgnoreCase("a") || word.equalsIgnoreCase("an") ||
                     word.equalsIgnoreCase("of") || word.equalsIgnoreCase("the") ||
                     word.equalsIgnoreCase("and") || word.equalsIgnoreCase("or")) {
                 result.append(word.toLowerCase()).append(" ");
