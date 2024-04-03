@@ -1,4 +1,4 @@
-package ee.taltech.iti0202.texteditor.textformatter;
+package ee.taltech.iti0202.texteditor;
 
 public enum TextType {
     PLAIN,

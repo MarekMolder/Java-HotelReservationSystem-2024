@@ -1,5 +1,7 @@
 package ee.taltech.iti0202.texteditor.textformatter;
 
+import ee.taltech.iti0202.texteditor.textformatter.TextFormatter;
+
 public class BinaryFormatter implements TextFormatter {
     @Override
     public String format(String text) {

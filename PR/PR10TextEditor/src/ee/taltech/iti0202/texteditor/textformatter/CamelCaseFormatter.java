@@ -1,6 +1,8 @@
 package ee.taltech.iti0202.texteditor.textformatter;
 
-public class CamelCaseFormatter implements TextFormatter{
+import ee.taltech.iti0202.texteditor.textformatter.TextFormatter;
+
+public class CamelCaseFormatter implements TextFormatter {
     @Override
     public String format(String text) {
         if (text == null || text.isEmpty()) return "";

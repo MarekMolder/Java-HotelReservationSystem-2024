@@ -1,4 +1,6 @@
-package ee.taltech.iti0202.texteditor.textformatter;
+package ee.taltech.iti0202.texteditor;
+
+import ee.taltech.iti0202.texteditor.textformatter.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
