@@ -6,12 +6,11 @@ public class CamelCaseFormatter implements TextFormatter {
         if (text == null || text.isEmpty()) return "";
 
         String[] first = text.split(" ");
-
-        String lastWord = first[text.length()];
+        if (first.length == 0) return "";
+        String lastWord = first[first.length - 1];
 
         String[] words = text.split("[^a-zA-Z0-9]");
         if (words.length == 0) return "";
-
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < words.length - 1; i++) {
