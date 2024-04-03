@@ -17,7 +17,7 @@ public class CamelCaseFormatter implements TextFormatter {
             String word = words[i];
             if (word.isEmpty()) continue;
             if (i == 0) {
-                result.append(word.toLowerCase()).append(word.substring(1));
+                result.append(word.toLowerCase());
             } else {
                 result.append(word.substring(0, 1).toUpperCase()).append(word.substring(1));
             }
