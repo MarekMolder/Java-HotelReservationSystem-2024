@@ -67,8 +67,8 @@ public class TravelAgency {
      * @return The top client associated with the travel agency.
      */
     public Client getTopClient() {
-        logger.log(Level.INFO, "Returns travel agency top client: " +
-                topClient.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey());
+        logger.log(Level.INFO, "Returns travel agency top client: "
+                + topClient.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey());
         return topClient.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
     }
 
@@ -78,8 +78,8 @@ public class TravelAgency {
      * @return The top travel package associated with the travel agency.
      */
     public TravelPackage getTopTravelPackage() {
-        logger.log(Level.INFO, "Returns travel agency top package: " +
-                topTravelPackages.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey());
+        logger.log(Level.INFO, "Returns travel agency top package: "
+                + topTravelPackages.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey());
         return topTravelPackages.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
     }
 }

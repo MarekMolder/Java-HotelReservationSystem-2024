@@ -132,8 +132,8 @@ public class TravelPackage {
      * @return The duration of the travel package in days.
      */
     public Integer getTravelDuration() {
-        logger.log(Level.INFO, "Return package duration: " +
-                Math.toIntExact(ChronoUnit.DAYS.between(this.since, this.until)));
+        logger.log(Level.INFO, "Return package duration: "
+                + Math.toIntExact(ChronoUnit.DAYS.between(this.since, this.until)));
         return Math.toIntExact(ChronoUnit.DAYS.between(this.since, this.until));
     }
 }
