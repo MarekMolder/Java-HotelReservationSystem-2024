@@ -7,20 +7,20 @@ public class TitleCaseFormatter implements TextFormatter {
 
         String[] words = text.split(" ");
         StringBuilder result = new StringBuilder();
+        result.append(words[0].substring(0, 1).toUpperCase()).append(words[0].substring(1)).append(" ");
 
-        for (String word : words) {
-            if (word.isEmpty()) continue;
+        for (int i = 1; i < words.length - 1; i++) {
+            if (words[1].isEmpty()) continue;
 
-            if (word.equals(words[0])) {
-                result.append(word.substring(0, 1).toUpperCase()).append(word.substring(1)).append(" ");
-            } else if (word.equalsIgnoreCase("a") || word.equalsIgnoreCase("an") ||
-                    word.equalsIgnoreCase("of") || word.equalsIgnoreCase("the") ||
-                    word.equalsIgnoreCase("and") || word.equalsIgnoreCase("or")) {
-                result.append(word.toLowerCase()).append(" ");
+            if (words[i].equalsIgnoreCase("a") || words[i].equalsIgnoreCase("an") ||
+                    words[i].equalsIgnoreCase("of") || words[i].equalsIgnoreCase("the") ||
+                    words[i].equalsIgnoreCase("and") || words[i].equalsIgnoreCase("or")) {
+                result.append(words[i].toLowerCase()).append(" ");
             } else {
-                result.append(word.substring(0, 1).toUpperCase()).append(word.substring(1)).append(" ");
+                result.append(words[i].substring(0, 1).toUpperCase()).append(words[i].substring(1)).append(" ");
             }
         }
+        result.append(words[words.length -1].substring(0, 1).toUpperCase()).append(words[0].substring(1)).append(" ");
         return result.toString().trim();
     }
 }
