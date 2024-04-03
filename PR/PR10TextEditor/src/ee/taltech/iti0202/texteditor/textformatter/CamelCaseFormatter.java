@@ -10,6 +10,8 @@ public class CamelCaseFormatter implements TextFormatter {
         String lastWord = first[text.length()];
 
         String[] words = text.split("[^a-zA-Z0-9]");
+        if (words.length == 0) return "";
+
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < words.length - 1; i++) {
