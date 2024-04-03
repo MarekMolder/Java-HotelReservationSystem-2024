@@ -1,7 +1,5 @@
 package ee.taltech.iti0202.texteditor.textformatter;
 
-import ee.taltech.iti0202.texteditor.textformatter.TextFormatter;
-
 public class BinaryFormatter implements TextFormatter {
     @Override
     public String format(String text) {
@@ -10,8 +8,10 @@ public class BinaryFormatter implements TextFormatter {
 
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
-            if (i == text.length() - 1 || (i == text.length() - 2 && text.charAt(i + 1) == '\n')) {
+            if (text.endsWith("\n")) {
                 result.append(Integer.toBinaryString(c));
+            } else if (i == text.length() - 1) {
+                result.append(String.format("%8s", Integer.toBinaryString(c)));
             } else {
                 result.append(String.format("%8s", Integer.toBinaryString(c)).replaceAll(" ", "0"));
             }
