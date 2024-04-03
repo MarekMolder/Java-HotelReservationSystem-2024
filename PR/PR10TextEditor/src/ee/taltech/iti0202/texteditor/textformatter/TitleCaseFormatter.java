@@ -19,6 +19,6 @@ public class TitleCaseFormatter implements TextFormatter {
                 result.append(word.substring(0, 1).toUpperCase()).append(word.substring(1)).append(" ");
             }
         }
-        return result.toString().trim() + "\n";
+        return result.toString().trim();
     }
 }
