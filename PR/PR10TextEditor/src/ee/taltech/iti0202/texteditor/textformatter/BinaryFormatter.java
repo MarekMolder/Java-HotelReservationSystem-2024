@@ -12,6 +12,6 @@ public class BinaryFormatter implements TextFormatter {
             result.append(binary);
         }
 
-        return result.toString() + "\n";
+        return result.toString();
     }
 }
