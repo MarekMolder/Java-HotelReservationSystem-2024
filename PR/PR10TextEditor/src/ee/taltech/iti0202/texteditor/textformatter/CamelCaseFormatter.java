@@ -14,7 +14,7 @@ public class CamelCaseFormatter implements TextFormatter {
                 lastWord = lastWord.substring(0, lastWord.length() - 2) + "\n";
             } else {
                 if (!Character.isLetter(lastWord.charAt(lastWord.length() - 1)) && !Character.isLetter(lastWord.charAt(lastWord.length() - 2))) {
-                    lastWord = lastWord.substring(0, lastWord.length() - 1);
+                    lastWord = lastWord.substring(0, lastWord.length() - 1) + "\n";
                 }
             }
         }
