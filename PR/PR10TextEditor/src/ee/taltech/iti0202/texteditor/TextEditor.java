@@ -18,7 +18,7 @@ public class TextEditor {
     }
 
     public void addText(String text) {
-        if (text == null) {
+        if (text == null || text.isEmpty()) {
             texts.add("");
             history.add("");
         }
@@ -48,17 +48,19 @@ public class TextEditor {
     public String undo() {
         if (!history.isEmpty()) {
             String removed = history.removeLast();
-            texts.remove(removed);
-            undone.push(removed);
+            if (!removed.isEmpty()) {
+                texts.removeLast();
+                undone.addLast(removed);
+            }
         }
         return getCurrentText();
     }
 
     public String redo() {
         if (!undone.isEmpty()) {
-            String added = undone.pop();
-            texts.add(added);
-            history.push(added);
+            String added = undone.removeLast();
+            texts.addLast(added);
+            history.addLast(added);
         }
         return getCurrentText();
     }
