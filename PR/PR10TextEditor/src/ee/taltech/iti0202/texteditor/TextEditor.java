@@ -2,22 +2,25 @@ package ee.taltech.iti0202.texteditor;
 
 import ee.taltech.iti0202.texteditor.textformatter.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Stack;
+import java.util.*;
 
 public class TextEditor {
+    private List<String> texts;
+    private Stack<String> history;
+    private Stack<String> undone;
 
     private TextFormatter strategy;
-    private StringBuilder text = new StringBuilder();
-    private Stack<String> history = new Stack<>();
-    private Stack<String> undone = new Stack<>();
 
+    public TextEditor() {
+        this.texts = new ArrayList<>();
+        this.history = new Stack<>();
+        this.undone = new Stack<>();
+    }
 
     public void addText(String text) {
         String formattedText = (strategy != null) ? strategy.format(text) : text;
-        this.text.append(formattedText);
-        history.push(formattedText);
+        this.texts.add(formattedText);
+        history.add(formattedText);
         undone.clear();
     }
 
@@ -27,17 +30,22 @@ public class TextEditor {
     }
 
     public String getCurrentText() {
-        return text.toString().replaceAll("(?m)\\s+$", "").replaceAll("(?m)^\\s+", "").replaceAll("\\s+", " ");
+        StringBuilder result = new StringBuilder();
+        for (String sentence: texts) {
+            if (sentence.endsWith("\n") || sentence.endsWith(" ")) {
+                result.append(sentence);
+            } else {
+                result.append(sentence + " ");
+            }
+        }
+        return result.toString();
     }
 
     public String undo() {
         if (!history.isEmpty()) {
-            String removed = history.pop();
+            String removed = history.removeLast();
+            texts.remove(removed);
             undone.push(removed);
-            text.setLength(0);
-            for (String str : history) {
-                text.append(str);
-            }
         }
         return getCurrentText();
     }
@@ -45,17 +53,14 @@ public class TextEditor {
     public String redo() {
         if (!undone.isEmpty()) {
             String added = undone.pop();
+            texts.add(added);
             history.push(added);
-            text.setLength(0);
-            for (String str : history) {
-                text.append(str);
-            }
         }
         return getCurrentText();
     }
 
     public void clear() {
-        text.setLength(0);
+        texts.clear();
         history.clear();
         undone.clear();
     }
