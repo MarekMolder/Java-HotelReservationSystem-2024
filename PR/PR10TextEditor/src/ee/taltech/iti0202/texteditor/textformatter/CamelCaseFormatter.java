@@ -23,7 +23,11 @@ public class CamelCaseFormatter implements TextFormatter {
                 result.append(word.substring(0, 1).toUpperCase()).append(word.substring(1));
             }
         }
-        result.append(lastWord);
+        if (lastWord.equals(words[words.length - 1])) {
+            result.append(lastWord);
+        } else  {
+            result.append(words[words.length - 1] + lastWord.charAt(words.length + 1));
+        }
         return result.toString();
     }
 }
