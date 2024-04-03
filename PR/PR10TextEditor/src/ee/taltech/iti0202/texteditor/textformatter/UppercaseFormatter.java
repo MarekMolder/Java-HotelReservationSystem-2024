@@ -4,6 +4,7 @@ public class UppercaseFormatter implements TextFormatter {
 
     @Override
     public String format(String text) {
+        if (text == null || text.isEmpty()) return "";
         return text.toUpperCase();
     }
 }
