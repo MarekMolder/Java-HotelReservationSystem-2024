@@ -16,21 +16,6 @@ public class ClientBuilder {
     private Set<TravelPackage> packages;
 
     /**
-     * Sets the ID of the client.
-     *
-     * @param id The ID of the client.
-     * @return This ClientBuilder instance.
-     * @throws IllegalArgumentException if the provided ID is null.
-     */
-    public ClientBuilder setId(Integer id) {
-        if (id != null) {
-            this.id = id;
-            return this;
-        }
-        throw new IllegalArgumentException();
-    }
-
-    /**
      * Sets the name of the client.
      *
      * @param name The name of the client.
@@ -114,6 +99,6 @@ public class ClientBuilder {
      * @return The constructed Client object.
      */
     public Client createClient() {
-        return new Client(id, name, email, age, phoneNumber, homeAddress, money);
+        return new Client(name, email, age, phoneNumber, homeAddress, money);
     }
 }

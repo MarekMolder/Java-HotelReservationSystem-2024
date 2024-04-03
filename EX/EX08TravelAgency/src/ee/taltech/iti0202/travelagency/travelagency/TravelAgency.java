@@ -27,7 +27,7 @@ public class TravelAgency {
      * @param client The client to be added.
      */
     public void addClient(Client client) {
-        logger.log(Level.INFO, "Add client to travelAgencyClients Set");
+        logger.log(Level.INFO, "Adds" + client + "to travelAgencyClients Set");
         travelAgencyClients.add(client);
     }
 
@@ -37,7 +37,7 @@ public class TravelAgency {
      * @param travelPackage The travel package to be added.
      */
     public void addTravelPackages(TravelPackage travelPackage) {
-        logger.log(Level.INFO, "Add package to travelAgencyPackages Set");
+        logger.log(Level.INFO, "Adds" + travelPackage + "to travelAgencyPackages Set");
         travelAgencyPackages.add(travelPackage);
     }
 
@@ -47,7 +47,7 @@ public class TravelAgency {
      * @return The set of clients associated with the travel agency.
      */
     public Set<Client> getClient() {
-        logger.log(Level.INFO, "Return travel agency clients");
+        logger.log(Level.INFO, "Returns travel agency clients: " + travelAgencyClients);
         return travelAgencyClients;
     }
 
@@ -57,7 +57,7 @@ public class TravelAgency {
      * @return The set of travel packages associated with the travel agency.
      */
     public Set<TravelPackage> getTravelAgencyPackages() {
-        logger.log(Level.INFO, "Return travel agency packages");
+        logger.log(Level.INFO, "Returns travel agency packages: " + travelAgencyPackages);
         return travelAgencyPackages;
     }
 
@@ -67,7 +67,7 @@ public class TravelAgency {
      * @return The top client associated with the travel agency.
      */
     public Client getTopClient() {
-        logger.log(Level.INFO, "Return travel agency top client");
+        logger.log(Level.INFO, "Returns travel agency top client: " + topClient.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey());
         return topClient.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
     }
 
@@ -77,7 +77,7 @@ public class TravelAgency {
      * @return The top travel package associated with the travel agency.
      */
     public TravelPackage getTopTravelPackage() {
-        logger.log(Level.INFO, "Return travel agency top package");
+        logger.log(Level.INFO, "Returns travel agency top package: " + topTravelPackages.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey());
         return topTravelPackages.entrySet().stream().max(Map.Entry.comparingByValue()).get().getKey();
     }
 }

@@ -4,6 +4,7 @@ import ee.taltech.iti0202.travelagency.client.Client;
 import ee.taltech.iti0202.travelagency.client.ClientBuilder;
 import ee.taltech.iti0202.travelagency.travelpackage.EPackageType;
 import ee.taltech.iti0202.travelagency.travelpackage.TravelPackage;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -15,64 +16,81 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class TravelAgencyTest {
-    Client mari = new ClientBuilder()
-            .setId(589722312)
-            .setName("Mari")
-            .setEmail("Mari@gmail.com")
-            .setAge(20)
-            .setPhoneNumber(56561010)
-            .setHomeAddress("Juhani-10")
-            .setMoney(500).createClient();
 
-    Client juri = new ClientBuilder()
-            .setId(589722314)
-            .setName("Juri")
-            .setEmail("Juri@gmail.com")
-            .setAge(25)
-            .setMoney(200).createClient();
+    private Client mari;
+    private Client juri;
+    private TravelAgency travelAgency;
+    private TravelPackage italy;
+    private TravelPackage france;
+    private TravelPackage estonia;
+    private TravelPackage africa;
+    private TravelPackage america;
+    private TravelPackage japan;
 
-    TravelAgency travelAgency = new TravelAgency();
+    @BeforeEach
+    void setUp() {
+        mari = new ClientBuilder()
+                .setName("Mari")
+                .setEmail("Mari@gmail.com")
+                .setAge(20)
+                .setPhoneNumber(56561010)
+                .setHomeAddress("Juhani-10")
+                .setMoney(500).createClient();
 
-    TravelPackage italy = new TravelPackage("italy", 50, LocalDate.of(2024, 3, 21),
-            LocalDate.of(2024, 3, 26), "Italy", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
+        juri = new ClientBuilder()
+                .setName("Juri")
+                .setEmail("Juri@gmail.com")
+                .setAge(25)
+                .setMoney(200).createClient();
 
-    TravelPackage france = new TravelPackage("france", 300, LocalDate.of(2024, 3, 21),
-            LocalDate.of(2024, 3, 26), "France", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
+        travelAgency = new TravelAgency();
 
-    TravelPackage estonia = new TravelPackage("estonia", 50, LocalDate.of(2024, 3, 21),
-            LocalDate.of(2024, 3, 26), "Estonia", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
+        italy = new TravelPackage("italy", 50, LocalDate.of(2024, 3, 21),
+                LocalDate.of(2024, 3, 26), "Italy", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
-    TravelPackage africa = new TravelPackage("africa", 50, LocalDate.of(2024, 3, 21),
-            LocalDate.of(2024, 3, 26), "Africa", new ArrayList<>(List.of("eating")), EPackageType.HIKINGTRIP);
+        france = new TravelPackage("france", 300, LocalDate.of(2024, 3, 21),
+                LocalDate.of(2024, 3, 26), "France", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
-    TravelPackage america = new TravelPackage("america", 50, LocalDate.of(2024, 3, 21),
-            LocalDate.of(2024, 3, 26), "America", new ArrayList<>(List.of("eating")), EPackageType.BEACHVACATION);
+        estonia = new TravelPackage("estonia", 50, LocalDate.of(2024, 3, 21),
+                LocalDate.of(2024, 3, 26), "Estonia", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
 
-    TravelPackage japan = new TravelPackage("japan", 50, LocalDate.of(2024, 3, 21),
-            LocalDate.of(2024, 3, 26), "Japan", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
+        africa = new TravelPackage("africa", 50, LocalDate.of(2024, 3, 21),
+                LocalDate.of(2024, 3, 26), "Africa", new ArrayList<>(List.of("eating")), EPackageType.HIKINGTRIP);
+
+        america = new TravelPackage("america", 50, LocalDate.of(2024, 3, 21),
+                LocalDate.of(2024, 3, 26), "America", new ArrayList<>(List.of("eating")), EPackageType.BEACHVACATION);
+
+        japan = new TravelPackage("japan", 50, LocalDate.of(2024, 3, 21),
+                LocalDate.of(2024, 3, 26), "Japan", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
+    }
 
     @Test
-    public void testTravelAgencyAddClient() {
+    void addClient() {
+        // setup
         travelAgency.addClient(mari);
         travelAgency.addClient(juri);
         travelAgency.addClient(mari);
 
+        // what to expect
         assertEquals(2, travelAgency.getClient().size());
         assertEquals(new HashSet<>(Arrays.asList(mari, juri)), travelAgency.getClient());
     }
 
     @Test
-    public void testTravelAgencyAddTravelPackage() {
+    void addTravelPackage() {
+        // setup
         travelAgency.addTravelPackages(japan);
         travelAgency.addTravelPackages(italy);
         travelAgency.addTravelPackages(japan);
 
+        // what to expect
         assertEquals(2, travelAgency.getTravelAgencyPackages().size());
         assertEquals(new HashSet<>(Arrays.asList(japan, italy)), travelAgency.getTravelAgencyPackages());
     }
 
     @Test
-    public void testTravelAgencyGetTopClient() {
+    void getTopClient() {
+        // setup
         travelAgency.addTravelPackages(italy);
         travelAgency.addTravelPackages(estonia);
         travelAgency.addTravelPackages(africa);
@@ -87,11 +105,13 @@ class TravelAgencyTest {
         juri.buyPackage(italy, travelAgency);
         juri.buyPackage(estonia, travelAgency);
 
+        // what to expect?
         assertEquals(mari, travelAgency.getTopClient());
     }
 
     @Test
-    public void testTravelAgencyGetTopPackage() {
+    void getTopPackage() {
+        // setup
         travelAgency.addTravelPackages(japan);
         travelAgency.addTravelPackages(italy);
         travelAgency.addTravelPackages(france);
@@ -102,6 +122,7 @@ class TravelAgencyTest {
         juri.buyPackage(america, travelAgency);
         juri.buyPackage(japan, travelAgency);
 
+        // what to expect?
         assertEquals(japan, travelAgency.getTopTravelPackage());
     }
 }

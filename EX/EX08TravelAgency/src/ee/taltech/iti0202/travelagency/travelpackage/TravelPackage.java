@@ -52,7 +52,7 @@ public class TravelPackage {
      * @return The ID of the travel package.
      */
     public Integer getId() {
-        logger.log(Level.INFO, "Return package id");
+        logger.log(Level.INFO, "Returns package id: " + number);
         return number;
     }
 
@@ -62,7 +62,7 @@ public class TravelPackage {
      * @return The name of the travel package.
      */
     public String getName() {
-        logger.log(Level.INFO, "Return package name");
+        logger.log(Level.INFO, "Returns package name: " + name);
         return name;
     }
 
@@ -72,7 +72,7 @@ public class TravelPackage {
      * @return The price of the travel package.
      */
     public Integer getPrice() {
-        logger.log(Level.INFO, "Return package price");
+        logger.log(Level.INFO, "Returns package price: " + price);
         return price;
     }
 
@@ -82,7 +82,7 @@ public class TravelPackage {
      * @return The start date of the travel package.
      */
     public LocalDate getSince() {
-        logger.log(Level.INFO, "Return package start date");
+        logger.log(Level.INFO, "Returns package start date: " + since);
         return since;
     }
 
@@ -92,7 +92,7 @@ public class TravelPackage {
      * @return The end date of the travel package.
      */
     public LocalDate getUntil() {
-        logger.log(Level.INFO, "Return package end date");
+        logger.log(Level.INFO, "Returns package end: " + until);
         return until;
     }
 
@@ -102,7 +102,7 @@ public class TravelPackage {
      * @return The destination country of the travel package.
      */
     public String getCountry() {
-        logger.log(Level.INFO, "Return package destination");
+        logger.log(Level.INFO, "Returns package destination: " + country);
         return country;
     }
 
@@ -112,7 +112,7 @@ public class TravelPackage {
      * @return The list of activities included in the travel package.
      */
     public List<String> getActivities() {
-        logger.log(Level.INFO, "Return package activities");
+        logger.log(Level.INFO, "Returns package activities: " + activities);
         return activities;
     }
 
@@ -122,7 +122,7 @@ public class TravelPackage {
      * @return The type of the travel package.
      */
     public EPackageType getType() {
-        logger.log(Level.INFO, "Return package type");
+        logger.log(Level.INFO, "Returns package type: " + type);
         return type;
     }
 
@@ -132,7 +132,7 @@ public class TravelPackage {
      * @return The duration of the travel package in days.
      */
     public Integer getTravelDuration() {
-        logger.log(Level.INFO, "Return package duration");
+        logger.log(Level.INFO, "Return package duration: " + Math.toIntExact(ChronoUnit.DAYS.between(this.since, this.until)));
         return Math.toIntExact(ChronoUnit.DAYS.between(this.since, this.until));
     }
 }

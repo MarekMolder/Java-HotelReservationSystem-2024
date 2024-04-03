@@ -5,6 +5,7 @@ import ee.taltech.iti0202.travelagency.travelpackage.TravelPackage;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,20 +13,20 @@ public class Client {
     public static final double SILVERPRICE = 0.95;
     public static final double GOLDPRICE = 0.9;
     public static final int DURATION = 5;
-    private final Integer id;
+    private UUID id;
     private final String name;
     private final String email;
     private final Integer age;
     private final Integer phoneNumber;
     private final String homeAddress;
     private EPersonStatus status;
-    private Integer balance;
+    private double balance;
     private final Set<TravelPackage> packages;
     Logger logger = Logger.getLogger(Client.class.getName());
 
-    Client(Integer id, String name, String email, Integer age,
-           Integer phoneNumber, String homeAddress, Integer balance) {
-        this.id = id;
+    Client(String name, String email, Integer age,
+           Integer phoneNumber, String homeAddress, double balance) {
+        this.id = UUID.randomUUID();
         this.name = name;
         this.email = email;
         this.age = age;
@@ -34,7 +35,7 @@ public class Client {
         this.status = EPersonStatus.REGULAR;
         this.balance = balance;
         this.packages = new HashSet<>();
-        logger.log(Level.INFO, String.format("Created client with %d", id));
+        logger.log(Level.INFO, String.format("Created client with: " + id));
     }
 
     /**
@@ -42,8 +43,8 @@ public class Client {
      *
      * @return The ID of the client.
      */
-    public Integer getId() {
-        logger.log(Level.INFO, "Return client Id");
+    public UUID getId() {
+        logger.log(Level.INFO, "Returns client Id: " + id);
         return id;
     }
 
@@ -53,7 +54,7 @@ public class Client {
      * @return The name of the client.
      */
     public String getName() {
-        logger.log(Level.INFO, "Return client name");
+        logger.log(Level.INFO, "Returns client name: " + name);
         return name;
     }
 
@@ -63,7 +64,7 @@ public class Client {
      * @return The email of the client.
      */
     public String getEmail() {
-        logger.log(Level.INFO, "Return client Email");
+        logger.log(Level.INFO, "Returns client Email: " + email);
         return email;
     }
 
@@ -73,7 +74,7 @@ public class Client {
      * @return The age of the client.
      */
     public Integer getAge() {
-        logger.log(Level.INFO, "Return client age");
+        logger.log(Level.INFO, "Returns client age: " + age);
         return age;
     }
 
@@ -83,7 +84,7 @@ public class Client {
      * @return The phone number of the client.
      */
     public Integer getPhoneNumber() {
-        logger.log(Level.INFO, "Return Client phone number");
+        logger.log(Level.INFO, "Returns Client phone number: " + phoneNumber);
         return phoneNumber;
     }
 
@@ -93,7 +94,7 @@ public class Client {
      * @return The home address of the client.
      */
     public String getHomeAddress() {
-        logger.log(Level.INFO, "Return Client home address");
+        logger.log(Level.INFO, "Returns Client home address: " + homeAddress);
         return homeAddress;
     }
 
@@ -103,7 +104,7 @@ public class Client {
      * @return The status of the client.
      */
     public EPersonStatus getStatus() {
-        logger.log(Level.INFO, "Return Client status");
+        logger.log(Level.INFO, "Returns Client status: " + status);
         if (packages.size() >= 5) {
             status = EPersonStatus.GOLD;
         } else if (packages.size() >= 3) {
@@ -117,8 +118,8 @@ public class Client {
      *
      * @return The balance of the client.
      */
-    public Integer getBalance() {
-        logger.log(Level.INFO, "Return Client balance");
+    public double getBalance() {
+        logger.log(Level.INFO, "Returns Client balance: " + balance);
         return balance;
     }
 
@@ -127,8 +128,8 @@ public class Client {
      *
      * @param price The price to deduct from the balance.
      */
-    public void setBalance(Integer price) {
-        logger.log(Level.INFO, "Set client balance");
+    public void setBalance(double price) {
+        logger.log(Level.INFO, "Sets client balance");
         balance -= price;
     }
 
@@ -138,7 +139,7 @@ public class Client {
      * @return The set of travel packages purchased by the client.
      */
     public Set<TravelPackage> getPackages() {
-        logger.log(Level.INFO, "Return Client packages");
+        logger.log(Level.INFO, "Returns Client packages: " + packages);
         return packages;
     }
 
@@ -148,7 +149,7 @@ public class Client {
      * @param travelPackage The travel package to be added.
      */
     public void setPackages(TravelPackage travelPackage) {
-        logger.log(Level.INFO, "Set client packages");
+        logger.log(Level.INFO, "Sets client packages");
         packages.add(travelPackage);
     }
 
@@ -175,13 +176,13 @@ public class Client {
             }
         } else if (this.getStatus() == EPersonStatus.SILVER && travelPackage.getTravelDuration() >= DURATION) {
             if (this.balance >= price * SILVERPRICE) {
-                this.setBalance((int) (price * SILVERPRICE));
+                this.setBalance(price * SILVERPRICE);
             } else {
                 return false;
             }
         } else if (this.getStatus() == EPersonStatus.GOLD && travelPackage.getTravelDuration() >= DURATION) {
             if (this.balance >= price * GOLDPRICE) {
-                this.setBalance((int) (price * GOLDPRICE));
+                this.setBalance(price * GOLDPRICE);
             } else {
                 return false;
             }
