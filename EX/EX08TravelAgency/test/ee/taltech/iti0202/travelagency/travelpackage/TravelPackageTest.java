@@ -17,9 +17,11 @@ class TravelPackageTest {
     @BeforeEach
     void setUp() {
         italy = new TravelPackage("italy", 50, LocalDate.of(2024, 3, 21),
-                LocalDate.of(2024, 3, 26), "Italy", new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
+                LocalDate.of(2024, 3, 26), "Italy",
+                new ArrayList<>(List.of("eating")), EPackageType.CULTURALTRIP);
         france = new TravelPackage("france", 300, LocalDate.of(2024, 3, 19),
-                LocalDate.of(2024, 3, 26), "France", new ArrayList<>(List.of("sightseeing")), EPackageType.BEACHVACATION);
+                LocalDate.of(2024, 3, 26), "France",
+                new ArrayList<>(List.of("sightseeing")), EPackageType.BEACHVACATION);
     }
     @Test
     void getId() {
