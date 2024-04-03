@@ -23,7 +23,9 @@ public class TitleCaseFormatter implements TextFormatter {
                 result.append(words[i].substring(0, 1).toUpperCase()).append(words[i].substring(1)).append(" ");
             }
         }
-        result.append(words[words.length -1].substring(0, 1).toUpperCase()).append(words[words.length - 1].substring(1)).append(" ");
+        if (words.length > 0) {
+            result.append(words[words.length -1].substring(0, 1).toUpperCase()).append(words[words.length - 1].substring(1)).append(" ");
+        }
         return result.toString().trim();
     }
 }
