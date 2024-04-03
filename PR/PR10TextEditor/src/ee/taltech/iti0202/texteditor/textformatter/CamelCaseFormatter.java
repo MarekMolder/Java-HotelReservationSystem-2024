@@ -7,8 +7,17 @@ public class CamelCaseFormatter implements TextFormatter {
 
         String[] first = text.split(" ");
         if (first.length == 0) return "";
+
         String lastWord = first[first.length - 1];
-        String cleanedLastWord = lastWord.replaceAll("(\\W+)(?=\\b)", "");
+        if (lastWord.endsWith("\n")) {
+            if (!Character.isLetter(lastWord.charAt(lastWord.length() - 2)) && !Character.isLetter(lastWord.charAt(lastWord.length() - 3))) {
+                lastWord = lastWord.substring(0, lastWord.length() - 2);
+            } else {
+                if (!Character.isLetter(lastWord.charAt(lastWord.length() - 1)) && !Character.isLetter(lastWord.charAt(lastWord.length() - 2))) {
+                    lastWord = lastWord.substring(0, lastWord.length() - 1);
+                }
+            }
+        }
 
         String[] words = text.split("[^a-zA-Z0-9]");
         if (words.length == 0) return "";
@@ -23,7 +32,7 @@ public class CamelCaseFormatter implements TextFormatter {
                 result.append(word.substring(0, 1).toUpperCase()).append(word.substring(1));
             }
         }
-        result.append(cleanedLastWord);
+        result.append(lastWord);
         return result.toString();
     }
 }
