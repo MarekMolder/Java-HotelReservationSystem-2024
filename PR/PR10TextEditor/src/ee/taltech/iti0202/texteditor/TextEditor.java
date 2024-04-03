@@ -18,6 +18,10 @@ public class TextEditor {
     }
 
     public void addText(String text) {
+        if (text == null) {
+            texts.add("");
+            history.add("");
+        }
         String formattedText = (strategy != null) ? strategy.format(text) : text;
         this.texts.add(formattedText);
         history.add(formattedText);
@@ -43,8 +47,9 @@ public class TextEditor {
 
     public String undo() {
         if (!history.isEmpty()) {
-            texts.remove(history.getLast());
-            undone.push(history.getLast());
+            String removed = history.removeLast();
+            texts.remove(removed);
+            undone.push(removed);
         }
         return getCurrentText();
     }
