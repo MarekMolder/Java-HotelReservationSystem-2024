@@ -11,13 +11,10 @@ public class CamelCaseFormatter implements TextFormatter {
         String lastWord = first[first.length - 1];
         if (lastWord.endsWith("\n")) {
             if (!Character.isLetter(lastWord.charAt(lastWord.length() - 2)) && !Character.isLetter(lastWord.charAt(lastWord.length() - 3))) {
-                lastWord = lastWord.substring(0, lastWord.length() - 2) + "\n";
-            } else {
-                if (!Character.isLetter(lastWord.charAt(lastWord.length() - 1)) && !Character.isLetter(lastWord.charAt(lastWord.length() - 2))) {
-                    lastWord = lastWord.substring(0, lastWord.length() - 1) + "\n";
-                }
+                lastWord = lastWord.substring(0, 10) + "\n";
             }
         }
+
 
         String[] words = text.split("[^a-zA-Z0-9]");
         if (words.length == 0) return "";
