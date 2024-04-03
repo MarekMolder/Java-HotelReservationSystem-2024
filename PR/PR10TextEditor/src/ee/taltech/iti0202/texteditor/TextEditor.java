@@ -43,9 +43,8 @@ public class TextEditor {
 
     public String undo() {
         if (!history.isEmpty()) {
-            String removed = history.removeLast();
-            texts.remove(removed);
-            undone.push(removed);
+            texts.remove(history.getLast());
+            undone.push(history.getLast());
         }
         return getCurrentText();
     }
