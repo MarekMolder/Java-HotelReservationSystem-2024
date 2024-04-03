@@ -26,17 +26,17 @@ public class CamelCaseFormatter implements TextFormatter {
 
         if (lastWord.endsWith("\n")) {
             if (lastWord.substring(0, lastWord.length() - 1).equals(words[words.length - 1])) {
-                result.append(lastWord);
+                result.append(lastWord.substring(0, 1).toUpperCase()).append(lastWord.substring(1));
             } else {
-                result.append(words[words.length - 1]);
+                result.append(words[words.length - 1].substring(0, 1).toUpperCase()).append(words[words.length - 1].substring(1));
                 result.append(lastWord.charAt(lastWord.length() - 2));
                 result.append("\n");
             }
         } else {
             if (lastWord.equals(words[words.length - 1])) {
-                result.append(lastWord);
+                result.append(lastWord.substring(0, 1).toUpperCase()).append(lastWord.substring(1));
             } else {
-                result.append(words[words.length - 1]);
+                result.append(words[words.length - 1].substring(0, 1).toUpperCase()).append(words[words.length - 1].substring(1));
                 result.append(lastWord.charAt(lastWord.length() - 1));
             }
         }
