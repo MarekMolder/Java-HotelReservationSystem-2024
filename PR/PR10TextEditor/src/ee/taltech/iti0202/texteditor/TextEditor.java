@@ -36,7 +36,7 @@ public class TextEditor {
     public String getCurrentText() {
         StringBuilder result = new StringBuilder();
         for (String sentence: texts) {
-            if (sentence.endsWith("\n") || sentence.endsWith(" ")) {
+            if (sentence.endsWith("\n") || sentence.endsWith(" ") || texts.getLast().equals(sentence)) {
                 result.append(sentence);
             } else {
                 result.append(sentence + " ");
@@ -48,19 +48,17 @@ public class TextEditor {
     public String undo() {
         if (!history.isEmpty()) {
             String removed = history.removeLast();
-            if (!removed.isEmpty()) {
-                texts.removeLast();
-                undone.addLast(removed);
-            }
+            texts.remove(removed);
+            undone.push(removed);
         }
         return getCurrentText();
     }
 
     public String redo() {
         if (!undone.isEmpty()) {
-            String added = undone.removeLast();
-            texts.addLast(added);
-            history.addLast(added);
+            String added = undone.pop();
+            texts.add(added);
+            history.push(added);
         }
         return getCurrentText();
     }
