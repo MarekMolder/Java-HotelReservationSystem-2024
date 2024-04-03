@@ -7,7 +7,10 @@ public class TitleCaseFormatter implements TextFormatter {
 
         String[] words = text.split(" ");
         StringBuilder result = new StringBuilder();
-        result.append(words[0].substring(0, 1).toUpperCase()).append(words[0].substring(1)).append(" ");
+
+        if (words.length > 0) {
+            result.append(words[0].substring(0, 1).toUpperCase()).append(words[0].substring(1)).append(" ");
+        }
 
         for (int i = 1; i < words.length - 1; i++) {
             if (words[i].isEmpty()) continue;
@@ -21,7 +24,6 @@ public class TitleCaseFormatter implements TextFormatter {
             }
         }
         result.append(words[words.length -1].substring(0, 1).toUpperCase()).append(words[words.length - 1].substring(1)).append(" ");
-        result.append("\n");
         return result.toString().trim();
     }
 }
