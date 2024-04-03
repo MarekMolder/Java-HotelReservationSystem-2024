@@ -8,8 +8,12 @@ public class BinaryFormatter implements TextFormatter {
 
         for (int i = 0; i < text.length(); i++) {
             char c = text.charAt(i);
-            String binary = String.format("%8s", Integer.toBinaryString(c & 0xFF)).replace(' ', '0');
-            result.append(binary);
+            if (c == '\n') {
+                result.append(c);
+            } else {
+                String binary = String.format("%8s", Integer.toBinaryString(c & 0xFF)).replace(' ', '0');
+                result.append(binary);
+            }
         }
 
         return result.toString();
