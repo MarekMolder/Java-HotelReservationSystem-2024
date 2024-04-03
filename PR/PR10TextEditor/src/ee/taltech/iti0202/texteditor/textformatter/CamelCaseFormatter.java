@@ -25,11 +25,11 @@ public class CamelCaseFormatter implements TextFormatter {
         }
 
         if (lastWord.endsWith("\n")) {
-            if (lastWord.substring(0, lastWord.length() - 2).equals(words[words.length - 1])) {
+            if (lastWord.substring(0, lastWord.length() - 1).equals(words[words.length - 1])) {
                 result.append(lastWord);
             } else {
                 result.append(words[words.length - 1]);
-                result.append(lastWord.charAt(words.length + 1));
+                result.append(lastWord.charAt(lastWord.length() - 2));
                 result.append("\n");
             }
         } else {
@@ -37,7 +37,7 @@ public class CamelCaseFormatter implements TextFormatter {
                 result.append(lastWord);
             } else {
                 result.append(words[words.length - 1]);
-                result.append(lastWord.charAt(words.length + 1));
+                result.append(lastWord.charAt(lastWord.length() - 1));
             }
         }
         return result.toString();
