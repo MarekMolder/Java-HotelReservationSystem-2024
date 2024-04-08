@@ -18,13 +18,12 @@ public class TextEditor {
     }
 
     public void addText(String text) {
-        if (text == null || text.isEmpty()) {
-            texts.add("");
-            history.add("");
+        if (strategy != null) {
+            texts.add(strategy.format(text));
+        } else {
+            texts.add(text);
         }
-        String formattedText = (strategy != null) ? strategy.format(text) : text;
-        this.texts.add(formattedText);
-        history.add(formattedText);
+        history.add(texts.getLast());
         undone.clear();
     }
 
@@ -47,8 +46,7 @@ public class TextEditor {
 
     public String undo() {
         if (!history.isEmpty()) {
-            texts.removeLast();
-            undone.clear();
+            undone.push(texts.removeLast());
             while (!history.isEmpty() && !history.peek().equals(texts.getLast())) {
                 history.pop();
             }
