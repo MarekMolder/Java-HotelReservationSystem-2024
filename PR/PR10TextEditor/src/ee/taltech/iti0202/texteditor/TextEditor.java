@@ -18,13 +18,15 @@ public class TextEditor {
     }
 
     public void addText(String text) {
-        if (strategy != null) {
-            texts.add(strategy.format(text));
-        } else {
-            texts.add(text);
+        if (text != null) {
+            if (strategy != null) {
+                texts.add(strategy.format(text));
+            } else {
+                texts.add(text);
+            }
+            history.add(texts.getLast());
+            undone.clear();
         }
-        history.add(texts.getLast());
-        undone.clear();
     }
 
     public void addText(String text, TextType type) {
@@ -54,7 +56,6 @@ public class TextEditor {
     public String redo() {
         if (!undone.isEmpty()) {
             texts.add(undone.pop());
-            history.pop();
         }
         return getCurrentText();
     }
