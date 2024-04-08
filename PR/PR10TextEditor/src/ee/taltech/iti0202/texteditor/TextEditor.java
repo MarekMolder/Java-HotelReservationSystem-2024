@@ -55,7 +55,7 @@ public class TextEditor {
     public String redo() {
         if (!undone.isEmpty()) {
             String redoText = undone.pop();
-            addText(redoText);
+            texts.add(redoText);
         }
         return getCurrentText();
     }
