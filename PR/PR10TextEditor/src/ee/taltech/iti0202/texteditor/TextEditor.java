@@ -62,6 +62,7 @@ public class TextEditor {
 
     public void clear() {
         texts.clear();
+        history.clear();
         undone.clear();
     }
 
