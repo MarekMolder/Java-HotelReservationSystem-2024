@@ -47,7 +47,7 @@ public class TextEditor {
 
     public String undo() {
         if (!history.isEmpty()) {
-            texts.remove(texts.size() - 1);
+            undone.push(texts.remove(texts.size() - 1));
         }
         return getCurrentText();
     }
