@@ -93,5 +93,4 @@ public class TextEditor {
     public TextFormatter getStrategy() {
         return strategy;
     }
-
 }
