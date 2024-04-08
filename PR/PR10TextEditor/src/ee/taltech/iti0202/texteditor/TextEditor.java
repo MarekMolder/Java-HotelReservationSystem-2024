@@ -54,8 +54,7 @@ public class TextEditor {
 
     public String redo() {
         if (!history.isEmpty()) {
-            String textToAdd = history.peek();
-            texts.add(textToAdd);
+            texts.add(history.pop());
         }
         return getCurrentText();
     }
