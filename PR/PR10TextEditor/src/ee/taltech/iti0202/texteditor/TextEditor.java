@@ -47,20 +47,19 @@ public class TextEditor {
 
     public String undo() {
         if (!history.isEmpty()) {
-            String removed = history.removeLast();
-            while (!texts.isEmpty() && !texts.getLast().equals(removed)) {
-                texts.removeLast();
+            history.pop();
+            texts.clear();
+            for (String text : history) {
+                texts.add(text);
             }
-            undone.push(removed);
         }
         return getCurrentText();
     }
 
     public String redo() {
-        if (!undone.isEmpty()) {
-            String added = undone.pop();
-            texts.add(added);
-            history.push(added);
+        if (!history.isEmpty()) {
+            String textToAdd = history.peek();
+            addText(textToAdd);
         }
         return getCurrentText();
     }
