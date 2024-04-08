@@ -46,8 +46,10 @@ public class TextEditor {
     }
 
     public String undo() {
-        if (!history.isEmpty()) {
-            undone.push(texts.remove(texts.size() - 1));
+        if (!texts.isEmpty()) {
+            String lastText = texts.removeLast();
+            history.remove(lastText);
+            undone.push(lastText);
         }
         return getCurrentText();
     }
@@ -55,7 +57,8 @@ public class TextEditor {
     public String redo() {
         if (!undone.isEmpty()) {
             String redoText = undone.pop();
-            texts.add(redoText);
+            texts.addLast(redoText);
+            history.add(redoText);
         }
         return getCurrentText();
     }
