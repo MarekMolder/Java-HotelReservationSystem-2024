@@ -53,11 +53,13 @@ public class TextEditor {
     }
 
     public String redo() {
-        if (!history.isEmpty()) {
-            texts.add(history.pop());
+        if (texts.isEmpty()) {
+            return getCurrentText();
+        } else {
+            String undoneText = texts.remove(texts.size() - 1);
+            addText(undoneText);
             return getCurrentText();
         }
-        return "";
     }
 
     public void clear() {
