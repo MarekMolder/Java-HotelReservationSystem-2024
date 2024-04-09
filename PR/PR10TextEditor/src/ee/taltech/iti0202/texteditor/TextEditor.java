@@ -24,8 +24,13 @@ public class TextEditor {
             } else {
                 texts.add(text);
             }
-            history.add(texts.getLast());
-            undone.clear();
+            if (undone.isEmpty()) {
+                history.add(texts.getLast());
+            } else {
+                history.pop();
+                history.add(texts.getLast());
+                undone.clear();
+            }
         }
     }
 
@@ -93,4 +98,5 @@ public class TextEditor {
     public TextFormatter getStrategy() {
         return strategy;
     }
+
 }
