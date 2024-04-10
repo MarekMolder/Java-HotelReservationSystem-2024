@@ -19,18 +19,18 @@ import java.util.stream.Collectors;
  */
 public class Hotel {
 
-    private Set<Room> hotelRooms = new HashSet<>(); //a set of the rooms in hotel
-    private Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
-    private Map<Client, Integer> hotelClientBookings = new HashMap<>();
+    private final Set<Room> hotelRooms = new HashSet<>(); //a set of the rooms in hotel
+    private final Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
+    private final Map<Client, Integer> hotelClientBookings = new HashMap<>();
     // a map of clients to the number of bookings they have made at the hotel
 
-    private Map<Client, List<Object>> hotelReviews = new HashMap<>();
+    private final Map<Client, List<Object>> hotelReviews = new HashMap<>();
     // a map of clients and reviews they have made to hotel
 
-    private Map<Client, Integer> hotelReviewsScores = new HashMap<>();
+    private final Map<Client, Integer> hotelReviewsScores = new HashMap<>();
     // a map of clients and scores they have given for the hotel
 
-    private Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
+    private final Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
 
     /**
      * This method is used to get rooms in a hotel
@@ -120,18 +120,18 @@ public class Hotel {
      * @param until The end date of the booking period.
      * @return A set of rooms that are available within the specified date range.
      */
-    public Set<Room> lookUpFreeRoomsType(Class room, LocalDate since, LocalDate until) {
+    // kontrolli toa tüüpi enumina
+    public Set<Room> lookUpFreeRoomsType(Class<? extends Room> room, LocalDate since, LocalDate until) {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
+            // tomba siin ka if laused kokku
             if (room.equals(suit.getClass())) {
                 if (isRoomAvailable(since, until, suit)) {
                     hotelSearchRoom.add(suit);
                 }
                     }
                 }
-        Set<Room> result = new LinkedHashSet<>(hotelSearchRoom);
-        hotelSearchRoom.clear();
-        return result;
+        return hotelSearchRoom;
     }
 
     /**
@@ -147,9 +147,7 @@ public class Hotel {
                 hotelSearchRoom.add(suit);
             }
         }
-        Set<Room> result = new LinkedHashSet<>(hotelSearchRoom);
-        hotelSearchRoom.clear();
-        return result;
+        return hotelSearchRoom;
     }
 
     /**

@@ -6,7 +6,7 @@ import ee.taltech.iti0202.hotel.hotel.Hotel;
  * Represents a room which will be added in hotel.
  */
 public class Room {
-    public static final int PRICE = 40; // Room price
+    private static final int PRICE = 40; // Room price
     private static int nextRoomNumber = 1; // A unique number for every room
     private final int number; // A unique number for room
     int price; // The room price
@@ -17,7 +17,7 @@ public class Room {
      * This method is used to give every room a unique number.
      * @return a unique number.
      */
-    public int getAndIncrementNextRoomNumber() {
+    private static int getAndIncrementNextRoomNumber() {
         return nextRoomNumber++;
     }
 

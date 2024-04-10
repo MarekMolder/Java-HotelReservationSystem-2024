@@ -63,8 +63,10 @@ public class Client {
      * @param hotel The hotel for which the review is being written.
      * @return True if the review was successfully written, false otherwise.
      */
+    // Paranda ära!! tee eraldi klass ja kaota list(object)
     public boolean writeReview(String review, int score, Hotel hotel) {
         List<Object> clientReview = new ArrayList<>();
+        // kaota lisa if ära
         if (hotel.getHotelClients().contains(this) && !hotel.getHotelReviewsScores().containsKey(this)) {
             if (score >= 1 && score <= 5 && !review.isEmpty()) {
                 clientReview.add(review);
