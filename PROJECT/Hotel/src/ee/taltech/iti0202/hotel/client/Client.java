@@ -6,7 +6,9 @@ import ee.taltech.iti0202.hotel.review.Review;
 import ee.taltech.iti0202.hotel.rooms.Room;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Represents a Client who can book rooms, write reviews and remove bookings.
