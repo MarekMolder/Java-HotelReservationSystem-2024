@@ -37,14 +37,13 @@ class ClientTest {
         hotel1.addRoomToHotel(room3);
         client3.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
 
-        Map<String, Integer> expected = new HashMap<>();
-        expected.put("Lahe hotell", 5);
-
         // what to test?
         client3.writeReview("Lahe hotell", 5, hotel1);
 
         // what to expect?
-        assertEquals(expected, client3.getReviews());
+        assertEquals(1, client3.getReviews().size());
+        assertEquals(5, client3.getReviews().getFirst().getScore());
+        assertEquals("Lahe hotell", client3.getReviews().getFirst().getReview());
     }
 
     @Test

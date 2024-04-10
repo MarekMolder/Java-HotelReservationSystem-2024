@@ -104,37 +104,14 @@ class HotelTest {
         // setup
         hotel1.addRoomToHotel(room1);
         client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        Map<Client, List<Object>> Hotelexpected = new HashMap<>();
-        Hotelexpected.put(client1, new ArrayList<>(Arrays.asList("Lahe hotell", 5)));
 
         // what to test?
         client1.writeReview("Lahe hotell", 5, hotel1);
 
         // what to expect?
-        assertEquals(Hotelexpected, hotel1.getHotelReviews());
-    }
-
-    @Test
-    void getHotelReviewsScores() {
-        // setup
-        hotel1.addRoomToHotel(room1);
-        hotel1.addRoomToHotel(room2);
-        hotel1.addRoomToHotel(room3);
-        client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        client2.bookRoom(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        client3.bookRoom(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        Map<Client, Integer> expected = new HashMap<>();
-        expected.put(client1, 3);
-        expected.put(client2, 2);
-        expected.put(client3, 4);
-
-        // what to test?
-        client1.writeReview("cool hotell", 3, hotel1);
-        client2.writeReview("Väga lahe hotell", 2, hotel1);
-        client3.writeReview("Lahe bassein", 4, hotel1);
-
-        // what to expect?
-        assertEquals(expected, hotel1.getHotelReviewsScores());
+        assertEquals(1, hotel1.getHotelReviews().size());
+        assertEquals("Lahe hotell", hotel1.getHotelReviews().get(client1).getReview());
+        assertEquals(5, hotel1.getHotelReviews().get(client1).getScore());
     }
 
     @Test

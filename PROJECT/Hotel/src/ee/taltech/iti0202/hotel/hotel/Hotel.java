@@ -2,6 +2,7 @@ package ee.taltech.iti0202.hotel.hotel;
 
 import ee.taltech.iti0202.hotel.booking.Booking;
 import ee.taltech.iti0202.hotel.client.Client;
+import ee.taltech.iti0202.hotel.review.Review;
 import ee.taltech.iti0202.hotel.rooms.Room;
 
 import java.time.LocalDate;
@@ -23,13 +24,8 @@ public class Hotel {
     private final Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
     private final Map<Client, Integer> hotelClientBookings = new HashMap<>();
     // a map of clients to the number of bookings they have made at the hotel
-
-    private final Map<Client, List<Object>> hotelReviews = new HashMap<>();
+    private final Map<Client, Review> hotelReviews = new HashMap<>();
     // a map of clients and reviews they have made to hotel
-
-    private final Map<Client, Integer> hotelReviewsScores = new HashMap<>();
-    // a map of clients and scores they have given for the hotel
-
     private final Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
 
     /**
@@ -60,16 +56,8 @@ public class Hotel {
      * The method is used to get a map of clients and their reviews.
      * @return A map of clients and their reviews.
      */
-    public Map<Client, List<Object>> getHotelReviews() {
+    public Map<Client, Review> getHotelReviews() {
         return hotelReviews;
-    }
-
-    /**
-     * The method is used to get a map of hotel clients and their review score.
-     * @return A map of hotel clients and their review score.
-     */
-    public Map<Client, Integer> getHotelReviewsScores() {
-        return hotelReviewsScores;
     }
 
     /**
@@ -102,7 +90,8 @@ public class Hotel {
     public Double getReviewsArithmeticScore() {
         int sum = 0;
         int count = 0;
-        for (Integer score : hotelReviewsScores.values()) {
+        for (Review review : hotelReviews.values()) {
+            int score = review.getScore();
             sum += score;
             count++;
         }
@@ -120,15 +109,11 @@ public class Hotel {
      * @param until The end date of the booking period.
      * @return A set of rooms that are available within the specified date range.
      */
-    // kontrolli toa tüüpi enumina
     public Set<Room> lookUpFreeRoomsType(Class<? extends Room> room, LocalDate since, LocalDate until) {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
-            // tomba siin ka if laused kokku
-            if (room.equals(suit.getClass())) {
-                if (isRoomAvailable(since, until, suit)) {
+            if (room.equals(suit.getClass()) && isRoomAvailable(since, until, suit)) {
                     hotelSearchRoom.add(suit);
-                }
                     }
                 }
         return hotelSearchRoom;
@@ -196,7 +181,8 @@ public class Hotel {
         return hotelClientBookings.entrySet().stream()
                 .sorted(Map.Entry.<Client, Integer>comparingByValue().reversed()
                         .thenComparing((e1, e2) ->
-                                hotelReviewsScores.get(e2.getKey()).compareTo(hotelReviewsScores.get(e1.getKey()))))
+                                Integer.compare(hotelReviews.get(e2.getKey()).getScore(),
+                                        hotelReviews.get(e1.getKey()).getScore())))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }

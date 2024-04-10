@@ -39,17 +39,18 @@ class WriteReviewTest {
         // setup
         hotel1.addRoomToHotel(room1);
         client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        Map<String, Integer> Clientexpected = new HashMap<>();
-        Clientexpected.put("Lahe hotell", 5);
-        Map<Client, List<Object>> Hotelexpected = new HashMap<>();
-        Hotelexpected.put(client1, new ArrayList<>(Arrays.asList("Lahe hotell", 5)));
 
         // what to test?
         assertTrue(client1.writeReview("Lahe hotell", 5, hotel1));
 
         // what to expect
-        assertEquals(Clientexpected, client1.getReviews());
-        assertEquals(Hotelexpected, hotel1.getHotelReviews());
+        assertEquals(1, client1.getReviews().size());
+        assertEquals(5, client1.getReviews().getFirst().getScore());
+        assertEquals("Lahe hotell", client1.getReviews().getFirst().getReview());
+
+        assertEquals(1, hotel1.getHotelReviews().size());
+        assertEquals("Lahe hotell", hotel1.getHotelReviews().get(client1).getReview());
+        assertEquals(5, hotel1.getHotelReviews().get(client1).getScore());
     }
 
     @Test
@@ -73,21 +74,26 @@ class WriteReviewTest {
         hotel1.addRoomToHotel(room1);
         client1.bookRoom(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
 
+        assertEquals(0, client1.getReviews().size());
+        assertEquals(0, hotel1.getHotelReviews().size());
+
         // First written review should pass
         assertTrue(client1.writeReview("Lahe hotell", 5, hotel1));
-        Map<String, Integer> Clientexpected1 = new HashMap<>();
-        Clientexpected1.put("Lahe hotell", 5);
-        Map<Client, List<Object>> Hotelexpected1 = new HashMap<>();
-        Hotelexpected1.put(client1, new ArrayList<>(Arrays.asList("Lahe hotell", 5)));
-        assertEquals(Clientexpected1, client1.getReviews());
-        assertEquals(Hotelexpected1, hotel1.getHotelReviews());
+
+        assertEquals(1, client1.getReviews().size());
+        assertEquals(1, hotel1.getHotelReviews().size());
 
         // Second written review should not pass
         assertFalse(client1.writeReview("Cool bassein", 3, hotel1));
 
         // what to expect
-        assertEquals(Clientexpected1, client1.getReviews());
-        assertEquals(Hotelexpected1, hotel1.getHotelReviews());
+        assertEquals(1, client1.getReviews().size());
+        assertEquals(5, client1.getReviews().getFirst().getScore());
+        assertEquals("Lahe hotell", client1.getReviews().getFirst().getReview());
+
+        assertEquals(1, hotel1.getHotelReviews().size());
+        assertEquals("Lahe hotell", hotel1.getHotelReviews().get(client1).getReview());
+        assertEquals(5, hotel1.getHotelReviews().get(client1).getScore());
     }
     @Test
     @DisplayName("Should not write a new review when score is less than 1 or higher than 5.")
@@ -99,7 +105,7 @@ class WriteReviewTest {
         // what to expect
         assertFalse(client1.writeReview("lahe Hotell", 6, hotel1));
         assertFalse(client1.writeReview("lahe Hotell", -2, hotel1));
-        assertEquals(new HashMap<>(), client1.getReviews());
+        assertEquals(new ArrayList<>(), client1.getReviews());
         assertEquals(new HashMap<>(), hotel1.getHotelReviews());
     }
 
@@ -113,7 +119,7 @@ class WriteReviewTest {
         // what to expect
         assertFalse(client1.writeReview("", 3, hotel1));
         assertFalse(client1.writeReview("", 4, hotel1));
-        assertEquals(new HashMap<>(), client1.getReviews());
+        assertEquals(new ArrayList<>(), client1.getReviews());
         assertEquals(new HashMap<>(), hotel1.getHotelReviews());
     }
 }

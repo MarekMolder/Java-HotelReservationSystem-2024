@@ -2,14 +2,11 @@ package ee.taltech.iti0202.hotel.client;
 
 import ee.taltech.iti0202.hotel.booking.Booking;
 import ee.taltech.iti0202.hotel.hotel.Hotel;
+import ee.taltech.iti0202.hotel.review.Review;
 import ee.taltech.iti0202.hotel.rooms.Room;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * Represents a Client who can book rooms, write reviews and remove bookings.
@@ -17,7 +14,7 @@ import java.util.Optional;
 public class Client {
     private final String name; // The name of the client
     private Integer balance; // The balance of the client
-    private Map<String, Integer> clientReviews; // a map of client reviews
+    private List<Review> clientReviews; // a set of client reviews
     private List<Booking> clientBookings; // a List of client bookings
 
     /**
@@ -28,7 +25,7 @@ public class Client {
     public Client(String name, int balance) {
         this.name = name;
         this.balance = balance;
-        this.clientReviews = new HashMap<>();
+        this.clientReviews = new ArrayList<>();
         this.clientBookings = new ArrayList<>();
     }
 
@@ -36,7 +33,7 @@ public class Client {
      * This method is used to get client written reviews.
      * @return The map containing client reviews.
      */
-    public Map<String, Integer> getReviews() {
+    public List<Review> getReviews() {
         return this.clientReviews;
     }
 
@@ -63,20 +60,15 @@ public class Client {
      * @param hotel The hotel for which the review is being written.
      * @return True if the review was successfully written, false otherwise.
      */
-    // Paranda ära!! tee eraldi klass ja kaota list(object)
     public boolean writeReview(String review, int score, Hotel hotel) {
-        List<Object> clientReview = new ArrayList<>();
-        // kaota lisa if ära
-        if (hotel.getHotelClients().contains(this) && !hotel.getHotelReviewsScores().containsKey(this)) {
-            if (score >= 1 && score <= 5 && !review.isEmpty()) {
-                clientReview.add(review);
-                clientReview.add(score);
-                this.clientReviews.put(review, score);
-                hotel.getHotelReviews().put(this, clientReview);
-                hotel.getHotelReviewsScores().put(this, score);
-                return true;
+        if (hotel.getHotelClients().contains(this)
+                && !hotel.getHotelReviews().containsKey(this)
+                && score >= 1 && score <= 5 && !review.isEmpty()) {
+            Review review1 = new Review(review, score, hotel);
+            this.clientReviews.add(review1);
+            hotel.getHotelReviews().put(this, review1);
+            return true;
             }
-        }
         return false;
     }
 
