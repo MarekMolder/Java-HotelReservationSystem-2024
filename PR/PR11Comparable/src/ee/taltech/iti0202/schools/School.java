@@ -80,8 +80,8 @@ public abstract class School implements Comparable<School> {
         int insertedOven = getPriority(o.getClass());
         int thisOven = getPriority(this.getClass());
 
-        if (insertedOven != thisOven) {
-            return Integer.compare(thisOven, insertedOven);
+        if (thisOven != insertedOven) {
+            return Integer.compare(insertedOven, thisOven);
         }
 
         if (this.students.size() != o.students.size()) {
