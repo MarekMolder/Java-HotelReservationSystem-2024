@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class Schools implements Comparable<Schools> {
+public abstract class School implements Comparable<School> {
 
     private final Location location;
     private final String name;
     private final ArrayList<Student> students;
-    private static final List<Schools> schools = new ArrayList<>();
+    private static final List<School> SCHOOLS  = new ArrayList<>();
 
 
     /**
@@ -20,11 +20,11 @@ public abstract class Schools implements Comparable<Schools> {
      * @param name name of school
      * @param location Location of school
      */
-    protected Schools(String name, Location location) {
+    protected School(String name, Location location) {
         this.name = name;
         this.location = location;
         this.students = new ArrayList<>();
-        schools.add(this);
+        SCHOOLS.add(this);
     }
 
 
@@ -75,7 +75,7 @@ public abstract class Schools implements Comparable<Schools> {
      * @return int -1, 0, or 1
      */
     @Override
-    public int compareTo(Schools o) {
+    public int compareTo(School o) {
         int insertedOven = getPriority(o.getClass());
         int thisOven = getPriority(this.getClass());
 
@@ -97,7 +97,7 @@ public abstract class Schools implements Comparable<Schools> {
         return this.name.compareTo(o.name);
     }
 
-    private int getPriority(Class<? extends Schools> clazz) {
+    private int getPriority(Class<? extends School> clazz) {
         if (clazz.equals(University.class)) {
             return 3;
         } else if (clazz.equals(SecondarySchool.class)) {
@@ -113,9 +113,9 @@ public abstract class Schools implements Comparable<Schools> {
      * Does not add it to list if it's already added.
      * @param school School
      */
-    public static void addSchool(Schools school) {
-        if (!schools.contains(school)) {
-            schools.add(school);
+    public static void addSchool(School school) {
+        if (!SCHOOLS.contains(school)) {
+            SCHOOLS.add(school);
         }
     }
 
@@ -123,15 +123,15 @@ public abstract class Schools implements Comparable<Schools> {
      * Clears list containing all schools
      */
     public static void clearSchools() {
-        schools.clear();
+        SCHOOLS.clear();
     }
 
     /**
      * Returns sorted List of all schools.
      * @return sorted list of schools
      */
-    public static List<Schools> getSchools() {
-        schools.sort(Schools::compareTo);
-        return schools;
+    public static List<School> getSchools() {
+        SCHOOLS.sort(School::compareTo);
+        return SCHOOLS;
     }
 }

@@ -2,7 +2,7 @@ package ee.taltech.iti0202.schools;
 
 import ee.taltech.iti0202.location.Location;
 
-public class University extends Schools {
+public class University extends School {
     /**
      * University constructor.
      * @param name name
