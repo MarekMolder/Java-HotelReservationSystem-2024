@@ -129,7 +129,6 @@ public abstract class School implements Comparable<School> {
      */
     public static List<School> getSchools() {
         Collections.sort(schools, (o1, o2) -> o1.compareTo(o2));
-        Collections.reverse(schools);
         return schools;
     }
 }
