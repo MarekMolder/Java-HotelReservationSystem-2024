@@ -25,6 +25,7 @@ public abstract class School implements Comparable<School> {
         this.name = name;
         this.location = location;
         this.students = new ArrayList<>();
+        schools.add(this);
     }
 
 
@@ -33,7 +34,9 @@ public abstract class School implements Comparable<School> {
      * @param student Student
      */
     public void addStudent(Student student) {
-        students.add(student);
+        if (!students.contains(student)) {
+            students.add(student);
+        }
     }
 
 
