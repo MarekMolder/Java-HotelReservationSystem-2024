@@ -95,7 +95,7 @@ public abstract class School implements Comparable<School> {
         if (!Objects.equals(this.location.city(), o.location.city())) {
             return this.location.city().compareTo(o.location.city());
         }
-        return insertedOven;
+        return this.name.compareTo(o.name);
     }
 
     private int getPriority(Class<? extends School> clazz) {
