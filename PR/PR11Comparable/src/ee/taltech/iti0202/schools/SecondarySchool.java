@@ -9,7 +9,7 @@ public class SecondarySchool extends School {
      * @param name     name of school
      * @param location Location of school
      */
-    protected SecondarySchool(String name, Location location) {
+    public SecondarySchool(String name, Location location) {
         super(name, location);
     }
 }
