@@ -12,7 +12,7 @@ public abstract class School implements Comparable<School> {
     private final Location location;
     private final String name;
     private final ArrayList<Student> students;
-    private static final ArrayList<School> uni = new ArrayList<>();
+    private static final List<School> schools = new ArrayList<>();
 
 
     /**
@@ -24,7 +24,7 @@ public abstract class School implements Comparable<School> {
         this.name = name;
         this.location = location;
         this.students = new ArrayList<>();
-        uni.add(this);
+        schools.add(this);
     }
 
 
@@ -114,8 +114,8 @@ public abstract class School implements Comparable<School> {
      * @param school School
      */
     public static void addSchool(School school) {
-        if (!uni.contains(school)) {
-            uni.add(school);
+        if (!schools.contains(school)) {
+            schools.add(school);
         }
     }
 
@@ -123,7 +123,7 @@ public abstract class School implements Comparable<School> {
      * Clears list containing all schools
      */
     public static void clearSchools() {
-        uni.clear();
+        schools.clear();
     }
 
     /**
@@ -131,7 +131,7 @@ public abstract class School implements Comparable<School> {
      * @return sorted list of schools
      */
     public static List<School> getSchools() {
-        uni.sort(School::compareTo);
-        return uni;
+        schools.sort(School::compareTo);
+        return schools;
     }
 }
