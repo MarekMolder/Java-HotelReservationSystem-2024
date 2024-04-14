@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class School implements Comparable<School> {
+public abstract class Schools implements Comparable<Schools> {
 
     private final Location location;
     private final String name;
     private final ArrayList<Student> students;
-    private static final List<School> schools = new ArrayList<>();
+    private static final List<Schools> schools = new ArrayList<>();
 
 
     /**
@@ -20,7 +20,7 @@ public abstract class School implements Comparable<School> {
      * @param name name of school
      * @param location Location of school
      */
-    protected School(String name, Location location) {
+    protected Schools(String name, Location location) {
         this.name = name;
         this.location = location;
         this.students = new ArrayList<>();
@@ -75,7 +75,7 @@ public abstract class School implements Comparable<School> {
      * @return int -1, 0, or 1
      */
     @Override
-    public int compareTo(School o) {
+    public int compareTo(Schools o) {
         int insertedOven = getPriority(o.getClass());
         int thisOven = getPriority(this.getClass());
 
@@ -97,7 +97,7 @@ public abstract class School implements Comparable<School> {
         return this.name.compareTo(o.name);
     }
 
-    private int getPriority(Class<? extends School> clazz) {
+    private int getPriority(Class<? extends Schools> clazz) {
         if (clazz.equals(University.class)) {
             return 3;
         } else if (clazz.equals(SecondarySchool.class)) {
@@ -113,7 +113,7 @@ public abstract class School implements Comparable<School> {
      * Does not add it to list if it's already added.
      * @param school School
      */
-    public static void addSchool(School school) {
+    public static void addSchool(Schools school) {
         if (!schools.contains(school)) {
             schools.add(school);
         }
@@ -130,8 +130,8 @@ public abstract class School implements Comparable<School> {
      * Returns sorted List of all schools.
      * @return sorted list of schools
      */
-    public static List<School> getSchools() {
-        schools.sort(School::compareTo);
+    public static List<Schools> getSchools() {
+        schools.sort(Schools::compareTo);
         return schools;
     }
 }

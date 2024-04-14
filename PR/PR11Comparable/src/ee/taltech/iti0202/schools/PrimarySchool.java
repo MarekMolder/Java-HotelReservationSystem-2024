@@ -2,7 +2,7 @@ package ee.taltech.iti0202.schools;
 
 import ee.taltech.iti0202.location.Location;
 
-public class PrimarySchool extends School {
+public class PrimarySchool extends Schools {
     /**
      * Construct a new school with a name and Location.
      *
