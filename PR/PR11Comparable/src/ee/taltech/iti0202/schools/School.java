@@ -83,7 +83,7 @@ public abstract class School implements Comparable<School> {
         if (insertedOven != thisOven) {
             return Integer.compare(thisOven, insertedOven);
         } else if (this.students.size() != o.students.size()) {
-            return Integer.compare(this.students.size(), o.students.size());
+            return Integer.compare(o.students.size(), this.students.size());
         } else if (!Objects.equals(this.location.country(), o.location.country())) {
             return this.location.country().compareTo(o.location.country());
         } else if (!Objects.equals(this.location.city(), o.location.city())) {
