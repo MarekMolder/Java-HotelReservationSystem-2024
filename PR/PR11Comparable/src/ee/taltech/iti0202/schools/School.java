@@ -4,7 +4,6 @@ import ee.taltech.iti0202.location.Location;
 import ee.taltech.iti0202.student.Student;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +12,7 @@ public abstract class School implements Comparable<School> {
     private final Location location;
     private final String name;
     private final ArrayList<Student> students;
-    private static final ArrayList<School> schools = new ArrayList<>();
+    private static final ArrayList<School> schoolList = new ArrayList<>();
 
 
     /**
@@ -25,7 +24,7 @@ public abstract class School implements Comparable<School> {
         this.name = name;
         this.location = location;
         this.students = new ArrayList<>();
-        schools.add(this);
+        schoolList.add(this);
     }
 
 
@@ -114,8 +113,8 @@ public abstract class School implements Comparable<School> {
      * @param school School
      */
     public static void addSchool(School school) {
-        if (!schools.contains(school)) {
-            schools.add(school);
+        if (!schoolList.contains(school)) {
+            schoolList.add(school);
         }
     }
 
@@ -123,15 +122,15 @@ public abstract class School implements Comparable<School> {
      * Clears list containing all schools
      */
     public static void clearSchools() {
-        schools.clear();
+        schoolList.clear();
     }
 
     /**
      * Returns sorted List of all schools.
      * @return sorted list of schools
      */
-    public static List<School> getSchools() {
-        schools.sort(School::compareTo);
-        return schools;
+    public static List<School> getSchoolList() {
+        schoolList.sort(School::compareTo);
+        return schoolList;
     }
 }
