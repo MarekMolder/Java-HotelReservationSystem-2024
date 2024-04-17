@@ -5,34 +5,28 @@ import java.util.*;
 public class Location {
     private final String name;
     private Map<String, Integer> distances = new HashMap<>();
-    private final List<Packet> packets;
+    private Map<String, Packet> packets;
 
 
     public Location(String name) {
         this.name = name;
-        this.packets = new ArrayList<>();
+        this.packets = new HashMap<>();
     }
 
     public String getName() {
         return name;
     }
     public void addPacket(Packet packet) {
-        packets.add(packet);
+        packets.put(packet.getName(), packet);
     }
 
     public Optional<Packet> getPacket(String name) {
-        for (Packet packet : packets) {
-            if (packet.getName().equals(name)) {
-                packets.remove(packet);
-                return Optional.of(packet);
-                }
-            }
-
+        Packet packet = packets.get(name);
+        if (packet != null) {
+            packets.remove(name);
+            return Optional.of(packet);
+        }
         return Optional.empty();
-    }
-
-    public List<Packet> getPackets() {
-        return packets;
     }
 
     public Integer getDistanceTo(String name) {
