@@ -9,7 +9,7 @@ public class World {
     private Map<String, Courier> couriers = new HashMap<>();
 
     public Optional<Location> addLocation(String name, List<String> otherLocations, List<Integer> distances) {
-        if (locationMap.containsKey(name) || !locationSet.containsAll(otherLocations)) {
+        if (locationMap.containsKey(name) || !locationSet.containsAll(otherLocations) || otherLocations.size() != distances.size()) {
             return Optional.empty();
         }
         Location location = new Location(name);
@@ -19,14 +19,11 @@ public class World {
         for (int i = 0; i < otherLocations.size(); i++) {
             String otherLocationName = otherLocations.get(i);
             if (locationMap.containsKey(otherLocationName)) {
-                // Kui teine asukoht on juba olemas, lisame kauguse
                 int distance = distances.get(i);
                 location.addDistance(otherLocationName, distance);
-                // Samal ajal lisame kauguse teisele asukohale, et oleks kahesuunaline
                 locationMap.get(otherLocationName).addDistance(name, distance);
             } else {
-                // Kui teist asukohta ei eksisteeri, tagastame Optional.empty()
-                locationMap.remove(name); // Eemaldame loodud asukoha
+                locationMap.remove(name);
                 return Optional.empty();
             }
         }
