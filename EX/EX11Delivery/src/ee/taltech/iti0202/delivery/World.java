@@ -10,14 +10,16 @@ public class World {
 
     public Optional<Location> addLocation(String name, List<String> otherLocations, List<Integer> distances) {
         List<String> locations = new ArrayList<>();
+        List<Integer> dist = new ArrayList<>();
 
-        for (String otherLocation : otherLocations) {
-            if (locationMap.containsKey(otherLocation)) {
-                locations.add(otherLocation);
+        for (int i = 0; i < otherLocations.size(); i++) {
+            if (locationMap.containsKey(otherLocations.get(i))) {
+                locations.add(otherLocations.get(i));
+                dist.add(distances.get(i));
             }
         }
 
-        if (locationMap.containsKey(name) || locations.size() != distances.size()) {
+        if (locationMap.containsKey(name) || locations.size() != dist.size()) {
             return Optional.empty();
         }
 
