@@ -9,9 +9,14 @@ public class World {
     private Map<String, Courier> couriers = new HashMap<>();
 
     public Optional<Location> addLocation(String name, List<String> otherLocations, List<Integer> distances) {
-        if (locationMap.containsKey(name) || !locationSet.containsAll(otherLocations) || otherLocations.size() != distances.size()) {
+        if (locationMap.containsKey(name) || otherLocations.size() != distances.size()) {
             return Optional.empty();
         }
+
+        for (String otherLocation : otherLocations) {
+            if (locationSet.contains(otherLocation)) {}
+        }
+
         Location location = new Location(name);
         locationMap.put(name, location);
         locationSet.add(name);
