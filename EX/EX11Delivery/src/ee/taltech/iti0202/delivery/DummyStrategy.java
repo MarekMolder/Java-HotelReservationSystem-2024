@@ -3,8 +3,13 @@ package ee.taltech.iti0202.delivery;
 import java.util.List;
 
 public class DummyStrategy implements Strategy {
-    private List<Action> actions;
+    private final List<Action> actions;
     private int currentActionIndex;
+
+    /**
+     * Constructs a dummy strategy
+     * @param actions The actions.
+     */
     public DummyStrategy(List<Action> actions) {
         this.actions = actions;
         this.currentActionIndex = 0;

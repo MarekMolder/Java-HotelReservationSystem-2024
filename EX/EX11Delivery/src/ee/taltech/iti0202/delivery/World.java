@@ -4,18 +4,24 @@ import java.util.*;
 
 public class World {
 
-    private Map<String, Location> locationMap = new HashMap<>();
-    private Set<String> locationSet = new HashSet<>();
-    private Map<String, Courier> couriers = new HashMap<>();
+    private final Map<String, Location> locationMap = new HashMap<>();
+    private final Map<String, Courier> couriers = new HashMap<>();
 
+    /**
+     * This method is used to add location in to the world.
+     * @param name The name of the location
+     * @param otherLocations Other locations
+     * @param distances New location and other location distances.
+     * @return Optional.of(Location) if conditions are met, otherwise Optional.empty()
+     */
     public Optional<Location> addLocation(String name, List<String> otherLocations, List<Integer> distances) {
-        if (locationMap.containsKey(name) || otherLocations.size() != distances.size() || locationMap.size() > otherLocations.size()) {
+        if (locationMap.containsKey(name) || otherLocations.size() != distances.size()
+                || locationMap.size() > otherLocations.size()) {
             return Optional.empty();
         }
 
         Location location = new Location(name);
         locationMap.put(name, location);
-        locationSet.add(name);
 
         for (int i = 0; i < otherLocations.size(); i++) {
             String otherLocationName = otherLocations.get(i);
@@ -33,6 +39,12 @@ public class World {
 
     }
 
+    /**
+     * This method is used to add Courier in to the world.
+     * @param name The name of the courier.
+     * @param to The location where courier starts.
+     * @return Opional.of(courier) if conditions are met, otherwise optional.empty()
+     */
     public Optional<Courier> addCourier(String name, String to) {
         if (couriers.containsKey(name) || !locationMap.containsKey(to)) {
             return Optional.empty();
@@ -44,6 +56,12 @@ public class World {
         return Optional.of(courier);
     }
 
+    /**
+     * This method is used to give strategy to courier
+     * @param name The name of the courier
+     * @param strategy The strategy to be added.
+     * @return true, if conditions are met, false otherwise
+     */
     boolean giveStrategy(String name, Strategy strategy) {
         if (!couriers.containsKey(name)) {
             return false;
@@ -52,6 +70,9 @@ public class World {
         return true;
     }
 
+    /**
+     * This method is used to implement new day.
+     */
     void tick() {
         for (Courier courier : couriers.values()) {
             Optional<Location> currentLocation = courier.getLocation();
@@ -80,5 +101,4 @@ public class World {
             }
         }
     }
-
 }

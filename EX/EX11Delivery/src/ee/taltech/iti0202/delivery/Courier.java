@@ -10,9 +10,13 @@ public class Courier {
     private Location location; // where now?
     private Strategy strategy;
     private Location target; // where to?
-
     private int distanceToTarget;
 
+    /**
+     * Constructs a new Courier with name and location.
+     * @param name The name of the courier.
+     * @param location The location of the courier.
+     */
     public Courier(String name, Location location) {
         this.strategy = null;
         this.name = name;
@@ -22,6 +26,10 @@ public class Courier {
         this.distanceToTarget = 0;
     }
 
+    /**
+     * This method is to set new strategy to a Courier.
+     * @param strategy The strategy to be added.
+     */
     void setStrategy(Strategy strategy) {
         this.strategy = strategy;
     }
@@ -34,6 +42,10 @@ public class Courier {
         return name;
     }
 
+    /**
+     * This method is used to add packet to courier.
+     * @param packet The packet to be added.
+     */
     public void addPacket(Packet packet) {
         packetList.add(packet);
     }
@@ -42,7 +54,11 @@ public class Courier {
         return packetList;
     }
 
-
+    /**
+     * This method is used to get packet and remove it from the courier packets.
+     * @param name The name of the packet.
+     * @return Optional.of(packet) if conditions are met, otherwise Optional.empty()
+     */
     public Optional<Packet> getPacket(String name) {
         for (Packet packet : packetList) {
             if (packet.getName().equals(name)) {
@@ -57,12 +73,19 @@ public class Courier {
         return Optional.ofNullable(location);
     }
 
+    /**
+     * This method is used to set target.
+     * @param target The new location.
+     */
     public void setTarget(Location target) {
         this.target = target;
         distanceToTarget = location.getDistanceTo(target.getName());
         this.location = null;
     }
 
+    /**
+     * This method is used to implement courier moving
+     */
     public void move() {
         distanceToTarget--;
 
@@ -74,13 +97,13 @@ public class Courier {
 
     @Override
     public String toString() {
-        return "Courier{" +
-                "packets=" + packetList +
-                ", name='" + name + '\'' +
-                ", location=" + location +
-                ", target=" + target +
-                ", distanceToTarget=" + distanceToTarget +
-                '}';
+        return "Courier{"
+                + "packets=" + packetList
+                + ", name='" + name + '\''
+                + ", location=" + location
+                + ", target=" + target
+                + ", distanceToTarget=" + distanceToTarget
+                + '}';
     }
 
 }

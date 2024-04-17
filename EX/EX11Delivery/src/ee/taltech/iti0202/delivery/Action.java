@@ -5,10 +5,14 @@ import java.util.List;
 
 public class Action {
     private Location location;
-    private List<String> deposit = new ArrayList<>();
-    private List<String> take = new ArrayList<>();
-    private Location goTo;
+    private final List<String> deposit = new ArrayList<>();
+    private final List<String> take = new ArrayList<>();
+    private final Location goTo;
 
+    /**
+     * Constructs a new Action with target.
+     * @param goTo The target where courier must go to.
+     */
     public Action(Location goTo) {
         this.goTo = goTo;
     }
