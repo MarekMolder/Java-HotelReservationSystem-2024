@@ -9,13 +9,13 @@ public class World {
     private Map<String, Courier> couriers = new HashMap<>();
 
     public Optional<Location> addLocation(String name, List<String> otherLocations, List<Integer> distances) {
-        List<String> locations = new ArrayList<>();
-        List<Integer> dist = new ArrayList<>();
+        List<String> locations = otherLocations;
+        List<Integer> dist = distances;
 
-        for (int i = 0; i < otherLocations.size(); i++) {
-            if (locationMap.containsKey(otherLocations.get(i))) {
-                locations.add(otherLocations.get(i));
-                dist.add(distances.get(i));
+        for (int i = 0; i < locations.size(); i++) {
+            if (!locationMap.containsKey(locations.get(i))) {
+                locations.remove(locations.get(i));
+                dist.remove(dist.get(i));
             }
         }
 
