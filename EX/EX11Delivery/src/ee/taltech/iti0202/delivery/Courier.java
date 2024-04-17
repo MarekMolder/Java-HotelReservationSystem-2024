@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class Courier {
-    private List<Packet> packetList;
+    private final List<Packet> packetList;
     private final String name;
     private Location location; // where now?
     private Strategy strategy;

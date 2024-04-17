@@ -70,7 +70,7 @@ public class World {
                 // take
                 for (String packetName : takePackets) {
                     Optional<Packet> packetOptional = currentLocation.get().getPacket(packetName);
-                    packetOptional.ifPresent(packet -> courier.addPacket(packet));
+                    packetOptional.ifPresent(courier::addPacket);
                 }
                 // setTarget
                 courier.setTarget(goTo);
