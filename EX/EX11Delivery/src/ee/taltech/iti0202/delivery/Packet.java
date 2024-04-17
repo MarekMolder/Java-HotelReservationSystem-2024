@@ -4,7 +4,7 @@ public class Packet {
     private final String name;
     private final Location target;
 
-    Packet(String name, Location target) {
+    public Packet(String name, Location target) {
         this.name = name;
         this.target = target;
     }

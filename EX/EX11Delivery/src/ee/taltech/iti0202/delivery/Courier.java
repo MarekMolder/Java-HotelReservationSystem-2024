@@ -7,10 +7,15 @@ import java.util.Optional;
 public class Courier {
     private final List<Packet> packetList;
     private final String name;
+    private final Location firstPlace;
     private Location location; // where now?
     private Strategy strategy;
     private Location target; // where to?
     private int distanceToTarget;
+
+    public Location getFirstPlace() {
+        return firstPlace;
+    }
 
     /**
      * Constructs a new Courier with name and location.
@@ -18,6 +23,7 @@ public class Courier {
      * @param location The location of the courier.
      */
     public Courier(String name, Location location) {
+        this.firstPlace = location;
         this.strategy = null;
         this.name = name;
         this.packetList = new ArrayList<>();
@@ -78,9 +84,11 @@ public class Courier {
      * @param target The new location.
      */
     public void setTarget(Location target) {
-        this.target = target;
-        distanceToTarget = location.getDistanceTo(target.getName());
-        this.location = null;
+        if (!target.equals(location)) {
+            this.target = target;
+            distanceToTarget = location.getDistanceTo(target.getName());
+            this.location = null;
+        }
     }
 
     /**

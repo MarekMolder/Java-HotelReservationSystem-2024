@@ -62,7 +62,7 @@ public class World {
      * @param strategy The strategy to be added.
      * @return true, if conditions are met, false otherwise
      */
-    boolean giveStrategy(String name, Strategy strategy) {
+    public boolean giveStrategy(String name, Strategy strategy) {
         if (!couriers.containsKey(name)) {
             return false;
         }
@@ -73,7 +73,7 @@ public class World {
     /**
      * This method is used to implement new day.
      */
-    void tick() {
+    public void tick() {
         for (Courier courier : couriers.values()) {
             Optional<Location> currentLocation = courier.getLocation();
             if (currentLocation.isPresent()) {

@@ -16,6 +16,10 @@ public class Location {
         this.packets = new HashMap<>();
     }
 
+    public Map<String, Packet> getPackets() {
+        return packets;
+    }
+
     /**
      * This method is used to get a name of the Location.
      * @return The name of the Location.
@@ -45,6 +49,8 @@ public class Location {
         }
         return Optional.empty();
     }
+
+
 
     /**
      * This method is used to get distance from location to target.
