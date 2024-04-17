@@ -19,7 +19,9 @@ public class WorldExample {
         tartu.addPacket(packetTartu1);
         tartu.addPacket(packetTartu2);
 
-        firstStrategy firstStrategy = new firstStrategy(world);
+        System.out.println(tallinn);  // Tallinn   PACKETS: tal1,tal2
+        System.out.println(tartu); //Tartu   PACKETS: tartu2,tartu1
+        System.out.println();
 
         Action actionMati1 = new Action(tartu);
         actionMati1.addTake("tal1");
@@ -37,13 +39,11 @@ public class WorldExample {
         Courier courier1 = world.addCourier("Mati", "Tallinn").get();
         Courier courier2 = world.addCourier("Kati", "Tartu").get();
         world.giveStrategy("Mati", strategyMati);
-        world.giveStrategy("Kati", firstStrategy);
-        firstStrategy.setCourier(courier2);
+        world.giveStrategy("Kati", strategyKati);
 
-        System.out.println(tallinn);  // Tallinn   PACKETS: tal1,tal2
-        System.out.println(tartu);    // Tartu   PACKETS: tartu2,tartu1
         System.out.println(courier1); // Mati (Tallinn). PACKETS:
         System.out.println(courier2); // Kati (Tartu). PACKETS:
+        System.out.println();
 
         world.tick();
         System.out.println("TICK");
@@ -52,26 +52,29 @@ public class WorldExample {
         System.out.println(tartu);    // Tartu   PACKETS:
         System.out.println(courier1); // Mati (null). PACKETS: tal1
         System.out.println(courier2); // Kati (null). PACKETS: tartu1,tartu2
+        System.out.println();
 
         world.tick();
         System.out.println("TICK");
 
         System.out.println(courier1);  // same
         System.out.println(courier2);  // same
+        System.out.println();
 
         world.tick();
         System.out.println("TICK");
 
         System.out.println(courier1);  // Mati (Tartu). PACKETS: tal1
         System.out.println(courier2);  // // Kati (Tallinn). PACKETS: tartu1,tartu2
+        System.out.println();
         world.tick();
         System.out.println("TICK");
 
         System.out.println(courier1);  // Mati (null). PACKETS: tal1
         System.out.println(courier2);  // Kati (null). PACKETS: tartu2,tal2
+        System.out.println();
 
         System.out.println(tallinn);   // Tallinn   PACKETS: tartu1
         System.out.println(tartu);     // Tartu   PACKETS:
-
     }
 }

@@ -13,11 +13,11 @@ public class Courier {
 
     private int distanceToTarget;
 
-    public Courier(String name) {
+    public Courier(String name, Location location) {
         this.strategy = null;
         this.name = name;
         this.packetList = new ArrayList<>();
-        this.location = null;
+        this.location = location;
         this.target = null;
         this.distanceToTarget = 0;
     }
@@ -57,9 +57,10 @@ public class Courier {
         return Optional.ofNullable(location);
     }
 
-    public void setTarget(Location location) {
-        this.target = location;
-        distanceToTarget = location.getDistanceTo(location.getName());
+    public void setTarget(Location target) {
+        this.target = target;
+        distanceToTarget = location.getDistanceTo(target.getName());
+        this.location = null;
     }
 
     public void move() {

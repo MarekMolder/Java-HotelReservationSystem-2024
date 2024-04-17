@@ -9,8 +9,8 @@ public class Action {
     private List<String> take = new ArrayList<>();
     private Location goTo;
 
-    public Action(Location location) {
-        this.location = location;
+    public Action(Location goTo) {
+        this.goTo = goTo;
     }
 
     public List<String> getDeposit() {

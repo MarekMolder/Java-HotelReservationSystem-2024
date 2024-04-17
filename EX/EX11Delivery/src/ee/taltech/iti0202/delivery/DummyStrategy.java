@@ -1,16 +1,19 @@
 package ee.taltech.iti0202.delivery;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class DummyStrategy implements Strategy {
-    private List<Action> actions = new ArrayList<Action>();
-
+    private List<Action> actions;
+    private int currentActionIndex;
     public DummyStrategy(List<Action> actions) {
+        this.actions = actions;
+        this.currentActionIndex = 0;
     }
 
     @Override
     public Action getAction() {
-        return actions.removeFirst();
+        Action nextAction = actions.get(currentActionIndex);
+        currentActionIndex = (currentActionIndex + 1) % actions.size();
+        return nextAction;
     }
 }

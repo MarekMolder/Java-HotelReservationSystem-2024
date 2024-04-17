@@ -21,14 +21,12 @@ public class Location {
     }
 
     public Optional<Packet> getPacket(String name) {
-        if (packets.contains(name)) {
-            for (Packet packet : packets) {
-                if (packet.getName().equals(name)) {
-                    packets.remove(packet);
-                    return Optional.of(packet);
+        for (Packet packet : packets) {
+            if (packet.getName().equals(name)) {
+                packets.remove(packet);
+                return Optional.of(packet);
                 }
             }
-        }
 
         return Optional.empty();
     }
@@ -52,7 +50,6 @@ public class Location {
     public String toString() {
         return "Location{" +
                 "name='" + name + '\'' +
-                ", distances=" + distances +
                 ", packets=" + packets +
                 '}';
     }

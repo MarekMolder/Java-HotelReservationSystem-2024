@@ -15,7 +15,24 @@ public class World {
         Location location = new Location(name);
         locationMap.put(name, location);
         locationSet.add(name);
+
+        for (int i = 0; i < otherLocations.size(); i++) {
+            String otherLocationName = otherLocations.get(i);
+            if (locationMap.containsKey(otherLocationName)) {
+                // Kui teine asukoht on juba olemas, lisame kauguse
+                int distance = distances.get(i);
+                location.addDistance(otherLocationName, distance);
+                // Samal ajal lisame kauguse teisele asukohale, et oleks kahesuunaline
+                locationMap.get(otherLocationName).addDistance(name, distance);
+            } else {
+                // Kui teist asukohta ei eksisteeri, tagastame Optional.empty()
+                locationMap.remove(name); // Eemaldame loodud asukoha
+                return Optional.empty();
+            }
+        }
+
         return Optional.of(location);
+
     }
 
     public Optional<Courier> addCourier(String name, String to) {
@@ -23,7 +40,7 @@ public class World {
             return Optional.empty();
         }
 
-        Courier courier = new Courier(name);
+        Courier courier = new Courier(name, locationMap.get(to));
         couriers.put(name, courier);
 
         return Optional.of(courier);
@@ -49,19 +66,21 @@ public class World {
 
                 // deposit
                 for (String packetName : depositPackets) {
-                    Optional<Packet> packetOptional = currentLocation.get().getPacket(packetName);
-                    packetOptional.ifPresent(packet -> courier.addPacket(packet));
-                }
-                // take
-                for (String packetName : takePackets) {
                     Optional<Packet> packetOptional = courier.getPacket(packetName);
                     packetOptional.ifPresent(packet -> currentLocation.get().addPacket(packet));
                 }
+                // take
+                for (String packetName : takePackets) {
+                    Optional<Packet> packetOptional = currentLocation.get().getPacket(packetName);
+                    packetOptional.ifPresent(packet -> courier.addPacket(packet));
+                }
                 // setTarget
-                courier.setTarget(action.getGoTo());
+                courier.setTarget(goTo);
+                courier.move();
             } else {
                 courier.move();
             }
         }
     }
+
 }
