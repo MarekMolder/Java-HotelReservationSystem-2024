@@ -1,5 +1,5 @@
+/*
 package ee.taltech.iti0202.delivery;
-
 public class firstStrategy implements Strategy{
 
     private final World world;
@@ -41,3 +41,6 @@ public class firstStrategy implements Strategy{
         this.courier = courier;
     }
 }
+
+ */
+

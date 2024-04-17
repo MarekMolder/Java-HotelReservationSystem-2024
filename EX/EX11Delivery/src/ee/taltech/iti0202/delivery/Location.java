@@ -5,23 +5,23 @@ import java.util.*;
 public class Location {
     private final String name;
     private Map<String, Integer> distances = new HashMap<>();
-    private final List<Packet> packets;
+    private final Map<Packet, String> packets;
 
 
     public Location(String name) {
         this.name = name;
-        this.packets = new ArrayList<>();
+        this.packets = new HashMap<>();
     }
 
     public String getName() {
         return name;
     }
     public void addPacket(Packet packet) {
-        packets.add(packet);
+        packets.put(packet, packet.getName());
     }
 
     public Optional<Packet> getPacket(String name) {
-        for (Packet packet : packets) {
+        for (Packet packet : packets.keySet()) {
             if (packet.getName().equals(name)) {
                 packets.remove(packet);
                 return Optional.of(packet);
@@ -31,7 +31,7 @@ public class Location {
         return Optional.empty();
     }
 
-    public List<Packet> getPackets() {
+    public Map<Packet, String> getPackets() {
         return packets;
     }
 
