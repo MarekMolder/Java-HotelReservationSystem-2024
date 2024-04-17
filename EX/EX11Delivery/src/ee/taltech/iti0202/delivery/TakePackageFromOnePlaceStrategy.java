@@ -1,6 +1,6 @@
 package ee.taltech.iti0202.delivery;
 
-public class TakePackageFromOnePlaceStrategy implements Strategy{
+public class TakePackageFromOnePlaceStrategy implements Strategy {
 
     public void setCourier(Courier courier) {
         this.courier = courier;
