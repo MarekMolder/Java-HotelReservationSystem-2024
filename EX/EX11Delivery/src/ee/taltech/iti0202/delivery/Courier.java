@@ -30,6 +30,10 @@ public class Courier {
         return strategy;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void addPacket(Packet packet) {
         packetList.add(packet);
     }
