@@ -1,7 +1,5 @@
 package ee.taltech.iti0202.generics.animal;
 
-import ee.taltech.iti0202.generics.food.Food;
-
 public class SphynxCat extends Animal {
 
     /**
