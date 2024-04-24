@@ -1,6 +1,12 @@
 package ee.taltech.iti0202.delivery;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public class Location {
     private final String name;
@@ -50,8 +56,6 @@ public class Location {
         return Optional.empty();
     }
 
-
-
     /**
      * This method is used to get distance from location to target.
      * @param name The name of the target.
@@ -73,6 +77,10 @@ public class Location {
         distances.put(location, distance);
     }
 
+    /**
+     * Method to sort packets by distance.
+     * @return sorted packets
+     */
     public List<Packet> getPacketsSortedByDistance() {
         List<Packet> sortedPackets = new ArrayList<>(packets.values());
         Collections.sort(sortedPackets, new Comparator<Packet>() {

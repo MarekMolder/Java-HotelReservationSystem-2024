@@ -3,7 +3,7 @@ package ee.taltech.iti0202.delivery;
 import java.util.List;
 import java.util.Objects;
 
-public class TravelingSalesmanLongDistance implements Strategy{
+public class TravelingSalesmanLongDistance implements Strategy {
 
     /**
      * Sets the courier for which the strategy should be computed.
@@ -52,7 +52,8 @@ public class TravelingSalesmanLongDistance implements Strategy{
                 } else if (target != null) {
                     if (target.equals(location)) {
                         target = packet.getTarget();
-                    } else if (!packet.getTarget().equals(location) && courier.getLocation().get().getDistanceTo(packet.getTarget().getName())
+                    } else if (!packet.getTarget().equals(location)
+                            && courier.getLocation().get().getDistanceTo(packet.getTarget().getName())
                             > courier.getLocation().get().getDistanceTo(target.getName())) {
                         target = packet.getTarget();
                     }

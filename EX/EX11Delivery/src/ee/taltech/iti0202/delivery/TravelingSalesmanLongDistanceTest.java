@@ -7,15 +7,17 @@ import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 
 class TravelingSalesmanLongDistanceTest {
+    public static final int DISTANCE = 6;
+
     public static void main(String[] args) {
         // setup
 
         World world = new World();
 
         Location tallinn = world.addLocation("Tallinn", new ArrayList<>(), new ArrayList<>()).get();
-        Location tartu = world.addLocation("Tartu", List.of("Tallinn"), List.of(6)).get();
+        Location tartu = world.addLocation("Tartu", List.of("Tallinn"), List.of(DISTANCE)).get();
         Location parnu = world.addLocation("parnu", List.of("Tallinn", "Tartu"), List.of(3, 2)).get();
-        Location narva = world.addLocation("Narva", List.of("Tallinn", "Tartu", "parnu"), List.of(2, 3, 6)).get();
+        Location narva = world.addLocation("Narva", List.of("Tallinn", "Tartu", "parnu"), List.of(2, 3, DISTANCE)).get();
 
         Packet packetTallinn1 = new Packet("tal1", tartu);
         Packet packetTallinn2 = new Packet("tal2", tartu);
