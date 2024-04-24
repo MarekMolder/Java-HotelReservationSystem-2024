@@ -60,7 +60,8 @@ public class TravelingSalesman implements Strategy {
                     } else if (target != null) {
                         if (target.equals(location)) {
                             target = packet.getTarget();
-                        } else if (!packet.getTarget().equals(location) && courier.getLocation().get().getDistanceTo(packet.getTarget().getName())
+                        } else if (!packet.getTarget().equals(location)
+                                && courier.getLocation().get().getDistanceTo(packet.getTarget().getName())
                                 < courier.getLocation().get().getDistanceTo(target.getName())) {
                             target = packet.getTarget();
                         }

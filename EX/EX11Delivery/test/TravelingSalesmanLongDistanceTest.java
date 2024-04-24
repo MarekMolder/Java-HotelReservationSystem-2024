@@ -1,4 +1,4 @@
-package ee.taltech.iti0202.delivery;
+import ee.taltech.iti0202.delivery.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,8 @@ class TravelingSalesmanLongDistanceTest {
         Location tallinn = world.addLocation("Tallinn", new ArrayList<>(), new ArrayList<>()).get();
         Location tartu = world.addLocation("Tartu", List.of("Tallinn"), List.of(DISTANCE)).get();
         Location parnu = world.addLocation("parnu", List.of("Tallinn", "Tartu"), List.of(3, 2)).get();
-        Location narva = world.addLocation("Narva", List.of("Tallinn", "Tartu", "parnu"), List.of(2, 3, DISTANCE)).get();
+        Location narva = world.addLocation("Narva", List.of("Tallinn", "Tartu", "parnu"),
+                List.of(2, 3, DISTANCE)).get();
 
         Packet packetTallinn1 = new Packet("tal1", tartu);
         Packet packetTallinn2 = new Packet("tal2", tartu);
