@@ -1,4 +1,8 @@
-import ee.taltech.iti0202.delivery.*;
+import ee.taltech.iti0202.delivery.Courier;
+import ee.taltech.iti0202.delivery.Location;
+import ee.taltech.iti0202.delivery.Packet;
+import ee.taltech.iti0202.delivery.TravelingSalesmanLongDistance;
+import ee.taltech.iti0202.delivery.World;
 
 import java.util.ArrayList;
 import java.util.List;
