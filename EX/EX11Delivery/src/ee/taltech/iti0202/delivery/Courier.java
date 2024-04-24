@@ -1,6 +1,7 @@
 package ee.taltech.iti0202.delivery;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +27,7 @@ public class Courier {
         this.firstPlace = location;
         this.strategy = null;
         this.name = name;
-        this.packetList = new ArrayList<>();
+        this.packetList = new LinkedList<>();
         this.location = location;
         this.target = null;
         this.distanceToTarget = 0;

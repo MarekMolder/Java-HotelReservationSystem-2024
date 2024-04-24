@@ -1,8 +1,6 @@
 package ee.taltech.iti0202.delivery;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class Location {
     private final String name;
@@ -73,6 +71,19 @@ public class Location {
      */
     public void addDistance(String location, int distance) {
         distances.put(location, distance);
+    }
+
+    public List<Packet> getPacketsSortedByDistance() {
+        List<Packet> sortedPackets = new ArrayList<>(packets.values());
+        Collections.sort(sortedPackets, new Comparator<Packet>() {
+            @Override
+            public int compare(Packet p1, Packet p2) {
+                int dist1 = getDistanceTo(p1.getName());
+                int dist2 = getDistanceTo(p2.getName());
+                return Integer.compare(dist1, dist2);
+            }
+        });
+        return sortedPackets;
     }
 
     @Override

@@ -4,11 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class World {
 
     private final Map<String, Location> locationMap = new HashMap<>();
     private final Map<String, Courier> couriers = new HashMap<>();
+    Logger logger = Logger.getLogger(World.class.getName());
 
     /**
      * This method is used to add location in to the world.
@@ -85,22 +88,31 @@ public class World {
                 List<String> depositPackets = action.getDeposit();
                 List<String> takePackets = action.getTake();
                 Location goTo = action.getGoTo();
+                Integer steps = currentLocation.get().getDistanceTo(action.getGoTo().getName());
+                logger.log(Level.INFO, "Courier destination: " + action.getGoTo());
+                logger.log(Level.INFO, "how many steps to destination: " + steps);
 
                 // deposit
                 for (String packetName : depositPackets) {
                     Optional<Packet> packetOptional = courier.getPacket(packetName);
                     packetOptional.ifPresent(packet -> currentLocation.get().addPacket(packet));
+                    logger.log(Level.INFO, "Courier deposits package");
                 }
                 // take
                 for (String packetName : takePackets) {
                     Optional<Packet> packetOptional = currentLocation.get().getPacket(packetName);
                     packetOptional.ifPresent(courier::addPacket);
+                    logger.log(Level.INFO, "Courier takes package");
                 }
                 // setTarget
                 courier.setTarget(goTo);
                 courier.move();
+                steps--;
+                logger.log(Level.INFO, "Courier starts moving");
+                logger.log(Level.INFO, "Steps left to reach next destination: " + steps);
             } else {
                 courier.move();
+                logger.log(Level.INFO, "Courier moves");
             }
         }
     }
