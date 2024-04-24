@@ -15,7 +15,7 @@ class TravelingSalesmanTest {
         World world = new World();
 
         Location tallinn = world.addLocation("Tallinn", new ArrayList<>(), new ArrayList<>()).get();
-        Location tartu = world.addLocation("Tartu", List.of("Tallinn"), List.of()).get();
+        Location tartu = world.addLocation("Tartu", List.of("Tallinn"), List.of(DISTANCE)).get();
         Location parnu = world.addLocation("Parnu", List.of("Tallinn", "Tartu"), List.of(3, 2)).get();
         Location narva = world.addLocation("Narva", List.of("Tallinn", "Tartu", "Parnu"), List.of(2, 3, DISTANCE)).get();
 

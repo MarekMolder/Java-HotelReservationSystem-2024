@@ -8,6 +8,7 @@ import static org.testng.AssertJUnit.assertFalse;
 
 class TravelingSalesmanLongDistanceTest {
     public static final int DISTANCE = 6;
+    public static final int PACKAGE = 6;
 
     public static void main(String[] args) {
         // setup
@@ -45,7 +46,7 @@ class TravelingSalesmanLongDistanceTest {
 
         // progress
 
-        assertEquals(6, tallinn.getPackets().size());
+        assertEquals(PACKAGE, tallinn.getPackets().size());
         assertEquals(2, tartu.getPackets().size());
         assertEquals(0, parnu.getPackets().size());
         assertEquals(0, narva.getPackets().size());
