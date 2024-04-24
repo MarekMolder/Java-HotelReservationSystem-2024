@@ -1,5 +1,4 @@
-import ee.taltech.iti0202.delivery.*;
-import org.junit.jupiter.api.Test;
+package ee.taltech.iti0202.delivery;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +7,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertFalse;
 
 class TakePackageFromOnePlaceTest {
-    @Test
-    void test() {
+    public static void main(String[] args) {
         // setup
         World world = new World();
 
@@ -37,96 +35,96 @@ class TakePackageFromOnePlaceTest {
         // Progress
 
         assertEquals(3, tallinn.getPackets().size());
-        assertEquals(2,tartu.getPackets().size());
+        assertEquals(2, tartu.getPackets().size());
         assertEquals(tallinn, courier1.getLocation().get()); // starts at Tallinn
         assertEquals(List.of(), courier1.getPacketList());
 
         world.tick();
 
         assertEquals(2, tallinn.getPackets().size());
-        assertEquals(2,tartu.getPackets().size());
+        assertEquals(2, tartu.getPackets().size());
         assertFalse(courier1.getLocation().isPresent()); // moving to parnu (2 steps)
         assertEquals(List.of(packetTallinn3), courier1.getPacketList());
 
         world.tick();
 
         assertEquals(2, tallinn.getPackets().size());
-        assertEquals(2,tartu.getPackets().size());
+        assertEquals(2, tartu.getPackets().size());
         assertFalse(courier1.getLocation().isPresent()); // moving to parnu (1 step)
         assertEquals(List.of(packetTallinn3), courier1.getPacketList());
 
         world.tick();
 
         assertEquals(2, tallinn.getPackets().size());
-        assertEquals(2,tartu.getPackets().size());
+        assertEquals(2, tartu.getPackets().size());
         assertEquals(parnu, courier1.getLocation().get()); // at parnu
         assertEquals(List.of(packetTallinn3), courier1.getPacketList());
 
         world.tick();
 
         assertEquals(2, tallinn.getPackets().size());
-        assertEquals(2,tartu.getPackets().size());
+        assertEquals(2, tartu.getPackets().size());
         assertFalse(courier1.getLocation().isPresent()); // moving to tallinn (2 steps)
         assertEquals(List.of(), courier1.getPacketList());
 
         world.tick();
         assertEquals(2, tallinn.getPackets().size());
-        assertEquals(2,tartu.getPackets().size());
+        assertEquals(2, tartu.getPackets().size());
         assertFalse(courier1.getLocation().isPresent()); // moving to tallinn (1 step)
         assertEquals(List.of(), courier1.getPacketList());
 
         world.tick();
         assertEquals(2, tallinn.getPackets().size());
-        assertEquals(2,tartu.getPackets().size());
+        assertEquals(2, tartu.getPackets().size());
         assertEquals(tallinn, courier1.getLocation().get()); // at tallinn
         assertEquals(List.of(), courier1.getPacketList());
 
         world.tick();
 
         assertEquals(0, tallinn.getPackets().size());
-        assertEquals(2,tartu.getPackets().size());
+        assertEquals(2, tartu.getPackets().size());
         assertFalse(courier1.getLocation().isPresent()); // moving to tartu (2 steps)
         assertEquals(List.of(packetTallinn1, packetTallinn2), courier1.getPacketList());
 
         world.tick();
 
         assertEquals(0, tallinn.getPackets().size());
-        assertEquals(2,tartu.getPackets().size());
+        assertEquals(2, tartu.getPackets().size());
         assertFalse(courier1.getLocation().isPresent()); // moving to tartu (1 step)
         assertEquals(List.of(packetTallinn1, packetTallinn2), courier1.getPacketList());
 
         world.tick();
 
         assertEquals(0, tallinn.getPackets().size());
-        assertEquals(2,tartu.getPackets().size());
+        assertEquals(2, tartu.getPackets().size());
         assertEquals(tartu, courier1.getLocation().get()); // at tartu
         assertEquals(List.of(packetTallinn1, packetTallinn2), courier1.getPacketList());
 
         world.tick();
 
         assertEquals(0, tallinn.getPackets().size());
-        assertEquals(4,tartu.getPackets().size());
+        assertEquals(4, tartu.getPackets().size());
         assertFalse(courier1.getLocation().isPresent()); // moving to tallinn (2 steps)
         assertEquals(List.of(), courier1.getPacketList());
 
         world.tick();
 
         assertEquals(0, tallinn.getPackets().size());
-        assertEquals(4,tartu.getPackets().size());
+        assertEquals(4, tartu.getPackets().size());
         assertFalse(courier1.getLocation().isPresent()); // moving to tallinn (1 step)
         assertEquals(List.of(), courier1.getPacketList());
 
         world.tick();
 
         assertEquals(0, tallinn.getPackets().size());
-        assertEquals(4,tartu.getPackets().size());
+        assertEquals(4, tartu.getPackets().size());
         assertEquals(tallinn, courier1.getLocation().get()); // at tallinn
         assertEquals(List.of(), courier1.getPacketList());
 
         world.tick();
 
         assertEquals(0, tallinn.getPackets().size());
-        assertEquals(4,tartu.getPackets().size());
+        assertEquals(4, tartu.getPackets().size());
         assertEquals(tallinn, courier1.getLocation().get()); // stays at tallinn and waits for more packages
         assertEquals(List.of(), courier1.getPacketList());
     }
