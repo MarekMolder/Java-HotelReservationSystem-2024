@@ -5,7 +5,11 @@ import ee.taltech.iti0202.json.school.School;
 import ee.taltech.iti0202.json.student.Grade;
 import ee.taltech.iti0202.json.student.Student;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SchoolDatabase {
     Gson gson = new Gson();
@@ -15,6 +19,7 @@ public class SchoolDatabase {
 
     /**
      * DO NOT CHANGE
+     *
      * @param school school to add
      */
     public void addSchool(School school) {
@@ -23,13 +28,16 @@ public class SchoolDatabase {
 
     /**
      * DO NOT CHANGE
+     *
      * @return schools in the db
      */
     public List<School> getSchools() {
         return this.schools;
     }
+
     /**
      * Get all students in all schools in the database
+     *
      * @return all students json, if it's empty, return empty json {}
      */
     public String getAllStudents() {
@@ -48,6 +56,7 @@ public class SchoolDatabase {
 
     /**
      * Get all students in specific school
+     *
      * @param school school's students to get
      * @return school's students json, if it's empty, return empty json {}
      */
@@ -65,6 +74,7 @@ public class SchoolDatabase {
 
     /**
      * Get student by id, check all schools that are in the database
+     *
      * @param id student's id
      * @return student class's json, if student is not found, return empty json {}
      */
@@ -82,6 +92,7 @@ public class SchoolDatabase {
 
     /**
      * Get student's grades by id
+     *
      * @param id student's id
      * @return student's name with key "name", and array of grades (Grade class) with key "grades" in json,
      * if student is not found, return empty json {}
@@ -103,6 +114,7 @@ public class SchoolDatabase {
 
     /**
      * Get student's average grade by id
+     *
      * @param id student's id
      * @return student's name with key "name", and average grade with key "averageGrade" in json,
      * if student is not found, return empty json {}
@@ -114,7 +126,7 @@ public class SchoolDatabase {
         for (School school : schools) {
             for (Student student : school.getStudents()) {
                 if (student.getId() == id) {
-                        for (Grade grade : student.getGrades()) {
+                    for (Grade grade : student.getGrades()) {
                         sum += grade.getGrade();
                         count++;
                     }
@@ -130,6 +142,7 @@ public class SchoolDatabase {
 
     /**
      * Get average grade in each school in the database
+     *
      * @return json array of [{"school": "school's name", "averageGrade": averageGrade double}, ...],
      * if no schools are in the db, return empty json {}
      */
@@ -162,7 +175,9 @@ public class SchoolDatabase {
 
     /**
      * Get average grade for each student in each school in the database
-     * @return json array of [{"school": "school's name", "grades": [{"student": "student's name","averageGrade": averageGrade double}]}, ...],
+     *
+     * @return json array of [{"school": "school's name", "grades":
+     * [{"student": "student's name","averageGrade": averageGrade double}]}, ...],
      * if no schools are in the db, return empty json {}
      */
     public String getAllStudentsInEachSchoolAndTheirAverageGrades() {
@@ -202,6 +217,7 @@ public class SchoolDatabase {
 
     /**
      * Get all student's names in each school
+     *
      * @return json array of [{"school": "school's name", "students": ["student1", "student2", ...]}, ...],
      * if no schools are in the db, return empty json {}
      */
@@ -232,6 +248,7 @@ public class SchoolDatabase {
 
     /**
      * Get average grade and all given grades count from all schools in the database
+     *
      * @return json of {"averageGrade": averageGradeDouble, "gradesTotal": gradesTotalInt}
      */
     public String getAverageGradeAndGradesCountGlobally() {
