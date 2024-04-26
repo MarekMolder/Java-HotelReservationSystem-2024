@@ -5,10 +5,7 @@ import ee.taltech.iti0202.json.school.School;
 import ee.taltech.iti0202.json.student.Grade;
 import ee.taltech.iti0202.json.student.Student;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SchoolDatabase {
     Gson gson = new Gson();
@@ -112,8 +109,8 @@ public class SchoolDatabase {
      */
     public String getStudentAverageGrade(int id) {
         //TODO
-        Integer sum = 0;
-        Integer count = 0;
+        double sum = 0;
+        int count = 0;
         for (School school : schools) {
             for (Student student : school.getStudents()) {
                 if (student.getId() == id) {
@@ -121,7 +118,7 @@ public class SchoolDatabase {
                         sum += grade.getGrade();
                         count++;
                     }
-                    Map<String, Object> resultMap = new HashMap<>();
+                    Map<String, Object> resultMap = new LinkedHashMap<>();
                     resultMap.put("name", student.getName());
                     resultMap.put("averageGrade", (sum / count));
                     return gson.toJson(resultMap);
@@ -154,7 +151,7 @@ public class SchoolDatabase {
                 }
             }
             double average = count > 0 ? sum / count : 0;
-            Map<String, Object> resultMap = new HashMap<>();
+            Map<String, Object> resultMap = new LinkedHashMap<>();
             resultMap.put("school", school.getName());
             resultMap.put("averageGrade", average);
             resultList.add(resultMap);
@@ -176,7 +173,7 @@ public class SchoolDatabase {
         List<Map<String, Object>> schoolsList = new ArrayList<>();
 
         for (School school : schools) {
-            Map<String, Object> schoolMap = new HashMap<>();
+            Map<String, Object> schoolMap = new LinkedHashMap<>();
             schoolMap.put("school", school.getName());
 
             List<Map<String, Object>> gradesList = new ArrayList<>();
@@ -190,7 +187,7 @@ public class SchoolDatabase {
                 }
                 double average = count > 0 ? sum / count : 0;
 
-                Map<String, Object> studentMap = new HashMap<>();
+                Map<String, Object> studentMap = new LinkedHashMap<>();
                 studentMap.put("student", student.getName());
                 studentMap.put("averageGrade", average);
                 gradesList.add(studentMap);
@@ -217,7 +214,7 @@ public class SchoolDatabase {
         List<Map<String, Object>> schoolsList = new ArrayList<>();
 
         for (School school : schools) {
-            Map<String, Object> schoolMap = new HashMap<>();
+            Map<String, Object> schoolMap = new LinkedHashMap<>();
             schoolMap.put("school", school.getName());
 
             List<String> studentNamesList = new ArrayList<>();
@@ -252,7 +249,7 @@ public class SchoolDatabase {
         }
 
         double averageGrade = count > 0 ? sum / count : 0;
-        Map<String, Object> resultMap = new HashMap<>();
+        Map<String, Object> resultMap = new LinkedHashMap<>();
         resultMap.put("averageGrade", averageGrade);
         resultMap.put("gradesTotal", count);
 
