@@ -1,22 +1,29 @@
 package ee.taltech.iti0202.hotel.rooms;
 
 import ee.taltech.iti0202.hotel.hotel.Hotel;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DoubleRoomTest {
-    Room room1 = new Room();
-    Room room2 = new DoubleRoom();
-    Hotel hotel1 = new Hotel();
+    private Room room1;
+    private DoubleRoom room2;
+    private Hotel hotel1;
 
+    @BeforeEach
+    void setUp() {
+        room1 = new Room();
+        room2 = new DoubleRoom();
+        hotel1 = new Hotel();
+    }
 
     @Test
-    public void testDoubleRoomGetPrice() {
+    void getDoubleRoomPrice() {
         hotel1.addRoomToHotel(room1);
         hotel1.addRoomToHotel(room2);
 
-        assertEquals(40, room1.getPrice());
-        assertEquals(80, room2.getPrice());
+        assertEquals(40, room1.getPrice()); // Standard room
+        assertEquals(80, room2.getPrice()); // Double room
     }
 }

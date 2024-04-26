@@ -2,6 +2,7 @@ package ee.taltech.iti0202.hotel.hotel;
 
 import ee.taltech.iti0202.hotel.booking.Booking;
 import ee.taltech.iti0202.hotel.client.Client;
+import ee.taltech.iti0202.hotel.review.Review;
 import ee.taltech.iti0202.hotel.rooms.Room;
 
 import java.time.LocalDate;
@@ -19,18 +20,53 @@ import java.util.stream.Collectors;
  */
 public class Hotel {
 
-    public Set<Room> hotelRooms = new HashSet<>(); //a set of the rooms in hotel
-    public Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
-    public Map<Client, Integer> hotelClientBooking = new HashMap<>();
+    private final Set<Room> hotelRooms = new HashSet<>(); //a set of the rooms in hotel
+    private final Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
+    private final Map<Client, Integer> hotelClientBookings = new HashMap<>();
     // a map of clients to the number of bookings they have made at the hotel
-
-    public Map<Client, List<Object>> hotelReviews = new HashMap<>();
+    private final Map<Client, Review> hotelReviews = new HashMap<>();
     // a map of clients and reviews they have made to hotel
+    private final Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
 
-    public Map<Client, Integer> hotelReviewsScores = new HashMap<>();
-    // a map of clients and scores they have given for the hotel
+    /**
+     * This method is used to get rooms in a hotel
+     * @return A set of rooms in hotel.
+     */
+    public Set<Room> getHotelRooms() {
+        return hotelRooms;
+    }
 
-    public Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
+    /**
+     * This method is used to get clients in a hotel.
+     * @return A set of clients in hotel.
+     */
+    public Set<Client> getHotelClients() {
+        return hotelClients;
+    }
+
+    /**
+     * This method is used to get map of clients and number of their bookings.
+     * @return A map of clients and number of their bookings.
+     */
+    public Map<Client, Integer> getHotelClientBookings() {
+        return hotelClientBookings;
+    }
+
+    /**
+     * The method is used to get a map of clients and their reviews.
+     * @return A map of clients and their reviews.
+     */
+    public Map<Client, Review> getHotelReviews() {
+        return hotelReviews;
+    }
+
+    /**
+     * This method is used to get a set of bookings in hotel.
+     * @return A set of bookings.
+     */
+    public Set<Booking> getHotelBookings() {
+        return hotelBookings;
+    }
 
     /**
      * This method is used to add room to hotel.
@@ -39,36 +75,12 @@ public class Hotel {
      */
     public Boolean addRoomToHotel(Room room) {
         if (room != null) {
-            if (room.setHotel(this)) {
+            if (room.addHotel(this)) {
                 hotelRooms.add(room);
                 return true;
             }
         }
         return false;
-    }
-
-    /**
-     * This method is used to get rooms in a hotel
-     * @return A set of rooms in hotel.
-     */
-    public Set<Room> getRooms() {
-        return hotelRooms;
-    }
-
-    /**
-     * This method is used to get clients in a hotel.
-     * @return A set of clients in hotel.
-     */
-    public Set<Client> getClients() {
-        return hotelClients;
-    }
-
-    /**
-     * The method is used to get a map of clients and their reviews.
-     * @return A map of clients and their reviews.
-     */
-    public Map<Client, List<Object>> getHotelReviews() {
-        return hotelReviews;
     }
 
     /**
@@ -78,7 +90,8 @@ public class Hotel {
     public Double getReviewsArithmeticScore() {
         int sum = 0;
         int count = 0;
-        for (Integer score : hotelReviewsScores.values()) {
+        for (Review review : hotelReviews.values()) {
+            int score = review.getScore();
             sum += score;
             count++;
         }
@@ -90,32 +103,20 @@ public class Hotel {
     }
 
     /**
-     * This method is used to get a set of bookings in hotel.
-     * @return A set of bookings.
-     */
-    public Set<Booking> getBooking() {
-        return hotelBookings;
-    }
-
-    /**
      * This method is used to Look up free rooms of a specific type within a given date range.
      * @param room The type of room to be looked up.
      * @param since The start date of the booking period.
      * @param until The end date of the booking period.
      * @return A set of rooms that are available within the specified date range.
      */
-    public Set<Room> lookUpFreeRoomsType(Class room, LocalDate since, LocalDate until) {
+    public Set<Room> lookUpFreeRoomsType(Class<? extends Room> room, LocalDate since, LocalDate until) {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
-            if (room.equals(suit.getClass())) {
-                if (isRoomAvailable(since, until, suit)) {
+            if (room.equals(suit.getClass()) && isRoomAvailable(since, until, suit)) {
                     hotelSearchRoom.add(suit);
-                }
                     }
                 }
-        Set<Room> result = new LinkedHashSet<>(hotelSearchRoom);
-        hotelSearchRoom.clear();
-        return result;
+        return hotelSearchRoom;
     }
 
     /**
@@ -127,13 +128,11 @@ public class Hotel {
     public Set<Room> lookUpFreeRoomDate(LocalDate since, LocalDate until) {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
-            if (isRoomAvailable(until, since, suit)) {
+            if (isRoomAvailable(since, until, suit)) {
                 hotelSearchRoom.add(suit);
             }
         }
-        Set<Room> result = new LinkedHashSet<>(hotelSearchRoom);
-        hotelSearchRoom.clear();
-        return result;
+        return hotelSearchRoom;
     }
 
     /**
@@ -179,10 +178,11 @@ public class Hotel {
      * @return A list of clients sorted in descending order by their booking count and then by their review scores.
      */
     public List<Client> sortClients() {
-        return hotelClientBooking.entrySet().stream()
+        return hotelClientBookings.entrySet().stream()
                 .sorted(Map.Entry.<Client, Integer>comparingByValue().reversed()
                         .thenComparing((e1, e2) ->
-                                hotelReviewsScores.get(e2.getKey()).compareTo(hotelReviewsScores.get(e1.getKey()))))
+                                Integer.compare(hotelReviews.get(e2.getKey()).getScore(),
+                                        hotelReviews.get(e1.getKey()).getScore())))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
