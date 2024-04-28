@@ -1,17 +1,27 @@
 package ee.taltech.iti0202.computerstore.database;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import ee.taltech.iti0202.computerstore.components.Component;
 import ee.taltech.iti0202.computerstore.exceptions.OutOfStockException;
 import ee.taltech.iti0202.computerstore.exceptions.ProductAlreadyExistsException;
 import ee.taltech.iti0202.computerstore.exceptions.ProductNotFoundException;
 
+import java.io.*;
+import java.lang.module.Configuration;
+import java.lang.reflect.Type;
+import java.net.spi.InetAddressResolverProvider;
 import java.util.*;
 
 public class Database {
     private final Map<Integer, Component> components = new HashMap<>();
+    private static Database instance;
 
     public static Database getInstance() {
-        return null;
+        if (instance == null) {
+            instance = new Database();
+        }
+        return instance;
     }
 
     public void saveComponent(Component component) throws ProductAlreadyExistsException {
@@ -72,8 +82,26 @@ public class Database {
     }
 
     public void saveToFile(String location) {
+        Gson gson = new Gson();
+        try (Writer writer = new FileWriter(location)) {
+            gson.toJson(this, writer);
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception as needed
+        }
     }
 
     public void loadFromFile(String location) {
+        Gson gson = new Gson();
+        try (Reader reader = new FileReader(location)) {
+            Type type = new TypeToken<Map<Integer, Component>>(){}.getType();
+            Map<Integer, Component> loadedComponents = gson.fromJson(reader, type);
+            if (loadedComponents != null) {
+                getInstance().components.clear();
+                getInstance().components.putAll(loadedComponents);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
