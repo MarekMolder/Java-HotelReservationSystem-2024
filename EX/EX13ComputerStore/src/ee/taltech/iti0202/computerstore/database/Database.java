@@ -98,12 +98,7 @@ public class Database {
     public void loadFromFile(String location) {
         Gson gson = new Gson();
         try (Reader reader = new FileReader(location)) {
-            Type type = new TypeToken<Map<Integer, Component>>(){}.getType();
-            Map<Integer, Component> loadedComponents = gson.fromJson(reader, type);
-            if (loadedComponents != null) {
-                getInstance().components.clear();
-                getInstance().components.putAll(loadedComponents);
-            }
+            instance = gson.fromJson(reader, Database.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
