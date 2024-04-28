@@ -1,9 +1,13 @@
 package ee.taltech.iti0202.hotel.rooms;
 
+import ee.taltech.iti0202.hotel.hotel.ECountryAndCitys;
 import ee.taltech.iti0202.hotel.hotel.Hotel;
+import ee.taltech.iti0202.hotel.hotel.HotelBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,8 +21,14 @@ class RoomTest {
     void setUp() {
         room1 = new Room();
         room2 = new Room();
-        hotel1 = new Hotel();
-        hotel2 = new Hotel();
+
+        hotel1 = new HotelBuilder()
+                .setCountry(ECountryAndCitys.ESTONIA)
+                .setCity("Tallinn").createHotel();
+
+        hotel2 = new HotelBuilder()
+                .setCountry(ECountryAndCitys.ESTONIA)
+                .setCity("Tallinn").createHotel();
     }
 
     @Test
@@ -45,39 +55,47 @@ class RoomTest {
 
     @Test
     void getHotel() {
+        // setup
         hotel1.addRoomToHotel(room1);
         hotel2.addRoomToHotel(room2);
 
+        // what to expect?
         assertEquals(hotel1, room1.getHotel());
         assertEquals(hotel2, room2.getHotel());
     }
 
     @Test
     void getPrice() {
+        // setup
         hotel1.addRoomToHotel(room1);
 
-        assertEquals(40, room1.getPrice());
+        // what to expect?
+        assertEquals(BigDecimal.valueOf(40), room1.getPrice());
     }
 
     @Test
     @DisplayName("Every Room should return their unique number.")
     void getNumber() {
+        // setup
         hotel1.addRoomToHotel(room1);
         hotel2.addRoomToHotel(room2);
 
+        // what to expect
         assertNotEquals(room1.getNumber(), room2.getNumber());
     }
 
     @Test
     @DisplayName("Should set new price for the room.")
     public void setPrice() {
+        // setup
         hotel1.addRoomToHotel(room1);
         hotel2.addRoomToHotel(room2);
 
-        room1.setPrice(200);
-        room2.setPrice(300);
+        room1.setPrice(BigDecimal.valueOf(200));
+        room2.setPrice(BigDecimal.valueOf(300));
 
-        assertEquals(200, room1.getPrice());
-        assertEquals(300, room2.getPrice());
+        // what toe expect?
+        assertEquals(BigDecimal.valueOf(200), room1.getPrice());
+        assertEquals(BigDecimal.valueOf(300), room2.getPrice());
     }
 }

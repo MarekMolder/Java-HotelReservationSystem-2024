@@ -20,16 +20,42 @@ import java.util.stream.Collectors;
  */
 public class Hotel {
 
-    private final Set<Room> hotelRooms = new HashSet<>(); //a set of the rooms in hotel
-    private final Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
-    private final Map<Client, Integer> hotelClientBookings = new HashMap<>();
+    private final ECountryAndCitys country;
+    private final String city;
+    private final HashMap<EServices, Integer> hotelServices;
+    private Set<Room> hotelRooms = new HashSet<>(); //a set of the rooms in hotel
+    private Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
+    private Map<Client, Integer> hotelClientBookings = new HashMap<>();
     // a map of clients to the number of bookings they have made at the hotel
-    private final Map<Client, Review> hotelReviews = new HashMap<>();
+    private Map<Client, Review> hotelReviews = new HashMap<>();
     // a map of clients and reviews they have made to hotel
-    private final Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
+    private Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
+
+
+
+    public Hotel(ECountryAndCitys country, String city) {
+        this.country = country;
+        this.city = city;
+        this.hotelRooms = new HashSet<>();
+        this.hotelClients = new HashSet<>();
+        this.hotelClientBookings = new HashMap<>();
+        this.hotelReviews = new HashMap<>();
+        this.hotelBookings = new HashSet<>();
+        this.hotelServices = new HashMap<>();
+    }
+
+    public ECountryAndCitys getHotelCountry() {
+        return country;
+    }
+
+    public String getHotelCity() {
+        return city;
+    }
+
 
     /**
      * This method is used to get rooms in a hotel
+     *
      * @return A set of rooms in hotel.
      */
     public Set<Room> getHotelRooms() {
@@ -38,6 +64,7 @@ public class Hotel {
 
     /**
      * This method is used to get clients in a hotel.
+     *
      * @return A set of clients in hotel.
      */
     public Set<Client> getHotelClients() {
@@ -46,6 +73,7 @@ public class Hotel {
 
     /**
      * This method is used to get map of clients and number of their bookings.
+     *
      * @return A map of clients and number of their bookings.
      */
     public Map<Client, Integer> getHotelClientBookings() {
@@ -54,6 +82,7 @@ public class Hotel {
 
     /**
      * The method is used to get a map of clients and their reviews.
+     *
      * @return A map of clients and their reviews.
      */
     public Map<Client, Review> getHotelReviews() {
@@ -62,14 +91,24 @@ public class Hotel {
 
     /**
      * This method is used to get a set of bookings in hotel.
+     *
      * @return A set of bookings.
      */
     public Set<Booking> getHotelBookings() {
         return hotelBookings;
     }
 
+    public void addService(EServices service) {
+        hotelServices.put(service, service.getPrice());
+    }
+
+    public HashMap<EServices, Integer> getServices() {
+        return hotelServices;
+    }
+
     /**
      * This method is used to add room to hotel.
+     *
      * @param room The room to be added in hotel.
      * @return True if the room is not in another hotel, otherwise false.
      */
@@ -85,6 +124,7 @@ public class Hotel {
 
     /**
      * This method is used to get an arithmetic of the score.
+     *
      * @return Arithmetic score.
      */
     public Double getReviewsArithmeticScore() {
@@ -104,7 +144,8 @@ public class Hotel {
 
     /**
      * This method is used to Look up free rooms of a specific type within a given date range.
-     * @param room The type of room to be looked up.
+     *
+     * @param room  The type of room to be looked up.
      * @param since The start date of the booking period.
      * @param until The end date of the booking period.
      * @return A set of rooms that are available within the specified date range.
@@ -113,14 +154,15 @@ public class Hotel {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
             if (room.equals(suit.getClass()) && isRoomAvailable(since, until, suit)) {
-                    hotelSearchRoom.add(suit);
-                    }
-                }
+                hotelSearchRoom.add(suit);
+            }
+        }
         return hotelSearchRoom;
     }
 
     /**
      * This method is used to look up free rooms within a given date range.
+     *
      * @param since The start date of the booking period.
      * @param until The end date of the booking period
      * @return A set of rooms that are available within the specific date range.
@@ -137,29 +179,31 @@ public class Hotel {
 
     /**
      * This method is used to look up if specific room is available within a given date range.
+     *
      * @param since The start date of the booking period.
      * @param until The end date of the booking period.
-     * @param room The room to be looked up
+     * @param room  The room to be looked up
      * @return True if the room is available, otherwise false.
      */
     public boolean isRoomAvailable(LocalDate since, LocalDate until, Room room) {
         List<Room> notAvailable = new ArrayList<>();
-            for (Booking booking: hotelBookings) {
-                if (booking.getRoom().equals(room)) {
-                   List<LocalDate> dateList = booking.getDatesInRange(booking.getSince(), booking.getUntil());
-                        for (LocalDate date: dateList) {
-                            if (this.getDatesInRange(since, until).contains(date)) {
-                                notAvailable.add(room);
-                                break;
-                            }
-                        }
+        for (Booking booking : hotelBookings) {
+            if (booking.getRoom().equals(room)) {
+                List<LocalDate> dateList = booking.getDatesInRange(booking.getSince(), booking.getUntil());
+                for (LocalDate date : dateList) {
+                    if (this.getDatesInRange(since, until).contains(date)) {
+                        notAvailable.add(room);
+                        break;
                     }
                 }
+            }
+        }
         return notAvailable.isEmpty();
     }
 
     /**
      * This method is used to retrieve a list of dates within the specific range.
+     *
      * @param since The start date of the range.
      * @param until The end date of the range.
      * @return A list of dates within the specific range.
@@ -175,15 +219,34 @@ public class Hotel {
 
     /**
      * This method is used to Sort clients based on their booking count and review scores.
+     *
      * @return A list of clients sorted in descending order by their booking count and then by their review scores.
      */
     public List<Client> sortClients() {
         return hotelClientBookings.entrySet().stream()
                 .sorted(Map.Entry.<Client, Integer>comparingByValue().reversed()
-                        .thenComparing((e1, e2) ->
-                                Integer.compare(hotelReviews.get(e2.getKey()).getScore(),
-                                        hotelReviews.get(e1.getKey()).getScore())))
+                        .thenComparing((e1, e2) -> {
+                            Integer score1 = hotelReviews.containsKey(e1.getKey()) ?
+                                    hotelReviews.get(e1.getKey()).getScore() : 0;
+                            Integer score2 = hotelReviews.containsKey(e2.getKey()) ?
+                                    hotelReviews.get(e2.getKey()).getScore() : 0;
+                            return Integer.compare(score2, score1);
+                        }))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
+    }
+
+    public double getDiscount(Client client) {
+        if (this.getHotelClients().size() >= 3) {
+            List<Client> sort = sortClients().subList(0, 3);
+            if (sort.getFirst().equals(client)) {
+                return 0.85;
+            } else if (sort.get(1).equals(client)) {
+                return 0.90;
+            } else if (sort.get(2).equals(client)) {
+                return 0.95;
+            }
+        }
+        return 1;
     }
 }
