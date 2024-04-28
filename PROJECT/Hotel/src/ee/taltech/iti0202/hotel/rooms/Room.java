@@ -2,15 +2,16 @@ package ee.taltech.iti0202.hotel.rooms;
 
 import ee.taltech.iti0202.hotel.hotel.Hotel;
 
+import java.math.BigDecimal;
+
 /**
  * Represents a room which will be added in hotel.
  */
 public class Room {
-    private static final int PRICE = 40; // Room price
+    private static final BigDecimal PRICE = BigDecimal.valueOf(40); // Room price
     private static int nextRoomNumber = 1; // A unique number for every room
     private final int number; // A unique number for room
-    int price; // The room price
-
+    BigDecimal price; // The room price
     private Hotel hotel; // The hotel where the room is added
 
     /**
@@ -54,9 +55,10 @@ public class Room {
 
     /**
      * This method is used to get price of the room.
+     *
      * @return The price of the room.
      */
-    public Integer getPrice() {
+    public BigDecimal getPrice() {
         return this.price;
     }
 
@@ -72,7 +74,7 @@ public class Room {
      * This method is used to set price for the room.
      * @param amount The amount which will be set for the room price.
      */
-    public void setPrice(Integer amount) {
+    public void setPrice(BigDecimal amount) {
         this.price = amount;
     }
 

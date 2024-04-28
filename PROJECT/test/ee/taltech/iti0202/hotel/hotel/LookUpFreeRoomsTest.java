@@ -1,6 +1,7 @@
 package ee.taltech.iti0202.hotel.hotel;
 
 import ee.taltech.iti0202.hotel.client.Client;
+import ee.taltech.iti0202.hotel.reservationSystem.ReservationSystem;
 import ee.taltech.iti0202.hotel.rooms.DoubleRoom;
 import ee.taltech.iti0202.hotel.rooms.Room;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,6 +24,7 @@ class LookUpFreeRoomsTest {
     private Hotel hotel1;
     private Client client1;
     private Client client2;
+    private ReservationSystem reservationSystem;
 
 
     @BeforeEach
@@ -34,7 +36,10 @@ class LookUpFreeRoomsTest {
         room5 = new DoubleRoom();
         room6 = new DoubleRoom();
         room7 = new DoubleRoom();
-        hotel1 = new Hotel();
+        hotel1 = new HotelBuilder()
+                .setCountry(ECountryAndCitys.ESTONIA)
+                .setCity("Tallinn").createHotel();
+        reservationSystem = new ReservationSystem();
         client1 = new Client("Mati", 10000);
         client2 = new Client("Mati", 10000);
     }
@@ -49,6 +54,8 @@ class LookUpFreeRoomsTest {
         hotel1.addRoomToHotel(room5);
         hotel1.addRoomToHotel(room6);
         hotel1.addRoomToHotel(room7);
+        reservationSystem.addHotelToSystem(hotel1);
+
         Set<Room> expected = new LinkedHashSet<>();
         expected.add(room4);
         expected.add(room5);
@@ -60,8 +67,8 @@ class LookUpFreeRoomsTest {
         assertEquals(expected, actual);
 
         // new setup
-        client1.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        client2.bookRoom(room6, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        reservationSystem.bookRoomInHotel(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+        reservationSystem.bookRoomInHotel(room6, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client2);
         Set<Room> expected1 = new LinkedHashSet<>();
         expected1.add(room4);
         expected1.add(room7);
@@ -80,6 +87,8 @@ class LookUpFreeRoomsTest {
         hotel1.addRoomToHotel(room5);
         hotel1.addRoomToHotel(room6);
         hotel1.addRoomToHotel(room7);
+        reservationSystem.addHotelToSystem(hotel1);
+
         Set<Room> expected = new LinkedHashSet<>();
         expected.add(room1);
         expected.add(room2);
@@ -94,8 +103,8 @@ class LookUpFreeRoomsTest {
         assertEquals(expected, actual);
 
         // new setup
-        client1.bookRoom(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
-        client2.bookRoom(room6, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1);
+        reservationSystem.bookRoomInHotel(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+        reservationSystem.bookRoomInHotel(room6, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client2);
         Set<Room> expected1 = new LinkedHashSet<>();
         expected1.add(room1);
         expected1.add(room2);
