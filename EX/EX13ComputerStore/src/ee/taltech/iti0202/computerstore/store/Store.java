@@ -110,10 +110,9 @@ public class Store {
     }
 
     public void setProfitMargin(BigDecimal profitMargin) {
-        if (profitMargin.compareTo(BigDecimal.ONE) > 0) {
-            this.profitMargin = profitMargin;
-        } else {
+        if (profitMargin.compareTo(BigDecimal.ONE) < 0) {
             throw new IllegalArgumentException();
         }
+        this.profitMargin = profitMargin;
     }
 }
