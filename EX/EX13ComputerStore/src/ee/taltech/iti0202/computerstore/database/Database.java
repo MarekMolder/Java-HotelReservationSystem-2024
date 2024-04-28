@@ -17,6 +17,10 @@ public class Database {
     private final Map<Integer, Component> components = new HashMap<>();
     private static Database instance;
 
+    private Database() {
+
+    }
+
     public static Database getInstance() {
         if (instance == null) {
             instance = new Database();
@@ -59,7 +63,7 @@ public class Database {
             if (amount > 0) {
                 Component comp = components.get(id);
                 int currentAmount = comp.getAmount();
-                if (currentAmount <= amount) {
+                if (currentAmount >= amount) {
                     comp.setAmount(currentAmount - amount);
                 } else {
                     throw new OutOfStockException();
@@ -78,7 +82,7 @@ public class Database {
 
     public void resetEntireDatabase() {
         components.clear();
-        // reset components
+        Component.resetIdCounter();
     }
 
     public void saveToFile(String location) {
