@@ -17,7 +17,8 @@ public class Component {
         CPU, GPU, RAM, MOTHERBOARD, HDD, SSD, PSU, KEYBOARD, TOUCHPAD, SCREEN, BATTERY, FAN
     }
 
-    public Component(String name, Type type, BigDecimal price, String manufacturer, int performancePoints, int powerConsumption) {
+    public Component(String name, Type type, BigDecimal price, String manufacturer
+            , int performancePoints, int powerConsumption) {
         this.id = getNextId();
         this.name = name;
         this.type = type;

@@ -1,19 +1,20 @@
 package ee.taltech.iti0202.computerstore.database;
 
 import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import ee.taltech.iti0202.computerstore.components.Component;
 import ee.taltech.iti0202.computerstore.exceptions.OutOfStockException;
 import ee.taltech.iti0202.computerstore.exceptions.ProductAlreadyExistsException;
 import ee.taltech.iti0202.computerstore.exceptions.ProductNotFoundException;
 
-import java.io.*;
-import java.lang.module.Configuration;
-import java.lang.reflect.Type;
-import java.net.spi.InetAddressResolverProvider;
-import java.util.*;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Reader;
+import java.io.Writer;
+import java.util.HashMap;
+import java.util.Map;
 
-public class Database {
+public final class Database {
     private final Map<Integer, Component> components = new HashMap<>();
     private static Database instance;
 
