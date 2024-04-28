@@ -356,6 +356,51 @@ class HotelTest {
     }
 
     @Test
+    void sortClients_3Osa() {
+        // setup
+        hotel1.addRoomToHotel(room1);
+        hotel1.addRoomToHotel(room2);
+        hotel1.addRoomToHotel(room3);
+        hotel1.addRoomToHotel(room4);
+        hotel1.addRoomToHotel(room5);
+        hotel1.addRoomToHotel(room6);
+        hotel1.addRoomToHotel(room7);
+        hotel1.addRoomToHotel(room8);
+        hotel1.addRoomToHotel(room9);
+        reservationSystem.addHotelToSystem(hotel1);
+
+        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+        Optional<Booking> booking2 = reservationSystem.bookRoomInHotel(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client2);
+        reservationSystem.bookRoomInHotel(room3, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client3);
+        Optional<Booking> booking3 = reservationSystem.bookRoomInHotel(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client2);
+        reservationSystem.bookRoomInHotel(room5, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client4);
+        reservationSystem.bookRoomInHotel(room6, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client3);
+        Optional<Booking> booking4 = reservationSystem.bookRoomInHotel(room7, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+        reservationSystem.bookRoomInHotel(room8, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client3);
+        reservationSystem.bookRoomInHotel(room9, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client3);
+        client1.writeReview("Lahe hotell", 5, hotel1);
+        client2.writeReview("Lahe hotell", 5, hotel1);
+        client3.writeReview("Lahe hotell", 1, hotel1);
+        client4.writeReview("Lahe hotell", 4, hotel1);
+
+        reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.BREAKFAST);
+        reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER);
+        reservationSystem.bookServices(booking4.get(), hotel1, client1, EServices.BREAKFAST);
+        reservationSystem.bookServices(booking4.get(), hotel1, client1, EServices.DINNER);
+        reservationSystem.bookServices(booking3.get(), hotel1, client2, EServices.SPA);
+        reservationSystem.bookServices(booking2.get(), hotel1, client2, EServices.SPA);
+        reservationSystem.bookServices(booking2.get(), hotel1, client2, EServices.DINNER);
+
+        // what to expect?
+        List<Client> sortedClients = new LinkedList<>(Arrays.asList(client3, client2, client1, client4));
+        //client3 is first because most bookings
+        //client2 is second because he has services 50 + 50 + 30 / 3 = 43
+        //client 1 is third because have more bookings than client4 and score is less than client2 20 + 30 + 20 +30 / 4= 25
+        List<Client> sort = hotel1.sortClients();
+        assertEquals(sortedClients, sort);
+    }
+
+    @Test
     void getDiscount() {
         // setup
         hotel1.addRoomToHotel(room1);
@@ -388,9 +433,9 @@ class HotelTest {
         // what to expect?
         // sorted list (client3, client2, client1, client4)
 
-        assertEquals(0.85, hotel1.getDiscount(client3));
-        assertEquals(0.90, hotel1.getDiscount(client2));
-        assertEquals(0.95, hotel1.getDiscount(client1));
-        assertEquals(1, hotel1.getDiscount(client4));
+        assertEquals(0.15, hotel1.getDiscount(client3));
+        assertEquals(0.1, hotel1.getDiscount(client2));
+        assertEquals(0.05, hotel1.getDiscount(client1));
+        assertEquals(0.0, hotel1.getDiscount(client4));
     }
 }

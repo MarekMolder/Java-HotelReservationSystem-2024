@@ -51,6 +51,14 @@ public class Booking {
         return this.services;
     }
 
+    public double getBalanceOfService() {
+        double balance = 0;
+        for (EServices service : services) {
+            balance += service.getPrice();
+        }
+        return balance;
+    }
+
     /**
      * This method is used to get the room of the specific booking.
      * @return The room booked for this booking.

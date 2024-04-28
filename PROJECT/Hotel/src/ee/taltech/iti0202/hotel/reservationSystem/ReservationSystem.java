@@ -16,7 +16,17 @@ import java.util.Optional;
 import java.util.Set;
 
 public class ReservationSystem {
+
+    private DiscountStrategy strategy;
     private Set<Hotel> hotels = new HashSet<>(); //a set of the hotels in reservation system
+
+    public ReservationSystem() {
+        this.strategy = null;
+    }
+
+    public void giveStrategy(DiscountStrategy strategy) {
+        this.strategy = strategy;
+    }
 
     public Boolean addHotelToSystem(Hotel hotel) {
         if (hotel != null && !hotels.contains(hotel)) {
@@ -86,7 +96,7 @@ public class ReservationSystem {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotel.getHotelRooms()) {
             if (hotel.getHotelClients().size() >= 3) {
-                if (suit.getPrice().multiply(BigDecimal.valueOf(hotel.getDiscount(client))).compareTo(price) <= 0) {
+                if (suit.getPrice().multiply(BigDecimal.valueOf(1 - (hotel.getDiscount(client)))).compareTo(price) <= 0) {
                     hotelSearchRoom.add(suit);
                 }
             } else {
@@ -111,7 +121,12 @@ public class ReservationSystem {
                 && hotel.getHotelRooms().contains(room)
                 && hotel.isRoomAvailable(since, until, room)) {
 
-                BigDecimal price = PriceCalculator.calculateRoomPrice(hotel, room, since, until, client);
+            double hotelDiscount = hotel.getDiscount(client);
+            double reservationSystemDiscount = getDiscount(hotel, since, until);
+            BigDecimal roomPrice = room.getPrice().multiply(BigDecimal.valueOf(hotel.getDatesInRange(since, until).size()));
+
+            BigDecimal price = roomPrice.multiply(BigDecimal.valueOf(1 - (hotelDiscount + reservationSystemDiscount)));
+
                 if (client.getBalance().compareTo(price) >= 0) {
                     Booking booking = new Booking(room, since, until, client);
                     hotel.getHotelBookings().add(booking);
@@ -119,6 +134,13 @@ public class ReservationSystem {
                     hotel.getHotelClients().add(client);
                     client.subtractBalance(price);
                     hotel.getHotelClientBookings().merge(client, 1, Integer::sum);
+
+                    if (hotel.getMonthlyBookings().containsKey(since.getMonth())) {
+                        hotel.getMonthlyBookings().merge(since.getMonth(), 1, Integer::sum);
+                    } else {
+                        hotel.getMonthlyBookings().put(since.getMonth(), 1);
+                    }
+
                     return Optional.of(booking);
                 }
             }
@@ -164,6 +186,7 @@ public class ReservationSystem {
             client.subtractBalance(BigDecimal.valueOf(service.getPrice()));
             Booking updatedBooking = builder.createBooking();
             client.updateBooking(booking, updatedBooking);
+            client.getClientServices().add(service);
             return true;
                 }
         return false;
@@ -191,8 +214,24 @@ public class ReservationSystem {
 
             client.addBalance(BigDecimal.valueOf(service.getPrice()));
             booking.removeService(service);
+            client.getClientServices().remove(service);
             return true;
         }
         return false;
+    }
+
+    public double getDiscount(Hotel hotel, LocalDate since, LocalDate until) {
+        if (strategy == null) {
+            return 0.0;
+        }
+
+        if (strategy instanceof MonthDiscountStrategy) {
+            return ((MonthDiscountStrategy) strategy).getDiscount(hotel, since, until);
+        } else if (strategy instanceof TimeDiscountStrategy) {
+            return ((TimeDiscountStrategy) strategy).getDiscount(hotel, since, until);
+        } else if (strategy instanceof BothDiscountStrategy) {
+            return ((BothDiscountStrategy) strategy).getDiscount(hotel, since, until);
+        }
+        return 0.0;
     }
 }

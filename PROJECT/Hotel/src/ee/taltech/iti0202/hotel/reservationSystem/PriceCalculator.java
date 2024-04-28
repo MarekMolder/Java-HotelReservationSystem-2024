@@ -12,6 +12,7 @@ public class PriceCalculator {
 
     public static BigDecimal calculateRoomPrice(Hotel hotel, Room room, LocalDate since, LocalDate until, Client client) {
         BigDecimal price = room.getPrice().multiply(BigDecimal.valueOf(hotel.getDatesInRange(since, until).size()));
+
         return price.multiply(BigDecimal.valueOf(hotel.getDiscount(client)));
     }
 

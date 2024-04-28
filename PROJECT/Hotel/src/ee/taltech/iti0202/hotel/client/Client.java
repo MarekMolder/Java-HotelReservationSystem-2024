@@ -1,10 +1,13 @@
 package ee.taltech.iti0202.hotel.client;
 
 import ee.taltech.iti0202.hotel.booking.Booking;
+import ee.taltech.iti0202.hotel.hotel.EServices;
 import ee.taltech.iti0202.hotel.hotel.Hotel;
 import ee.taltech.iti0202.hotel.review.Review;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.security.Provider;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +19,7 @@ public class Client {
     private BigDecimal balance; // The balance of the client
     private List<Review> clientReviews; // a set of client reviews
     private List<Booking> clientBookings; // a List of client bookings
+    private List<EServices> clientServices; // a List of client services
 
     /**
      * Constructs a new Client object.
@@ -27,6 +31,23 @@ public class Client {
         this.balance = BigDecimal.valueOf(balance);
         this.clientReviews = new ArrayList<>();
         this.clientBookings = new ArrayList<>();
+        this.clientServices = new ArrayList<>();
+    }
+
+    public List<EServices> getClientServices() {
+        return clientServices;
+    }
+
+    public int getClientServiceArithmetic() {
+        int sum = 0;
+
+        if (!clientServices.isEmpty()) {
+            for (EServices service : clientServices) {
+                sum += service.getPrice();
+            }
+            return sum / clientServices.size();
+        }
+        return 0;
     }
 
     /**
@@ -51,7 +72,7 @@ public class Client {
      * @return The client balance.
      */
     public BigDecimal getBalance() {
-        return balance;
+        return balance.setScale(1, RoundingMode.HALF_UP);
     }
 
 

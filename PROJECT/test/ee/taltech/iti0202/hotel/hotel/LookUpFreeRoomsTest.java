@@ -7,6 +7,7 @@ import ee.taltech.iti0202.hotel.rooms.Room;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -114,6 +115,45 @@ class LookUpFreeRoomsTest {
 
         // what to expect?
         Set<Room> actual1 = hotel1.lookUpFreeRoomDate( LocalDate.of(2022, 4, 15), LocalDate.of(2022, 4, 16));
+        assertEquals(expected1, actual1);
+    }
+
+    @Test
+    void lookUpFreeRoomDay() {
+        hotel1.addRoomToHotel(room1);
+        hotel1.addRoomToHotel(room2);
+        hotel1.addRoomToHotel(room3);
+        hotel1.addRoomToHotel(room4);
+        hotel1.addRoomToHotel(room5);
+        hotel1.addRoomToHotel(room6);
+        hotel1.addRoomToHotel(room7);
+        reservationSystem.addHotelToSystem(hotel1);
+
+        Set<Room> expected = new LinkedHashSet<>();
+        expected.add(room1);
+        expected.add(room2);
+        expected.add(room3);
+        expected.add(room4);
+        expected.add(room5);
+        expected.add(room6);
+        expected.add(room7);
+
+        // what to expect?
+        Set<Room> actual = hotel1.lookUpFreeRoomDay(DayOfWeek.SUNDAY);
+        assertEquals(expected, actual);
+
+        // new setup
+        reservationSystem.bookRoomInHotel(room5, LocalDate.of(2024, 4, 28), LocalDate.of(2024, 4, 28), hotel1, client1);
+        reservationSystem.bookRoomInHotel(room6, LocalDate.of(2024, 4, 28), LocalDate.of(2024, 4, 28), hotel1, client2);
+        Set<Room> expected1 = new LinkedHashSet<>();
+        expected1.add(room1);
+        expected1.add(room2);
+        expected1.add(room3);
+        expected1.add(room4);
+        expected1.add(room7);
+
+        // what to expect?
+        Set<Room> actual1 = hotel1.lookUpFreeRoomDay(DayOfWeek.SUNDAY);
         assertEquals(expected1, actual1);
     }
 }

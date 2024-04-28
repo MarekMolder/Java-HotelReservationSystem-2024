@@ -5,7 +5,9 @@ import ee.taltech.iti0202.hotel.client.Client;
 import ee.taltech.iti0202.hotel.review.Review;
 import ee.taltech.iti0202.hotel.rooms.Room;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -30,6 +32,7 @@ public class Hotel {
     private Map<Client, Review> hotelReviews = new HashMap<>();
     // a map of clients and reviews they have made to hotel
     private Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
+    private Map<Month, Integer> monthlyBookings = new HashMap<>();
 
 
 
@@ -42,6 +45,7 @@ public class Hotel {
         this.hotelReviews = new HashMap<>();
         this.hotelBookings = new HashSet<>();
         this.hotelServices = new HashMap<>();
+        this.monthlyBookings = new HashMap<>();
     }
 
     public ECountryAndCitys getHotelCountry() {
@@ -104,6 +108,10 @@ public class Hotel {
 
     public HashMap<EServices, Integer> getServices() {
         return hotelServices;
+    }
+
+    public Map<Month, Integer> getMonthlyBookings() {
+        return monthlyBookings;
     }
 
     /**
@@ -177,6 +185,16 @@ public class Hotel {
         return hotelSearchRoom;
     }
 
+    public Set<Room> lookUpFreeRoomDay(DayOfWeek day) {
+        Set<Room> hotelSearchRoom = new LinkedHashSet<>();
+        for (Room suit : hotelRooms) {
+            if (isRoomAvailable(day, suit)) {
+                hotelSearchRoom.add(suit);
+            }
+        }
+        return hotelSearchRoom;
+    }
+
     /**
      * This method is used to look up if specific room is available within a given date range.
      *
@@ -192,6 +210,28 @@ public class Hotel {
                 List<LocalDate> dateList = booking.getDatesInRange(booking.getSince(), booking.getUntil());
                 for (LocalDate date : dateList) {
                     if (this.getDatesInRange(since, until).contains(date)) {
+                        notAvailable.add(room);
+                        break;
+                    }
+                }
+            }
+        }
+        return notAvailable.isEmpty();
+    }
+
+    /**
+     * This method is used to look up if specific room is available within a given date range.
+     *
+     * @param room  The room to be looked up
+     * @return True if the room is available, otherwise false.
+     */
+    public boolean isRoomAvailable(DayOfWeek day, Room room) {
+        List<Room> notAvailable = new ArrayList<>();
+        for (Booking booking : hotelBookings) {
+            if (booking.getRoom().equals(room)) {
+                List<LocalDate> dateList = booking.getDatesInRange(booking.getSince(), booking.getUntil());
+                for (LocalDate date : dateList) {
+                    if (day.equals(date.getDayOfWeek())) {
                         notAvailable.add(room);
                         break;
                     }
@@ -231,6 +271,13 @@ public class Hotel {
                             Integer score2 = hotelReviews.containsKey(e2.getKey()) ?
                                     hotelReviews.get(e2.getKey()).getScore() : 0;
                             return Integer.compare(score2, score1);
+                        })
+                        .thenComparing((e1, e2) -> {
+                                    Integer score1 = hotelClients.contains(e1) ?
+                                            e1.getKey().getClientServiceArithmetic() : 0;
+                                    Integer score2 = hotelClients.contains(e2) ?
+                                            e2.getKey().getClientServiceArithmetic() : 0;
+                                    return Integer.compare(score2, score1);
                         }))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
@@ -240,13 +287,13 @@ public class Hotel {
         if (this.getHotelClients().size() >= 3) {
             List<Client> sort = sortClients().subList(0, 3);
             if (sort.getFirst().equals(client)) {
-                return 0.85;
+                return 0.15;
             } else if (sort.get(1).equals(client)) {
-                return 0.90;
+                return 0.1;
             } else if (sort.get(2).equals(client)) {
-                return 0.95;
+                return 0.05;
             }
         }
-        return 1;
+        return 0;
     }
 }

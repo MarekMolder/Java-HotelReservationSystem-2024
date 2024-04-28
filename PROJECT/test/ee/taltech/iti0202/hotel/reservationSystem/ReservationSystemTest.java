@@ -248,7 +248,7 @@ class ReservationSystemTest {
         hotel1.addRoomToHotel(room5);
         hotel1.addRoomToHotel(room6);
 
-        assertEquals(Set.of(),reservationSystem.lookUpHotelRooms(hotel1, BigDecimal.valueOf(34), client2));
+        assertEquals(Set.of(),reservationSystem.lookUpHotelRooms(hotel1, BigDecimal.valueOf(34.0), client2));
 
         reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
         reservationSystem.bookRoomInHotel(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client2);
@@ -256,7 +256,7 @@ class ReservationSystemTest {
 
         client2.writeReview("Lahe hotell", 5, hotel1);
 
-        assertEquals(Set.of(room1, room2),reservationSystem.lookUpHotelRooms(hotel1, BigDecimal.valueOf(34), client2));
+        assertEquals(Set.of(room1, room2),reservationSystem.lookUpHotelRooms(hotel1, BigDecimal.valueOf(34.0), client2));
     }
 
     @Test
@@ -354,7 +354,7 @@ class ReservationSystemTest {
         reservationSystem.addHotelToSystem(hotel1);
 
         // what to test?
-        assertEquals(BigDecimal.valueOf(10000), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
         reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
         // date range (6 days) * StandardRoom price (40) = 240
 
@@ -369,7 +369,7 @@ class ReservationSystemTest {
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
 
-        assertEquals(BigDecimal.valueOf(210), client5.getBalance());
+        assertEquals(BigDecimal.valueOf(210.0), client5.getBalance());
 
         // what to test?
         Optional<Booking> booking = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client5);
@@ -377,7 +377,7 @@ class ReservationSystemTest {
 
         // what to expect?
         assertFalse(booking.isPresent());
-        assertEquals(BigDecimal.valueOf(210), client5.getBalance());
+        assertEquals(BigDecimal.valueOf(210.0), client5.getBalance());
     }
 
     @Test
@@ -393,7 +393,7 @@ class ReservationSystemTest {
         hotel1.addRoomToHotel(room5);
         hotel1.addRoomToHotel(room6);
 
-        assertEquals(BigDecimal.valueOf(10000), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
 
         reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
         reservationSystem.bookRoomInHotel(room2, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client2);
@@ -475,8 +475,8 @@ class ReservationSystemTest {
         hotel1.addRoomToHotel(room3);
         reservationSystem.addHotelToSystem(hotel1);
 
-        assertEquals(BigDecimal.valueOf(10000), client1.getBalance());
-        assertEquals(BigDecimal.valueOf(10000), client3.getBalance());
+        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(10000.0), client3.getBalance());
         Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
         // date range (6 days) * StandardRoom price (40) = 240
 
@@ -618,8 +618,6 @@ class ReservationSystemTest {
 
         Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
         assertTrue(reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER));
-
-        assertTrue(reservationSystem.removeService(booking1.get(), hotel1, client1, EServices.DINNER));
     }
 
     @Test

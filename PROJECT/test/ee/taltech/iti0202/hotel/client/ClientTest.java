@@ -78,32 +78,32 @@ class ClientTest {
 
     @Test
     void clientGetMoney() {
-        assertEquals(BigDecimal.valueOf(10000), client1.getBalance());
-        assertEquals(BigDecimal.valueOf(0), client2.getBalance());
+        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(0.0), client2.getBalance());
     }
 
     @Test
     void clientAddBalance() {
-        assertEquals(BigDecimal.valueOf(10000), client1.getBalance());
-        assertEquals(BigDecimal.valueOf(0), client2.getBalance());
+        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(0.0), client2.getBalance());
 
         client1.addBalance(BigDecimal.valueOf(50));
         client2.addBalance(BigDecimal.valueOf(50));
 
-        assertEquals(BigDecimal.valueOf(10050), client1.getBalance());
-        assertEquals(BigDecimal.valueOf(50), client2.getBalance());
+        assertEquals(BigDecimal.valueOf(10050.0), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(50.0), client2.getBalance());
     }
 
     @Test
     void clientSubtractBalance() {
-        assertEquals(BigDecimal.valueOf(10000), client1.getBalance());
-        assertEquals(BigDecimal.valueOf(0), client2.getBalance());
+        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(0.0), client2.getBalance());
 
         client1.subtractBalance(BigDecimal.valueOf(50));
         client2.subtractBalance(BigDecimal.valueOf(50));
 
-        assertEquals(BigDecimal.valueOf(9950), client1.getBalance());
-        assertEquals(BigDecimal.valueOf(-50), client2.getBalance());
+        assertEquals(BigDecimal.valueOf(9950.0), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(-50.0), client2.getBalance());
     }
 
     @Test
