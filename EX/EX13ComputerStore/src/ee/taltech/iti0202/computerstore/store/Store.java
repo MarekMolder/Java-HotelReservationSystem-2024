@@ -7,6 +7,7 @@ import ee.taltech.iti0202.computerstore.exceptions.NotEnoughMoneyException;
 import ee.taltech.iti0202.computerstore.exceptions.OutOfStockException;
 import ee.taltech.iti0202.computerstore.exceptions.ProductNotFoundException;
 
+import java.math.RoundingMode;
 import java.util.Comparator;
 import java.util.List;
 import java.math.BigDecimal;
@@ -16,7 +17,7 @@ public class Store {
     private BigDecimal profitMargin;
     private String name;
     private BigDecimal balance;
-    private Database database;
+    private final Database database;
 
     public Store(String name, BigDecimal balance, BigDecimal profitMargin) {
         this.name = name;
@@ -85,7 +86,7 @@ public class Store {
         return database.getComponents().values().stream()
                 .map(c -> c.getPrice().multiply(new BigDecimal(c.getAmount())).multiply(profitMargin))
                 .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .setScale(2, BigDecimal.ROUND_HALF_UP);
+                .setScale(2, RoundingMode.HALF_UP);
     }
 
     public String getName() {
