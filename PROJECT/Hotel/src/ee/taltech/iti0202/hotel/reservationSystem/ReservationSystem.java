@@ -18,16 +18,39 @@ import java.util.Set;
 public class ReservationSystem {
 
     private DiscountStrategy strategy;
-    private Set<Hotel> hotels = new HashSet<>(); //a set of the hotels in reservation system
+    private Set<Hotel> hotels = new HashSet<>(); //a set of hotels in reservation system
 
+    /**
+     * Reservation system that can use strategy.
+     */
     public ReservationSystem() {
         this.strategy = null;
     }
 
+    /**
+     * This method is used to give reservation system a strategy.
+     * @param strategy strategy
+     */
     public void giveStrategy(DiscountStrategy strategy) {
         this.strategy = strategy;
     }
 
+    /**
+     * This method is used to get a strategy.
+     * @return strategy if reservation system has one, otherwise throws exception.
+     */
+    public DiscountStrategy getStrategy() throws Exception {
+        if (this.strategy == null) {
+            throw new Exception("Reservation system doesn't have strategy");
+        }
+        return this.strategy;
+    }
+
+    /**
+     * This method is used to add hotel to reservation System
+     * @param hotel hotel to be added
+     * @return true if hotel is added to reservation system, otherwise false.
+     */
     public Boolean addHotelToSystem(Hotel hotel) {
         if (hotel != null && !hotels.contains(hotel)) {
                 this.hotels.add(hotel);
@@ -36,10 +59,20 @@ public class ReservationSystem {
         return false;
     }
 
+    /**
+     * This method is used to get hotels.
+     * @return set of hotels.
+     */
     public Set<Hotel> getHotels() {
         return hotels;
     }
 
+    /**
+     * This method is used to filter out hotel based on country and city.
+     * @param country country where hotel is situated
+     * @param city city where hotel is situated
+     * @return set of hotels that match the criteria.
+     */
     public Set<Hotel> lookUpHotel(ECountryAndCitys country, String city) {
         Set<Hotel> hotelMatch = new LinkedHashSet<>();
         for (Hotel hotel: hotels) {
@@ -50,6 +83,11 @@ public class ReservationSystem {
         return hotelMatch;
     }
 
+    /**
+     * This method is used to filter out hotel based on city
+     * @param city city where hotel is situated.
+     * @return set of hotels that match the criteria.
+     */
     public Set<Hotel> lookUpHotel(String city) {
         Set<Hotel> hotelMatch = new LinkedHashSet<>();
         for (Hotel hotel: hotels) {
@@ -60,6 +98,11 @@ public class ReservationSystem {
         return hotelMatch;
     }
 
+    /**
+     * This method is used to filter out hotel based on country
+     * @param country country where hotel is situated.
+     * @return set of hotels that match the criteria.
+     */
     public Set<Hotel> lookUpHotel(ECountryAndCitys country) {
         Set<Hotel> hotelMatch = new LinkedHashSet<>();
         for (Hotel hotel: hotels) {
@@ -70,6 +113,11 @@ public class ReservationSystem {
         return hotelMatch;
     }
 
+    /**
+     * This method is used to filter out hotel based on review score
+     * @param score review score that hotels has.
+     * @return set of hotels that match the criteria.
+     */
     public Set<Hotel> lookUpHotel(Integer score) {
         Set<Hotel> hotelMatch = new LinkedHashSet<>();
         for (Hotel hotel: hotels) {
@@ -80,6 +128,13 @@ public class ReservationSystem {
         return hotelMatch;
     }
 
+    /**
+     * This method is used filter out hotel based on country, city and review score.
+     * @param country country where hotel is situated.
+     * @param city city where hotel is situated.
+     * @param score review score that hotel has
+     * @return set of hotels that match the criteria.
+     */
     public Set<Hotel> lookUpHotel(ECountryAndCitys country, String city, Integer score) {
         Set<Hotel> hotelMatch = new LinkedHashSet<>();
         for (Hotel hotel: hotels) {
@@ -92,6 +147,13 @@ public class ReservationSystem {
         return hotelMatch;
     }
 
+    /**
+     * This method is used to filter out hotel rooms based on price.
+     * @param hotel hotel to be looked at.
+     * @param price price.
+     * @param client client.
+     * @return set of rooms that match the criteria.
+     */
     public Set<Room> lookUpHotelRooms(Hotel hotel, BigDecimal price, Client client) {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotel.getHotelRooms()) {
@@ -173,7 +235,15 @@ public class ReservationSystem {
         return false;
     }
 
-    public Boolean bookServices(Booking booking, Hotel hotel, Client client, EServices service) {
+    /**
+     * This method is used to book service for your booking.
+     * @param booking booking which will get new service.
+     * @param hotel hotel where booking is made.
+     * @param client client who made the booking.
+     * @param service service which will be bought.
+     * @return new Booking if service is bought, empty booking if service wasn't bought.
+     */
+    public Optional<Booking> bookServices(Booking booking, Hotel hotel, Client client, EServices service) {
         if (hotels.contains(hotel)
                 && hotel.getHotelBookings().contains(booking)
                 && client.getBookings().contains(booking)
@@ -186,40 +256,21 @@ public class ReservationSystem {
             client.subtractBalance(BigDecimal.valueOf(service.getPrice()));
             Booking updatedBooking = builder.createBooking();
             client.updateBooking(booking, updatedBooking);
+            hotel.updateBooking(booking, updatedBooking);
             client.getClientServices().add(service);
-            return true;
+
+            return Optional.of(updatedBooking);
                 }
-        return false;
+        return Optional.empty();
     }
 
-    //    public Boolean bookServices(Booking booking, Hotel hotel, Client client, EServices service) {
-    //        if (hotels.contains(hotel)
-    //                && hotel.getHotelBookings().contains(booking)
-    //                && client.getBookings().contains(booking)
-    //                && hotel.getServices().containsKey(service)
-    //                && client.getBalance().compareTo(BigDecimal.valueOf(service.getPrice())) >= 0) {
-    //
-    //                    client.subtractBalance(BigDecimal.valueOf(service.getPrice()));
-    //                    booking.addService(service);
-    //                    return true;
-    //                }
-    //        return false;
-    //    }
-
-    public Boolean removeService(Booking booking, Hotel hotel, Client client, EServices service) {
-        if (hotels.contains(hotel)
-                && hotel.getHotelBookings().contains(booking)
-                && client.getBookings().contains(booking)
-                && booking.getService().contains(service)) {
-
-            client.addBalance(BigDecimal.valueOf(service.getPrice()));
-            booking.removeService(service);
-            client.getClientServices().remove(service);
-            return true;
-        }
-        return false;
-    }
-
+    /**
+     * This method is used to get discount from strategy.
+     * @param hotel hotel where booking is made.
+     * @param since booking start date.
+     * @param until booking end date.
+     * @return discount
+     */
     public double getDiscount(Hotel hotel, LocalDate since, LocalDate until) {
         if (strategy == null) {
             return 0.0;
@@ -229,9 +280,8 @@ public class ReservationSystem {
             return ((MonthDiscountStrategy) strategy).getDiscount(hotel, since, until);
         } else if (strategy instanceof TimeDiscountStrategy) {
             return ((TimeDiscountStrategy) strategy).getDiscount(hotel, since, until);
-        } else if (strategy instanceof BothDiscountStrategy) {
+        } else {
             return ((BothDiscountStrategy) strategy).getDiscount(hotel, since, until);
         }
-        return 0.0;
     }
 }

@@ -9,11 +9,12 @@ public class BothDiscountStrategy implements DiscountStrategy{
     public double getDiscount(Hotel hotel, LocalDate since, LocalDate until) {
         DiscountStrategy monthStrategy = new MonthDiscountStrategy();
         DiscountStrategy timeStrategy = new TimeDiscountStrategy();
+        double finalDiscount = 0.0;
 
         double discount = monthStrategy.getDiscount(hotel, since, until);
         double discount2 = timeStrategy.getDiscount(hotel, since, until);
-        double finalDiscount = discount + discount2;
+        finalDiscount += discount + discount2;
 
-        return Math.min(finalDiscount, 40.0);
+        return Math.min(finalDiscount, 0.4);
     }
 }

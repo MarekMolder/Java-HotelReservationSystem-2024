@@ -10,7 +10,7 @@ public class Review {
     /**
      * Constructs a new Review object.
      * @param review The review which was written.
-     * @param score The review score.
+     * @param score The review score. Must be between 1 - 5, otherwise throws IllegalArgumentException.
      * @param hotel The hotel what got the review.
      */
     public Review(String review, Integer score, Hotel hotel) {
@@ -24,24 +24,24 @@ public class Review {
     }
 
     /**
-     * This method is used to get client written review.
-     * @return String.
+     * This method is used to get review String written by client.
+     * @return the review as a String.
      */
     public String getReview() {
         return review;
     }
 
     /**
-     * This method is used to get client written score.
-     * @return Score.
+     * This method is used to get review as score written by client .
+     * @return the score as an Integer.
      */
     public Integer getScore() {
         return score;
     }
 
     /**
-     * This method is used to get hotel where client wrote the review.
-     * @return Hotel.
+     * This method is used to get hotel object that the review is written about.
+     * @return the hotel object that the review is written about.
      */
     public Hotel getHotel() {
         return hotel;

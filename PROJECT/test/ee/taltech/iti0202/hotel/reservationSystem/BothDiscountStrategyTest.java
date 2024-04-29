@@ -41,8 +41,47 @@ public class BothDiscountStrategyTest {
     }
 
     @Test
-    @DisplayName("Should book a room.")
-    void BookRoom_MonthDiscountStrategy_clientDiscountAlso() {
+    void BookRoom_BothDiscountStrategy() {
+        // setup
+        hotel1.addRoomToHotel(room1);
+
+        reservationSystem.addHotelToSystem(hotel1);
+        reservationSystem.giveStrategy(new BothDiscountStrategy());
+
+        assertEquals(BigDecimal.valueOf(1000.0), client1.getBalance());
+        assertNull(hotel1.getMonthlyBookings().get(Month.APRIL));
+
+        reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 1), LocalDate.of(2022, 4, 7), hotel1, client1);
+        // room price 40 * 7 = 280
+        // discount = 20% + 15%
+        // total = 280 * (1 - 0.35) = 182
+        // 1000 - 182 =
+        assertEquals(BigDecimal.valueOf(818.0), client1.getBalance());
+        assertEquals(1, hotel1.getMonthlyBookings().get(Month.APRIL));
+    }
+
+    @Test
+    void BookRoom_BothDiscountStrategy_NotMoreThan40() {
+        // setup
+        hotel1.addRoomToHotel(room1);
+
+        reservationSystem.addHotelToSystem(hotel1);
+        reservationSystem.giveStrategy(new BothDiscountStrategy());
+
+        assertEquals(BigDecimal.valueOf(1000.0), client1.getBalance());
+        assertNull(hotel1.getMonthlyBookings().get(Month.JANUARY));
+
+        reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 1, 1), LocalDate.of(2022, 1, 31), hotel1, client1);
+        // room price 40 * 31 = 1240
+        // discount = 20% + 27% = 47% but not more than 40%
+        // total = 280 * (1 - 0.4) = 168
+        // 1000 - 168 = 832
+        assertEquals(BigDecimal.valueOf(256.0), client1.getBalance());
+        assertEquals(1, hotel1.getMonthlyBookings().get(Month.JANUARY));
+    }
+
+    @Test
+    void BookRoom_BothDiscountStrategy_PlusClientGetHotelDiscount() {
         // setup
         hotel1.addRoomToHotel(room1);
 

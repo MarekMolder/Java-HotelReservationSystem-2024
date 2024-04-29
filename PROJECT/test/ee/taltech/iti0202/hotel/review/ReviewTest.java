@@ -60,7 +60,7 @@ public class ReviewTest {
     }
 
     @Test
-    void reviewScoreIsWrong() {
+    void getScore_reviewScoreIsWrong() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -69,6 +69,7 @@ public class ReviewTest {
 
         // what to expect
         assertThrows(IllegalArgumentException.class, () -> new Review("hei", 6, hotel1));
+        assertThrows(IllegalArgumentException.class, () -> new Review("hei", -2, hotel1));
     }
 
     @Test

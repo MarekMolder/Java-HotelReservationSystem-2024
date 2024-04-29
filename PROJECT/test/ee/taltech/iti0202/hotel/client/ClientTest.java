@@ -2,6 +2,7 @@ package ee.taltech.iti0202.hotel.client;
 
 import ee.taltech.iti0202.hotel.booking.Booking;
 import ee.taltech.iti0202.hotel.hotel.ECountryAndCitys;
+import ee.taltech.iti0202.hotel.hotel.EServices;
 import ee.taltech.iti0202.hotel.hotel.Hotel;
 import ee.taltech.iti0202.hotel.hotel.HotelBuilder;
 import ee.taltech.iti0202.hotel.reservationSystem.ReservationSystem;
@@ -40,7 +41,37 @@ class ClientTest {
     }
 
     @Test
-    void clientGetReviews() {
+    void getBalance() {
+        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(0.0), client2.getBalance());
+    }
+
+    @Test
+    void subtractBalance() {
+        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(0.0), client2.getBalance());
+
+        client1.subtractBalance(BigDecimal.valueOf(50));
+        client2.subtractBalance(BigDecimal.valueOf(50));
+
+        assertEquals(BigDecimal.valueOf(9950.0), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(-50.0), client2.getBalance());
+    }
+
+    @Test
+    void addBalance() {
+        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(0.0), client2.getBalance());
+
+        client1.addBalance(BigDecimal.valueOf(50));
+        client2.addBalance(BigDecimal.valueOf(50));
+
+        assertEquals(BigDecimal.valueOf(10050.0), client1.getBalance());
+        assertEquals(BigDecimal.valueOf(50.0), client2.getBalance());
+    }
+
+    @Test
+    void getReviews() {
         // setup
         hotel1.addRoomToHotel(room1);
         hotel1.addRoomToHotel(room3);
@@ -58,7 +89,7 @@ class ClientTest {
     }
 
     @Test
-    void clientGetBookings() {
+    void getBookings() {
         // setup
         hotel1.addRoomToHotel(room1);
         hotel1.addRoomToHotel(room3);
@@ -77,33 +108,58 @@ class ClientTest {
     }
 
     @Test
-    void clientGetMoney() {
-        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
-        assertEquals(BigDecimal.valueOf(0.0), client2.getBalance());
+    void getClientServices() {
+        // setup
+        hotel1.addRoomToHotel(room1);
+        hotel1.addService(EServices.DINNER);
+        reservationSystem.addHotelToSystem(hotel1);
+
+        // what to test?
+        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+        reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER);
+
+        // what to expect
+        assertEquals(List.of(EServices.DINNER), client1.getClientServices());
     }
 
     @Test
-    void clientAddBalance() {
-        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
-        assertEquals(BigDecimal.valueOf(0.0), client2.getBalance());
+    void getClientServiceArithmetic() {
+        // setup
+        hotel1.addRoomToHotel(room1);
+        hotel1.addService(EServices.DINNER);
+        hotel1.addService(EServices.SPA);
+        hotel1.addService(EServices.BREAKFAST);
+        reservationSystem.addHotelToSystem(hotel1);
 
-        client1.addBalance(BigDecimal.valueOf(50));
-        client2.addBalance(BigDecimal.valueOf(50));
+        // what to test?
+        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+        Optional<Booking> booking2 = reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER);
+        Optional<Booking> booking3 = reservationSystem.bookServices(booking2.get(), hotel1, client1, EServices.SPA);
+        reservationSystem.bookServices(booking3.get(), hotel1, client1, EServices.BREAKFAST);
 
-        assertEquals(BigDecimal.valueOf(10050.0), client1.getBalance());
-        assertEquals(BigDecimal.valueOf(50.0), client2.getBalance());
+        // what to expect
+        assertEquals(33.3, client1.getClientServiceArithmetic());
+        // Arithmetic = 30 + 50 + 20 / 3 = 33.3
     }
 
     @Test
-    void clientSubtractBalance() {
-        assertEquals(BigDecimal.valueOf(10000.0), client1.getBalance());
-        assertEquals(BigDecimal.valueOf(0.0), client2.getBalance());
+    void updateBooking() {
+        // setup
+        hotel1.addRoomToHotel(room1);
+        hotel1.addService(EServices.DINNER);
+        reservationSystem.addHotelToSystem(hotel1);
 
-        client1.subtractBalance(BigDecimal.valueOf(50));
-        client2.subtractBalance(BigDecimal.valueOf(50));
+        // what to test?
+        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
 
-        assertEquals(BigDecimal.valueOf(9950.0), client1.getBalance());
-        assertEquals(BigDecimal.valueOf(-50.0), client2.getBalance());
+        // what to expect
+        assertEquals(List.of(booking1.get()), client1.getBookings());
+
+        // what to test?
+        Optional<Booking> booking2 = reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER);
+
+        // what to expect
+        assertEquals(List.of(booking2.get()), client1.getBookings());
     }
 
     @Test

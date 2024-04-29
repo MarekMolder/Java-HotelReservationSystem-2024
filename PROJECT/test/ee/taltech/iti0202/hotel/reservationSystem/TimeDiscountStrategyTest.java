@@ -11,16 +11,13 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Month;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class TimeDiscountStrategyTest {
 
     private Room room1;
-
     private Hotel hotel1;
-
     private ReservationSystem reservationSystem;
     private Client client1;
     private Client client2;
@@ -41,8 +38,7 @@ public class TimeDiscountStrategyTest {
     }
 
     @Test
-    @DisplayName("Should book a room.")
-    void BookRoom_TimeDiscountStrategy_7days() {
+    void BookRoom_TimeDiscountStrategy() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -75,13 +71,12 @@ public class TimeDiscountStrategyTest {
         // room price 40 * 61 = 2440
         // discount = 30%
         // total = 2440 * (1 - 0.3) = 1708
-        // 9286 - 1708 = 8086
+        // 9286 - 1708 = 7578
         assertEquals(BigDecimal.valueOf(7578.0), client1.getBalance());
     }
 
     @Test
-    @DisplayName("Should book a room.")
-    void BookRoom_TimeDiscountStrategy_otherdiscount() {
+    void BookRoom_TimeDiscountStrategy_PlusClientGetHotelDiscount() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);

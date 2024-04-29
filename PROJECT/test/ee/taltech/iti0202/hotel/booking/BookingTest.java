@@ -2,6 +2,7 @@ package ee.taltech.iti0202.hotel.booking;
 
 import ee.taltech.iti0202.hotel.client.Client;
 import ee.taltech.iti0202.hotel.hotel.ECountryAndCitys;
+import ee.taltech.iti0202.hotel.hotel.EServices;
 import ee.taltech.iti0202.hotel.hotel.Hotel;
 import ee.taltech.iti0202.hotel.hotel.HotelBuilder;
 import ee.taltech.iti0202.hotel.reservationSystem.ReservationSystem;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -45,7 +47,7 @@ class BookingTest {
     }
 
     @Test
-    void bookingGetRoom() {
+    void getRoom() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -57,8 +59,9 @@ class BookingTest {
         assertTrue(booking1.isPresent());
         assertEquals(room1, booking1.get().getRoom());
     }
+
     @Test
-    void bookingGetSince() {
+    void getSince() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -71,7 +74,7 @@ class BookingTest {
     }
 
     @Test
-    void bookingGetUntil() {
+    void getUntil() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -84,7 +87,7 @@ class BookingTest {
     }
 
     @Test
-    void bookingGetClient() {
+    void getClient() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -97,7 +100,7 @@ class BookingTest {
     }
 
     @Test
-    void bookingGetPrice() {
+    void getPrice() {
         // setup
         hotel1.addRoomToHotel(room1);
         hotel1.addRoomToHotel(room2);
@@ -126,7 +129,45 @@ class BookingTest {
     }
 
     @Test
-    void testBookingGetDatesInRange() {
+    void addService_GetService() {
+        // setup
+        hotel1.addRoomToHotel(room1);
+        hotel1.addService(EServices.DINNER);
+        hotel1.addService(EServices.SPA);
+        hotel1.addService(EServices.BREAKFAST);
+        reservationSystem.addHotelToSystem(hotel1);
+
+        // what to test?
+        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+        booking1.get().addService(EServices.DINNER);
+        booking1.get().addService(EServices.SPA);
+        booking1.get().addService(EServices.BREAKFAST);
+
+        // what to expect?
+        assertEquals(Set.of(EServices.DINNER, EServices.SPA, EServices.BREAKFAST), booking1.get().getService());
+    }
+
+    @Test
+    void getCostService() {
+        // setup
+        hotel1.addRoomToHotel(room1);
+        hotel1.addService(EServices.DINNER);
+        hotel1.addService(EServices.SPA);
+        hotel1.addService(EServices.BREAKFAST);
+        reservationSystem.addHotelToSystem(hotel1);
+
+        // what to test?
+        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+        booking1.get().addService(EServices.DINNER);
+        booking1.get().addService(EServices.SPA);
+        booking1.get().addService(EServices.BREAKFAST);
+
+        // what to expect?
+        assertEquals(100, booking1.get().getCostOfService());
+    }
+
+    @Test
+    void getDatesInRange() {
         // setup
         hotel1.addRoomToHotel(room1);
         hotel1.addRoomToHotel(room2);

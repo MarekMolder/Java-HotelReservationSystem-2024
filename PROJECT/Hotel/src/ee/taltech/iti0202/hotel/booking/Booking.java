@@ -2,15 +2,14 @@ package ee.taltech.iti0202.hotel.booking;
 
 import ee.taltech.iti0202.hotel.client.Client;
 import ee.taltech.iti0202.hotel.hotel.EServices;
-import ee.taltech.iti0202.hotel.hotel.Hotel;
 import ee.taltech.iti0202.hotel.rooms.Room;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Represents a booking made by a client for a room in a hotel.
@@ -18,7 +17,7 @@ import java.util.Optional;
 public class Booking {
     private final Client client; // The client who made the booking
     private final BigDecimal price; // The booking price
-    private final HashSet<EServices> services;
+    private final LinkedHashSet<EServices> services; // services that are booked for the reservation
     private Room room; // The room booked for the reservation
     private final LocalDate since; // The start date of the booking
     private final LocalDate until; // The end date of the booking
@@ -36,27 +35,7 @@ public class Booking {
         this.until = until;
         this.client = client;
         this.price = room.getPrice().multiply(BigDecimal.valueOf(getDatesInRange(since, until).size()));
-        this.services = new HashSet<>();
-    }
-
-    public void addService(EServices service) {
-        services.add(service);
-    }
-
-    public void removeService(EServices service) {
-        services.remove(service);
-    }
-
-    public HashSet<EServices> getService() {
-        return this.services;
-    }
-
-    public double getBalanceOfService() {
-        double balance = 0;
-        for (EServices service : services) {
-            balance += service.getPrice();
-        }
-        return balance;
+        this.services = new LinkedHashSet<>();
     }
 
     /**
@@ -93,11 +72,38 @@ public class Booking {
 
     /**
      * This method is used to get the price of the booking.
-     *
      * @return The price of the booking.
      */
     public BigDecimal getPrice() {
         return this.price;
+    }
+
+    /**
+     * This method is used to add new service to booking.
+     * @param service the Service which will be added.
+     */
+    public void addService(EServices service) {
+        services.add(service);
+    }
+
+    /**
+     * This method is used to get booking services.
+     * @return Set of services.
+     */
+    public LinkedHashSet<EServices> getService() {
+        return this.services;
+    }
+
+    /**
+     * This method is used to get cost of services.
+     * @return the cost of services.
+     */
+    public double getCostOfService() {
+        double cost = 0;
+        for (EServices service : services) {
+            cost += service.getPrice();
+        }
+        return cost;
     }
 
     /**

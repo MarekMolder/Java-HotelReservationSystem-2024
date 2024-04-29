@@ -48,11 +48,6 @@ public class BookingBuilder {
         return this;
     }
 
-    public BookingBuilder removeService(EServices service) {
-        this.services.remove(service);
-        return this;
-    }
-
     public Booking createBooking() {
         return new Booking(room, since, until, client);
     }

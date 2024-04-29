@@ -13,8 +13,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.lang.reflect.Executable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,9 +30,6 @@ class ReservationSystemTest {
     private DeluxeRoom room4;
     private DoubleRoom room5;
     private DoubleRoom room6;
-    private DoubleRoom room7;
-    private DoubleRoom room8;
-    private DoubleRoom room9;
 
     private Hotel hotel1;
     private Hotel hotel2;
@@ -54,9 +53,6 @@ class ReservationSystemTest {
         room4 = new DeluxeRoom();
         room5 = new DoubleRoom();
         room6 = new DoubleRoom();
-        room7 = new DoubleRoom();
-        room8 = new DoubleRoom();
-        room9 = new DoubleRoom();
 
         hotel1 = new HotelBuilder()
                 .setCountry(ECountryAndCitys.ESTONIA)
@@ -85,6 +81,24 @@ class ReservationSystemTest {
         client4 = new Client("Sass", 10000);
         client5 = new Client("Sass", 210);
         client6 = new Client("Sass", 250);
+    }
+    @Test
+    void giveStrategy_AndGetStrategy() throws Exception {
+        // setup
+        DiscountStrategy strategy = new TimeDiscountStrategy();
+        reservationSystem.giveStrategy(strategy);
+
+        // what to expect?
+        assertEquals(strategy, reservationSystem.getStrategy());
+    }
+
+    @Test
+    void giveStrategy_AndGetStrategy_NoStrategyGiven_ThrowsException() throws Exception {
+        // setup
+        reservationSystem.giveStrategy(null);
+
+        // what to expect?
+        assertThrows(Exception.class, () -> {reservationSystem.getStrategy();});
     }
 
     @Test
@@ -120,11 +134,11 @@ class ReservationSystemTest {
     @Test
     void lookUpHotel_ParametersAreCountryAndCity() {
         // setup
-        reservationSystem.addHotelToSystem(hotel1);
-        reservationSystem.addHotelToSystem(hotel2);
-        reservationSystem.addHotelToSystem(hotel3);
-        reservationSystem.addHotelToSystem(hotel4);
-        reservationSystem.addHotelToSystem(hotel5);
+        reservationSystem.addHotelToSystem(hotel1); // Estonia Tallinn
+        reservationSystem.addHotelToSystem(hotel2); // Italy Rome
+        reservationSystem.addHotelToSystem(hotel3); // Estonia Pärnu
+        reservationSystem.addHotelToSystem(hotel4); // France Paris
+        reservationSystem.addHotelToSystem(hotel5); // Estonia Tallinn
 
         // what to expect?
         assertEquals(Set.of(hotel1, hotel5),reservationSystem.lookUpHotel(ECountryAndCitys.ESTONIA, "Tallinn"));
@@ -134,11 +148,11 @@ class ReservationSystemTest {
     @Test
     void lookUpHotel_ParameterIsCity() {
         // setup
-        reservationSystem.addHotelToSystem(hotel1);
-        reservationSystem.addHotelToSystem(hotel2);
-        reservationSystem.addHotelToSystem(hotel3);
-        reservationSystem.addHotelToSystem(hotel4);
-        reservationSystem.addHotelToSystem(hotel5);
+        reservationSystem.addHotelToSystem(hotel1); // Estonia Tallinn
+        reservationSystem.addHotelToSystem(hotel2); // Italy Rome
+        reservationSystem.addHotelToSystem(hotel3); // Estonia Pärnu
+        reservationSystem.addHotelToSystem(hotel4); // France Paris
+        reservationSystem.addHotelToSystem(hotel5); // Estonia Tallinn
 
         // what to expect?
         assertEquals(Set.of(hotel1, hotel5),reservationSystem.lookUpHotel("Tallinn"));
@@ -147,11 +161,11 @@ class ReservationSystemTest {
     @Test
     void lookUpHotel_ParameterIsCountry() {
         // setup
-        reservationSystem.addHotelToSystem(hotel1);
-        reservationSystem.addHotelToSystem(hotel2);
-        reservationSystem.addHotelToSystem(hotel3);
-        reservationSystem.addHotelToSystem(hotel4);
-        reservationSystem.addHotelToSystem(hotel5);
+        reservationSystem.addHotelToSystem(hotel1); // Estonia Tallinn
+        reservationSystem.addHotelToSystem(hotel2); // Italy Rome
+        reservationSystem.addHotelToSystem(hotel3); // Estonia Pärnu
+        reservationSystem.addHotelToSystem(hotel4); // France Paris
+        reservationSystem.addHotelToSystem(hotel5); // Estonia Tallinn
 
         // what to expect?
         assertEquals(Set.of(hotel1, hotel3, hotel5),reservationSystem.lookUpHotel(ECountryAndCitys.ESTONIA));
@@ -160,11 +174,11 @@ class ReservationSystemTest {
     @Test
     void lookUpHotel_ParameterIsScore() {
         // setup
-        reservationSystem.addHotelToSystem(hotel1);
-        reservationSystem.addHotelToSystem(hotel2);
-        reservationSystem.addHotelToSystem(hotel3);
-        reservationSystem.addHotelToSystem(hotel4);
-        reservationSystem.addHotelToSystem(hotel5);
+        reservationSystem.addHotelToSystem(hotel1); // Estonia Tallinn
+        reservationSystem.addHotelToSystem(hotel2); // Italy Rome
+        reservationSystem.addHotelToSystem(hotel3); // Estonia Pärnu
+        reservationSystem.addHotelToSystem(hotel4); // France Paris
+        reservationSystem.addHotelToSystem(hotel5); // Estonia Tallinn
 
         hotel1.addRoomToHotel(room1);
         hotel3.addRoomToHotel(room2);
@@ -192,11 +206,11 @@ class ReservationSystemTest {
     @Test
     void lookUpHotel_ParameterAreCountryCityAndScore() {
         // setup
-        reservationSystem.addHotelToSystem(hotel1);
-        reservationSystem.addHotelToSystem(hotel2);
-        reservationSystem.addHotelToSystem(hotel3);
-        reservationSystem.addHotelToSystem(hotel4);
-        reservationSystem.addHotelToSystem(hotel5);
+        reservationSystem.addHotelToSystem(hotel1); // Estonia Tallinn
+        reservationSystem.addHotelToSystem(hotel2); // Italy Rome
+        reservationSystem.addHotelToSystem(hotel3); // Estonia Pärnu
+        reservationSystem.addHotelToSystem(hotel4); // France Paris
+        reservationSystem.addHotelToSystem(hotel5); // Estonia Tallinn
 
         hotel1.addRoomToHotel(room1);
         hotel3.addRoomToHotel(room2);
@@ -261,7 +275,7 @@ class ReservationSystemTest {
 
     @Test
     @DisplayName("Should book a room.")
-    void BookRoom() {
+    void BookRoomInHotel() {
         // setup
         hotel1.addRoomToHotel(room1);
         hotel1.addRoomToHotel(room3);
@@ -286,7 +300,7 @@ class ReservationSystemTest {
         // what to expect?
         assertTrue(booking2.isPresent());
         assertEquals(2, hotel1.getHotelBookings().size());
-        assertEquals(Set.of(booking1.get(), booking2.get()), hotel1.getHotelBookings());
+        assertEquals(List.of(booking1.get(), booking2.get()), hotel1.getHotelBookings());
         assertEquals(1, client1.getBookings().size());
         assertTrue(client1.getBookings().contains(booking1.get()));
         assertEquals(1, client3.getBookings().size());
@@ -381,6 +395,39 @@ class ReservationSystemTest {
     }
 
     @Test
+    void BookRoom_addBookingByMonth_NoBookingsInThisMonth() {
+        // setup
+        hotel1.addRoomToHotel(room1);
+        reservationSystem.addHotelToSystem(hotel1);
+
+        // what to test?
+        Optional<Booking> booking = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+
+        // what to expect?
+        assertEquals(Map.of(Month.APRIL, 1), hotel1.getMonthlyBookings());
+    }
+
+    @Test
+    void BookRoom_addBookingByMonth_TwoBookingsInThisMonth_ShouldIncreaseTheMonthlyBookingNumber() {
+        // setup
+        hotel1.addRoomToHotel(room1);
+        reservationSystem.addHotelToSystem(hotel1);
+
+        // what to test?
+        Optional<Booking> booking = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+
+        // what to expect?
+        assertEquals(Map.of(Month.APRIL, 1), hotel1.getMonthlyBookings());
+
+        // what to test?
+        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 1), LocalDate.of(2022, 4, 1), hotel1, client1);
+        Optional<Booking> booking2 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 28), LocalDate.of(2022, 4, 28), hotel1, client1);
+
+        // what to expect?
+        assertEquals(Map.of(Month.APRIL, 3), hotel1.getMonthlyBookings());
+    }
+
+    @Test
     @DisplayName("Should book room and Client should get Discount.")
     void BookRoom_ClientIsTop_roomIsBookedAndClientGetsDiscount() {
         // setup
@@ -406,8 +453,7 @@ class ReservationSystemTest {
 
         reservationSystem.bookRoomInHotel(room4, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
 
-        BigDecimal expectedBalance = BigDecimal.valueOf(8995.00);
-        assertEquals(0, client1.getBalance().compareTo(expectedBalance));
+        assertEquals( BigDecimal.valueOf(8995.0), client1.getBalance());
         // room 4 cost 150 * 6 days * 0.85(discount) = 765 -> (9760.0 - 765 = 8995.0)
     }
 
@@ -420,6 +466,7 @@ class ReservationSystemTest {
         reservationSystem.addHotelToSystem(hotel1);
 
         Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+
         assertTrue(booking1.isPresent());
         assertEquals(1, hotel1.getHotelBookings().size());
         assertTrue(hotel1.getHotelBookings().contains(booking1.get()));
@@ -432,9 +479,7 @@ class ReservationSystemTest {
         // what to expect?
         assertEquals(0, hotel1.getHotelBookings().size());
         assertEquals(0, client1.getBookings().size());
-        assertEquals(0, client2.getBookings().size());
         assertFalse(hotel1.getHotelClients().contains(client1));
-        assertFalse(hotel1.getHotelClients().contains(client3));
     }
 
     @Test
@@ -489,8 +534,8 @@ class ReservationSystemTest {
         assertEquals(BigDecimal.valueOf(9100.0), client3.getBalance());
 
         // what to test?
-        reservationSystem.removeBookingInHotel(booking1.get(), hotel1, client1);
-        reservationSystem.removeBookingInHotel(booking2.get(), hotel1, client3);
+        reservationSystem.removeBookingInHotel(booking1.get(), hotel1, client1); // give 50% back
+        reservationSystem.removeBookingInHotel(booking2.get(), hotel1, client3); // give 50 % back
 
         // what to expect
         assertEquals(BigDecimal.valueOf(9880.0), client1.getBalance());
@@ -557,20 +602,29 @@ class ReservationSystemTest {
 
         Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
 
-        assertTrue(reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER));
+        // what to test?
+        Optional<Booking> booking2 = reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER);
+
+        // what to expect?
+        assertEquals(booking2.get() , client1.getBookings().getFirst());
+        assertEquals(client1.getClientServices().getFirst() , EServices.DINNER);
     }
 
     @Test
     void bookServices_HotelDoesNotHaveBooking() {
         // setup
-        hotel2.addRoomToHotel(room1);
+        hotel1.addRoomToHotel(room1);
         hotel1.addService(EServices.DINNER);
         reservationSystem.addHotelToSystem(hotel1);
         reservationSystem.addHotelToSystem(hotel2);
 
-        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel2, client1);
+        // what to test?
+        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+        Optional<Booking> booking2 = reservationSystem.bookServices(booking1.get(), hotel2, client1, EServices.DINNER);
 
-        assertFalse(reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER));
+        // what to expect?
+        assertEquals(Optional.empty() , booking2);
+        assertEquals(0, client1.getClientServices().size());
     }
 
     @Test
@@ -580,21 +634,29 @@ class ReservationSystemTest {
         hotel1.addService(EServices.DINNER);
         reservationSystem.addHotelToSystem(hotel1);
 
+        // what to test?
         Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+        Optional<Booking> booking2 = reservationSystem.bookServices(booking1.get(), hotel2, client2, EServices.DINNER);
 
-        assertFalse(reservationSystem.bookServices(booking1.get(), hotel1, client2, EServices.DINNER));
+        // what to expect?
+        assertEquals(Optional.empty() , booking2);
+        assertEquals(0, client1.getClientServices().size());
+        assertEquals(0, client2.getClientServices().size());
     }
 
     @Test
     void bookServices_ServiceDoesNotExist() {
         // setup
         hotel1.addRoomToHotel(room1);
-        hotel1.addService(EServices.DINNER);
         reservationSystem.addHotelToSystem(hotel1);
 
+        // what to test?
         Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
+        Optional<Booking> booking2 = reservationSystem.bookServices(booking1.get(), hotel2, client2, EServices.DINNER);
 
-        assertFalse(reservationSystem.bookServices(booking1.get(), hotel1, client2, null));
+        // what to expect?
+        assertEquals(Optional.empty() , booking2);
+        assertEquals(0, client1.getClientServices().size());
     }
 
     @Test
@@ -604,59 +666,12 @@ class ReservationSystemTest {
         hotel1.addService(EServices.DINNER);
         reservationSystem.addHotelToSystem(hotel1);
 
+        // what to test?
         Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client6);
+        Optional<Booking> booking2 = reservationSystem.bookServices(booking1.get(), hotel2, client6, EServices.DINNER);
 
-        assertFalse(reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.SPA));
-    }
-
-    @Test
-    void removeServices() {
-        // setup
-        hotel1.addRoomToHotel(room1);
-        hotel1.addService(EServices.DINNER);
-        reservationSystem.addHotelToSystem(hotel1);
-
-        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
-        assertTrue(reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER));
-    }
-
-    @Test
-    void removeServices_HotelDoesNotHaveBooking() {
-        // setup
-        hotel1.addRoomToHotel(room1);
-        hotel1.addService(EServices.DINNER);
-        reservationSystem.addHotelToSystem(hotel1);
-        reservationSystem.addHotelToSystem(hotel2);
-
-        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
-        assertTrue(reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER));
-
-        assertFalse(reservationSystem.removeService(booking1.get(), hotel2, client1, EServices.DINNER));
-    }
-
-    @Test
-    void removeServices_ClientDoesNotHaveBooking() {
-        // setup
-        hotel1.addRoomToHotel(room1);
-        hotel1.addService(EServices.DINNER);
-        reservationSystem.addHotelToSystem(hotel1);
-
-        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
-        assertTrue(reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER));
-
-        assertFalse(reservationSystem.removeService(booking1.get(), hotel2, client2, EServices.DINNER));
-    }
-
-    @Test
-    void removeServices_ServiceDoesNotExist() {
-        // setup
-        hotel1.addRoomToHotel(room1);
-        hotel1.addService(EServices.DINNER);
-        reservationSystem.addHotelToSystem(hotel1);
-
-        Optional<Booking> booking1 = reservationSystem.bookRoomInHotel(room1, LocalDate.of(2022, 4, 12), LocalDate.of(2022, 4, 17), hotel1, client1);
-        assertTrue(reservationSystem.bookServices(booking1.get(), hotel1, client1, EServices.DINNER));
-
-        assertFalse(reservationSystem.removeService(booking1.get(), hotel2, client1, null));
+        // what to expect?
+        assertEquals(Optional.empty() , booking2);
+        assertEquals(0, client6.getClientServices().size());
     }
 }

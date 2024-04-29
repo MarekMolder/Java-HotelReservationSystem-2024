@@ -44,8 +44,7 @@ public class MonthDiscountStrategyTest {
     }
 
     @Test
-    @DisplayName("Should book a room.")
-    void BookRoom_MonthDiscountStrategy_zeroAndOneBooking() {
+    void BookRoom_MonthDiscountStrategy_zeroAndOneBookingIsMade() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -72,8 +71,7 @@ public class MonthDiscountStrategyTest {
     }
 
     @Test
-    @DisplayName("Should book a room.")
-    void BookRoom_MonthDiscountStrategy_TwoAndThreeBooking() {
+    void BookRoom_MonthDiscountStrategy_TwoAndThreeBookingIsMade() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -102,8 +100,7 @@ public class MonthDiscountStrategyTest {
     }
 
     @Test
-    @DisplayName("Should book a room.")
-    void BookRoom_MonthDiscountStrategy_FourAndFiveBooking() {
+    void BookRoom_MonthDiscountStrategy_FourAndFiveBookingIsMade() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -132,8 +129,7 @@ public class MonthDiscountStrategyTest {
     }
 
     @Test
-    @DisplayName("Should book a room.")
-    void BookRoom_MonthDiscountStrategy_6And7Booking() {
+    void BookRoom_MonthDiscountStrategy_SixAndSevenBookingIsMade() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -162,8 +158,7 @@ public class MonthDiscountStrategyTest {
     }
 
     @Test
-    @DisplayName("Should book a room.")
-    void BookRoom_MonthDiscountStrategy_8And9Booking() {
+    void BookRoom_MonthDiscountStrategy_EightAndNineBookingIsMade() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -192,8 +187,7 @@ public class MonthDiscountStrategyTest {
     }
 
     @Test
-    @DisplayName("Should book a room.")
-    void BookRoom_MonthDiscountStrategy_10plusBooking() {
+    void BookRoom_MonthDiscountStrategy_TenPlusBookingIsMade() {
         // setup
         hotel1.addRoomToHotel(room1);
         reservationSystem.addHotelToSystem(hotel1);
@@ -222,8 +216,7 @@ public class MonthDiscountStrategyTest {
     }
 
     @Test
-    @DisplayName("Should book a room.")
-    void BookRoom_MonthDiscountStrategy_clientDiscountAlso() {
+    void BookRoom_MonthDiscountStrategy_PlusClientGetHotelDiscount() {
         // setup
         hotel1.addRoomToHotel(room1);
 

@@ -7,7 +7,6 @@ import ee.taltech.iti0202.hotel.review.Review;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.security.Provider;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,25 +33,34 @@ public class Client {
         this.clientServices = new ArrayList<>();
     }
 
-    public List<EServices> getClientServices() {
-        return clientServices;
+    /**
+     * This method is used to get client balance.
+     * Rounded to one decimal place using the half-up rounding mode.
+     * @return The client balance.
+     */
+    public BigDecimal getBalance() {
+        return balance.setScale(1, RoundingMode.HALF_UP);
     }
 
-    public int getClientServiceArithmetic() {
-        int sum = 0;
+    /**
+     * This method is used to subtract specific amount from the client's balance.
+     * @param amount value to be subtracted from the balance.
+     */
+    public void subtractBalance(BigDecimal amount) {
+        balance = balance.subtract(amount);
+    }
 
-        if (!clientServices.isEmpty()) {
-            for (EServices service : clientServices) {
-                sum += service.getPrice();
-            }
-            return sum / clientServices.size();
-        }
-        return 0;
+    /**
+     * This method is used to add specific amount to the clientś balance.
+     * @param amount value to be added to the balance.
+     */
+    public void addBalance(BigDecimal amount) {
+        balance = balance.add(amount);
     }
 
     /**
      * This method is used to get client written reviews.
-     * @return The map containing client reviews.
+     * @return List containing client reviews.
      */
     public List<Review> getReviews() {
         return this.clientReviews;
@@ -67,21 +75,42 @@ public class Client {
     }
 
     /**
-     * The method is used to get client balance.
-     *
-     * @return The client balance.
+     * This method is used to get client services.
+     * @return The list containing client services.
      */
-    public BigDecimal getBalance() {
-        return balance.setScale(1, RoundingMode.HALF_UP);
+    public List<EServices> getClientServices() {
+        return clientServices;
     }
 
+    /**
+     * This method is used to get arithmetic of how much has client spend on services.
+     * @return The arithmetic of how much has client spend on services.
+     */
+    public double getClientServiceArithmetic() {
+        double sum = 0.0;
 
-    public void subtractBalance(BigDecimal price) {
-        balance = balance.subtract(price);
+        if (!clientServices.isEmpty()) {
+            for (EServices service : clientServices) {
+                sum += service.getPrice();
+            }
+            return Math.round((sum / clientServices.size()) * 10) / 10.0;
+        }
+        return 0.0;
     }
 
-    public void addBalance(BigDecimal price) {
-        balance = balance.add(price);
+    /**
+     * This method is used to update client's booking.
+     * @param oldBooking the old booking which will be updated.
+     * @param newBooking the new booking which will be added.
+     * @return true if booking update was successful, false otherwise.
+     */
+    public boolean updateBooking(Booking oldBooking, Booking newBooking) {
+        int index = clientBookings.indexOf(oldBooking);
+        if (index != -1) {
+            clientBookings.set(index, newBooking);
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -104,15 +133,4 @@ public class Client {
         return false;
     }
 
-    public boolean updateBooking(Booking oldBooking, Booking newBooking) {
-        if (clientBookings.contains(oldBooking)) {
-            for (Booking booking : clientBookings) {
-                if (booking.equals(oldBooking)) {
-                    booking = newBooking;
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 }

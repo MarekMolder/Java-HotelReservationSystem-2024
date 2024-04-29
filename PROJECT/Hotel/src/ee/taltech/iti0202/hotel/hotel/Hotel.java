@@ -23,19 +23,29 @@ import java.util.stream.Collectors;
 public class Hotel {
 
     private final ECountryAndCitys country;
+    // Country where hotel is situated
     private final String city;
+    // City where hotel is situated
     private final HashMap<EServices, Integer> hotelServices;
-    private Set<Room> hotelRooms = new HashSet<>(); //a set of the rooms in hotel
-    private Set<Client> hotelClients = new HashSet<>(); //a set of the clients in hotel
+    // a map of services and their prices that hotel provides
+    private Set<Room> hotelRooms = new HashSet<>();
+    // a set of the rooms in hotel
+    private Set<Client> hotelClients = new HashSet<>();
+    // a set of the clients in hotel
     private Map<Client, Integer> hotelClientBookings = new HashMap<>();
     // a map of clients to the number of bookings they have made at the hotel
     private Map<Client, Review> hotelReviews = new HashMap<>();
     // a map of clients and reviews they have made to hotel
-    private Set<Booking> hotelBookings = new HashSet<>(); // a set of the bookings
+    private List<Booking> hotelBookings = new ArrayList<>();
+    // a set of the bookings
     private Map<Month, Integer> monthlyBookings = new HashMap<>();
+    // a map of monthly bookings
 
-
-
+    /**
+     * Constructs a new hotel with country and city.
+     * @param country country where hotel is situated.
+     * @param city city where hotel is situated.
+     */
     public Hotel(ECountryAndCitys country, String city) {
         this.country = country;
         this.city = city;
@@ -43,23 +53,29 @@ public class Hotel {
         this.hotelClients = new HashSet<>();
         this.hotelClientBookings = new HashMap<>();
         this.hotelReviews = new HashMap<>();
-        this.hotelBookings = new HashSet<>();
+        this.hotelBookings = new ArrayList<>();
         this.hotelServices = new HashMap<>();
         this.monthlyBookings = new HashMap<>();
     }
 
+    /**
+     * This method is used to get hotel country.
+     * @return country where hotel is situated.
+     */
     public ECountryAndCitys getHotelCountry() {
         return country;
     }
 
+    /**
+     * This method is used to get hotel city.
+     * @return city where hotel is situated.
+     */
     public String getHotelCity() {
         return city;
     }
 
-
     /**
      * This method is used to get rooms in a hotel
-     *
      * @return A set of rooms in hotel.
      */
     public Set<Room> getHotelRooms() {
@@ -68,7 +84,6 @@ public class Hotel {
 
     /**
      * This method is used to get clients in a hotel.
-     *
      * @return A set of clients in hotel.
      */
     public Set<Client> getHotelClients() {
@@ -77,7 +92,6 @@ public class Hotel {
 
     /**
      * This method is used to get map of clients and number of their bookings.
-     *
      * @return A map of clients and number of their bookings.
      */
     public Map<Client, Integer> getHotelClientBookings() {
@@ -86,7 +100,6 @@ public class Hotel {
 
     /**
      * The method is used to get a map of clients and their reviews.
-     *
      * @return A map of clients and their reviews.
      */
     public Map<Client, Review> getHotelReviews() {
@@ -95,28 +108,38 @@ public class Hotel {
 
     /**
      * This method is used to get a set of bookings in hotel.
-     *
      * @return A set of bookings.
      */
-    public Set<Booking> getHotelBookings() {
+    public List<Booking> getHotelBookings() {
         return hotelBookings;
     }
 
+    /**
+     * This method is used to add service in to the hotel.
+     * @param service service to be added.
+     */
     public void addService(EServices service) {
         hotelServices.put(service, service.getPrice());
     }
 
+    /**
+     * This method is used to get all services that hotel provides.
+     * @return services that hotel provides.
+     */
     public HashMap<EServices, Integer> getServices() {
         return hotelServices;
     }
 
+    /**
+     * This method is used to get monthly bookings.
+     * @return monthly bookings.
+     */
     public Map<Month, Integer> getMonthlyBookings() {
         return monthlyBookings;
     }
 
     /**
      * This method is used to add room to hotel.
-     *
      * @param room The room to be added in hotel.
      * @return True if the room is not in another hotel, otherwise false.
      */
@@ -132,7 +155,6 @@ public class Hotel {
 
     /**
      * This method is used to get an arithmetic of the score.
-     *
      * @return Arithmetic score.
      */
     public Double getReviewsArithmeticScore() {
@@ -152,7 +174,6 @@ public class Hotel {
 
     /**
      * This method is used to Look up free rooms of a specific type within a given date range.
-     *
      * @param room  The type of room to be looked up.
      * @param since The start date of the booking period.
      * @param until The end date of the booking period.
@@ -170,7 +191,6 @@ public class Hotel {
 
     /**
      * This method is used to look up free rooms within a given date range.
-     *
      * @param since The start date of the booking period.
      * @param until The end date of the booking period
      * @return A set of rooms that are available within the specific date range.
@@ -185,6 +205,11 @@ public class Hotel {
         return hotelSearchRoom;
     }
 
+    /**
+     * This method is used to look up free rooms within a given day of the week.
+     * @param day day of the week to be looked up
+     * @return A set of rooms that are available within the specific day of the week.
+     */
     public Set<Room> lookUpFreeRoomDay(DayOfWeek day) {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotelRooms) {
@@ -197,7 +222,6 @@ public class Hotel {
 
     /**
      * This method is used to look up if specific room is available within a given date range.
-     *
      * @param since The start date of the booking period.
      * @param until The end date of the booking period.
      * @param room  The room to be looked up
@@ -221,7 +245,6 @@ public class Hotel {
 
     /**
      * This method is used to look up if specific room is available within a given date range.
-     *
      * @param room  The room to be looked up
      * @return True if the room is available, otherwise false.
      */
@@ -243,7 +266,6 @@ public class Hotel {
 
     /**
      * This method is used to retrieve a list of dates within the specific range.
-     *
      * @param since The start date of the range.
      * @param until The end date of the range.
      * @return A list of dates within the specific range.
@@ -258,9 +280,9 @@ public class Hotel {
     }
 
     /**
-     * This method is used to Sort clients based on their booking count and review scores.
-     *
-     * @return A list of clients sorted in descending order by their booking count and then by their review scores.
+     * This method is used to Sort clients based on their booking count, review scores and arithmetic cost of services.
+     * @return A list of clients sorted in descending order by their booking count, then by their review scores
+     * and then by their arithmetic cost of services.
      */
     public List<Client> sortClients() {
         return hotelClientBookings.entrySet().stream()
@@ -273,16 +295,21 @@ public class Hotel {
                             return Integer.compare(score2, score1);
                         })
                         .thenComparing((e1, e2) -> {
-                                    Integer score1 = hotelClients.contains(e1) ?
-                                            e1.getKey().getClientServiceArithmetic() : 0;
-                                    Integer score2 = hotelClients.contains(e2) ?
-                                            e2.getKey().getClientServiceArithmetic() : 0;
-                                    return Integer.compare(score2, score1);
+                                    double score1 = hotelClients.contains(e1) ?
+                                            e1.getKey().getClientServiceArithmetic() : 0.0;
+                                    double score2 = hotelClients.contains(e2) ?
+                                            e2.getKey().getClientServiceArithmetic() : 0.0;
+                                    return Double.compare(score2, score1);
                         }))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
     }
 
+    /**
+     * This method is used to give discount for top 3 client.
+     * @param client client who will get discount.
+     * @return discount %.
+     */
     public double getDiscount(Client client) {
         if (this.getHotelClients().size() >= 3) {
             List<Client> sort = sortClients().subList(0, 3);
@@ -295,5 +322,20 @@ public class Hotel {
             }
         }
         return 0;
+    }
+
+    /**
+     * This method is used when client is buying services then it updates hotel booking.
+     * @param oldBooking old booking to be updated.
+     * @param newBooking new booking to be added.
+     * @return true if updating booking was successful, otherwise false.
+     */
+    public boolean updateBooking(Booking oldBooking, Booking newBooking) {
+        int index = hotelBookings.indexOf(oldBooking);
+        if (index != -1) {
+            hotelBookings.set(index, newBooking);
+            return true;
+        }
+        return false;
     }
 }

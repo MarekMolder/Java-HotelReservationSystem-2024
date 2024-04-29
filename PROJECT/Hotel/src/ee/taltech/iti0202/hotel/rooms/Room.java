@@ -8,19 +8,11 @@ import java.math.BigDecimal;
  * Represents a room which will be added in hotel.
  */
 public class Room {
-    private static final BigDecimal PRICE = BigDecimal.valueOf(40); // Room price
+    private static final BigDecimal PRICE = BigDecimal.valueOf(40); // Room price (BigDecimal.valueOf 40)
     private static int nextRoomNumber = 1; // A unique number for every room
     private final int number; // A unique number for room
-    BigDecimal price; // The room price
+    BigDecimal price; // The room price (BigDecimal)
     private Hotel hotel; // The hotel where the room is added
-
-    /**
-     * This method is used to give every room a unique number.
-     * @return a unique number.
-     */
-    private static int getAndIncrementNextRoomNumber() {
-        return nextRoomNumber++;
-    }
 
     /**
      * Constructs a room with a unique number and price (100).
@@ -29,6 +21,14 @@ public class Room {
         this.number = getAndIncrementNextRoomNumber();
         this.price = PRICE;
         this.hotel = null;
+    }
+
+    /**
+     * This method is used to give every room a unique number.
+     * @return a unique number.
+     */
+    private static int getAndIncrementNextRoomNumber() {
+        return nextRoomNumber++;
     }
 
     /**
@@ -77,5 +77,4 @@ public class Room {
     public void setPrice(BigDecimal amount) {
         this.price = amount;
     }
-
 }
