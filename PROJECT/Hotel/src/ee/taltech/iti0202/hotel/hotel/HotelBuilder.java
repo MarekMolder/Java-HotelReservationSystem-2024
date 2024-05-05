@@ -15,7 +15,8 @@ public class HotelBuilder {
     }
 
     /**
-     * Sets the city for the hotel being built. The city is validated against the list of valid cities for the specified country.
+     * Sets the city for the hotel being built.
+     * The city is validated against the list of valid cities for the specified country.
      * If the city is not valid, an error message is printed and the city is not set.
      * @param city the city to set for this hotel
      * @return this builder instance for chaining method calls
