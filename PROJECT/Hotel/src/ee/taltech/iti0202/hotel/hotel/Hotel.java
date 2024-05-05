@@ -22,6 +22,9 @@ import java.util.stream.Collectors;
  */
 public class Hotel {
 
+    public static final double FIFTEEN = 0.15;
+    public static final double TEN = 0.1;
+    public static final double FIVE = 0.05;
     private final ECountryAndCitys country;
     // Country where hotel is situated
     private final String city;
@@ -288,18 +291,20 @@ public class Hotel {
         return hotelClientBookings.entrySet().stream()
                 .sorted(Map.Entry.<Client, Integer>comparingByValue().reversed()
                         .thenComparing((e1, e2) -> {
-                            Integer score1 = hotelReviews.containsKey(e1.getKey()) ?
-                                    hotelReviews.get(e1.getKey()).getScore() : 0;
-                            Integer score2 = hotelReviews.containsKey(e2.getKey()) ?
-                                    hotelReviews.get(e2.getKey()).getScore() : 0;
+                            Integer score1 = hotelReviews.containsKey(e1.getKey())
+                                    ? hotelReviews.get(e1.getKey()).getScore() : 0;
+                            Integer score2 = hotelReviews.containsKey(e2.getKey())
+                                    ? hotelReviews.get(e2.getKey()).getScore() : 0;
                             return Integer.compare(score2, score1);
                         })
-                        .thenComparing((e1, e2) -> {
-                                    double score1 = hotelClients.contains(e1) ?
-                                            e1.getKey().getClientServiceArithmetic() : 0.0;
-                                    double score2 = hotelClients.contains(e2) ?
-                                            e2.getKey().getClientServiceArithmetic() : 0.0;
-                                    return Double.compare(score2, score1);
+                        .thenComparing((entry1, entry2) -> {
+                            Client client1 = entry1.getKey();
+                            Client client2 = entry2.getKey();
+                            double score1 = hotelClients.contains(client1)
+                                    ? client1.getClientServiceArithmetic() : 0.0;
+                            double score2 = hotelClients.contains(client2)
+                                    ? client2.getClientServiceArithmetic() : 0.0;
+                            return Double.compare(score2, score1);
                         }))
                 .map(Map.Entry::getKey)
                 .collect(Collectors.toList());
@@ -314,11 +319,11 @@ public class Hotel {
         if (this.getHotelClients().size() >= 3) {
             List<Client> sort = sortClients().subList(0, 3);
             if (sort.getFirst().equals(client)) {
-                return 0.15;
+                return FIFTEEN;
             } else if (sort.get(1).equals(client)) {
-                return 0.1;
+                return TEN;
             } else if (sort.get(2).equals(client)) {
-                return 0.05;
+                return FIVE;
             }
         }
         return 0;

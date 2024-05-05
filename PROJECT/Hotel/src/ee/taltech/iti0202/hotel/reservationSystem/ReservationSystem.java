@@ -17,6 +17,7 @@ import java.util.Set;
 
 public class ReservationSystem {
 
+    public static final double ZERO_POINT_FIVE = 0.5;
     private DiscountStrategy strategy;
     private Set<Hotel> hotels = new HashSet<>(); //a set of hotels in reservation system
 
@@ -158,7 +159,8 @@ public class ReservationSystem {
         Set<Room> hotelSearchRoom = new LinkedHashSet<>();
         for (Room suit : hotel.getHotelRooms()) {
             if (hotel.getHotelClients().size() >= 3) {
-                if (suit.getPrice().multiply(BigDecimal.valueOf(1 - (hotel.getDiscount(client)))).compareTo(price) <= 0) {
+                if (suit.getPrice().multiply(BigDecimal
+                        .valueOf(1 - (hotel.getDiscount(client)))).compareTo(price) <= 0) {
                     hotelSearchRoom.add(suit);
                 }
             } else {
@@ -185,7 +187,8 @@ public class ReservationSystem {
 
             double hotelDiscount = hotel.getDiscount(client);
             double reservationSystemDiscount = getDiscount(hotel, since, until);
-            BigDecimal roomPrice = room.getPrice().multiply(BigDecimal.valueOf(hotel.getDatesInRange(since, until).size()));
+            BigDecimal roomPrice = room.getPrice()
+                    .multiply(BigDecimal.valueOf(hotel.getDatesInRange(since, until).size()));
 
             BigDecimal price = roomPrice.multiply(BigDecimal.valueOf(1 - (hotelDiscount + reservationSystemDiscount)));
 
@@ -222,8 +225,9 @@ public class ReservationSystem {
 
                 client.getBookings().remove(booking);
                 hotel.getHotelBookings().remove(booking);
-                client.addBalance(booking.getPrice().multiply(BigDecimal.valueOf(0.5)));
-                if (hotel.getHotelClientBookings().containsKey(client) && hotel.getHotelClientBookings().get(client) > 1) {
+                client.addBalance(booking.getPrice().multiply(BigDecimal.valueOf(ZERO_POINT_FIVE)));
+                if (hotel.getHotelClientBookings().containsKey(client)
+                        && hotel.getHotelClientBookings().get(client) > 1) {
                     hotel.getHotelClientBookings().merge(client, 1, Integer::min);
                     return true;
                 } else {

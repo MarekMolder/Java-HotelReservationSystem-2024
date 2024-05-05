@@ -4,7 +4,10 @@ import ee.taltech.iti0202.hotel.hotel.Hotel;
 
 import java.time.LocalDate;
 
-public class BothDiscountStrategy implements DiscountStrategy{
+public class BothDiscountStrategy implements DiscountStrategy {
+
+    public static final double FORTY = 0.4;
+
     @Override
     public double getDiscount(Hotel hotel, LocalDate since, LocalDate until) {
         DiscountStrategy monthStrategy = new MonthDiscountStrategy();
@@ -15,6 +18,6 @@ public class BothDiscountStrategy implements DiscountStrategy{
         double discount2 = timeStrategy.getDiscount(hotel, since, until);
         finalDiscount += discount + discount2;
 
-        return Math.min(finalDiscount, 0.4);
+        return Math.min(finalDiscount, FORTY);
     }
 }

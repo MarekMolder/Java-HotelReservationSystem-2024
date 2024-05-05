@@ -7,7 +7,6 @@ import ee.taltech.iti0202.hotel.rooms.Room;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.List;
 
