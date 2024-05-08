@@ -71,19 +71,17 @@ public class SchoolDatabase {
                 .findFirst();
         if (school.isPresent()) {
             List<Student> students = school.get().getStudents();
+
             Gson gson = new GsonBuilder().registerTypeAdapter(Student.class, new JsonSerializer<Student>() {
                 @Override
-                public JsonElement serialize(Student student, Type typeOfSrc, JsonSerializationContext context) {
-                    JsonObject jsonObject = new JsonObject();
-                    jsonObject.addProperty("id", student.getId());
-                    jsonObject.addProperty("name", student.getName());
-                    if (student.getGrades() != null && !student.getGrades().isEmpty()) {
-                        JsonElement gradesJson = context.serialize(student.getGrades());
-                        jsonObject.add("grades", gradesJson);
-                    }
-                    return jsonObject;
+                public JsonElement serialize(Student src, Type typeOfSrc, JsonSerializationContext context) {
+                    JsonObject result = new JsonObject();
+                    result.addProperty("id", src.getId());
+                    result.addProperty("name", src.getName());
+                    return result;
                 }
             }).create();
+
             return gson.toJson(students);
         }
         return "404";
