@@ -70,7 +70,6 @@ public class SchoolDatabase {
                 .findFirst();
         if (school.isPresent()) {
             List<Student> students = school.get().getStudents();
-            students.forEach(student -> student.getGrades().clear());
             return new Gson().toJson(students);
         }
         return "404";
