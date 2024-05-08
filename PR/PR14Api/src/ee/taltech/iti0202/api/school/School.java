@@ -35,7 +35,7 @@ public class School {
 
     /**
      * Method to get students from school.
-     * @return
+     * @return list of students
      */
     public List<Student> getStudents() {
         return this.students;
@@ -43,7 +43,7 @@ public class School {
 
     /**
      * Method to get name of the school.
-     * @return
+     * @return name
      */
     public String getName() {
         return this.name;

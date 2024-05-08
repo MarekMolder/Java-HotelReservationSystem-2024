@@ -16,7 +16,7 @@ public class Grade {
 
     /**
      * Method to get grade.
-     * @return
+     * @return grade
      */
     public int getGrade() {
         return grade;
@@ -24,7 +24,7 @@ public class Grade {
 
     /**
      * Method to get assignment.
-     * @return
+     * @return assignment
      */
     public String getAssignment() {
         return assignment;

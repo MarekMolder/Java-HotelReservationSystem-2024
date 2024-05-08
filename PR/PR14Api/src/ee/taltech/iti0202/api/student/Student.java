@@ -33,7 +33,7 @@ public class Student {
 
     /**
      * Method to get name
-     * @return
+     * @return name
      */
     public String getName() {
         return this.name;
@@ -41,7 +41,7 @@ public class Student {
 
     /**
      * Method get id
-     * @return
+     * @return id
      */
     public int getId() {
         return this.id;
@@ -49,7 +49,7 @@ public class Student {
 
     /**
      * Method to get grades
-     * @return
+     * @return grades
      */
     public List<Grade> getGrades() {
         return this.grades;

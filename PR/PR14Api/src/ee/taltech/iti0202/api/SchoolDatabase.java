@@ -25,6 +25,10 @@ public class SchoolDatabase {
     //DO NOT CHANGE
     public List<School> schools = new ArrayList<>();
 
+    /**
+     * School data base
+     * @param jsonContent
+     */
     public SchoolDatabase(String jsonContent) {
         //DO NOT CHANGE
         loadDatabase(jsonContent);
