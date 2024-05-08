@@ -1,15 +1,14 @@
 package ee.taltech.iti0202.api;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import ee.taltech.iti0202.api.school.School;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.*;
 
 import ee.taltech.iti0202.api.student.Grade;
 import ee.taltech.iti0202.api.student.Student;
-import org.json.JSONArray;
-import org.json.JSONObject;
+
 
 public class SchoolDatabase {
 
@@ -22,37 +21,14 @@ public class SchoolDatabase {
     }
 
     private void loadDatabase(String jsonContent) {
-        JSONArray schools = new JSONArray(jsonContent);
-        int highestId = 0;
+        Gson gson = new Gson();
+        schools = gson.fromJson(jsonContent, new TypeToken<List<School>>() {}.getType());
 
-        for (int i = 0; i < schools.length(); i++) {
-            JSONObject schoolObj = schools.getJSONObject(i);
-
-            String schoolName = schoolObj.getString("name");
-            JSONArray studentsArray = schoolObj.getJSONArray("students");
-
-            List<Student> studentList = new ArrayList<>();
-
-            for (int j = 0; j < studentsArray.length(); j++) {
-                JSONObject studentObj = studentsArray.getJSONObject(j);
-                int id = studentObj.getInt("id");
-                highestId = Math.max(highestId, id);
-                String studentName = studentObj.getString("name");
-                JSONArray gradesArray = studentObj.getJSONArray("grades");
-                List<Grade> gradeList = new ArrayList<>();
-
-                for (int k = 0; k < gradesArray.length(); k++) {
-                    JSONObject gradeObj = gradesArray.getJSONObject(k);
-                    int grade = gradeObj.getInt("grade");
-                    String assignment = gradeObj.getString("assignment");
-                    gradeList.add(new Grade(grade, assignment));
-                }
-                studentList.add(new Student(studentName));
-            }
-            this.schools.add(new School(schoolName));
-        }
-
-        Student.nextId = highestId + 1;
+        int maxId = schools.stream()
+                .flatMap(school -> school.getStudents().stream())
+                .mapToInt(Student::getId)
+                .max().orElse(0);
+        Student.nextId = maxId + 1;
     }
 
     /**
@@ -65,68 +41,45 @@ public class SchoolDatabase {
      * @return - result, if there is no result, return 404 in string
      */
     public String get(String path) {
-        try {
-            URI uri = new URI(path);
-            String query = uri.getQuery();
-            String[] queryParams = query != null ? query.split("&") : new String[0];
-            Map<String, String> params = new HashMap<>();
-            for (String param : queryParams) {
-                String[] keyValuePair = param.split("=");
-                if (keyValuePair.length == 2) {
-                    params.put(keyValuePair[0], keyValuePair[1]);
-                }
-            }
-
-            switch (uri.getPath()) {
-                case "/student/grades":
-                    return getStudentGrades(params.get("studentId"));
-                case "/school/students":
-                    return getSchoolStudents(params.get("schoolName"));
-                case "/schools":
-                    return getAllSchoolNames();
-                default:
-                    return "404";
-            }
-        } catch (URISyntaxException e) {
-            return "404";
+        if (path.startsWith("/student/grades")) {
+            return getStudentGrades(path);
+        } else if (path.startsWith("/school/students")) {
+            return getSchoolStudents(path);
+        } else if (path.equals("/schools")) {
+            return getAllSchools();
         }
+        return "404";
     }
 
-    private String getStudentGrades(String studentId) {
-        int id = Integer.parseInt(studentId);
+    private String getStudentGrades(String path) {
+        int studentId = Integer.parseInt(path.split("studentId=")[1]);
         for (School school : schools) {
             for (Student student : school.getStudents()) {
-                if (student.getId() == id) {
-                    JSONArray gradesJson = new JSONArray(student.getGrades());
-                    return gradesJson.toString();
+                if (student.getId() == studentId) {
+                    return new Gson().toJson(student.getGrades());
                 }
             }
         }
         return "404";
     }
 
-    private String getSchoolStudents(String schoolName) {
-        JSONArray studentsJson = new JSONArray();
-        for (School school : schools) {
-            if (school.getName().equalsIgnoreCase(schoolName)) {
-                for (Student student : school.getStudents()) {
-                    JSONObject studentJson = new JSONObject();
-                    studentJson.put("id", student.getId());
-                    studentJson.put("name", student.getName());
-                    studentsJson.put(studentJson);
-                }
-                return studentsJson.toString();
-            }
+    private String getSchoolStudents(String path) {
+        String schoolName = path.split("schoolName=")[1];
+        Optional<School> school = schools.stream()
+                .filter(s -> s.getName().equals(schoolName))
+                .findFirst();
+        if (school.isPresent()) {
+            List<Student> students = school.get().getStudents();
+            students.forEach(student -> student.getGrades().clear());
+            return new Gson().toJson(students);
         }
         return "404";
     }
 
-    private String getAllSchoolNames() {
-        JSONArray schoolNames = new JSONArray();
-        for (School school : schools) {
-            schoolNames.put(school.getName());
-        }
-        return schoolNames.toString();
+    private String getAllSchools() {
+        List<String> schoolNames = new ArrayList<>();
+        schools.forEach(school -> schoolNames.add(school.getName()));
+        return new Gson().toJson(schoolNames);
     }
 
     /**
@@ -137,56 +90,61 @@ public class SchoolDatabase {
      * @return result, if post was successful or not, for example if school or student doesn't exist, should return false
      */
     public boolean post(String path) {
-        try {
-            URI uri = new URI(path);
-            String query = uri.getQuery();
-            Map<String, String> params = new HashMap<>();
-            if (query != null) {
-                for (String param : query.split("&")) {
-                    String[] parts = param.split("=");
-                    if (parts.length > 1) {
-                        params.put(parts[0], parts[1]);
-                    }
-                }
-            }
-
-            switch (uri.getPath()) {
-                case "/school/student":
-                    return addStudentToSchool(params.get("schoolName"), params.get("studentName"));
-                case "/student/grade":
-                    return addGradeToStudent(params.get("studentId"), params.get("grade"), params.get("gradeAssignment"));
-                default:
-                    return false;
-            }
-        } catch (URISyntaxException e) {
-            return false;
+        if (path.startsWith("/school/student")) {
+            return addStudentToSchool(path);
+        } else if (path.startsWith("/student/grade")) {
+            return addGradeToStudent(path);
         }
+        return false;
     }
 
-    private boolean addStudentToSchool(String schoolName, String studentName) {
-        if (schoolName == null || studentName == null) {
-            return false;
+    private Map<String, String> parseQueryString(String path) {
+        Map<String, String> queryParams = new HashMap<>();
+        String[] parts = path.split("\\?");
+        if (parts.length > 1) {
+            String queryPart = parts[1];
+            String[] params = queryPart.split("&");
+            for (String param : params) {
+                String[] keyValuePair = param.split("=");
+                if (keyValuePair.length > 1) {
+                    queryParams.put(keyValuePair[0], keyValuePair[1]);
+                }
+            }
         }
+        return queryParams;
+    }
+
+    private boolean addStudentToSchool(String path) {
+        Map<String, String> params = parseQueryString(path);
+        String schoolName = params.get("schoolName");
+        String studentName = params.get("studentName");
+
+        if (schoolName == null || studentName == null) return false;
+
         for (School school : schools) {
-            if (school.getName().equalsIgnoreCase(schoolName)) {
-                List<Student> students = school.getStudents();
-                int newId = Student.nextId++;
-                students.add(new Student(studentName));
+            if (school.getName().equals(schoolName)) {
+                Student newStudent = new Student(studentName);
+                school.addStudent(newStudent);
                 return true;
             }
         }
         return false;
     }
 
-    private boolean addGradeToStudent(String studentIdStr, String gradeStr, String gradeAssignment) {
+    private boolean addGradeToStudent(String path) {
+        Map<String, String> params = parseQueryString(path);
         try {
-            int studentId = Integer.parseInt(studentIdStr);
-            int gradeValue = Integer.parseInt(gradeStr);
+            int studentId = Integer.parseInt(params.get("studentId"));
+            int gradeValue = Integer.parseInt(params.get("grade"));
+            String assignment = params.get("gradeAssignment");
+
+            if (assignment == null) return false;
+
             for (School school : schools) {
                 for (Student student : school.getStudents()) {
                     if (student.getId() == studentId) {
-                        List<Grade> grades = student.getGrades();
-                        grades.add(new Grade(gradeValue, gradeAssignment));
+                        Grade newGrade = new Grade(gradeValue, assignment);
+                        student.addGrade(newGrade);
                         return true;
                     }
                 }
@@ -204,32 +162,20 @@ public class SchoolDatabase {
      * @return result, if put was successful or not, for example if student doesn't exist, should return false
      */
     public boolean put(String path) {
-        if (!path.startsWith("/student/name")) {
-            return false;
+        if (path.startsWith("/student/name")) {
+            return changeStudentName(path);
         }
+        return false;
+    }
 
+    private boolean changeStudentName(String path) {
+        Map<String, String> params = parseQueryString(path);
         try {
-            URI uri = new URI(path);
-            String query = uri.getQuery();
-            Map<String, String> params = new HashMap<>();
-
-            if (query != null) {
-                for (String param : query.split("&")) {
-                    String[] parts = param.split("=");
-                    if (parts.length > 1) {
-                        params.put(parts[0], parts[1]);
-                    }
-                }
-            }
-
-            String studentIdStr = params.get("studentId");
+            int studentId = Integer.parseInt(params.get("studentId"));
             String newName = params.get("name");
 
-            if (studentIdStr == null || newName == null) {
-                return false;
-            }
+            if (newName == null || newName.trim().isEmpty()) return false;
 
-            int studentId = Integer.parseInt(studentIdStr);
             for (School school : schools) {
                 for (Student student : school.getStudents()) {
                     if (student.getId() == studentId) {
@@ -238,11 +184,10 @@ public class SchoolDatabase {
                     }
                 }
             }
-
-            return false;
-        } catch (URISyntaxException | NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return false;
         }
+        return false;
     }
 
     /**
@@ -252,25 +197,21 @@ public class SchoolDatabase {
      * @return result, if delete was successful or not, for example if student doesn't exist, should return false
      */
     public boolean delete(String path) {
-        if (!path.startsWith("/student/")) {
-            return false;
+        if (path.startsWith("/student/")) {
+            return deleteStudent(path);
         }
+        return false;
+    }
 
-        String studentIdString = path.substring("/student/".length());
-        int studentId;
-        try {
-            studentId = Integer.parseInt(studentIdString);
-        } catch (NumberFormatException e) {
-            return false;
-        }
-
+    private boolean deleteStudent(String path) {
+        int studentId = Integer.parseInt(path.substring(path.lastIndexOf('/') + 1));
         for (School school : schools) {
-            for (Iterator<Student> iterator = school.getStudents().iterator(); iterator.hasNext();) {
-                Student student = iterator.next();
-                if (student.getId() == studentId) {
-                    iterator.remove();
-                    return true;
-                }
+            Optional<Student> studentOptional = school.getStudents().stream()
+                    .filter(student -> student.getId() == studentId)
+                    .findFirst();
+            if (studentOptional.isPresent()) {
+                school.removeStudent(studentOptional.get());
+                return true;
             }
         }
         return false;
