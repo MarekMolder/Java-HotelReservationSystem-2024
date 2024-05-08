@@ -1,11 +1,20 @@
 package ee.taltech.iti0202.api;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 import com.google.gson.reflect.TypeToken;
 import ee.taltech.iti0202.api.school.School;
 
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 import ee.taltech.iti0202.api.student.Grade;
 import ee.taltech.iti0202.api.student.Student;
@@ -23,7 +32,7 @@ public class SchoolDatabase {
 
     private void loadDatabase(String jsonContent) {
         Gson gson = new Gson();
-        schools = gson.fromJson(jsonContent, new TypeToken<List<School>>() {}.getType());
+        schools = gson.fromJson(jsonContent, new TypeToken<List<School>>() { }.getType());
 
         int maxId = schools.stream()
                 .flatMap(school -> school.getStudents().stream())
@@ -35,7 +44,8 @@ public class SchoolDatabase {
     /**
      * Endpoints (note, all results should be in json except the 404)
      * - /student/grades?studentId=studentId - get student's grades by id (return json array of grade classes)
-     * - /school/students?schoolName=schoolName - get all students in school by schoolNam (return all fields except grades in Student class)
+     * - /school/students?schoolName=schoolName -
+     * get all students in school by schoolNam (return all fields except grades in Student class)
      *  - /schools - return all school names (return json array of just school's names)
      *  If school name or student's id doesn't exist, return string 404
      * @param path - endpoint path
@@ -98,7 +108,8 @@ public class SchoolDatabase {
      * - /school/student?schoolName=schoolName&studentName=studentName - add new student to school
      * - /student/grade?studentId=studentId&grade=grade&gradeAssignment=assignment - add new grade to student
      * @param path - endpoint path
-     * @return result, if post was successful or not, for example if school or student doesn't exist, should return false
+     * @return result, if post was successful or not,
+     * for example if school or student doesn't exist, should return false
      */
     public boolean post(String path) {
         if (path.startsWith("/school/student")) {
