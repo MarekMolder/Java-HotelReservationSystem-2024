@@ -29,7 +29,7 @@ public class SchoolDatabase {
                 .flatMap(school -> school.getStudents().stream())
                 .mapToInt(Student::getId)
                 .max().orElse(0);
-        Student.nextId = maxId + 1;
+        Student.nextId = maxId;
     }
 
     /**
