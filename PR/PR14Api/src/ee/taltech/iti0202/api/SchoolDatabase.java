@@ -1,9 +1,10 @@
 package ee.taltech.iti0202.api;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import com.google.gson.reflect.TypeToken;
 import ee.taltech.iti0202.api.school.School;
 
+import java.lang.reflect.Type;
 import java.util.*;
 
 import ee.taltech.iti0202.api.student.Grade;
@@ -70,7 +71,20 @@ public class SchoolDatabase {
                 .findFirst();
         if (school.isPresent()) {
             List<Student> students = school.get().getStudents();
-            return new Gson().toJson(students);
+            Gson gson = new GsonBuilder().registerTypeAdapter(Student.class, new JsonSerializer<Student>() {
+                @Override
+                public JsonElement serialize(Student student, Type typeOfSrc, JsonSerializationContext context) {
+                    JsonObject jsonObject = new JsonObject();
+                    jsonObject.addProperty("id", student.getId());
+                    jsonObject.addProperty("name", student.getName());
+                    if (student.getGrades() != null && !student.getGrades().isEmpty()) {
+                        JsonElement gradesJson = context.serialize(student.getGrades());
+                        jsonObject.add("grades", gradesJson);
+                    }
+                    return jsonObject;
+                }
+            }).create();
+            return gson.toJson(students);
         }
         return "404";
     }
