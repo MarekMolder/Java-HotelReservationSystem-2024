@@ -13,8 +13,10 @@ public class User {
     }
 
     public void addPlaylist(Playlist playlist) {
-       if (!playlists.contains(playlist)) {
-           playlists.add(playlist);
+       for (Playlist p : playlists) {
+           if (!p.getName().equalsIgnoreCase(playlist.getName())) {
+               playlists.add(p);
+           }
        }
     }
 
