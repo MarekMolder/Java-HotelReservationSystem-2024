@@ -42,7 +42,7 @@ public class Playlist {
     }
 
     public List<Song> sortSongsAlphabetically() {
-        return songs.stream().sorted().collect(Collectors.toList());
+        return songs.stream().sorted(Comparator.comparing(Song::title)).collect(Collectors.toList());
     }
 
     public Song getLongestSong() {
