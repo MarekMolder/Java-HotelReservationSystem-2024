@@ -15,8 +15,15 @@ public class Playlist {
     }
 
     public void addSong(Song song) {
-        if (!this.songs.contains(song)) {
-            this.songs.add(song);
+        boolean found = false;
+        for (Song s : songs) {
+            if (s.title().equalsIgnoreCase(song.title()) && s.artist().equalsIgnoreCase(song.artist())) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            songs.add(song);
         }
     }
 
@@ -59,17 +66,16 @@ public class Playlist {
         if (i >= (60 * 60) && z == 0) {
             Integer time = i / 60;
             return time.toString() + "h";
-
         } else if (i >= (60 * 60) && z > 0) {
             Integer time = i / 60;
-            String string = time.toString() + "h";
+            String string = time.toString() + "h ";
             return string + z + "m";
         } else if (i < (60 * 60) && i > 60 &&  z == 0) {
             Integer time = i / 60;
             String string = time.toString() + "m";
         } else if (i < (60 * 60) && i > 60 && z > 0) {
             Integer time = i / 60;
-            String string = time.toString() + "m";
+            String string = time.toString() + "m ";
             return string + z + "s";
         } else if (i < 60 && z > 0) {
             return z + "s";

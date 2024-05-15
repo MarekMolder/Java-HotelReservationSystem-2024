@@ -13,7 +13,14 @@ public class User {
     }
 
     public void addPlaylist(Playlist playlist) {
-        if (!playlists.contains(playlist)) {
+        boolean found = false;
+        for (Playlist play : playlists) {
+            if (play.getName().equalsIgnoreCase(playlist.getName())) {
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
             playlists.add(playlist);
         }
     }

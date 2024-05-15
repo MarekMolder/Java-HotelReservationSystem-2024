@@ -4,7 +4,6 @@ public record Song(String title, String artist, int duration) {
 
     @Override
     public String toString() {
-        // TODO
         return "\"%s\" by %s".formatted(title, artist);
     }
 }
