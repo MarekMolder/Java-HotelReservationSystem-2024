@@ -43,8 +43,38 @@ public class Playlist {
     }
 
     public String getDurationOfPlaylist() {
-        // TODO
-        return "";
+        int duration = 0;
+        int i = 0;
+        int z = 0;
+
+        for (Song song : songs) {
+            duration += song.duration();
+        }
+
+        if (duration >= 60) {
+            i = duration / 60;
+        }
+        z = duration % 60;
+
+        if (i >= (60 * 60) && z == 0) {
+            Integer time = i / 60;
+            return time.toString() + "h";
+
+        } else if (i >= (60 * 60) && z > 0) {
+            Integer time = i / 60;
+            String string = time.toString() + "h";
+            return string + z + "m";
+        } else if (i < (60 * 60) && i > 60 &&  z == 0) {
+            Integer time = i / 60;
+            String string = time.toString() + "m";
+        } else if (i < (60 * 60) && i > 60 && z > 0) {
+            Integer time = i / 60;
+            String string = time.toString() + "m";
+            return string + z + "s";
+        } else if (i < 60 && z > 0) {
+            return z + "s";
+        }
+        return "0";
     }
 
     public List<Song> getSongs() {
