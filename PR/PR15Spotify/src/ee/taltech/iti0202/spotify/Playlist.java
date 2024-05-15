@@ -15,12 +15,8 @@ public class Playlist {
     }
 
     public void addSong(Song song) {
-        for (Song s : songs) {
-            if (s.title().equalsIgnoreCase(song.title()) && s.artist().equalsIgnoreCase(song.artist())) {
-                continue;
-            } else {
-                songs.add(s);
-            }
+        if (!this.songs.contains(song)) {
+            this.songs.add(song);
         }
     }
 
