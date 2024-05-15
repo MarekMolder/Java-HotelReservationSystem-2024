@@ -64,13 +64,13 @@ public class Playlist {
         }
 
         StringBuilder durationString = new StringBuilder();
-        if (hours > 0 && seconds < 0 && minutes < 0) {
+        if (hours > 0 && seconds <= 0 && minutes <= 0) {
             durationString.append(hours).append("h");
         } else if (hours > 0) {
             durationString.append(hours).append("h ");
         }
 
-        if (minutes > 0 && seconds < 0) {
+        if (minutes > 0 && seconds <= 0) {
             durationString.append(minutes).append("m");
         } else if (minutes > 0){
             durationString.append(minutes).append("m ");
