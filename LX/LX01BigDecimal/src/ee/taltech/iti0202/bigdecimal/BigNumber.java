@@ -3,7 +3,6 @@ package ee.taltech.iti0202.bigdecimal;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
-import java.math.RoundingMode;
 
 public class BigNumber {
     /**
@@ -117,7 +116,11 @@ public class BigNumber {
      * @return true or false if val1 and val2 are equal after rounded with rounding
      */
     public boolean isSame(BigDecimal val1, BigDecimal val2, int rounding) {
-        return false;
+        MathContext mc = new MathContext(rounding);
+        BigDecimal bigVal1 = val1.round(mc);
+        BigDecimal bigVal2 = val2.round(mc);
+
+        return bigVal1.compareTo(bigVal2) == 0;
     }
 
     /**
