@@ -129,7 +129,27 @@ public class BigNumber {
      * @return n-th fib number value
      */
     public BigInteger fibonacci(int n) {
-        return null;
+        if (n < 0) {
+            throw new IllegalArgumentException("The input cannot be negative.");
+        }
+        if (n == 0) {
+            return BigInteger.ZERO;
+        }
+        if (n == 1) {
+            return BigInteger.ONE;
+        }
+
+        BigInteger a = BigInteger.ZERO;
+        BigInteger b = BigInteger.ONE;
+        BigInteger c;
+
+        for (int i = 2; i <= n; i++) {
+            c = a.add(b);
+            a = b;
+            b = c;
+        }
+
+        return b;
     }
 
     /**
@@ -138,6 +158,26 @@ public class BigNumber {
      * @return n-th lucas number
      */
     public BigInteger lucas(int n) {
-        return null;
+        if (n < 0) {
+            throw new IllegalArgumentException("The input cannot be negative.");
+        }
+        if (n == 0) {
+            return BigInteger.valueOf(2);
+        }
+        if (n == 1) {
+            return BigInteger.ONE;
+        }
+
+        BigInteger a = BigInteger.valueOf(2);
+        BigInteger b = BigInteger.ONE;
+        BigInteger c;
+
+        for (int i = 2; i <= n; i++) {
+            c = a.add(b);
+            a = b;
+            b = c;
+        }
+
+        return b;
     }
 }
