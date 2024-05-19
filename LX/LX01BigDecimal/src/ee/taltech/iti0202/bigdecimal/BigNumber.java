@@ -159,7 +159,7 @@ public class BigNumber {
      */
     public BigInteger lucas(int n) {
         if (n < 0) {
-            throw new IllegalArgumentException();
+            return BigInteger.ZERO;
         }
         if (n == 0) {
             return BigInteger.valueOf(2);
