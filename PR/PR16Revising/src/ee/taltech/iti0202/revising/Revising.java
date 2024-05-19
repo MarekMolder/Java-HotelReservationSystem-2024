@@ -1,11 +1,13 @@
 package ee.taltech.iti0202.revising;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Revising {
 
     /**
-     * Return true if the list contains, somewhere, three increasing adjacent numbers 
+     * Return true if the list contains, somewhere, three increasing adjacent numbers
      * like .... 4, 5, 6, ... or 23, 24, 25.
      *
      * tripleUp(List.of(1, 4, 5, 6, 2)) => true
@@ -105,7 +107,8 @@ public class Revising {
             char[] sublist2 = Arrays.copyOfRange(chars, z, z + n);
 
             if (Arrays.equals(sublist2, sublist)) {
-            return true;}
+            return true;
+            }
         }
         return false;
     }
