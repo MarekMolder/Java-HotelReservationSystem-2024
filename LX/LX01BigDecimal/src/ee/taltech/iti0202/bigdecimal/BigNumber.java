@@ -130,7 +130,7 @@ public class BigNumber {
      */
     public BigInteger fibonacci(int n) {
         if (n < 0) {
-            throw new IllegalArgumentException("The input cannot be negative.");
+            throw new IllegalArgumentException();
         }
         if (n == 0) {
             return BigInteger.ZERO;
@@ -159,7 +159,7 @@ public class BigNumber {
      */
     public BigInteger lucas(int n) {
         if (n < 0) {
-            throw new IllegalArgumentException("The input cannot be negative.");
+            throw new IllegalArgumentException();
         }
         if (n == 0) {
             return BigInteger.valueOf(2);
