@@ -159,7 +159,7 @@ public class BigNumber {
      */
     public BigInteger lucas(int n) {
         if (n < 0) {
-            return BigInteger.ZERO;
+            return BigInteger.TWO;
         }
         if (n == 0) {
             return BigInteger.valueOf(2);
