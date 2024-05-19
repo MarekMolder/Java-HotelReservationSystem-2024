@@ -130,7 +130,7 @@ public class BigNumber {
      */
     public BigInteger fibonacci(int n) {
         if (n < 0) {
-            throw new IllegalArgumentException();
+            return BigInteger.valueOf(-1);
         }
         if (n == 0) {
             return BigInteger.ZERO;
