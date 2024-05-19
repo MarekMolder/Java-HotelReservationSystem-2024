@@ -92,7 +92,7 @@ public class BigNumber {
      */
     public BigInteger power(int base, int exponent) {
         if (exponent < 0) {
-            throw new IllegalArgumentException();
+            return BigInteger.ZERO;
         }
 
         if (exponent == 0) {
@@ -130,7 +130,7 @@ public class BigNumber {
      */
     public BigInteger fibonacci(int n) {
         if (n < 0) {
-            return BigInteger.valueOf(-1);
+            return BigInteger.ZERO;
         }
         if (n == 0) {
             return BigInteger.ZERO;
