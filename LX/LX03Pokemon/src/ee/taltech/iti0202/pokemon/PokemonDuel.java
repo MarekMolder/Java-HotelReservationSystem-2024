@@ -52,20 +52,20 @@ public class PokemonDuel {
                         }
                     }
                 } else if (attacker.getTypes().size() == 1 && defender.getTypes().size() == 1) {
-                    bestEffectiveness = TypeChart.getEffectiveness
-                            (attacker.getTypes().getFirst().toString(), defender.getTypes().getFirst().toString());
+                    bestEffectiveness = TypeChart.getEffectiveness(
+                            attacker.getTypes().getFirst().toString(), defender.getTypes().getFirst().toString());
                 } else if (attacker.getTypes().size() == 1 && defender.getTypes().size() > 1) {
                     double currentEffectiveness = 1.0;
                     for (Object type : defender.getTypes()) {
-                        currentEffectiveness *= TypeChart.getEffectiveness
-                                (attacker.getTypes().getFirst().toString(), type.toString());
+                        currentEffectiveness *= TypeChart.getEffectiveness(
+                                attacker.getTypes().getFirst().toString(), type.toString());
                     }
                     bestEffectiveness = currentEffectiveness;
                 } else if (attacker.getTypes().size() > 1 && defender.getTypes().size() == 1) {
                     double currentEffectiveness = 0.0;
                     for (Object type : attacker.getTypes()) {
-                        currentEffectiveness = TypeChart.getEffectiveness
-                                (type.toString(), defender.getTypes().getFirst().toString());
+                        currentEffectiveness = TypeChart.getEffectiveness(
+                                type.toString(), defender.getTypes().getFirst().toString());
                         if (currentEffectiveness > bestEffectiveness) {
                             bestEffectiveness = currentEffectiveness;
                         }

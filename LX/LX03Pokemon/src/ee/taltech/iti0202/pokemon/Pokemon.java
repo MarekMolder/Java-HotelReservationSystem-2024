@@ -79,8 +79,8 @@ public class Pokemon {
     }
 
     public Pokemon(String name, int speed, int attack, int defense, int specialAttack, int specialDefense, int hp
-            , List<String> types, List<String> abilities, List<String> forms, List<String> moves
-    , int height, int weight, int baseExperience) {
+            ,List<String> types, List<String> abilities, List<String> forms, List<String> moves
+    ,int height, int weight, int baseExperience) {
         this.name = name;
         this.attack = attack;
         this.speed = speed;
@@ -99,8 +99,10 @@ public class Pokemon {
 
     @Override
     public String toString() {
-        return "Pokemon{" +
-                "name='" + name + '\''
+        return "Pokemon{"
+                + "name='"
+                + name
+                + '\''
                 + ", attack=" + attack
                 + ", defense=" + defense
                 + ", hp=" + hp

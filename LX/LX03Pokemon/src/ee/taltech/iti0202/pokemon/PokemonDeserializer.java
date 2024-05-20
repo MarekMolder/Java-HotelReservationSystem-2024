@@ -13,8 +13,8 @@ import java.util.List;
 
 public class PokemonDeserializer implements JsonDeserializer<Pokemon> {
     @Override
-    public Pokemon deserialize
-            (JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext)
+    public Pokemon deserialize(
+            JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext)
             throws JsonParseException {
 
         int speed = -1;
@@ -86,7 +86,7 @@ public class PokemonDeserializer implements JsonDeserializer<Pokemon> {
         }
 
         return new Pokemon(pokemonName, speed, attack, defense, specialAttack, specialDefense, hp
-                , typeNames, abilitiesNames, formsNames, movesNames, height, weight, baseExperience);
+                ,typeNames, abilitiesNames, formsNames, movesNames, height, weight, baseExperience);
     }
 }
 

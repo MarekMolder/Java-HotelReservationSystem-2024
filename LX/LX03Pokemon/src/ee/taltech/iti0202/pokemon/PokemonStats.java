@@ -17,11 +17,6 @@ import java.util.Set;
 
 public class PokemonStats {
 
-    /**
-     * Method to read pokemon data from url.
-     * @param pokeUrl
-     * @return
-     */
     public static Pokemon readPokemonData(String pokeUrl) {
         StringBuilder pokeString = new StringBuilder();
         try {
@@ -42,10 +37,6 @@ public class PokemonStats {
         return null;
     }
 
-    /**
-     * Method to write different pokemon stat files
-     * @param pokemonNames
-     */
     public static void processPokemonData(Set<String> pokemonNames) {
         try (BufferedReader br = new BufferedReader(new FileReader
                 ("LX/LX03Pokemon/src/ee/taltech/iti0202/pokemon/PokemonUrl.json"))) {
@@ -82,21 +73,11 @@ public class PokemonStats {
         }
     }
 
-    /**
-     * Method that controls if this file already exists.
-     * @param filename
-     * @return
-     */
     public static boolean fileExists(String filename) {
         File file = new File(filename);
         return file.exists();
     }
 
-    /**
-     * Method to write pokemon stats file
-     * @param pokemon
-     * @param filename
-     */
     public static void writePokemonToJsonFile(Pokemon pokemon, String filename) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter writer = new FileWriter(filename)) {
