@@ -1,8 +1,5 @@
 package ee.taltech.iti0202.computerbuilder;
 
-import ee.taltech.iti0202.computerbuilder.components.Component;
-import ee.taltech.iti0202.computerbuilder.computer.Computer;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.math.BigDecimal;

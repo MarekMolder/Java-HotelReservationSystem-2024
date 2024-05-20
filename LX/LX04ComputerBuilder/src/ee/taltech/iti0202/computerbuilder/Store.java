@@ -1,13 +1,4 @@
-package ee.taltech.iti0202.computerbuilder.store;
-
-import ee.taltech.iti0202.computerbuilder.Customer;
-import ee.taltech.iti0202.computerbuilder.components.Component;
-import ee.taltech.iti0202.computerbuilder.computer.Computer;
-import ee.taltech.iti0202.computerbuilder.database.Database;
-import ee.taltech.iti0202.computerbuilder.exceptions.NotEnoughMoneyException;
-import ee.taltech.iti0202.computerbuilder.exceptions.OutOfStockException;
-import ee.taltech.iti0202.computerbuilder.exceptions.ProductNotFoundException;
-import ee.taltech.iti0202.computerbuilder.factory.Factory;
+package ee.taltech.iti0202.computerbuilder;
 
 import java.math.RoundingMode;
 import java.util.Comparator;

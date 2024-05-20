@@ -1,12 +1,4 @@
-package ee.taltech.iti0202.computerbuilder.factory;
-
-import ee.taltech.iti0202.computerbuilder.components.Component;
-import ee.taltech.iti0202.computerbuilder.computer.Computer;
-import ee.taltech.iti0202.computerbuilder.computer.Laptop;
-import ee.taltech.iti0202.computerbuilder.computer.Pc;
-import ee.taltech.iti0202.computerbuilder.store.EComputerType;
-import ee.taltech.iti0202.computerbuilder.store.EUseCase;
-import ee.taltech.iti0202.computerbuilder.store.Store;
+package ee.taltech.iti0202.computerbuilder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

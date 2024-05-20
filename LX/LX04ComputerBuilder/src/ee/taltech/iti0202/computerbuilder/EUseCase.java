@@ -1,4 +1,4 @@
-package ee.taltech.iti0202.computerbuilder.store;
+package ee.taltech.iti0202.computerbuilder;
 
 public enum EUseCase {
     WORKSTATION,

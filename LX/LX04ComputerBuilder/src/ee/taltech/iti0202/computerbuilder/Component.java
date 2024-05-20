@@ -1,4 +1,4 @@
-package ee.taltech.iti0202.computerbuilder.components;
+package ee.taltech.iti0202.computerbuilder;
 
 import java.math.BigDecimal;
 
