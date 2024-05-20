@@ -78,9 +78,9 @@ public class Pokemon {
         this.hp = hp;
     }
 
-    public Pokemon(String name, int speed, int attack, int defense, int specialAttack, int specialDefense, int hp
-            ,List<String> types, List<String> abilities, List<String> forms, List<String> moves
-    ,int height, int weight, int baseExperience) {
+    public Pokemon(String name, int speed, int attack, int defense, int specialAttack, int specialDefense, int hp,
+                   List<String> types, List<String> abilities, List<String> forms, List<String> moves,
+                   int height, int weight, int baseExperience) {
         this.name = name;
         this.attack = attack;
         this.speed = speed;
