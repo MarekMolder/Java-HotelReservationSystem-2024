@@ -14,8 +14,8 @@ public class TypeChart {
         try {
             initializeTypeChart();
 
-            String attackType = "fairy";
-            String defenseType = "dragon";
+            String attackType = "water";
+            String defenseType = "water";
 
             double effectiveness = getEffectiveness(attackType, defenseType);
             System.out.println("Effectiveness of " + attackType + " against " + defenseType + " is " + effectiveness);
@@ -46,12 +46,12 @@ public class TypeChart {
         fileScanner.close();
     }
 
-    private static double getEffectiveness(String attackType, String defenseType) {
+    public static double getEffectiveness(String attackType, String defenseType) throws FileNotFoundException {
+        initializeTypeChart();
         Integer attackIndex = typeIndexMap.get(attackType);
         Integer defenseIndex = typeIndexMap.get(defenseType);
 
         if (attackIndex == null || defenseIndex == null) {
-            System.out.println("Invalid type");
             return -1.0;
         }
 

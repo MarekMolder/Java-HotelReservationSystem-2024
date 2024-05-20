@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Pokemon {
     private String name;
@@ -20,6 +21,66 @@ public class Pokemon {
     private List abilities;
     private List forms;
     private List moves;
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAttack() {
+        return attack;
+    }
+
+    public int getDefense() {
+        return defense;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public int getSpecialAttack() {
+        return specialAttack;
+    }
+
+    public int getSpecialDefense() {
+        return specialDefense;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public int getWeight() {
+        return weight;
+    }
+
+    public int getBase_experience() {
+        return base_experience;
+    }
+
+    public List getTypes() {
+        return types;
+    }
+
+    public List getAbilities() {
+        return abilities;
+    }
+
+    public List getForms() {
+        return forms;
+    }
+
+    public List getMoves() {
+        return moves;
+    }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
 
     public Pokemon(String name, int speed, int attack, int defense, int specialAttack, int specialDefense, int hp
             , List<String> types, List<String> abilities, List<String> forms, List<String> moves

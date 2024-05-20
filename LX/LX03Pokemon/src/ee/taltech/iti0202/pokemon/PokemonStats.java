@@ -18,12 +18,11 @@ public class PokemonStats {
         pokemonNames.add("bulbasaur");
         pokemonNames.add("ivysaur");
 
-        String filename = "LX/LX03Pokemon/src/ee/taltech/iti0202/pokemon/PokemonUrl.json";
-        processPokemonData(filename, pokemonNames);
+        processPokemonData(pokemonNames);
     }
 
-    public static void processPokemonData(String filename, Set<String> pokemonNames) {
-        try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
+    public static void processPokemonData(Set<String> pokemonNames) {
+        try (BufferedReader br = new BufferedReader(new FileReader("LX/LX03Pokemon/src/ee/taltech/iti0202/pokemon/PokemonUrl.json"))) {
             StringBuilder jsonContent = new StringBuilder();
             String line;
             while ((line = br.readLine()) != null) {
