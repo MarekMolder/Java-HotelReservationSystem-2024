@@ -1,6 +1,7 @@
-package ee.taltech.iti0202.computerstore;
+package ee.taltech.iti0202.computerbuilder;
 
-import ee.taltech.iti0202.computerstore.components.Component;
+import ee.taltech.iti0202.computerbuilder.components.Component;
+import ee.taltech.iti0202.computerbuilder.computer.Computer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,10 +11,15 @@ public class Customer {
     private String name;
     private BigDecimal balance;
     private final List<Component> components = new ArrayList<>();
+    private List<Computer> computers = new ArrayList<>();
 
     public Customer(String name, BigDecimal balance) {
         this.name = name;
         this.balance = balance;
+        this.computers = computers;
+    }
+    public List<Computer> getComputer() {
+        return computers;
     }
 
     public String getName() {
@@ -35,5 +41,4 @@ public class Customer {
     public List<Component> getComponents() {
         return components;
     }
-
 }
