@@ -22,7 +22,7 @@ public class PokemonDuel {
                 Pokemon defender = (i == 0) ? secondPokemon2 : firstPokemon1;
 
                 int attack;
-                int defense;
+                double defense;
 
                 if (stepCounter % 3 != 0) {
                     attack = attacker.getAttack();
@@ -35,7 +35,7 @@ public class PokemonDuel {
                 } else {
                     defense = defender.getSpecialDefense();
                 }
-                defense /= 2;
+                defense /= 2.0;
 
                 Double bestEffectiveness = 0.0;
                 if (attacker.getTypes().size() > 1 && defender.getTypes().size() > 1) {

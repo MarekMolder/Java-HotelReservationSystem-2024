@@ -26,7 +26,7 @@ public class PokemonTest {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        ReadMainPage.fetchPokemonData(666, 33);
+        ReadMainPage.fetchPokemonData(0, 4);
 
         String filePath = "LX/LX03Pokemon/src/ee/taltech/iti0202/pokemon/PokemonUrl.json";
 
