@@ -12,15 +12,29 @@ import java.util.*;
 public class PokemonDuel {
 
     public static Pokemon duel(Pokemon firstPokemon1, Pokemon secondPokemon2) throws FileNotFoundException {
-        int turnCounter = 1;
+        int turnCounter = 0;
+        int stepCounter = 1;
 
-        while (turnCounter <= 100) {
+
+        while (stepCounter <= 100) {
             for (int i = 0; i < 2; i++) {
                 Pokemon attacker = (i == 0) ? firstPokemon1 : secondPokemon2;
                 Pokemon defender = (i == 0) ? secondPokemon2 : firstPokemon1;
 
-                int attack = (turnCounter % 3 != 0) ? attacker.getAttack() : attacker.getSpecialAttack();
-                int defense = (turnCounter % 2 != 0) ? defender.getDefense() : defender.getSpecialDefense();
+                int attack;
+                int defense;
+
+                if (stepCounter % 3 != 0) {
+                    attack = attacker.getAttack();
+                } else {
+                    attack = attacker.getSpecialAttack();
+                }
+
+                if (stepCounter % 2 != 0) {
+                    defense = defender.getDefense();
+                } else {
+                    defense = defender.getSpecialDefense();
+                }
                 defense /= 2;
 
                 Double bestEffectiveness = 0.0;
@@ -63,7 +77,10 @@ public class PokemonDuel {
                 }
 
                 turnCounter++;
-                if (turnCounter > 100) {
+                if (turnCounter % 2 == 0) {
+                    stepCounter++;
+                }
+                if (stepCounter > 100) {
                     return null;
                 }
             }

@@ -26,6 +26,8 @@ public class PokemonTest {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
+        ReadMainPage.fetchPokemonData(666, 33);
+
         String filePath = "LX/LX03Pokemon/src/ee/taltech/iti0202/pokemon/PokemonUrl.json";
 
         Set<String> pokemonNames = new HashSet<>();
@@ -37,7 +39,7 @@ public class PokemonTest {
 
             JsonArray resultsArray = jsonObject.getAsJsonArray("results");
 
-            for (int i = 69; i < 100 && i < resultsArray.size(); i++) {
+            for (int i = 0; i < resultsArray.size(); i++) {
                 JsonObject pokemonObject = resultsArray.get(i).getAsJsonObject();
                 String name = pokemonObject.get("name").getAsString();
                 pokemonNames.add(name);
@@ -49,6 +51,7 @@ public class PokemonTest {
         }
 
         PokemonStats.processPokemonData(pokemonNames);
+
         for (String pokemonName : pokemonNames) {
             pokemons.add(readPokemonFromFile("pokemon_" + pokemonName + ".json"));
         }

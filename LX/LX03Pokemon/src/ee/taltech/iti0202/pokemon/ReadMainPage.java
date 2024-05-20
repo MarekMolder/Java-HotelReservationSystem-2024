@@ -12,15 +12,9 @@ public class ReadMainPage {
     private static final String POKE_API_URL = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=100000";
     private static final String OUTPUT_FILE_PATH = "LX/LX03Pokemon/src/ee/taltech/iti0202/pokemon/PokemonUrl.json";
 
-    public static void main(String[] args) {
-        JsonArray pokemonList = fetchPokemonData(POKE_API_URL);
-        if (pokemonList != null) {
-            writeToJsonFile(pokemonList, OUTPUT_FILE_PATH);
-        }
-    }
-
-    private static JsonArray fetchPokemonData(String apiUrl) {
+    public static JsonArray fetchPokemonData(Integer offset, Integer limit) {
         StringBuilder pokeString = new StringBuilder();
+        String apiUrl = "https://pokeapi.co/api/v2/pokemon?offset=" + offset + "&limit=" + limit;
 
         try {
             URL url = new URL(apiUrl);
@@ -49,7 +43,7 @@ public class ReadMainPage {
 
             pokemonList.add(pokemonObject);
         }
-
+        writeToJsonFile(pokemonList, OUTPUT_FILE_PATH);
         return pokemonList;
     }
 
