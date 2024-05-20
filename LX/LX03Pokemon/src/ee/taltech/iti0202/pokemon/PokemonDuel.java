@@ -7,7 +7,10 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PokemonDuel {
 
@@ -49,17 +52,20 @@ public class PokemonDuel {
                         }
                     }
                 } else if (attacker.getTypes().size() == 1 && defender.getTypes().size() == 1) {
-                    bestEffectiveness = TypeChart.getEffectiveness(attacker.getTypes().getFirst().toString(), defender.getTypes().getFirst().toString());
+                    bestEffectiveness = TypeChart.getEffectiveness
+                            (attacker.getTypes().getFirst().toString(), defender.getTypes().getFirst().toString());
                 } else if (attacker.getTypes().size() == 1 && defender.getTypes().size() > 1) {
                     double currentEffectiveness = 1.0;
                     for (Object type : defender.getTypes()) {
-                        currentEffectiveness *= TypeChart.getEffectiveness(attacker.getTypes().getFirst().toString(), type.toString());
+                        currentEffectiveness *= TypeChart.getEffectiveness
+                                (attacker.getTypes().getFirst().toString(), type.toString());
                     }
                     bestEffectiveness = currentEffectiveness;
                 } else if (attacker.getTypes().size() > 1 && defender.getTypes().size() == 1) {
                     double currentEffectiveness = 0.0;
                     for (Object type : attacker.getTypes()) {
-                        currentEffectiveness = TypeChart.getEffectiveness(type.toString(), defender.getTypes().getFirst().toString());
+                        currentEffectiveness = TypeChart.getEffectiveness
+                                (type.toString(), defender.getTypes().getFirst().toString());
                         if (currentEffectiveness > bestEffectiveness) {
                             bestEffectiveness = currentEffectiveness;
                         }
@@ -157,13 +163,14 @@ public class PokemonDuel {
             return (p1.getHeight() < p2.getHeight()) ? new Pokemon[]{p1, p2} : new Pokemon[]{p2, p1};
         }
         if (p1.getAbilities().size() != p2.getAbilities().size()) {
-            return (p1.getAbilities().size() > p2.getAbilities().size()) ? new Pokemon[]{p1, p2} : new Pokemon[]{p2, p1};
+            return (p1.getAbilities().size() > p2.getAbilities().size()) ? new Pokemon[]{p1, p2}
+                    : new Pokemon[]{p2, p1};
         }
         if (p1.getMoves().size() != p2.getMoves().size()) {
             return (p1.getMoves().size() > p2.getMoves().size()) ? new Pokemon[]{p1, p2} : new Pokemon[]{p2, p1};
         }
-        if (p1.getBase_experience() != p2.getBase_experience()) {
-            return (p1.getBase_experience() > p2.getBase_experience()) ? new Pokemon[]{p1, p2} : new Pokemon[]{p2, p1};
+        if (p1.getBaseExperience() != p2.getBaseExperience()) {
+            return (p1.getBaseExperience() > p2.getBaseExperience()) ? new Pokemon[]{p1, p2} : new Pokemon[]{p2, p1};
         }
         return new Pokemon[]{null, null};
     }

@@ -6,8 +6,11 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class TypeChart {
-    private static double[][] typeChart = new double[18][18];
-    private static String[] types = {"normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire", "water", "grass", "electric", "psychic", "ice", "dragon", "dark", "fairy"};
+    public static final int COLUMNSANDROW = 18;
+    private static double[][] typeChart = new double[COLUMNSANDROW][COLUMNSANDROW];
+    private static String[] types =
+            {"normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire"
+                    , "water", "grass", "electric", "psychic", "ice", "dragon", "dark", "fairy"};
     private static Map<String, Integer> typeIndexMap = new HashMap<>();
 
     public static void main(String[] args) {
@@ -34,7 +37,7 @@ public class TypeChart {
         fileScanner.nextLine();
 
         int rowIndex = 0;
-        while (fileScanner.hasNextLine() && rowIndex < 18) {
+        while (fileScanner.hasNextLine() && rowIndex < COLUMNSANDROW) {
             String line = fileScanner.nextLine();
             String[] parts = line.trim().split("\\s+");
 

@@ -1,10 +1,6 @@
 package ee.taltech.iti0202.pokemon;
 
-import com.google.gson.JsonArray;
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class Pokemon {
     private String name;
@@ -16,7 +12,7 @@ public class Pokemon {
     private int specialDefense;
     private int height;
     private int weight;
-    private int base_experience;
+    private int baseExperience;
     private List types;
     private List abilities;
     private List forms;
@@ -58,8 +54,8 @@ public class Pokemon {
         return weight;
     }
 
-    public int getBase_experience() {
-        return base_experience;
+    public int getBaseExperience() {
+        return baseExperience;
     }
 
     public List getTypes() {
@@ -84,7 +80,7 @@ public class Pokemon {
 
     public Pokemon(String name, int speed, int attack, int defense, int specialAttack, int specialDefense, int hp
             , List<String> types, List<String> abilities, List<String> forms, List<String> moves
-    , int height, int weight, int base_experience) {
+    , int height, int weight, int baseExperience) {
         this.name = name;
         this.attack = attack;
         this.speed = speed;
@@ -94,7 +90,7 @@ public class Pokemon {
         this.specialDefense = specialDefense;
         this.height = height;
         this.weight = weight;
-        this.base_experience = base_experience;
+        this.baseExperience = baseExperience;
         this.types = types;
         this.abilities = abilities;
         this.forms = forms;
@@ -104,20 +100,20 @@ public class Pokemon {
     @Override
     public String toString() {
         return "Pokemon{" +
-                "name='" + name + '\'' +
-                ", attack=" + attack +
-                ", defense=" + defense +
-                ", hp=" + hp +
-                ", speed=" + speed +
-                ", specialAttack=" + specialAttack +
-                ", specialDefense=" + specialDefense +
-                ", height=" + height +
-                ", weight=" + weight +
-                ", base_experience=" + base_experience +
-                ", types=" + types +
-                ", abilities=" + abilities +
-                ", forms=" + forms +
-                ", moves=" + moves +
-                '}';
+                "name='" + name + '\''
+                + ", attack=" + attack
+                + ", defense=" + defense
+                + ", hp=" + hp
+                + ", speed=" + speed
+                + ", specialAttack=" + specialAttack
+                + ", specialDefense=" + specialDefense
+                + ", height=" + height
+                + ", weight=" + weight
+                + ", base_experience=" + baseExperience
+                + ", types=" + types
+                + ", abilities=" + abilities
+                + ", forms=" + forms
+                + ", moves=" + moves
+                + '}';
     }
 }

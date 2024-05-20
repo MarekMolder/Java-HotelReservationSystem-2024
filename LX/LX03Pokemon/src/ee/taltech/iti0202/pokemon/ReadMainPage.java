@@ -1,5 +1,9 @@
 package ee.taltech.iti0202.pokemon;
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonPrimitive;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +13,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 public class ReadMainPage {
 
-    private static final String POKE_API_URL = "https://pokeapi.co/api/v2/pokemon?offset=0&limit=100000";
     private static final String OUTPUT_FILE_PATH = "LX/LX03Pokemon/src/ee/taltech/iti0202/pokemon/PokemonUrl.json";
 
     public static JsonArray fetchPokemonData(Integer offset, Integer limit) {

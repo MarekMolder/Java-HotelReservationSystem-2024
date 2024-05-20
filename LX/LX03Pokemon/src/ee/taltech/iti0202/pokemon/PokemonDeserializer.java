@@ -1,6 +1,11 @@
 package ee.taltech.iti0202.pokemon;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -8,7 +13,10 @@ import java.util.List;
 
 public class PokemonDeserializer implements JsonDeserializer<Pokemon> {
     @Override
-    public Pokemon deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+    public Pokemon deserialize
+            (JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext)
+            throws JsonParseException {
+
         int speed = -1;
         int attack = -1;
         int defense = -1;
@@ -17,7 +25,7 @@ public class PokemonDeserializer implements JsonDeserializer<Pokemon> {
         int hp = -1;
         int height = -1;
         int weight = -1;
-        int base_experience = -1;
+        int baseExperience = -1;
 
         JsonObject poke = jsonElement.getAsJsonObject();
         String pokemonName = poke.get("name").getAsString();
@@ -56,7 +64,7 @@ public class PokemonDeserializer implements JsonDeserializer<Pokemon> {
 
         height = poke.get("height").getAsInt();
         weight = poke.get("weight").getAsInt();
-        base_experience = poke.get("base_experience").getAsInt();
+        baseExperience = poke.get("base_experience").getAsInt();
 
 
         JsonArray stats = poke.get("stats").getAsJsonArray();
@@ -77,8 +85,8 @@ public class PokemonDeserializer implements JsonDeserializer<Pokemon> {
             }
         }
 
-        return new Pokemon(pokemonName, speed, attack, defense, specialAttack, specialDefense, hp, typeNames, abilitiesNames
-                , formsNames, movesNames, height, weight, base_experience);
+        return new Pokemon(pokemonName, speed, attack, defense, specialAttack, specialDefense, hp
+                , typeNames, abilitiesNames, formsNames, movesNames, height, weight, baseExperience);
     }
 }
 
