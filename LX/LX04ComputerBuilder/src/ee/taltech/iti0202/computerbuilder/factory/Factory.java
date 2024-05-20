@@ -1,6 +1,15 @@
-package ee.taltech.iti0202.computerbuilder;
+package ee.taltech.iti0202.computerbuilder.factory;
+
+import ee.taltech.iti0202.computerbuilder.components.Component;
+import ee.taltech.iti0202.computerbuilder.computer.Computer;
+import ee.taltech.iti0202.computerbuilder.computer.Laptop;
+import ee.taltech.iti0202.computerbuilder.computer.Pc;
+import ee.taltech.iti0202.computerbuilder.store.EComputerType;
+import ee.taltech.iti0202.computerbuilder.store.EUseCase;
+import ee.taltech.iti0202.computerbuilder.store.Store;
 
 import java.math.BigDecimal;
+import java.security.interfaces.ECPublicKey;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -92,21 +101,6 @@ public class Factory {
 
         // Create list of components in priority order based on use case
         List<Component> priorityList = new ArrayList<>();
-        if (useCase != null) {
-            if (useCase == EUseCase.GAMING) {
-                priorityList.add(selectedGPU);
-                priorityList.add(selectedCPU);
-            } else if (useCase == EUseCase.WORKSTATION) {
-                priorityList.add(selectedCPU);
-                priorityList.add(selectedGPU);
-            }
-        }
-
-        // Add the rest of the components in the default order
-        priorityList.add(selectedRAM);
-        priorityList.add(selectedMotherboard);
-        priorityList.add(selectedStorage);
-        priorityList.add(selectedPSU);
         priorityList.add(selectedCase);
 
         if (type == EComputerType.LAPTOP) {
@@ -115,6 +109,12 @@ public class Factory {
             priorityList.add(selectedScreen);
             priorityList.add(selectedBattery);
         }
+
+        priorityList.add(selectedStorage);
+        priorityList.add(selectedMotherboard);
+        priorityList.add(selectedRAM);
+        priorityList.add(selectedCPU);
+        priorityList.add(selectedGPU);
 
         // Calculate total power consumption
         int totalPowerConsumption = calculateTotalPowerConsumption(priorityList);
@@ -144,15 +144,19 @@ public class Factory {
 
         // Create and return the appropriate Computer object
         if (type == EComputerType.PC) {
-            return new Pc(priorityList.get(0), priorityList.get(1), priorityList.get(2), priorityList.get(3), priorityList.get(4), priorityList.get(5), priorityList.get(6));
+            return new Pc(priorityList.get(4), priorityList.get(5), priorityList.get(3), priorityList.get(2), priorityList.get(1), selectedPSU, priorityList.get(0));
         } else {
-            return new Laptop(priorityList.get(0), priorityList.get(1), priorityList.get(2), priorityList.get(3), priorityList.get(4), priorityList.get(5), priorityList.get(6),
-                    priorityList.get(7), priorityList.get(8), priorityList.get(9), priorityList.get(10));
+            return new Laptop(priorityList.get(8), priorityList.get(9), priorityList.get(7), priorityList.get(6), priorityList.get(5), selectedPSU, priorityList.get(0),
+                    priorityList.get(1), priorityList.get(2), priorityList.get(3), priorityList.get(4));
         }
     }
 
     private static int calculateTotalPowerConsumption(List<Component> components) {
-        return components.stream().mapToInt(Component::getPowerConsumption).sum();
+        Integer totalPowerConsumption = 0;
+        for (Component component : components) {
+            totalPowerConsumption += component.getPowerConsumption();
+        }
+        return totalPowerConsumption;
     }
 
     private static List<Component> getComponentListByType(Component.Type type, List<Component> cpus, List<Component> gpus, List<Component> rams,

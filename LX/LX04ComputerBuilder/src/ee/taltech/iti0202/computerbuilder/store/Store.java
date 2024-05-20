@@ -1,4 +1,13 @@
-package ee.taltech.iti0202.computerbuilder;
+package ee.taltech.iti0202.computerbuilder.store;
+
+import ee.taltech.iti0202.computerbuilder.Customer;
+import ee.taltech.iti0202.computerbuilder.components.Component;
+import ee.taltech.iti0202.computerbuilder.computer.Computer;
+import ee.taltech.iti0202.computerbuilder.database.Database;
+import ee.taltech.iti0202.computerbuilder.exceptions.NotEnoughMoneyException;
+import ee.taltech.iti0202.computerbuilder.exceptions.OutOfStockException;
+import ee.taltech.iti0202.computerbuilder.exceptions.ProductNotFoundException;
+import ee.taltech.iti0202.computerbuilder.factory.Factory;
 
 import java.math.RoundingMode;
 import java.util.Comparator;
@@ -68,64 +77,11 @@ public class Store {
                 .collect(Collectors.toList());
     }
 
-    public List<Component> getComponentsSortedByAmount() {
-        return database.getComponents().values().stream()
-                .sorted(Comparator.comparingInt(Component::getAmount))
-                .collect(Collectors.toList());
-    }
-
-    public List<Component> getComponentsSortedByName() {
-        return database.getComponents().values().stream()
-                .sorted(Comparator.comparing(Component::getName))
-                .collect(Collectors.toList());
-    }
-
-    public List<Component> getComponentsSortedByPrice() {
-        return database.getComponents().values().stream()
-                .sorted(Comparator.comparing(Component::getPrice))
-                .collect(Collectors.toList());
-    }
-
-    public List<Component> filterByType(Component.Type type) {
-        return database.getComponents().values().stream()
-                .filter(c -> c.getType() == type)
-                .collect(Collectors.toList());
-    }
-
-    public BigDecimal getInventoryValue() {
-        return database.getComponents().values().stream()
-                .map(c -> c.getPrice().multiply(new BigDecimal(c.getAmount())).multiply(profitMargin))
-                .reduce(BigDecimal.ZERO, BigDecimal::add)
-                .setScale(2, RoundingMode.HALF_UP);
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public BigDecimal getBalance() {
-        return this.balance;
-    }
-
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
-    }
-
-    public BigDecimal getProfitMargin() {
-        return this.profitMargin;
-    }
-
-    public void setProfitMargin(BigDecimal profitMargin) {
-        if (profitMargin.compareTo(BigDecimal.ONE) < 0) {
-            throw new IllegalArgumentException();
-        }
-        this.profitMargin = profitMargin;
-    }
-    public Database getDataBase() {
-        return this.database;
     }
 }

@@ -1,6 +1,11 @@
-package ee.taltech.iti0202.computerbuilder;
+package ee.taltech.iti0202.computerbuilder.computer;
+
+import ee.taltech.iti0202.computerbuilder.components.Component;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 public abstract class Computer {
     Component cpu;
@@ -10,6 +15,7 @@ public abstract class Computer {
     Component storage;
     Component psu;
     Component pcCase;
+    List<Component> components;
 
     int totalPerformancePoints;
     int totalPowerConsumption;
@@ -23,21 +29,25 @@ public abstract class Computer {
         this.storage = storage;
         this.psu = psu;
         this.pcCase = pcCase;
-
-        this.totalPerformancePoints = calculateTotalPerformance();
-        this.totalPowerConsumption = calculateTotalPower();
-        this.totalPrice = calculateTotalPrice();
+        this.components = new LinkedList<>();
+        this.components.add(cpu);
+        this.components.add(gpu);
+        this.components.add(ram);
+        this.components.add(motherboard);
+        this.components.add(storage);
+        this.components.add(psu);
+        this.components.add(pcCase);
     }
 
-    int calculateTotalPerformance() {
+    public int calculateTotalPerformance() {
         return cpu.getPerformancePoints() + gpu.getPerformancePoints() + ram.getPerformancePoints() + motherboard.getPerformancePoints() + storage.getPerformancePoints();
     }
 
-    int calculateTotalPower() {
+    public int calculateTotalPower() {
         return cpu.getPowerConsumption() + gpu.getPowerConsumption() + ram.getPowerConsumption() + motherboard.getPowerConsumption() + storage.getPowerConsumption();
     }
 
-    BigDecimal calculateTotalPrice() {
+    public BigDecimal calculateTotalPrice() {
         return cpu.getPrice()
                 .add(gpu.getPrice())
                 .add(ram.getPrice())
@@ -46,6 +56,8 @@ public abstract class Computer {
                 .add(psu.getPrice())
                 .add(pcCase.getPrice());
     }
+    public List<Component> getComponents() {
+        return components;
+    }
 
-    // Getters and other methods...
 }

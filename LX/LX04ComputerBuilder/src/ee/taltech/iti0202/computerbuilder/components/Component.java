@@ -1,9 +1,9 @@
-package ee.taltech.iti0202.computerbuilder;
+package ee.taltech.iti0202.computerbuilder.components;
 
 import java.math.BigDecimal;
 
 public class Component {
-    private static int nextId = 0;
+    private static int nextId = 1;
     private int id;
     private String name;
     private Type type;
@@ -33,31 +33,19 @@ public class Component {
     }
 
     public static void resetIdCounter() {
-        nextId = 0;
+        nextId = 1;
     }
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public Type getType() {
         return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 
     public BigDecimal getPrice() {
@@ -76,27 +64,12 @@ public class Component {
         this.amount = amount;
     }
 
-    public String getManufacturer() {
-        return manufacturer;
-    }
-
-    public void setManufacturer(String manufacturer) {
-        this.manufacturer = manufacturer;
-    }
-
     public int getPerformancePoints() {
         return performancePoints;
-    }
-
-    public void setPerformancePoints(int performancePoints) {
-        this.performancePoints = performancePoints;
     }
 
     public int getPowerConsumption() {
         return powerConsumption;
     }
 
-    public void setPowerConsumption(int powerConsumption) {
-        this.powerConsumption = powerConsumption;
-    }
 }
