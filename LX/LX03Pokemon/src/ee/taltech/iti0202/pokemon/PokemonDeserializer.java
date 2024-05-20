@@ -85,8 +85,8 @@ public class PokemonDeserializer implements JsonDeserializer<Pokemon> {
             }
         }
 
-        return new Pokemon(pokemonName, speed, attack, defense, specialAttack, specialDefense, hp
-                ,typeNames, abilitiesNames, formsNames, movesNames, height, weight, baseExperience);
+        return new Pokemon(pokemonName, speed, attack, defense, specialAttack, specialDefense, hp,
+                typeNames, abilitiesNames, formsNames, movesNames, height, weight, baseExperience);
     }
 }
 

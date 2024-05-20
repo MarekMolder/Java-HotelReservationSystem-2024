@@ -38,8 +38,8 @@ public class PokemonStats {
     }
 
     public static void processPokemonData(Set<String> pokemonNames) {
-        try (BufferedReader br = new BufferedReader(new FileReader
-                ("LX/LX03Pokemon/src/ee/taltech/iti0202/pokemon/PokemonUrl.json"))) {
+        try (BufferedReader br = new BufferedReader(new FileReader(
+                "LX/LX03Pokemon/src/ee/taltech/iti0202/pokemon/PokemonUrl.json"))) {
             StringBuilder jsonContent = new StringBuilder();
             String line;
             while ((line = br.readLine()) != null) {

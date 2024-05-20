@@ -9,8 +9,8 @@ public class TypeChart {
     public static final int COLUMNSANDROW = 18;
     private static double[][] typeChart = new double[COLUMNSANDROW][COLUMNSANDROW];
     private static String[] types =
-            {"normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire"
-                    ,"water", "grass", "electric", "psychic", "ice", "dragon", "dark", "fairy"};
+            {"normal", "fighting", "flying", "poison", "ground", "rock", "bug", "ghost", "steel", "fire",
+                    "water", "grass", "electric", "psychic", "ice", "dragon", "dark", "fairy"};
     private static Map<String, Integer> typeIndexMap = new HashMap<>();
 
     public static void main(String[] args) {
