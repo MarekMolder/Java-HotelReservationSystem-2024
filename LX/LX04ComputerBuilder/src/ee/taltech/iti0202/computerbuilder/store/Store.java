@@ -55,20 +55,80 @@ public class Store {
         return component;
     }
 
-    public Computer orderComputer(EUseCase useCase, EComputerType type) {
-        return Factory.assembleComputer(Optional.empty(), Optional.of(useCase), type, this);
+    public Boolean orderComputer(EUseCase useCase, EComputerType type, Customer customer) throws OutOfStockException, ProductNotFoundException {
+        Computer computer = Factory.assembleComputer(Optional.empty(), Optional.of(useCase), type, this);
+        BigDecimal computerPrice = computer.calculateTotalPrice().multiply(profitMargin);
+
+        if (customer.getBalance().compareTo(computerPrice) >= 0) {
+            customer.setBalance((customer.getBalance().subtract(computerPrice)));
+            customer.addComputer(computer);
+
+            for (Component component : computer.getComponents()) {
+                database.decreaseComponentStock(component.getId(), 1);
+            }
+            this.setBalance(balance.add(computerPrice));
+
+        } else {
+            throw new IllegalArgumentException("Customer does not have enough balance to buy this computer.");
+        }
+        return true;
     }
 
-    public Computer orderComputer(BigDecimal budget, EComputerType type) {
-        return Factory.assembleComputer(Optional.of(budget),Optional.empty(), type, this);
+    public boolean orderComputer(BigDecimal budget, EComputerType type, Customer customer) throws OutOfStockException, ProductNotFoundException {
+        Computer computer = Factory.assembleComputer(Optional.of(budget),Optional.empty(), type, this);
+        BigDecimal computerPrice = computer.calculateTotalPrice().multiply(profitMargin);
+
+        if (customer.getBalance().compareTo(computerPrice) >= 0) {
+            customer.setBalance((customer.getBalance().subtract(computerPrice)));
+            customer.addComputer(computer);
+
+            for (Component component : computer.getComponents()) {
+                database.decreaseComponentStock(component.getId(), 1);
+            }
+            this.setBalance(balance.add(computerPrice));
+
+        } else {
+            throw new IllegalArgumentException("Customer does not have enough balance to buy this computer.");
+        }
+        return true;
     }
 
-    public Computer orderComputer(EComputerType type) {
-        return Factory.assembleComputer(Optional.empty(), Optional.empty(), type, this);
+    public boolean orderComputer(EComputerType type, Customer customer) throws OutOfStockException, ProductNotFoundException {
+        Computer computer = Factory.assembleComputer(Optional.empty(), Optional.empty(), type, this);
+        BigDecimal computerPrice = computer.calculateTotalPrice().multiply(profitMargin);
+
+        if (customer.getBalance().compareTo(computerPrice) >= 0) {
+            customer.setBalance((customer.getBalance().subtract(computerPrice)));
+            customer.addComputer(computer);
+
+            for (Component component : computer.getComponents()) {
+                database.decreaseComponentStock(component.getId(), 1);
+            }
+            this.setBalance(balance.add(computerPrice));
+
+        } else {
+            throw new IllegalArgumentException("Customer does not have enough balance to buy this computer.");
+        }
+        return true;
     }
 
-    public Computer orderComputer(BigDecimal budget, EUseCase useCase, EComputerType type) {
-        return Factory.assembleComputer(Optional.of(budget), Optional.of(useCase), type, this);
+    public boolean orderComputer(BigDecimal budget, EUseCase useCase, EComputerType type, Customer customer) throws OutOfStockException, ProductNotFoundException {
+        Computer computer = Factory.assembleComputer(Optional.of(budget), Optional.of(useCase), type, this);
+        BigDecimal computerPrice = computer.calculateTotalPrice().multiply(profitMargin);
+
+        if (customer.getBalance().compareTo(computerPrice) >= 0) {
+            customer.setBalance((customer.getBalance().subtract(computerPrice)));
+            customer.addComputer(computer);
+
+            for (Component component : computer.getComponents()) {
+                database.decreaseComponentStock(component.getId(), 1);
+            }
+            this.setBalance(balance.add(computerPrice));
+
+        } else {
+            throw new IllegalArgumentException("Customer does not have enough balance to buy this computer.");
+        }
+        return true;
     }
 
     public List<Component> getAvailableComponents() {
@@ -77,11 +137,65 @@ public class Store {
                 .collect(Collectors.toList());
     }
 
+    public List<Component> getComponentsSortedByAmount() {
+        return database.getComponents().values().stream()
+                .sorted(Comparator.comparingInt(Component::getAmount))
+                .collect(Collectors.toList());
+    }
+
+    public List<Component> getComponentsSortedByName() {
+        return database.getComponents().values().stream()
+                .sorted(Comparator.comparing(Component::getName))
+                .collect(Collectors.toList());
+    }
+
+    public List<Component> getComponentsSortedByPrice() {
+        return database.getComponents().values().stream()
+                .sorted(Comparator.comparing(Component::getPrice))
+                .collect(Collectors.toList());
+    }
+
+    public List<Component> filterByType(Component.Type type) {
+        return database.getComponents().values().stream()
+                .filter(c -> c.getType() == type)
+                .collect(Collectors.toList());
+    }
+
+    public BigDecimal getInventoryValue() {
+        return database.getComponents().values().stream()
+                .map(c -> c.getPrice().multiply(new BigDecimal(c.getAmount())).multiply(profitMargin))
+                .reduce(BigDecimal.ZERO, BigDecimal::add)
+                .setScale(2, RoundingMode.HALF_UP);
+    }
+
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public BigDecimal getBalance() {
+        return this.balance;
+    }
+
     public void setBalance(BigDecimal balance) {
         this.balance = balance;
+    }
+
+    public BigDecimal getProfitMargin() {
+        return profitMargin;
+    }
+
+    public void setProfitMargin(BigDecimal profitMargin) {
+        if (profitMargin.compareTo(BigDecimal.ONE) < 0) {
+            throw new IllegalArgumentException();
+        }
+        this.profitMargin = profitMargin;
+    }
+
+    public Database getDataBase() {
+        return this.database;
     }
 }
