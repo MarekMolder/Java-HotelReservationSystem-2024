@@ -39,12 +39,14 @@ public class Component {
 
     /**
      * Gives a new id.
-     * @return
      */
     public static int getNextId() {
         return nextId++;
     }
 
+    /**
+     * Resets the component id.
+     */
     public static void resetIdCounter() {
         nextId = 1;
     }

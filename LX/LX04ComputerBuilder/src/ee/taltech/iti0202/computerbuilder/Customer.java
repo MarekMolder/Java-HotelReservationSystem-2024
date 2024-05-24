@@ -13,15 +13,25 @@ public class Customer {
     private final List<Component> components = new ArrayList<>();
     private final List<Computer> computers;
 
+    /**
+     * Constructs a new customer.
+     * @param name
+     * @param balance
+     */
     public Customer(String name, BigDecimal balance) {
         this.name = name;
         this.balance = balance;
         this.computers = new ArrayList<>();
     }
+
     public List<Computer> getComputer() {
         return computers;
     }
 
+    /**
+     * Adds a new computer to a list.
+     * @param computer
+     */
     public void addComputer(Computer computer) {
         computers.add(computer);
     }

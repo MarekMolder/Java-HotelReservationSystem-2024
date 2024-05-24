@@ -10,7 +10,22 @@ public class Laptop extends Computer {
     Component screen;
     Component battery;
 
-    public Laptop(Component cpu, Component gpu, Component ram, Component motherboard, Component storage, Component psu, Component pcCase,
+    /**
+     * Constructs a new laptop.
+     * @param cpu
+     * @param gpu
+     * @param ram
+     * @param motherboard
+     * @param storage
+     * @param psu
+     * @param pcCase
+     * @param keyboard
+     * @param touchpad
+     * @param screen
+     * @param battery
+     */
+    public Laptop(Component cpu, Component gpu, Component ram, Component motherboard,
+                  Component storage, Component psu, Component pcCase,
                   Component keyboard, Component touchpad, Component screen, Component battery) {
         super(cpu, gpu, ram, motherboard, storage, psu, pcCase);
         this.keyboard = keyboard;
@@ -25,12 +40,14 @@ public class Laptop extends Computer {
 
     @Override
     public int calculateTotalPerformance() {
-        return super.calculateTotalPerformance() + keyboard.getPerformancePoints() + touchpad.getPerformancePoints() + screen.getPerformancePoints() + battery.getPerformancePoints();
+        return super.calculateTotalPerformance() + keyboard.getPerformancePoints()
+                + touchpad.getPerformancePoints() + screen.getPerformancePoints() + battery.getPerformancePoints();
     }
 
     @Override
     public int calculateTotalPower() {
-        return super.calculateTotalPower() + keyboard.getPowerConsumption() + touchpad.getPowerConsumption() + screen.getPowerConsumption() + battery.getPowerConsumption();
+        return super.calculateTotalPower() + keyboard.getPowerConsumption()
+                + touchpad.getPowerConsumption() + screen.getPowerConsumption() + battery.getPowerConsumption();
     }
 
     @Override

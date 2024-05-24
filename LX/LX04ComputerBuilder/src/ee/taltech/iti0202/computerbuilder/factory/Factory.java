@@ -9,10 +9,22 @@ import ee.taltech.iti0202.computerbuilder.store.EUseCase;
 import ee.taltech.iti0202.computerbuilder.store.Store;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 public class Factory {
 
+    /**
+     * Assembles a computer based on optional budget, optional use case, and required type.
+     *
+     * @param optionalBudget the optional budget for the computer
+     * @param optionalUseCase the optional use case for the computer
+     * @param type the type of the computer (e.g., LAPTOP, PC)
+     * @param store the store to get components from
+     * @return the assembled computer
+     */
     public static Computer assembleComputer(Optional<BigDecimal> optionalBudget,
                                             Optional<EUseCase> optionalUseCase, EComputerType type, Store store) {
         BigDecimal budget = optionalBudget.orElse(BigDecimal.valueOf(Double.MAX_VALUE)); // Set to max value if not provided
@@ -29,6 +41,14 @@ public class Factory {
         return createComputer(type, selectedComponents, useCase);
     }
 
+    /**
+     * Selects the best components for the computer based on type and optional use case.
+     *
+     * @param components the list of available components
+     * @param type the type of the computer
+     * @param optionalUseCase the optional use case for the computer
+     * @return the list of selected components
+     */
     private static List<Component> selectBestComponents(List<Component> components,
                                                         EComputerType type, EUseCase optionalUseCase) {
         List<Component> cpus = filterAndSortComponents(components, Component.Type.CPU);
@@ -81,6 +101,13 @@ public class Factory {
         return selectedComponents;
     }
 
+    /**
+     * Filters and sorts components based on type.
+     *
+     * @param components the list of available components
+     * @param types the types of components to filter
+     * @return the list of filtered and sorted components
+     */
     private static List<Component> filterAndSortComponents(List<Component> components, Component.Type... types) {
         List<Component> filteredComponents = new ArrayList<>();
         for (Component component : components) {
@@ -95,6 +122,13 @@ public class Factory {
         return filteredComponents;
     }
 
+    /**
+     * Calculates the total cost of the selected components.
+     *
+     * @param components the list of selected components
+     * @param profitMargin the profit margin of the store
+     * @return the total cost
+     */
     private static BigDecimal calculateTotalCost(List<Component> components, BigDecimal profitMargin) {
         BigDecimal totalCost = BigDecimal.ZERO;
         for (Component component : components) {
@@ -103,6 +137,12 @@ public class Factory {
         return totalCost.multiply(profitMargin);
     }
 
+    /**
+     * Calculates the total power consumption of the selected components.
+     *
+     * @param components the list of selected components
+     * @return the total power consumption
+     */
     private static int calculateTotalPowerConsumption(List<Component> components) {
         int totalPowerConsumption = 0;
         for (Component component : components) {
@@ -115,6 +155,15 @@ public class Factory {
         return totalPowerConsumption;
     }
 
+    /**
+     * Adjusts the selected components to fit within the budget and power constraints.
+     *
+     * @param selectedComponents the list of selected components
+     * @param totalCost the total cost of the selected components
+     * @param totalPowerConsumption the total power consumption of the selected components
+     * @param budget the budget for the computer
+     * @param availableComponents the list of available components
+     */
     private static void adjustComponentsWithinBudgetAndPower(List<Component> selectedComponents,
                                                              BigDecimal totalCost, int totalPowerConsumption,
                                                              BigDecimal budget, List<Component> availableComponents) {
@@ -171,6 +220,14 @@ public class Factory {
         }
     }
 
+    /**
+     * Creates a computer based on the specified type, components, and use case.
+     *
+     * @param type       The type of computer (PC or Laptop).
+     * @param components The list of components to build the computer.
+     * @param useCase    The primary use case for the computer (e.g., gaming, general use).
+     * @return A Computer object representing the created computer.
+     */
     private static Computer createComputer(EComputerType type, List<Component> components, EUseCase useCase) {
         if (type == EComputerType.PC) {
             if (useCase == EUseCase.GAMING) {
@@ -187,6 +244,23 @@ public class Factory {
         }
     }
 
+    /**
+     * Retrieves a list of components based on the specified component type.
+     *
+     * @param type        The type of component to retrieve.
+     * @param cpus        List of available CPUs.
+     * @param gpus        List of available GPUs.
+     * @param rams        List of available RAMs.
+     * @param motherboards List of available motherboards.
+     * @param storages    List of available storages (HDDs or SSDs).
+     * @param psus        List of available PSUs.
+     * @param cases       List of available computer cases.
+     * @param keyboards   List of available keyboards.
+     * @param touchpads   List of available touchpads.
+     * @param screens     List of available screens.
+     * @param batteries   List of available batteries.
+     * @return A list of components based on the specified type.
+     */
     private static List<Component> getComponentListByType(Component.Type type, List<Component> cpus,
                                                           List<Component> gpus, List<Component> rams,
                                                           List<Component> motherboards, List<Component> storages,
