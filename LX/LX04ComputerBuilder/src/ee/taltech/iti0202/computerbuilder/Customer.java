@@ -11,12 +11,12 @@ public class Customer {
     private String name;
     private BigDecimal balance;
     private final List<Component> components = new ArrayList<>();
-    private List<Computer> computers = new ArrayList<>();
+    private final List<Computer> computers;
 
     public Customer(String name, BigDecimal balance) {
         this.name = name;
         this.balance = balance;
-        this.computers = computers;
+        this.computers = new ArrayList<>();
     }
     public List<Computer> getComputer() {
         return computers;

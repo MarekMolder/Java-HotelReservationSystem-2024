@@ -144,7 +144,7 @@ public class FactoryTest {
         Database.getInstance().saveComponent(screen2);
         Database.getInstance().saveComponent(battery2);
 
-        Computer pc = Factory.assembleComputer(Optional.of(BigDecimal.valueOf(2000)), Optional.of(EUseCase.GAMING), EComputerType.PC, store1);
+        Computer pc = Factory.assembleComputer(Optional.of(BigDecimal.valueOf(10000)), Optional.of(EUseCase.GAMING), EComputerType.PC, store1);
         assertTrue(pc.getComponents().contains(cpu));
         assertTrue(pc.getComponents().contains(gpu));
         assertTrue(pc.getComponents().contains(ram));
@@ -153,7 +153,7 @@ public class FactoryTest {
         assertTrue(pc.getComponents().contains(psu));
         assertTrue(pc.getComponents().contains(pcCase));
 
-        Computer laptop = Factory.assembleComputer(Optional.of(BigDecimal.valueOf(2000)), Optional.of(EUseCase.WORKSTATION), EComputerType.LAPTOP, store1);
+        Computer laptop = Factory.assembleComputer(Optional.of(BigDecimal.valueOf(10000)), Optional.of(EUseCase.WORKSTATION), EComputerType.LAPTOP, store1);
         assertTrue(laptop.getComponents().contains(cpu));
         assertTrue(laptop.getComponents().contains(gpu));
         assertTrue(laptop.getComponents().contains(ram));
@@ -165,6 +165,82 @@ public class FactoryTest {
         assertTrue(laptop.getComponents().contains(touchpad));
         assertTrue(laptop.getComponents().contains(screen));
         assertTrue(laptop.getComponents().contains(battery));
+    }
+
+    @Test
+    void assembleComputerBestComponentsForGaming() throws ProductAlreadyExistsException {
+        Database.getInstance().resetEntireDatabase();
+
+        Database.getInstance().saveComponent(cpu);
+        Database.getInstance().saveComponent(gpu);
+        Database.getInstance().saveComponent(ram);
+        Database.getInstance().saveComponent(motherboard);
+        Database.getInstance().saveComponent(hdd);
+        Database.getInstance().saveComponent(psu);
+        Database.getInstance().saveComponent(pcCase);
+        Database.getInstance().saveComponent(keyboard);
+        Database.getInstance().saveComponent(touchpad);
+        Database.getInstance().saveComponent(screen);
+        Database.getInstance().saveComponent(battery);
+
+        Database.getInstance().saveComponent(cpu2);
+        Database.getInstance().saveComponent(gpu2);
+        Database.getInstance().saveComponent(ram2);
+        Database.getInstance().saveComponent(motherboard2);
+        Database.getInstance().saveComponent(hdd2);
+        Database.getInstance().saveComponent(psu2);
+        Database.getInstance().saveComponent(pcCase2);
+        Database.getInstance().saveComponent(keyboard2);
+        Database.getInstance().saveComponent(touchpad2);
+        Database.getInstance().saveComponent(screen2);
+        Database.getInstance().saveComponent(battery2);
+
+        Computer pc = Factory.assembleComputer(Optional.of(BigDecimal.valueOf(450)), Optional.of(EUseCase.GAMING), EComputerType.PC, store1);
+        assertTrue(pc.getComponents().contains(cpu2));
+        assertTrue(pc.getComponents().contains(gpu));
+        assertTrue(pc.getComponents().contains(ram2));
+        assertTrue(pc.getComponents().contains(motherboard2));
+        assertTrue(pc.getComponents().contains(hdd2));
+        assertTrue(pc.getComponents().contains(psu));
+        assertTrue(pc.getComponents().contains(pcCase2));
+    }
+
+    @Test
+    void assembleComputerBestComponentsForWorkstation() throws ProductAlreadyExistsException {
+        Database.getInstance().resetEntireDatabase();
+
+        Database.getInstance().saveComponent(cpu);
+        Database.getInstance().saveComponent(gpu);
+        Database.getInstance().saveComponent(ram);
+        Database.getInstance().saveComponent(motherboard);
+        Database.getInstance().saveComponent(hdd);
+        Database.getInstance().saveComponent(psu);
+        Database.getInstance().saveComponent(pcCase);
+        Database.getInstance().saveComponent(keyboard);
+        Database.getInstance().saveComponent(touchpad);
+        Database.getInstance().saveComponent(screen);
+        Database.getInstance().saveComponent(battery);
+
+        Database.getInstance().saveComponent(cpu2);
+        Database.getInstance().saveComponent(gpu2);
+        Database.getInstance().saveComponent(ram2);
+        Database.getInstance().saveComponent(motherboard2);
+        Database.getInstance().saveComponent(hdd2);
+        Database.getInstance().saveComponent(psu2);
+        Database.getInstance().saveComponent(pcCase2);
+        Database.getInstance().saveComponent(keyboard2);
+        Database.getInstance().saveComponent(touchpad2);
+        Database.getInstance().saveComponent(screen2);
+        Database.getInstance().saveComponent(battery2);
+
+        Computer pc = Factory.assembleComputer(Optional.of(BigDecimal.valueOf(450)), Optional.of(EUseCase.WORKSTATION), EComputerType.PC, store1);
+        assertTrue(pc.getComponents().contains(cpu));
+        assertTrue(pc.getComponents().contains(gpu2));
+        assertTrue(pc.getComponents().contains(ram2));
+        assertTrue(pc.getComponents().contains(motherboard2));
+        assertTrue(pc.getComponents().contains(hdd2));
+        assertTrue(pc.getComponents().contains(psu));
+        assertTrue(pc.getComponents().contains(pcCase2));
     }
 
     @Test
@@ -204,17 +280,17 @@ public class FactoryTest {
         assertTrue(pc.getComponents().contains(psu));
         assertTrue(pc.getComponents().contains(pcCase2));
 
-        Computer laptop = Factory.assembleComputer(Optional.of(BigDecimal.valueOf(900)), Optional.of(EUseCase.WORKSTATION), EComputerType.LAPTOP, store1);
+        Computer laptop = Factory.assembleComputer(Optional.of(BigDecimal.valueOf(700)), Optional.of(EUseCase.WORKSTATION), EComputerType.LAPTOP, store1);
         assertTrue(laptop.getComponents().contains(cpu));
         assertTrue(laptop.getComponents().contains(gpu));
-        assertTrue(laptop.getComponents().contains(ram));
-        assertTrue(laptop.getComponents().contains(motherboard));
-        assertTrue(laptop.getComponents().contains(hdd));
+        assertTrue(laptop.getComponents().contains(ram2));
+        assertTrue(laptop.getComponents().contains(motherboard2));
+        assertTrue(laptop.getComponents().contains(hdd2));
         assertTrue(laptop.getComponents().contains(psu));
         assertTrue(laptop.getComponents().contains(pcCase2));
         assertTrue(laptop.getComponents().contains(keyboard2));
         assertTrue(laptop.getComponents().contains(touchpad2));
         assertTrue(laptop.getComponents().contains(screen2));
-        assertTrue(laptop.getComponents().contains(battery));
+        assertTrue(laptop.getComponents().contains(battery2));
     }
 }

@@ -13,8 +13,11 @@ import ee.taltech.iti0202.computerbuilder.store.EUseCase;
 import ee.taltech.iti0202.computerbuilder.store.Store;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.w3c.dom.CDATASection;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -118,7 +121,7 @@ public class StoreTest {
         battery2 = new Component("battery2", Component.Type.BATTERY, BigDecimal.valueOf(50), "ArvutiTark",
                 100, 20);
 
-        store1 = new Store("computer2", BigDecimal.valueOf(2000000), BigDecimal.ONE);
+        store1 = new Store("computer2", BigDecimal.valueOf(2000), BigDecimal.valueOf(1.1));
 
         mari = new Customer("Mari", BigDecimal.valueOf(2000));
         mari2 = new Customer("Mari2", BigDecimal.valueOf(0));
@@ -163,7 +166,7 @@ public class StoreTest {
     }
 
     @Test
-    void orderComputer() throws ProductAlreadyExistsException {
+    void orderComputer() throws ProductAlreadyExistsException, OutOfStockException, ProductNotFoundException {
 
         Database.getInstance().resetEntireDatabase();
 
@@ -191,18 +194,20 @@ public class StoreTest {
         Database.getInstance().saveComponent(screen2);
         Database.getInstance().saveComponent(battery2);
 
-        Computer pc = store1.orderComputer(EComputerType.PC);
-        assertTrue(pc.getComponents().contains(cpu));
-        assertTrue(pc.getComponents().contains(gpu));
-        assertTrue(pc.getComponents().contains(ram));
-        assertTrue(pc.getComponents().contains(motherboard));
-        assertTrue(pc.getComponents().contains(hdd));
-        assertTrue(pc.getComponents().contains(psu));
-        assertTrue(pc.getComponents().contains(pcCase));
+
+        assertEquals(BigDecimal.valueOf(2000), mari.getBalance());
+        assertEquals(0, mari.getComputer().size());
+        assertEquals(BigDecimal.valueOf(2000), store1.getBalance());
+
+        assertTrue(store1.orderComputer(EUseCase.GAMING, EComputerType.PC, mari));
+
+        assertEquals(BigDecimal.valueOf(1230.0), mari.getBalance());
+        assertEquals(BigDecimal.valueOf(2770.0), store1.getBalance());
+        assertEquals(1, mari.getComputer().size());
     }
 
     @Test
-    void orderComputer2() throws ProductAlreadyExistsException {
+    void orderComputer2() throws ProductAlreadyExistsException, OutOfStockException, ProductNotFoundException {
 
         Database.getInstance().resetEntireDatabase();
 
@@ -230,18 +235,19 @@ public class StoreTest {
         Database.getInstance().saveComponent(screen2);
         Database.getInstance().saveComponent(battery2);
 
-        Computer pc = store1.orderComputer(EUseCase.GAMING, EComputerType.PC);
-        assertTrue(pc.getComponents().contains(cpu));
-        assertTrue(pc.getComponents().contains(gpu));
-        assertTrue(pc.getComponents().contains(ram));
-        assertTrue(pc.getComponents().contains(motherboard));
-        assertTrue(pc.getComponents().contains(hdd));
-        assertTrue(pc.getComponents().contains(psu));
-        assertTrue(pc.getComponents().contains(pcCase));
+        assertEquals(BigDecimal.valueOf(2000), mari.getBalance());
+        assertEquals(0, mari.getComputer().size());
+        assertEquals(BigDecimal.valueOf(2000), store1.getBalance());
+
+        assertTrue(store1.orderComputer(BigDecimal.valueOf(2000), EComputerType.PC, mari));
+
+        assertEquals(BigDecimal.valueOf(1340.0), mari.getBalance());
+        assertEquals(BigDecimal.valueOf(2660.0), store1.getBalance());
+        assertEquals(1, mari.getComputer().size());
     }
 
     @Test
-    void orderComputer3() throws ProductAlreadyExistsException {
+    void orderComputer3() throws ProductAlreadyExistsException, OutOfStockException, ProductNotFoundException {
 
         Database.getInstance().resetEntireDatabase();
 
@@ -269,18 +275,19 @@ public class StoreTest {
         Database.getInstance().saveComponent(screen2);
         Database.getInstance().saveComponent(battery2);
 
-        Computer pc = store1.orderComputer(BigDecimal.valueOf(500), EComputerType.PC);
-        assertTrue(pc.getComponents().contains(cpu));
-        assertTrue(pc.getComponents().contains(gpu));
-        assertTrue(pc.getComponents().contains(ram2));
-        assertTrue(pc.getComponents().contains(motherboard2));
-        assertTrue(pc.getComponents().contains(hdd2));
-        assertTrue(pc.getComponents().contains(psu));
-        assertTrue(pc.getComponents().contains(pcCase2));
+        assertEquals(BigDecimal.valueOf(2000), mari.getBalance());
+        assertEquals(0, mari.getComputer().size());
+        assertEquals(BigDecimal.valueOf(2000), store1.getBalance());
+
+        assertTrue(store1.orderComputer(EComputerType.PC, mari));
+
+        assertEquals(BigDecimal.valueOf(1230.0), mari.getBalance());
+        assertEquals(BigDecimal.valueOf(2770.0), store1.getBalance());
+        assertEquals(1, mari.getComputer().size());
     }
 
     @Test
-    void orderComputer4() throws ProductAlreadyExistsException {
+    void orderComputer4() throws ProductAlreadyExistsException, OutOfStockException, ProductNotFoundException {
 
         Database.getInstance().resetEntireDatabase();
 
@@ -308,18 +315,19 @@ public class StoreTest {
         Database.getInstance().saveComponent(screen2);
         Database.getInstance().saveComponent(battery2);
 
-        Computer pc = store1.orderComputer(BigDecimal.valueOf(500), EUseCase.GAMING, EComputerType.PC);
-        assertTrue(pc.getComponents().contains(cpu));
-        assertTrue(pc.getComponents().contains(gpu));
-        assertTrue(pc.getComponents().contains(ram2));
-        assertTrue(pc.getComponents().contains(motherboard2));
-        assertTrue(pc.getComponents().contains(hdd2));
-        assertTrue(pc.getComponents().contains(psu));
-        assertTrue(pc.getComponents().contains(pcCase2));
+        assertEquals(BigDecimal.valueOf(2000), mari.getBalance());
+        assertEquals(0, mari.getComputer().size());
+        assertEquals(BigDecimal.valueOf(2000), store1.getBalance());
+
+        assertTrue(store1.orderComputer(BigDecimal.valueOf(500), EUseCase.GAMING, EComputerType.PC, mari));
+
+        assertEquals(BigDecimal.valueOf(1560.0), mari.getBalance());
+        assertEquals(1, mari.getComputer().size());
+        assertEquals(BigDecimal.valueOf(2440.0), store1.getBalance());
     }
 
     @Test
-    void getComponentsSortedByAmount() throws ProductAlreadyExistsException {
+    void orderComputerNotEnoughMoney() throws ProductAlreadyExistsException {
 
         Database.getInstance().resetEntireDatabase();
 
@@ -347,13 +355,158 @@ public class StoreTest {
         Database.getInstance().saveComponent(screen2);
         Database.getInstance().saveComponent(battery2);
 
-        Computer pc = store1.orderComputer(BigDecimal.valueOf(500), EUseCase.GAMING, EComputerType.PC);
-        assertTrue(pc.getComponents().contains(cpu));
-        assertTrue(pc.getComponents().contains(gpu));
-        assertTrue(pc.getComponents().contains(ram2));
-        assertTrue(pc.getComponents().contains(motherboard2));
-        assertTrue(pc.getComponents().contains(hdd2));
-        assertTrue(pc.getComponents().contains(psu));
-        assertTrue(pc.getComponents().contains(pcCase2));
+        assertEquals(BigDecimal.valueOf(0), mari2.getBalance());
+        assertEquals(0, mari2.getComputer().size());
+        assertEquals(BigDecimal.valueOf(2000), store1.getBalance());
+
+        assertThrows(IllegalArgumentException.class, () -> store1.orderComputer(EUseCase.GAMING, EComputerType.PC, mari2));
+        assertThrows(IllegalArgumentException.class, () -> store1.orderComputer(BigDecimal.valueOf(500), EComputerType.PC, mari2));
+        assertThrows(IllegalArgumentException.class, () -> store1.orderComputer(EComputerType.PC, mari2));
+        assertThrows(IllegalArgumentException.class, () -> store1.orderComputer(BigDecimal.valueOf(500), EUseCase.GAMING, EComputerType.PC, mari2));
+
+        assertEquals(BigDecimal.valueOf(0), mari2.getBalance());
+        assertEquals(0, mari2.getComputer().size());
+        assertEquals(BigDecimal.valueOf(2000), store1.getBalance());
+    }
+
+    @Test
+    void getAvailableComponents() throws ProductAlreadyExistsException{
+
+        Database.getInstance().resetEntireDatabase();
+
+        Database.getInstance().saveComponent(cpu);
+        Database.getInstance().saveComponent(gpu);
+        Database.getInstance().saveComponent(ram);
+        Database.getInstance().saveComponent(motherboard);
+        Database.getInstance().saveComponent(hdd);
+        Database.getInstance().saveComponent(psu);
+        Database.getInstance().saveComponent(pcCase);
+        Database.getInstance().saveComponent(keyboard);
+        Database.getInstance().saveComponent(touchpad);
+        Database.getInstance().saveComponent(screen);
+        Database.getInstance().saveComponent(battery);
+
+        Database.getInstance().saveComponent(cpu2);
+        Database.getInstance().saveComponent(gpu2);
+        Database.getInstance().saveComponent(ram2);
+        Database.getInstance().saveComponent(motherboard2);
+        Database.getInstance().saveComponent(hdd2);
+        Database.getInstance().saveComponent(psu2);
+        Database.getInstance().saveComponent(pcCase2);
+        Database.getInstance().saveComponent(keyboard2);
+        Database.getInstance().saveComponent(touchpad2);
+        Database.getInstance().saveComponent(screen2);
+        Database.getInstance().saveComponent(battery2);
+
+        assertEquals(22, store1.getAvailableComponents().size());
+    }
+
+    @Test
+    void getComponentsSortedByAmount() throws ProductAlreadyExistsException, ProductNotFoundException {
+
+        Database.getInstance().resetEntireDatabase();
+
+        Component.resetIdCounter();
+
+        Database.getInstance().saveComponent(cpu);
+        Database.getInstance().increaseComponentStock(45,5);
+
+        Database.getInstance().saveComponent(gpu);
+        Database.getInstance().increaseComponentStock(46, 1);
+
+        Database.getInstance().saveComponent(ram);
+        Database.getInstance().increaseComponentStock(47, 3);
+
+        assertEquals(new LinkedList<>(List.of(gpu, ram, cpu)), store1.getComponentsSortedByAmount());
+    }
+
+    @Test
+    void getComponentsSortedByName() throws ProductAlreadyExistsException {
+
+        Database.getInstance().resetEntireDatabase();
+
+        Database.getInstance().saveComponent(cpu);
+        Database.getInstance().saveComponent(gpu);
+        Database.getInstance().saveComponent(ram);
+
+        assertEquals(new LinkedList<>(List.of(cpu, gpu, ram)), store1.getComponentsSortedByName());
+    }
+
+    @Test
+    void getComponentsSortedByPrice() throws ProductAlreadyExistsException {
+
+        Database.getInstance().resetEntireDatabase();
+
+        Database.getInstance().saveComponent(cpu);
+        Database.getInstance().saveComponent(gpu2);
+        Database.getInstance().saveComponent(ram);
+
+        assertEquals(new LinkedList<>(List.of(gpu2, cpu, ram)), store1.getComponentsSortedByPrice());
+    }
+
+    @Test
+    void filterByType() throws ProductAlreadyExistsException {
+
+        Database.getInstance().resetEntireDatabase();
+
+        Database.getInstance().saveComponent(cpu);
+        Database.getInstance().saveComponent(gpu2);
+        Database.getInstance().saveComponent(ram);
+        Database.getInstance().saveComponent(cpu2);
+        Database.getInstance().saveComponent(motherboard);
+
+        assertEquals(new LinkedList<>(List.of(cpu2, cpu)), store1.filterByType(Component.Type.CPU));
+    }
+
+    @Test
+    void getInventoryValue() throws ProductAlreadyExistsException {
+
+        Database.getInstance().resetEntireDatabase();
+
+        Database.getInstance().saveComponent(cpu);
+        Database.getInstance().saveComponent(gpu2);
+        Database.getInstance().saveComponent(ram);
+        Database.getInstance().saveComponent(cpu2);
+        Database.getInstance().saveComponent(motherboard);
+
+        assertTrue(store1.getInventoryValue().compareTo(BigDecimal.valueOf(440.0)) >= 0);
+    }
+
+    @Test
+    void getName() {
+        assertEquals("computer2", store1.getName());
+    }
+
+    @Test
+    void setName() {
+        store1.setName("store2");
+        assertEquals("store2", store1.getName());
+    }
+
+    @Test
+    void getBalance() {
+        assertEquals(BigDecimal.valueOf(2000), store1.getBalance());
+    }
+
+    @Test
+    void setBalance() {
+        store1.setBalance(BigDecimal.valueOf(2500));
+        assertEquals(BigDecimal.valueOf(2500), store1.getBalance());
+    }
+
+    @Test
+    void getProfitMargin() {
+        assertEquals(BigDecimal.valueOf(1.1), store1.getProfitMargin());
+    }
+
+    @Test
+    void setProfitMargin() {
+        store1.setProfitMargin(BigDecimal.valueOf(2));
+        assertEquals(BigDecimal.valueOf(2), store1.getProfitMargin());
+    }
+
+    @Test
+    void setProfitMarginWrongValue() {
+        assertThrows(IllegalArgumentException.class, () -> store1.setProfitMargin(BigDecimal.valueOf(0.5)));
     }
 }

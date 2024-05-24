@@ -194,8 +194,4 @@ public class Store {
         }
         this.profitMargin = profitMargin;
     }
-
-    public Database getDataBase() {
-        return this.database;
-    }
 }

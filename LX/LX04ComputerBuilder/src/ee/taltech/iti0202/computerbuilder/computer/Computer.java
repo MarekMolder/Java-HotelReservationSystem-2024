@@ -17,10 +17,6 @@ public abstract class Computer {
     Component pcCase;
     List<Component> components;
 
-    int totalPerformancePoints;
-    int totalPowerConsumption;
-    BigDecimal totalPrice;
-
     public Computer(Component cpu, Component gpu, Component ram, Component motherboard, Component storage, Component psu, Component pcCase) {
         this.cpu = cpu;
         this.gpu = gpu;
@@ -59,5 +55,4 @@ public abstract class Computer {
     public List<Component> getComponents() {
         return components;
     }
-
 }

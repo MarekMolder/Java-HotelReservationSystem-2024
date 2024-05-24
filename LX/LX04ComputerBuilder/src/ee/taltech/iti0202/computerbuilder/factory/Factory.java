@@ -10,10 +10,7 @@ import ee.taltech.iti0202.computerbuilder.store.EUseCase;
 import ee.taltech.iti0202.computerbuilder.store.Store;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class Factory {
 
@@ -118,6 +115,13 @@ public class Factory {
     }
 
     private static void adjustComponentsWithinBudgetAndPower(List<Component> selectedComponents, BigDecimal totalCost, int totalPowerConsumption, BigDecimal budget, List<Component> availableComponents) {
+        Component psu = null;
+        for (Component component : selectedComponents) {
+            if (component.getType() == Component.Type.PSU) {
+                psu = component;
+            }
+        }
+
         List<Component> cpus = filterAndSortComponents(availableComponents, Component.Type.CPU);
         List<Component> gpus = filterAndSortComponents(availableComponents, Component.Type.GPU);
         List<Component> rams = filterAndSortComponents(availableComponents, Component.Type.RAM);
@@ -130,7 +134,7 @@ public class Factory {
         List<Component> screens = filterAndSortComponents(availableComponents, Component.Type.SCREEN);
         List<Component> batteries = filterAndSortComponents(availableComponents, Component.Type.BATTERY);
 
-        while (totalCost.compareTo(budget) > 0 || totalPowerConsumption > selectedComponents.get(5).getPowerConsumption()) {
+        while (totalCost.compareTo(budget) > 0 || totalPowerConsumption > Objects.requireNonNull(psu).getPowerConsumption()) {
             boolean downgraded = false;
 
             for (int i = 0; i < selectedComponents.size(); i++) {
@@ -143,6 +147,11 @@ public class Factory {
                     totalCost = totalCost.subtract(component.getPrice()).add(nextBestComponent.getPrice());
                     totalPowerConsumption = totalPowerConsumption - component.getPowerConsumption() + nextBestComponent.getPowerConsumption();
                     selectedComponents.set(i, nextBestComponent);
+
+                    if (totalCost.compareTo(budget) <= 0 && totalPowerConsumption <= selectedComponents.get(5).getPowerConsumption()) {
+                        return;
+                    }
+
                     downgraded = true;
                     break;
                 }
