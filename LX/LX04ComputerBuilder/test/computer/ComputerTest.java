@@ -64,36 +64,41 @@ public class ComputerTest {
     @Test
     void calculateTotalPerformance() {
         Pc computer = new Pc(cpu, gpu, ram, motherboard, hdd, psu, pcCase);
-        Laptop computer2 = new Laptop(cpu, gpu, ram, motherboard, hdd, psu, pcCase, keyboard, touchpad, screen, battery);
+        Laptop computer2 = new Laptop(cpu, gpu, ram, motherboard,
+                hdd, psu, pcCase, keyboard, touchpad, screen, battery);
 
-        assertEquals(1000 ,computer.calculateTotalPerformance());
-        assertEquals(1800 ,computer2.calculateTotalPerformance());
+        assertEquals(1000, computer.calculateTotalPerformance());
+        assertEquals(1800, computer2.calculateTotalPerformance());
     }
 
     @Test
     void calculateTotalPower() {
         Pc computer = new Pc(cpu, gpu, ram, motherboard, hdd, psu, pcCase);
-        Laptop computer2 = new Laptop(cpu, gpu, ram, motherboard, hdd, psu, pcCase, keyboard, touchpad, screen, battery);
+        Laptop computer2 = new Laptop(cpu, gpu, ram, motherboard,
+                hdd, psu, pcCase, keyboard, touchpad, screen, battery);
 
         assertEquals(375, computer.calculateTotalPower());
-        assertEquals(455 ,computer2.calculateTotalPower());
+        assertEquals(455, computer2.calculateTotalPower());
     }
 
     @Test
     void calculateTotalPrice() {
         Pc computer = new Pc(cpu, gpu, ram, motherboard, hdd, psu, pcCase);
-        Laptop computer2 = new Laptop(cpu, gpu, ram, motherboard, hdd, psu, pcCase,keyboard, touchpad, screen, battery);
+        Laptop computer2 = new Laptop(cpu, gpu, ram, motherboard,
+                hdd, psu, pcCase,keyboard, touchpad, screen, battery);
 
-        assertEquals(BigDecimal.valueOf(700) ,computer.calculateTotalPrice());
-        assertEquals(BigDecimal.valueOf(1100) ,computer2.calculateTotalPrice());
+        assertEquals(BigDecimal.valueOf(700), computer.calculateTotalPrice());
+        assertEquals(BigDecimal.valueOf(1100), computer2.calculateTotalPrice());
     }
 
     @Test
     void getComponents() {
         Pc computer = new Pc(cpu, gpu, ram, motherboard, hdd, psu, pcCase);
-        Laptop computer2 = new Laptop(cpu, gpu, ram, motherboard, hdd, psu, pcCase,keyboard, touchpad, screen, battery);
+        Laptop computer2 = new Laptop(cpu, gpu, ram, motherboard,
+                hdd, psu, pcCase,keyboard, touchpad, screen, battery);
 
-        assertEquals(List.of(cpu, gpu, ram, motherboard, hdd, psu, pcCase),computer.getComponents());
-        assertEquals(List.of(cpu, gpu, ram, motherboard, hdd, psu, pcCase, keyboard, touchpad, screen, battery) ,computer2.getComponents());
+        assertEquals(List.of(cpu, gpu, ram, motherboard, hdd, psu, pcCase), computer.getComponents());
+        assertEquals(List.of(cpu, gpu, ram, motherboard, hdd,
+                psu, pcCase, keyboard, touchpad, screen, battery), computer2.getComponents());
     }
 }

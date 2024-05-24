@@ -1,7 +1,6 @@
 package ee.taltech.iti0202.computerbuilder.factory;
 
 import ee.taltech.iti0202.computerbuilder.components.Component;
-import ee.taltech.iti0202.computerbuilder.components.EComponentType;
 import ee.taltech.iti0202.computerbuilder.computer.Computer;
 import ee.taltech.iti0202.computerbuilder.computer.Laptop;
 import ee.taltech.iti0202.computerbuilder.computer.Pc;
@@ -14,7 +13,8 @@ import java.util.*;
 
 public class Factory {
 
-    public static Computer assembleComputer(Optional<BigDecimal> optionalBudget, Optional<EUseCase> optionalUseCase, EComputerType type, Store store) {
+    public static Computer assembleComputer(Optional<BigDecimal> optionalBudget,
+                                            Optional<EUseCase> optionalUseCase, EComputerType type, Store store) {
         BigDecimal budget = optionalBudget.orElse(BigDecimal.valueOf(Double.MAX_VALUE)); // Set to max value if not provided
         EUseCase useCase = optionalUseCase.orElse(null); // Use null if not provided
 
@@ -29,7 +29,8 @@ public class Factory {
         return createComputer(type, selectedComponents, useCase);
     }
 
-    private static List<Component> selectBestComponents(List<Component> components, EComputerType type, EUseCase optionalUseCase) {
+    private static List<Component> selectBestComponents(List<Component> components,
+                                                        EComputerType type, EUseCase optionalUseCase) {
         List<Component> cpus = filterAndSortComponents(components, Component.Type.CPU);
         List<Component> gpus = filterAndSortComponents(components, Component.Type.GPU);
         List<Component> rams = filterAndSortComponents(components, Component.Type.RAM);
@@ -114,7 +115,9 @@ public class Factory {
         return totalPowerConsumption;
     }
 
-    private static void adjustComponentsWithinBudgetAndPower(List<Component> selectedComponents, BigDecimal totalCost, int totalPowerConsumption, BigDecimal budget, List<Component> availableComponents) {
+    private static void adjustComponentsWithinBudgetAndPower(List<Component> selectedComponents,
+                                                             BigDecimal totalCost, int totalPowerConsumption,
+                                                             BigDecimal budget, List<Component> availableComponents) {
         Component psu = null;
         for (Component component : selectedComponents) {
             if (component.getType() == Component.Type.PSU) {
@@ -139,16 +142,20 @@ public class Factory {
 
             for (int i = 0; i < selectedComponents.size(); i++) {
                 Component component = selectedComponents.get(i);
-                List<Component> componentList = getComponentListByType(component.getType(), cpus, gpus, rams, motherboards, storages, psus, cases, keyboards, touchpads, screens, batteries);
+                List<Component> componentList = getComponentListByType(component.getType(),
+                        cpus, gpus, rams, motherboards, storages,
+                        psus, cases, keyboards, touchpads, screens, batteries);
 
                 int index = componentList.indexOf(component);
                 if (index + 1 < componentList.size()) {
                     Component nextBestComponent = componentList.get(index + 1);
                     totalCost = totalCost.subtract(component.getPrice()).add(nextBestComponent.getPrice());
-                    totalPowerConsumption = totalPowerConsumption - component.getPowerConsumption() + nextBestComponent.getPowerConsumption();
+                    totalPowerConsumption = totalPowerConsumption - component.getPowerConsumption()
+                            + nextBestComponent.getPowerConsumption();
                     selectedComponents.set(i, nextBestComponent);
 
-                    if (totalCost.compareTo(budget) <= 0 && totalPowerConsumption <= selectedComponents.get(5).getPowerConsumption()) {
+                    if (totalCost.compareTo(budget) <= 0 && totalPowerConsumption
+                            <= selectedComponents.get(5).getPowerConsumption()) {
                         return;
                     }
 
@@ -158,7 +165,8 @@ public class Factory {
             }
 
             if (!downgraded) {
-                throw new IllegalArgumentException("Cannot assemble a computer within the given budget and power constraints");
+                throw new IllegalArgumentException("Cannot assemble a computer"
+                        + " within the given budget and power constraints");
             }
         }
     }
@@ -166,19 +174,25 @@ public class Factory {
     private static Computer createComputer(EComputerType type, List<Component> components, EUseCase useCase) {
         if (type == EComputerType.PC) {
             if (useCase == EUseCase.GAMING) {
-                return new Pc(components.get(4), components.get(5), components.get(3), components.get(2), components.get(1), components.get(6), components.get(0));
+                return new Pc(components.get(4), components.get(5), components.get(3),
+                        components.get(2), components.get(1), components.get(6), components.get(0));
             } else {
-                return new Pc(components.get(5), components.get(4), components.get(3), components.get(2), components.get(1), components.get(6), components.get(0));
+                return new Pc(components.get(5), components.get(4), components.get(3),
+                        components.get(2), components.get(1), components.get(6), components.get(0));
             }
         } else {
-            return new Laptop(components.get(9), components.get(8), components.get(7), components.get(6), components.get(5), components.get(10), components.get(4),
+            return new Laptop(components.get(9), components.get(8), components.get(7),
+                    components.get(6), components.get(5), components.get(10), components.get(4),
                     components.get(0), components.get(1), components.get(2), components.get(3));
         }
     }
 
-    private static List<Component> getComponentListByType(Component.Type type, List<Component> cpus, List<Component> gpus, List<Component> rams,
-                                                          List<Component> motherboards, List<Component> storages, List<Component> psus, List<Component> cases,
-                                                          List<Component> keyboards, List<Component> touchpads, List<Component> screens, List<Component> batteries) {
+    private static List<Component> getComponentListByType(Component.Type type, List<Component> cpus,
+                                                          List<Component> gpus, List<Component> rams,
+                                                          List<Component> motherboards, List<Component> storages,
+                                                          List<Component> psus, List<Component> cases,
+                                                          List<Component> keyboards, List<Component> touchpads,
+                                                          List<Component> screens, List<Component> batteries) {
         return switch (type) {
             case CPU -> cpus;
             case GPU -> gpus;

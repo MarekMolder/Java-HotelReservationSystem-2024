@@ -5,12 +5,9 @@ import ee.taltech.iti0202.computerbuilder.database.Database;
 import ee.taltech.iti0202.computerbuilder.exceptions.OutOfStockException;
 import ee.taltech.iti0202.computerbuilder.exceptions.ProductAlreadyExistsException;
 import ee.taltech.iti0202.computerbuilder.exceptions.ProductNotFoundException;
-import ee.taltech.iti0202.computerbuilder.store.EComputerType;
-import ee.taltech.iti0202.computerbuilder.store.EUseCase;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import javax.xml.crypto.Data;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -110,7 +107,8 @@ public class DatabaseTest {
     }
 
     @Test
-    void IncreaseComponentStockAndDecrease() throws ProductAlreadyExistsException, ProductNotFoundException, OutOfStockException {
+    void IncreaseComponentStockAndDecrease() throws ProductAlreadyExistsException,
+            ProductNotFoundException, OutOfStockException {
         Database.getInstance().resetEntireDatabase();
 
         Database.getInstance().saveComponent(cpu);
@@ -119,15 +117,19 @@ public class DatabaseTest {
         Database.getInstance().increaseComponentStock(1, 10);
         assertEquals(11, cpu.getAmount());
 
-        assertThrows(IllegalArgumentException.class, () -> Database.getInstance().increaseComponentStock(1, -5));
-        assertThrows(ProductNotFoundException.class, () -> Database.getInstance().increaseComponentStock(2, 15));
+        assertThrows(IllegalArgumentException.class, () ->
+                Database.getInstance().increaseComponentStock(1, -5));
+        assertThrows(ProductNotFoundException.class, () ->
+                Database.getInstance().increaseComponentStock(2, 15));
 
         Database.getInstance().decreaseComponentStock(1, 5);
         assertEquals(6, cpu.getAmount());
 
         assertThrows(OutOfStockException.class, () -> Database.getInstance().decreaseComponentStock(1, 7));
-        assertThrows(ProductNotFoundException.class, () -> Database.getInstance().decreaseComponentStock(2, 15));
-        assertThrows(IllegalArgumentException.class, () -> Database.getInstance().decreaseComponentStock(1, -5));
+        assertThrows(ProductNotFoundException.class, () ->
+                Database.getInstance().decreaseComponentStock(2, 15));
+        assertThrows(IllegalArgumentException.class, () ->
+                Database.getInstance().decreaseComponentStock(1, -5));
     }
 
     @Test

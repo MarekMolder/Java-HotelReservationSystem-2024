@@ -18,10 +18,12 @@ class ComponentTest {
 
     @BeforeEach
     void setUp() {
-        cpu = new Component("cpu", Component.Type.CPU, BigDecimal.valueOf(200), "ArvutiTark",
+        cpu = new Component("cpu", Component.Type.CPU,
+                BigDecimal.valueOf(200), "ArvutiTark",
                 300, 100);
 
-        keyboard = new Component("keyboard", Component.Type.KEYBOARD, BigDecimal.valueOf(50), "ArvutiTark",
+        keyboard = new Component("keyboard", Component.Type.KEYBOARD,
+                BigDecimal.valueOf(50), "ArvutiTark",
                 0, 0);
 
     }
@@ -34,7 +36,8 @@ class ComponentTest {
     @Test
     void resetIdCounter() {
         Component.resetIdCounter();
-        keyboard2 = new Component("keyboard2", Component.Type.KEYBOARD, BigDecimal.valueOf(50), "ArvutiTark",
+        keyboard2 = new Component("keyboard2", Component.Type.KEYBOARD,
+                BigDecimal.valueOf(50), "ArvutiTark",
                 0, 0);
         assertEquals(1, keyboard2.getId());
     }

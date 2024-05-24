@@ -17,6 +17,15 @@ public class Component {
         CPU, GPU, RAM, MOTHERBOARD, HDD, SSD, PSU, KEYBOARD, TOUCHPAD, SCREEN, BATTERY, CASE
     }
 
+    /**
+     * Constructs a new component.
+     * @param name
+     * @param type
+     * @param price
+     * @param manufacturer
+     * @param performancePoints
+     * @param powerConsumption
+     */
     public Component(String name, Type type, BigDecimal price, String manufacturer,
                      int performancePoints, int powerConsumption) {
         this.id = getNextId();
@@ -28,6 +37,10 @@ public class Component {
         this.powerConsumption = powerConsumption;
     }
 
+    /**
+     * Gives a new id.
+     * @return
+     */
     public static int getNextId() {
         return nextId++;
     }

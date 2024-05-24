@@ -1,6 +1,5 @@
 import ee.taltech.iti0202.computerbuilder.Customer;
 import ee.taltech.iti0202.computerbuilder.components.Component;
-import ee.taltech.iti0202.computerbuilder.computer.Computer;
 import ee.taltech.iti0202.computerbuilder.computer.Pc;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -9,7 +8,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 public class CustomerTest {
     private Customer mari;
@@ -34,7 +32,8 @@ public class CustomerTest {
         ram = new Component("ram", Component.Type.RAM, BigDecimal.valueOf(100), "ArvutiTark",
                 300, 10);
 
-        motherboard = new Component("motherboard", Component.Type.MOTHERBOARD, BigDecimal.valueOf(100), "ArvutiTark",
+        motherboard = new Component("motherboard",
+                Component.Type.MOTHERBOARD, BigDecimal.valueOf(100), "ArvutiTark",
                 300, 0);
 
         hdd = new Component("hdd", Component.Type.HDD, BigDecimal.valueOf(100), "ArvutiTark",

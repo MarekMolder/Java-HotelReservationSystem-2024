@@ -2,7 +2,6 @@ package store;
 
 import ee.taltech.iti0202.computerbuilder.Customer;
 import ee.taltech.iti0202.computerbuilder.components.Component;
-import ee.taltech.iti0202.computerbuilder.computer.Computer;
 import ee.taltech.iti0202.computerbuilder.database.Database;
 import ee.taltech.iti0202.computerbuilder.exceptions.NotEnoughMoneyException;
 import ee.taltech.iti0202.computerbuilder.exceptions.OutOfStockException;
@@ -13,13 +12,13 @@ import ee.taltech.iti0202.computerbuilder.store.EUseCase;
 import ee.taltech.iti0202.computerbuilder.store.Store;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.CDATASection;
 
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class StoreTest {
@@ -128,7 +127,8 @@ public class StoreTest {
     }
 
     @Test
-    void purchaseComponent() throws OutOfStockException, NotEnoughMoneyException, ProductNotFoundException, ProductAlreadyExistsException {
+    void purchaseComponent() throws OutOfStockException, NotEnoughMoneyException,
+            ProductNotFoundException, ProductAlreadyExistsException {
         Database.getInstance().resetEntireDatabase();
         assertThrows(ProductNotFoundException.class, () -> store1.purchaseComponent(1, mari));
 
@@ -359,10 +359,14 @@ public class StoreTest {
         assertEquals(0, mari2.getComputer().size());
         assertEquals(BigDecimal.valueOf(2000), store1.getBalance());
 
-        assertThrows(IllegalArgumentException.class, () -> store1.orderComputer(EUseCase.GAMING, EComputerType.PC, mari2));
-        assertThrows(IllegalArgumentException.class, () -> store1.orderComputer(BigDecimal.valueOf(500), EComputerType.PC, mari2));
-        assertThrows(IllegalArgumentException.class, () -> store1.orderComputer(EComputerType.PC, mari2));
-        assertThrows(IllegalArgumentException.class, () -> store1.orderComputer(BigDecimal.valueOf(500), EUseCase.GAMING, EComputerType.PC, mari2));
+        assertThrows(IllegalArgumentException.class, () ->
+                store1.orderComputer(EUseCase.GAMING, EComputerType.PC, mari2));
+        assertThrows(IllegalArgumentException.class, () ->
+                store1.orderComputer(BigDecimal.valueOf(500), EComputerType.PC, mari2));
+        assertThrows(IllegalArgumentException.class, () ->
+                store1.orderComputer(EComputerType.PC, mari2));
+        assertThrows(IllegalArgumentException.class, () ->
+                store1.orderComputer(BigDecimal.valueOf(500), EUseCase.GAMING, EComputerType.PC, mari2));
 
         assertEquals(BigDecimal.valueOf(0), mari2.getBalance());
         assertEquals(0, mari2.getComputer().size());
