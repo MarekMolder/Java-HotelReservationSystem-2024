@@ -13,9 +13,11 @@ import java.util.Map;
 
 public class ApolloScraper {
 
+    public static final int BOOKS_TO_FETCH = 110;
+
     public static void scrape(String topic) {
         String baseUrl = "https://www.apollo.ee/raamatud/eestikeelsed-raamatud/" + topic;
-        int booksToFetch = 110;
+        int booksToFetch = BOOKS_TO_FETCH;
 
         try {
             Map<String, String> bookLinks = new HashMap<>();

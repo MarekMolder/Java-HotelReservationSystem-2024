@@ -136,7 +136,7 @@ public class BookScraper {
         Map<String, String> bookLinks = new HashMap<>();
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             Gson gson = new Gson();
-            Type type = new TypeToken<Map<String, String>>() {}.getType();
+            Type type = new TypeToken<Map<String, String>>() { }.getType();
             bookLinks = gson.fromJson(br, type);
         } catch (IOException e) {
             e.printStackTrace();
