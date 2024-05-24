@@ -374,7 +374,7 @@ public class StoreTest {
     }
 
     @Test
-    void getAvailableComponents() throws ProductAlreadyExistsException{
+    void getAvailableComponents() throws ProductAlreadyExistsException {
 
         Database.getInstance().resetEntireDatabase();
 
@@ -413,7 +413,7 @@ public class StoreTest {
         Component.resetIdCounter();
 
         Database.getInstance().saveComponent(cpu);
-        Database.getInstance().increaseComponentStock(45,5);
+        Database.getInstance().increaseComponentStock(45, 5);
 
         Database.getInstance().saveComponent(gpu);
         Database.getInstance().increaseComponentStock(46, 1);

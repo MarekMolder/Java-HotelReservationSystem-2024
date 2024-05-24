@@ -85,7 +85,7 @@ public class ComputerTest {
     void calculateTotalPrice() {
         Pc computer = new Pc(cpu, gpu, ram, motherboard, hdd, psu, pcCase);
         Laptop computer2 = new Laptop(cpu, gpu, ram, motherboard,
-                hdd, psu, pcCase,keyboard, touchpad, screen, battery);
+                hdd, psu, pcCase, keyboard, touchpad, screen, battery);
 
         assertEquals(BigDecimal.valueOf(700), computer.calculateTotalPrice());
         assertEquals(BigDecimal.valueOf(1100), computer2.calculateTotalPrice());
@@ -95,7 +95,7 @@ public class ComputerTest {
     void getComponents() {
         Pc computer = new Pc(cpu, gpu, ram, motherboard, hdd, psu, pcCase);
         Laptop computer2 = new Laptop(cpu, gpu, ram, motherboard,
-                hdd, psu, pcCase,keyboard, touchpad, screen, battery);
+                hdd, psu, pcCase, keyboard, touchpad, screen, battery);
 
         assertEquals(List.of(cpu, gpu, ram, motherboard, hdd, psu, pcCase), computer.getComponents());
         assertEquals(List.of(cpu, gpu, ram, motherboard, hdd,

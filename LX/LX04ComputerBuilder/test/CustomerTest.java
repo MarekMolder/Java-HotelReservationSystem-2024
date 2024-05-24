@@ -50,7 +50,7 @@ public class CustomerTest {
     void getComputer() {
         Pc computer = new Pc(cpu, gpu, ram, motherboard, hdd, psu, pcCase);
         mari.addComputer(computer);
-        assertEquals(List.of(computer),mari.getComputer());
+        assertEquals(List.of(computer), mari.getComputer());
     }
 
     @Test

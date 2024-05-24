@@ -27,7 +27,8 @@ public class Factory {
      */
     public static Computer assembleComputer(Optional<BigDecimal> optionalBudget,
                                             Optional<EUseCase> optionalUseCase, EComputerType type, Store store) {
-        BigDecimal budget = optionalBudget.orElse(BigDecimal.valueOf(Double.MAX_VALUE)); // Set to max value if not provided
+        BigDecimal budget = optionalBudget.orElse(BigDecimal.valueOf(Double.MAX_VALUE));
+        // Set to max value if not provided
         EUseCase useCase = optionalUseCase.orElse(null); // Use null if not provided
 
         List<Component> components = store.getAvailableComponents();
@@ -186,7 +187,8 @@ public class Factory {
         List<Component> screens = filterAndSortComponents(availableComponents, Component.Type.SCREEN);
         List<Component> batteries = filterAndSortComponents(availableComponents, Component.Type.BATTERY);
 
-        while (totalCost.compareTo(budget) > 0 || totalPowerConsumption > Objects.requireNonNull(psu).getPowerConsumption()) {
+        while (totalCost.compareTo(budget) > 0 || totalPowerConsumption > Objects.requireNonNull(psu)
+                .getPowerConsumption()) {
             boolean downgraded = false;
 
             for (int i = 0; i < selectedComponents.size(); i++) {

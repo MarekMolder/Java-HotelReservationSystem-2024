@@ -107,7 +107,7 @@ public class DatabaseTest {
     }
 
     @Test
-    void IncreaseComponentStockAndDecrease() throws ProductAlreadyExistsException,
+    void increaseComponentStockAndDecrease() throws ProductAlreadyExistsException,
             ProductNotFoundException, OutOfStockException {
         Database.getInstance().resetEntireDatabase();
 
