@@ -6,9 +6,16 @@ import com.google.gson.reflect.TypeToken;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.reflect.Type;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BookScraper {
 
@@ -22,7 +29,8 @@ public class BookScraper {
         if (!file.exists()) {
             ApolloScraper.scrape(topic);
         } else {
-            System.out.println("Fail nimega " + fileName + " juba eksisteerib. Raamatute lingid loetakse olemasolevast failist.");
+            System.out.println("Fail nimega " + fileName
+                    + " juba eksisteerib. Raamatute lingid loetakse olemasolevast failist.");
         }
 
         Map<String, String> bookLinks = readBookLinksFromFile(fileName);
@@ -95,7 +103,8 @@ public class BookScraper {
 
                 int pageCount = pageCountText.isEmpty() ? 0 : Integer.parseInt(pageCountText);
 
-                book = new Book(language, topic, title, publisher, author, fullLink, publicationYearText, pageCount, price);
+                book = new Book(language, topic, title, publisher, author,
+                        fullLink, publicationYearText, pageCount, price);
                 saveBookToJson(book, outputFilename);
                 System.out.println("Wrote data for " + title + " to " + outputFilename);
             } else {

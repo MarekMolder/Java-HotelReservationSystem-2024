@@ -95,17 +95,17 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "language='" + language + '\'' +
-                ", topic='" + topic + '\'' +
-                ", title='" + title + '\'' +
-                ", publisher='" + publisher + '\'' +
-                ", author=" + author +
-                ", link='" + link + '\'' +
-                ", publicationYear=" + publicationYear +
-                ", pageCount=" + pageCount +
-                ", price=" + price +
-                '}';
+        return "Book{"
+                + "language='" + language + '\''
+                + ", topic='" + topic + '\''
+                + ", title='" + title + '\''
+                + ", publisher='" + publisher + '\''
+                + ", author=" + author
+                + ", link='" + link + '\''
+                + ", publicationYear=" + publicationYear
+                + ", pageCount=" + pageCount
+                + ", price=" + price
+                + '}';
     }
 }
 
