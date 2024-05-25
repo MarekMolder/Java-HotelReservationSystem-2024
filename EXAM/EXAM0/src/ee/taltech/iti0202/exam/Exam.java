@@ -1,9 +1,9 @@
-package ee.taltech.iti0202.exam.Exam;
+package ee.taltech.iti0202.exam;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Exam0 {
+public class Exam {
     /**
      * 01
      *
@@ -64,7 +64,7 @@ public class Exam0 {
     }
 
     public static void main(String[] args) {
-        System.out.println(mixedPairs("bBaacA"));
+        System.out.println(mixedPairs("tere"));
     }
 
 }
