@@ -50,11 +50,11 @@ public class Exam {
                 "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"));
 
         List<String> capsLetters = new ArrayList<>(List.of("A", "B", "C", "D", "E", "F", "G", "H",
-                "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y"));
+                "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"));
 
         StringBuilder result = new StringBuilder();
 
-        for(int i = 0; i < lowLetters.size() - 1; i++) {
+        for(int i = 0; i < lowLetters.size(); i++) {
             if (input.contains(lowLetters.get(i)) && input.contains(capsLetters.get(i))) {
                 result.append(capsLetters.get(i));
                 result.append(lowLetters.get(i));
