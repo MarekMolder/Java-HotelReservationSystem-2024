@@ -7,7 +7,7 @@ public class Task {
     private boolean priority;
     private int day;
     private boolean isItDone;
-    private static int nextId = 1;
+    private int nextId = 1;
 
     public String getId() {
         return id;
