@@ -8,7 +8,7 @@ public class Timetable {
     private List<Task> tasks;
 
     public Timetable() {
-        List<Task> tasks = new ArrayList<>();
+         this.tasks = new ArrayList<>();
     }
 
     public Optional<String> addTask(String name, int day, int duration, boolean priority) {
