@@ -57,17 +57,17 @@ public class Timetable {
     public boolean checkCanAddTask(Task task) {
         int total = 0;
         if (task.getDuration() >= 1 && task.getDay() >= 1) {
-           for (Task t : tasks) {
-               if (t.getName().equals(task.getName())) {
-                   return false;
-               }
-               if (t.getDay() == task.getDay() && !t.isItDone()) {
-                   total += t.getDuration();
-               }
-           }
-           if (total + task.getDuration() <= 5) {
-               return true;
-           }
+            for (Task t : tasks) {
+                if (t.getDay() == task.getDay() && !t.isItDone()) {
+                    if (t.getName().equals(task.getName())) {
+                        return false;
+                    }
+                    total += t.getDuration();
+                }
+            }
+            if (total + task.getDuration() <= 5) {
+                return true;
+            }
         }
         return false;
     }
