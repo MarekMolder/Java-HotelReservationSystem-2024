@@ -7,14 +7,9 @@ public class Task {
     private boolean priority;
     private int day;
     private boolean isItDone;
-    private int nextId = 1;
-
-    public String getId() {
-        return id;
-    }
 
     public Task(String name, int day, int duration, boolean priority) {
-        this.id = getAndIncrementNextId();
+        this.id = null;
         this.name = name;
         this.day = day;
         this.duration = duration;
@@ -22,8 +17,12 @@ public class Task {
         this.isItDone = false;
     }
 
-    public String getAndIncrementNextId() {
-        return "T" + nextId++;
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getName() {

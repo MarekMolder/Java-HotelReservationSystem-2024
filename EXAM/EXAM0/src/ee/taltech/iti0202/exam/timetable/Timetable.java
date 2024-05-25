@@ -6,15 +6,19 @@ import java.util.Optional;
 
 public class Timetable {
     private List<Task> tasks;
+    private int taskCounter;
 
     public Timetable() {
          this.tasks = new ArrayList<>();
+         this.taskCounter = 0;
     }
 
     public Optional<String> addTask(String name, int day, int duration, boolean priority) {
         Task task = new Task(name, day, duration, priority);
         if (checkCanAddTask(task)) {
             tasks.add(task);
+            taskCounter++;
+            task.setId("T" + taskCounter);
             return Optional.of(task.getId());
         }
         return Optional.empty();
