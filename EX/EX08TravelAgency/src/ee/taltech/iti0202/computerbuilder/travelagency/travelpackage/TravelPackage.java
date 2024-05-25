@@ -1,6 +1,6 @@
-package ee.taltech.iti0202.travelagency.travelpackage;
+package ee.taltech.iti0202.computerbuilder.travelagency.travelpackage;
 
-import ee.taltech.iti0202.travelagency.client.Client;
+import ee.taltech.iti0202.computerbuilder.travelagency.client.Client;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

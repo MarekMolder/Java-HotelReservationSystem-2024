@@ -1,4 +1,4 @@
-package ee.taltech.iti0202.travelagency.travelpackage;
+package ee.taltech.iti0202.computerbuilder.travelagency.travelpackage;
 
 public enum EPackageType {
     BEACHVACATION,
