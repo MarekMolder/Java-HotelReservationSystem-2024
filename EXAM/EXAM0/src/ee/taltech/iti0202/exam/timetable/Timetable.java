@@ -58,7 +58,7 @@ public class Timetable {
         int total = 0;
         if (task.getDuration() >= 1 && task.getDay() >= 1) {
            for (Task t : tasks) {
-               if (t.getDay() == task.getDay()) {
+               if (t.getDay() == task.getDay() && !t.isItDone()) {
                    if (t.getName().equals(task.getName())) {
                        return false;
                    }
