@@ -15,7 +15,7 @@ public class Timetable {
         Task task = new Task(name, day, duration, priority);
         if (checkCanAddTask(task)) {
             tasks.add(task);
-            return Optional.of(task.getName());
+            return Optional.of(task.getId());
         }
         return Optional.empty();
     }
@@ -37,9 +37,9 @@ public class Timetable {
             for (Task task : tasks) {
                 if (task.getDay() == day && !task.isItDone()) {
                     if (task.getPriority()) {
-                        result.addFirst(task.getId() + task.getName());
+                        result.addFirst(task.getId() + " " + task.getName());
                     }
-                    result.addLast(task.getId() + task.getName());
+                    result.addLast(task.getId() + " " + task.getName());
                 }
             }
             return result;
