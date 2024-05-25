@@ -1,6 +1,7 @@
 package ee.taltech.iti0202.exam.timetable;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,20 +36,22 @@ public class Timetable {
     }
 
     public List<String> getTasksForDay(int day) {
-        List<String> result = new ArrayList<>();
-
-        if (day >= 1) {
-            for (Task task : tasks) {
-                if (task.getDay() == day && !task.isItDone()) {
-                    if (task.getPriority()) {
-                        result.addFirst(task.getId() + " " + task.getName());
-                    }
-                    result.addLast(task.getId() + " " + task.getName());
-                }
-            }
-            return result;
+        if (day < 1) {
+            return new ArrayList<>();
         }
-        return new ArrayList<>();
+
+        List<Task> result = new ArrayList<>();
+
+        for (Task task : tasks) {
+            if (task.getDay() == day && !task.isItDone()) {
+                result.add(task);
+            }
+        }
+
+        return result.stream()
+                .sorted(Comparator.comparing(Task::getPriority).reversed())
+                .map(task -> task.getId() + " " + task.getName())
+                .toList();
     }
 
     public boolean checkCanAddTask(Task task) {
