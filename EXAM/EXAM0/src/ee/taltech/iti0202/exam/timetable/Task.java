@@ -8,6 +8,13 @@ public class Task {
     private int day;
     private boolean isItDone;
 
+    /**
+     * Constructs a new task.
+     * @param name
+     * @param day
+     * @param duration
+     * @param priority
+     */
     public Task(String name, int day, int duration, boolean priority) {
         this.id = null;
         this.name = name;

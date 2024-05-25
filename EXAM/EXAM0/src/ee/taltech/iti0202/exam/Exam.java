@@ -18,7 +18,7 @@ public class Exam {
      */
     public static List<Integer> tenRun(List<Integer> nums) {
         List<Integer> result = new ArrayList<>(nums);
-        int num =-1;
+        int num = -1;
 
         for (int i = 0; i < nums.size(); i++) {
             if (nums.get(i) % 10 == 0) {
@@ -34,8 +34,10 @@ public class Exam {
     /**
      * 02
      *
-     * Write a method that analyzes input String and returns all pairs of same letter that is present as lower-case and upper-case in input String.
-     * Returned letter pairs have to be in alphabetic order. If there are multiple same letter pairs, then return only one. If there are no suitable pairs, return "".
+     * Write a method that analyzes input String and returns all pairs of
+     * same letter that is present as lower-case and upper-case in input String.
+     * Returned letter pairs have to be in alphabetic order.
+     * If there are multiple same letter pairs, then return only one. If there are no suitable pairs, return "".
      * Take latin alphabet 'a' - 'z' as base.
      * mixedPairs("abcABD") => "AaBb" (a and b are represented by both lowe and upper cased letter)
      * mixedPairs("aaaAAAaaaa") => "Aa"
@@ -53,17 +55,13 @@ public class Exam {
 
         StringBuilder result = new StringBuilder();
 
-        for(int i = 0; i < lowLetters.size(); i++) {
+        for (int i = 0; i < lowLetters.size(); i++) {
             if (input.contains(lowLetters.get(i)) && input.contains(capsLetters.get(i))) {
                 result.append(capsLetters.get(i));
                 result.append(lowLetters.get(i));
             }
         }
         return result.toString();
-    }
-
-    public static void main(String[] args) {
-        System.out.println(tenRun(List.of(10, 5, 10, 10, 20, 250, 5)));
     }
 
 }

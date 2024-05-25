@@ -9,11 +9,22 @@ public class Timetable {
     private List<Task> tasks;
     private int taskCounter;
 
+    /**
+     * Constructs a new timetable.
+     */
     public Timetable() {
          this.tasks = new ArrayList<>();
          this.taskCounter = 0;
     }
 
+    /**
+     * adds a new task to timetable.
+     * @param name
+     * @param day
+     * @param duration
+     * @param priority
+     * @return
+     */
     public Optional<String> addTask(String name, int day, int duration, boolean priority) {
         Task task = new Task(name, day, duration, priority);
         if (checkCanAddTask(task)) {
@@ -25,6 +36,11 @@ public class Timetable {
         return Optional.empty();
     }
 
+    /**
+     * Marks the task done
+     * @param taskNumber
+     * @return
+     */
     public boolean markTaskDone(String taskNumber) {
         for (Task task : tasks) {
             if (task.getId().equals(taskNumber) && !task.isItDone()) {
@@ -35,6 +51,11 @@ public class Timetable {
         return false;
     }
 
+    /**
+     * Gets list of task for the day
+     * @param day
+     * @return
+     */
     public List<String> getTasksForDay(int day) {
         if (day < 1) {
             return new ArrayList<>();
@@ -54,6 +75,11 @@ public class Timetable {
                 .toList();
     }
 
+    /**
+     * Checks if it is okay to add a new task to a day
+     * @param task
+     * @return
+     */
     public boolean checkCanAddTask(Task task) {
         int total = 0;
         if (task.getDuration() >= 1 && task.getDay() >= 1) {
@@ -72,10 +98,4 @@ public class Timetable {
         return false;
     }
 
-    public static void main(String[] args) {
-       Timetable timetable = new Timetable();
-       System.out.println(timetable.addTask("walk", 9, 4, true));
-       System.out.println(timetable.markTaskDone("T1"));
-       System.out.println(timetable.addTask("walk", 9, 4, true));
-    }
 }
