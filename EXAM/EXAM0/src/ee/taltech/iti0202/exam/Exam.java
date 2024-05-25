@@ -18,19 +18,18 @@ public class Exam {
      */
     public static List<Integer> tenRun(List<Integer> nums) {
         List<Integer> result = new ArrayList<>(nums);
-        int num = 0;
+        int num =-1;
 
         for (int i = 0; i < nums.size(); i++) {
             if (nums.get(i) % 10 == 0) {
                 num = nums.get(i);
             }
-            if (num != 0) {
+            if (num != -1) {
                 result.set(i, num);
             }
         }
         return result;
     }
-
 
     /**
      * 02
@@ -64,7 +63,7 @@ public class Exam {
     }
 
     public static void main(String[] args) {
-        System.out.println(mixedPairs("tere"));
+        System.out.println(tenRun(List.of(10, 5, 10, 10, 20, 250, 5)));
     }
 
 }
