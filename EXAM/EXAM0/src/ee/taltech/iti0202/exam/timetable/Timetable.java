@@ -58,10 +58,10 @@ public class Timetable {
         int total = 0;
         if (task.getDuration() >= 1 && task.getDay() >= 1) {
             for (Task t : tasks) {
+                if (t.getDay() == task.getDay() && t.getName().equals(task.getName())) {
+                    return false;
+                }
                 if (t.getDay() == task.getDay() && !t.isItDone()) {
-                    if (t.getName().equals(task.getName())) {
-                        return false;
-                    }
                     total += t.getDuration();
                 }
             }
@@ -70,5 +70,12 @@ public class Timetable {
             }
         }
         return false;
+    }
+
+    public static void main(String[] args) {
+       Timetable timetable = new Timetable();
+       System.out.println(timetable.addTask("walk", 9, 4, true));
+       System.out.println(timetable.markTaskDone("T1"));
+       System.out.println(timetable.addTask("walk", 9, 4, true));
     }
 }
