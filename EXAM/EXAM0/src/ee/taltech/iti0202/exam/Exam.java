@@ -54,7 +54,7 @@ public class Exam {
 
         StringBuilder result = new StringBuilder();
 
-        for(int i = 0; i < lowLetters.size(); i++) {
+        for(int i = 0; i < lowLetters.size() - 1; i++) {
             if (input.contains(lowLetters.get(i)) && input.contains(capsLetters.get(i))) {
                 result.append(capsLetters.get(i));
                 result.append(lowLetters.get(i));
