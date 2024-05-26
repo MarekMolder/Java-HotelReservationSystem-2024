@@ -65,7 +65,7 @@ public class Exam {
      * notAlone([3, 4], 3) => [3, 4]
      */
     public static int[] notAlone(int[] numbers, int toReplace) {
-        for (int i = 1; i < numbers.length - 1; i++) {
+        for (int i = 1; i < numbers.length; i++) {
             if (numbers[i] == toReplace) {
                 if (numbers[i - 1] == toReplace || numbers[i + 1] == toReplace) {
                     continue;
