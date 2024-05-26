@@ -45,6 +45,7 @@ public class Team {
     public void addPlayer(Player player) {
         if (!players.contains(player) && players.size() < 12 && player.getTeam() == null) {
             players.add(player);
+            player.setTeam(this);
         }
     }
 
@@ -55,6 +56,7 @@ public class Team {
     public void removePlayer(Player player) {
         if (players.contains(player)) {
             removePlayer(player);
+            player.setTeam(null);
         }
     }
 
