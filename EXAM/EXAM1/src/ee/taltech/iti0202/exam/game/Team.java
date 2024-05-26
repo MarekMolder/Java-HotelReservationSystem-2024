@@ -60,7 +60,12 @@ public class Team {
      * @return The score of the team.
      */
     public int getTeamScore() {
-        return players.stream().mapToInt(Player::getRating).sum();
+        int total = 0;
+        players.stream().max(Comparator.comparingInt(Player::getRating));
+        for (Player player : players.subList(0, 6)) {
+            total += player.getRating();
+        }
+        return total;
     }
 
     /**
@@ -70,7 +75,7 @@ public class Team {
      */
     public Player getBestPlayer() {
         return players.stream().max(Comparator.comparingInt(Player::getRating)
-                .thenComparing(Player::getGamesPlayed).reversed())
+                        .thenComparing(Player::getGamesPlayed))
                 .orElse(null);
     }
 
@@ -81,7 +86,7 @@ public class Team {
      */
     public Player getWorstPlayer() {
         return players.stream().min(Comparator.comparingInt(Player::getRating)
-                        .thenComparing(Player::getGamesPlayed).reversed())
+                        .thenComparing(Player::getGamesPlayed))
                 .orElse(null);
     }
 }
