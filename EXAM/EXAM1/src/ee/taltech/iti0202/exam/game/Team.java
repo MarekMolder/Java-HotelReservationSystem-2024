@@ -19,6 +19,9 @@ public class Team {
             throw new IllegalArgumentException("Too many players");
         }
         this.players = players;
+        for (Player player : players) {
+            player.setTeam(this);
+        }
     }
 
     /**
@@ -60,12 +63,11 @@ public class Team {
      * @return The score of the team.
      */
     public int getTeamScore() {
-        int total = 0;
-        players.stream().max(Comparator.comparingInt(Player::getRating));
-        for (Player player : players.subList(0, 5)) {
-            total += player.getRating();
-        }
-        return total;
+        players.sort(Comparator.comparingInt(Player::getRating).reversed());
+        List<Player> topSixPlayers = players.subList(0, Math.min(players.size(), 6));
+        int teamScore = topSixPlayers.stream().mapToInt(Player::getRating).sum();
+
+        return teamScore;
     }
 
     /**
