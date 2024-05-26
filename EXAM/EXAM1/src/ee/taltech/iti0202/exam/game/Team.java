@@ -40,7 +40,7 @@ public class Team {
      * @param player The player to add to the team.
      */
     public void addPlayer(Player player) {
-        if (!players.contains(player) && players.size() < 12) {
+        if (!players.contains(player) && players.size() < 12 && player.getTeam() == null) {
             players.add(player);
         }
     }
@@ -62,7 +62,7 @@ public class Team {
     public int getTeamScore() {
         int total = 0;
         players.stream().max(Comparator.comparingInt(Player::getRating));
-        for (Player player : players.subList(0, 6)) {
+        for (Player player : players.subList(0, 5)) {
             total += player.getRating();
         }
         return total;

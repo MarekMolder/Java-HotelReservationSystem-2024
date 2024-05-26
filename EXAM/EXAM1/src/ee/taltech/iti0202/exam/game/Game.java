@@ -11,7 +11,7 @@ public class Game {
      * @param team2 The second team.
      */
     public Game(Team team1, Team team2) {
-        if (team1.getPlayers().size() > 6 || team2.getPlayers().size() < 6){
+        if (team1.getPlayers().size() < 6 || team2.getPlayers().size() < 6){
             throw new IllegalArgumentException();
         }
         this.team1 = team1;
