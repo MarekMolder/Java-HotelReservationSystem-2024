@@ -19,11 +19,7 @@ public class Player {
      */
     public Player(String name, int nr, int rating) {
         this.name = name;
-        if (nr > 1 && nr < 100) {
-            this.nr = nr;
-        } else {
-            throw new IllegalArgumentException();
-        }
+        this.nr = nr;
         this.rating = rating;
         this.team = null;
         this.gamesPlayed = 0;
