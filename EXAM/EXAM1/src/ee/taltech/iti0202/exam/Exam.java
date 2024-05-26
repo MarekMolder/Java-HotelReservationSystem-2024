@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Exam {
 
@@ -19,34 +21,35 @@ public class Exam {
      * "-4+5" => 1
      */
     public static int calculate(String text) {
-        List<String> numbers = new ArrayList<>(List.of("1", "2", "3", "4", "5", "6", "7", "8", "9"));
-        List<String> math = new ArrayList<>(List.of("+", "-"));
-        char[] newText = text.toCharArray();
-        StringBuilder value = new StringBuilder();
-        Integer total = 0;
-
         if (text.isEmpty()) {
             return 0;
         }
 
-        for (int i = 0; i < newText.length; i++) {
-            String s = String.valueOf(newText[i]);
-            if (numbers.contains(s)) {
-                value.append(s);
-            } else if (s.equals("+")) {
-                Integer newValue = Integer.valueOf(value.toString());
-                total = total + newValue;
-                value.setLength(0);
-            } else if (Objects.equals(String.valueOf(newText[0]), "-")) {
-                value.append(s);
-            } else if (s.equals("-")) {
-                Integer newValue = Integer.valueOf(value.toString());
-                total = total - newValue;
-                value.setLength(0);
+        List<String> tokens = new ArrayList<>();
+        Matcher matcher = Pattern.compile("\\d+|\\+|\\-").matcher(text);
+        while (matcher.find()) {
+            tokens.add(matcher.group());
+        }
+
+        if (tokens.get(0).equals("-")) {
+            tokens.set(1, "-" + tokens.get(1));
+            tokens.removeFirst();
+        }
+
+        int result = Integer.parseInt(tokens.get(0));
+
+        for (int i = 1; i < tokens.size(); i += 2) {
+            String operator = tokens.get(i);
+            int nextNumber = Integer.parseInt(tokens.get(i + 1));
+
+            if (operator.equals("+")) {
+                result += nextNumber;
+            } else if (operator.equals("-")) {
+                result -= nextNumber;
             }
         }
-        total = total + Integer.parseInt(value.toString());
-        return total;
+
+        return result;
     }
 
     /**
