@@ -1,12 +1,6 @@
 package ee.taltech.iti0202.exam;
 
-import javax.print.DocFlavor;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Exam {
 
@@ -45,7 +39,6 @@ public class Exam {
             }
         }
 
-        // Add the last number
         result += sign * currentNumber;
 
         return result;
@@ -70,7 +63,7 @@ public class Exam {
                     continue;
                 } else if (numbers[i - 1] > numbers[i + 1]) {
                     numbers[i] = numbers[i - 1];
-                } else if (numbers[i -1] < numbers[i + 1]) {
+                } else if (numbers[i - 1] < numbers[i + 1]) {
                     numbers[i] = numbers[i + 1];
                 } else if (numbers[i - 1] == numbers[i + 1]) {
                     numbers[i] = numbers[i - 1];

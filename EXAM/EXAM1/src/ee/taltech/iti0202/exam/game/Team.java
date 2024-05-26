@@ -4,6 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Team {
+    public static final int PLAYERSIZE = 12;
     private String name;
     private List<Player> players;
 
@@ -15,7 +16,7 @@ public class Team {
      */
     public Team(String name, List<Player> players) {
         this.name = name;
-        if (players.size() > 12) {
+        if (players.size() > PLAYERSIZE) {
             throw new IllegalArgumentException("Too many players");
         }
         this.players = players;
@@ -43,7 +44,7 @@ public class Team {
      * @param player The player to add to the team.
      */
     public void addPlayer(Player player) {
-        if (!players.contains(player) && players.size() < 12 && player.getTeam() == null) {
+        if (!players.contains(player) && players.size() < PLAYERSIZE && player.getTeam() == null) {
             players.add(player);
             player.setTeam(this);
         }
