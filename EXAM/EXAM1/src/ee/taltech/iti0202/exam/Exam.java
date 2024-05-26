@@ -25,29 +25,28 @@ public class Exam {
             return 0;
         }
 
-        List<String> tokens = new ArrayList<>();
-        Matcher matcher = Pattern.compile("\\d+|\\+|\\-").matcher(text);
-        while (matcher.find()) {
-            tokens.add(matcher.group());
-        }
+        int result = 0;
+        int currentNumber = 0;
+        int sign = 1;
 
-        if (tokens.get(0).equals("-")) {
-            tokens.set(1, "-" + tokens.get(1));
-            tokens.removeFirst();
-        }
+        for (int i = 0; i < text.length(); i++) {
+            char c = text.charAt(i);
 
-        int result = Integer.parseInt(tokens.get(0));
-
-        for (int i = 1; i < tokens.size(); i += 2) {
-            String operator = tokens.get(i);
-            int nextNumber = Integer.parseInt(tokens.get(i + 1));
-
-            if (operator.equals("+")) {
-                result += nextNumber;
-            } else if (operator.equals("-")) {
-                result -= nextNumber;
+            if (Character.isDigit(c)) {
+                currentNumber = currentNumber * 10 + (c - '0');
+            } else if (c == '+') {
+                result += sign * currentNumber;
+                currentNumber = 0;
+                sign = 1;
+            } else if (c == '-') {
+                result += sign * currentNumber;
+                currentNumber = 0;
+                sign = -1;
             }
         }
+
+        // Add the last number
+        result += sign * currentNumber;
 
         return result;
     }
