@@ -65,7 +65,7 @@ public class Exam {
      * notAlone([3, 4], 3) => [3, 4]
      */
     public static int[] notAlone(int[] numbers, int toReplace) {
-        for (int i = 1; i < numbers.length; i++) {
+        for (int i = 1; i < numbers.length - 1; i++) {
             if (numbers[i] == toReplace) {
                 if (numbers[i - 1] == toReplace || numbers[i + 1] == toReplace) {
                     continue;
@@ -73,6 +73,8 @@ public class Exam {
                     numbers[i] = numbers[i - 1];
                 } else if (numbers[i -1] < numbers[i + 1]) {
                     numbers[i] = numbers[i + 1];
+                } else if (numbers[i - 1] == numbers[i + 1]) {
+                    numbers[i] = numbers[i - 1];
                 }
             }
             }
@@ -80,6 +82,8 @@ public class Exam {
     }
 
     public static void main(String[] args) {
-        System.out.println(calculate("-4+5-6"));
+        System.out.println(Arrays.toString(notAlone(new int[]{1, 2, 3}, 2)));
+        System.out.println(Arrays.toString(notAlone(new int[]{1, 2, 3, 2, 5, 2}, 2)));
+        System.out.println(Arrays.toString(notAlone(new int[]{3, 3, 4, 5, 3, 5, 4, 6}, 3)));
     }
 }
