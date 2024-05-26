@@ -2,7 +2,6 @@ package ee.taltech.iti0202.exam.game;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Team {
     private String name;
@@ -16,6 +15,9 @@ public class Team {
      */
     public Team(String name, List<Player> players) {
         this.name = name;
+        if (players.size() > 12) {
+            throw new IllegalArgumentException("Too many players");
+        }
         this.players = players;
     }
 

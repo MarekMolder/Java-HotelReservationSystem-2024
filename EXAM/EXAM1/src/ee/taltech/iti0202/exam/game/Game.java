@@ -63,7 +63,7 @@ public class Game {
      */
     @Override
     public String toString() {
-        return String.format("In this game compete - team1:%s and team2:%s", team1.getName(), team2.getName());
+        return String.format("In this game compete - team1: %s and team2: %s!", team1.getName(), team2.getName());
     }
 }
 
