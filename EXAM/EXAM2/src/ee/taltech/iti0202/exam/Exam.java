@@ -96,14 +96,4 @@ public class Exam {
         return result.toString();
     }
 
-    public static void main(String[] args) {
-        System.out.println(findUnsortedSubarray(new int[]{2, 6, 4, 8, 10, 9, 15}));
-        System.out.println(findUnsortedSubarray(new int[]{1, 2, 3, 4}));
-        System.out.println(findUnsortedSubarray(new int[]{1, 2, 4, 6, 11, 7, 12, 13}));
-
-
-        System.out.println(repeatSeparator("Word", "X", 3));
-        System.out.println(repeatSeparator("This", "And", 2));
-        System.out.println(repeatSeparator("This", "And", 1));
-    }
 }
