@@ -78,9 +78,11 @@ public class Hospital {
      * @return The name of the best doctor.
      */
     public String getBestDoctor() {
-        Doctor doctor = doctors.get(0);
+        Doctor doctor = null;
         for (Doctor doctor1: doctors) {
-            if (doctor1.getHealedPatientsAmount() < doctor.getHealedPatientsAmount()) {
+            if (doctor == null) {
+                doctor = doctor1;
+            }else if (doctor1.getHealedPatientsAmount() < doctor.getHealedPatientsAmount()) {
                 doctor = doctor1;
             } else if (doctor1.getHealedPatientsAmount() == doctor.getHealedPatientsAmount()) {
                 if (doctor1.getSpecialties().size() > doctor.getSpecialties().size()) {
@@ -88,6 +90,7 @@ public class Hospital {
                 }
             }
         }
+        assert doctor != null;
         return doctor.getName();
     }
 }
