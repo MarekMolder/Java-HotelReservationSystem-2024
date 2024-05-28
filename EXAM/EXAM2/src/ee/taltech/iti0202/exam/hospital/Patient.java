@@ -42,6 +42,9 @@ public class Patient {
         return diseaseType;
     }
 
+    /**
+     * Set disease type.
+     */
     public void setDiseaseType() {
         diseaseType = null;
     }

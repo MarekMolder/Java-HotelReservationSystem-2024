@@ -49,6 +49,9 @@ public class Doctor {
         return healedPatients;
     }
 
+    /**
+     * Increase healed patient number.
+     */
     public void increaseHealedPatientsAmount() {
         healedPatients++;
     }
@@ -63,6 +66,9 @@ public class Doctor {
         }
     }
 
+    /**
+     * Remove patient.
+     */
     public void removePatient(Patient patient) {
         patients.remove(patient);
     }
