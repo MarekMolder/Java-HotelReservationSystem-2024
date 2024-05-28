@@ -9,10 +9,8 @@ import ee.taltech.iti0202.computerbuilder.store.EUseCase;
 import ee.taltech.iti0202.computerbuilder.store.Store;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Factory {
 
@@ -28,7 +26,6 @@ public class Factory {
     public static Computer assembleComputer(Optional<BigDecimal> optionalBudget,
                                             Optional<EUseCase> optionalUseCase, EComputerType type, Store store) {
         BigDecimal budget = optionalBudget.orElse(BigDecimal.valueOf(Double.MAX_VALUE));
-        // Set to max value if not provided
         EUseCase useCase = optionalUseCase.orElse(null); // Use null if not provided
 
         List<Component> components = store.getAvailableComponents();
@@ -52,75 +49,73 @@ public class Factory {
      */
     private static List<Component> selectBestComponents(List<Component> components,
                                                         EComputerType type, EUseCase optionalUseCase) {
-        List<Component> cpus = filterAndSortComponents(components, Component.Type.CPU);
-        List<Component> gpus = filterAndSortComponents(components, Component.Type.GPU);
-        List<Component> rams = filterAndSortComponents(components, Component.Type.RAM);
-        List<Component> motherboards = filterAndSortComponents(components, Component.Type.MOTHERBOARD);
-        List<Component> storages = filterAndSortComponents(components, Component.Type.HDD, Component.Type.SSD);
-        List<Component> psus = filterAndSortComponents(components, Component.Type.PSU);
-        List<Component> cases = filterAndSortComponents(components, Component.Type.CASE);
+        Map<Component.Type, List<Component>> componentsByType = components.stream()
+                .collect(Collectors.groupingBy(Component::getType));
 
         List<Component> selectedComponents = new ArrayList<>();
 
         if (type == EComputerType.LAPTOP) {
-            List<Component> keyboards = filterAndSortComponents(components, Component.Type.KEYBOARD);
-            List<Component> touchpads = filterAndSortComponents(components, Component.Type.TOUCHPAD);
-            List<Component> screens = filterAndSortComponents(components, Component.Type.SCREEN);
-            List<Component> batteries = filterAndSortComponents(components, Component.Type.BATTERY);
-
-            selectedComponents.add(keyboards.get(0));
-            selectedComponents.add(touchpads.get(0));
-            selectedComponents.add(screens.get(0));
-            selectedComponents.add(batteries.get(0));
-            selectedComponents.add(cases.get(0));
-            selectedComponents.add(storages.get(0));
-            selectedComponents.add(motherboards.get(0));
-            selectedComponents.add(rams.get(0));
-            selectedComponents.add(gpus.get(0));
-            selectedComponents.add(cpus.get(0));
-            selectedComponents.add(psus.get(0));
-
+            selectedComponents.addAll(selectLaptopComponents(componentsByType));
         } else if (type == EComputerType.PC) {
-            if (optionalUseCase == EUseCase.GAMING) {
-                selectedComponents.add(cases.get(0));
-                selectedComponents.add(storages.get(0));
-                selectedComponents.add(motherboards.get(0));
-                selectedComponents.add(rams.get(0));
-                selectedComponents.add(cpus.get(0));
-                selectedComponents.add(gpus.get(0));
-                selectedComponents.add(psus.get(0));
-            } else if (optionalUseCase == EUseCase.WORKSTATION || optionalUseCase == null) {
-                selectedComponents.add(cases.get(0));
-                selectedComponents.add(storages.get(0));
-                selectedComponents.add(motherboards.get(0));
-                selectedComponents.add(rams.get(0));
-                selectedComponents.add(gpus.get(0));
-                selectedComponents.add(cpus.get(0));
-                selectedComponents.add(psus.get(0));
-            }
+            selectedComponents.addAll(selectPcComponents(componentsByType, optionalUseCase));
         }
+
         return selectedComponents;
     }
 
-    /**
-     * Filters and sorts components based on type.
-     *
-     * @param components the list of available components
-     * @param types the types of components to filter
-     * @return the list of filtered and sorted components
-     */
-    private static List<Component> filterAndSortComponents(List<Component> components, Component.Type... types) {
-        List<Component> filteredComponents = new ArrayList<>();
-        for (Component component : components) {
-            for (Component.Type type : types) {
-                if (component.getType() == type) {
-                    filteredComponents.add(component);
-                    break;
-                }
-            }
+    private static List<Component> selectLaptopComponents(Map<Component.Type, List<Component>> componentsByType) {
+        return Arrays.asList(
+                getBestComponent(componentsByType, Component.Type.KEYBOARD),
+                getBestComponent(componentsByType, Component.Type.TOUCHPAD),
+                getBestComponent(componentsByType, Component.Type.SCREEN),
+                getBestComponent(componentsByType, Component.Type.BATTERY),
+                getBestComponent(componentsByType, Component.Type.CASE),
+                getBestComponent(componentsByType, Component.Type.HDD, Component.Type.SSD),
+                getBestComponent(componentsByType, Component.Type.MOTHERBOARD),
+                getBestComponent(componentsByType, Component.Type.RAM),
+                getBestComponent(componentsByType, Component.Type.GPU),
+                getBestComponent(componentsByType, Component.Type.CPU),
+                getBestComponent(componentsByType, Component.Type.PSU)
+        );
+    }
+
+    private static List<Component> selectPcComponents(Map<Component.Type, List<Component>> componentsByType, EUseCase useCase) {
+        List<Component> selectedComponents;
+
+        if (useCase == EUseCase.GAMING) {
+            selectedComponents = Arrays.asList(
+                    getBestComponent(componentsByType, Component.Type.CASE),
+                    getBestComponent(componentsByType, Component.Type.HDD, Component.Type.SSD),
+                    getBestComponent(componentsByType, Component.Type.MOTHERBOARD),
+                    getBestComponent(componentsByType, Component.Type.RAM),
+                    getBestComponent(componentsByType, Component.Type.CPU),
+                    getBestComponent(componentsByType, Component.Type.GPU),
+                    getBestComponent(componentsByType, Component.Type.PSU)
+            );
+        } else if (useCase == EUseCase.WORKSTATION || useCase == null) {
+            selectedComponents = Arrays.asList(
+                    getBestComponent(componentsByType, Component.Type.CASE),
+                    getBestComponent(componentsByType, Component.Type.HDD, Component.Type.SSD),
+                    getBestComponent(componentsByType, Component.Type.MOTHERBOARD),
+                    getBestComponent(componentsByType, Component.Type.RAM),
+                    getBestComponent(componentsByType, Component.Type.GPU),
+                    getBestComponent(componentsByType, Component.Type.CPU),
+                    getBestComponent(componentsByType, Component.Type.PSU)
+            );
+        } else {
+            throw new IllegalArgumentException("Invalid use case");
         }
-        filteredComponents.sort((c1, c2) -> c2.getPerformancePoints() - c1.getPerformancePoints());
-        return filteredComponents;
+
+        return selectedComponents;
+    }
+
+    private static Component getBestComponent(Map<Component.Type, List<Component>> componentsByType, Component.Type... types) {
+        return Arrays.stream(types)
+                .map(componentsByType::get)
+                .filter(Objects::nonNull)
+                .flatMap(Collection::stream)
+                .max(Comparator.comparingInt(Component::getPerformancePoints))
+                .orElseThrow(() -> new IllegalArgumentException("No components available for types: " + Arrays.toString(types)));
     }
 
     /**
@@ -131,10 +126,9 @@ public class Factory {
      * @return the total cost
      */
     private static BigDecimal calculateTotalCost(List<Component> components, BigDecimal profitMargin) {
-        BigDecimal totalCost = BigDecimal.ZERO;
-        for (Component component : components) {
-            totalCost = totalCost.add(component.getPrice());
-        }
+        BigDecimal totalCost = components.stream()
+                .map(Component::getPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
         return totalCost.multiply(profitMargin);
     }
 
@@ -145,15 +139,10 @@ public class Factory {
      * @return the total power consumption
      */
     private static int calculateTotalPowerConsumption(List<Component> components) {
-        int totalPowerConsumption = 0;
-        for (Component component : components) {
-            if (component.getType() == Component.Type.PSU || component.getType() == Component.Type.BATTERY) {
-                continue;
-            } else {
-                totalPowerConsumption += component.getPowerConsumption();
-            }
-        }
-        return totalPowerConsumption;
+        return components.stream()
+                .filter(component -> component.getType() != Component.Type.PSU && component.getType() != Component.Type.BATTERY)
+                .mapToInt(Component::getPowerConsumption)
+                .sum();
     }
 
     /**
@@ -168,34 +157,15 @@ public class Factory {
     private static void adjustComponentsWithinBudgetAndPower(List<Component> selectedComponents,
                                                              BigDecimal totalCost, int totalPowerConsumption,
                                                              BigDecimal budget, List<Component> availableComponents) {
-        Component psu = null;
-        for (Component component : selectedComponents) {
-            if (component.getType() == Component.Type.PSU) {
-                psu = component;
-            }
-        }
+        Map<Component.Type, List<Component>> componentsByType = availableComponents.stream()
+                .collect(Collectors.groupingBy(Component::getType));
 
-        List<Component> cpus = filterAndSortComponents(availableComponents, Component.Type.CPU);
-        List<Component> gpus = filterAndSortComponents(availableComponents, Component.Type.GPU);
-        List<Component> rams = filterAndSortComponents(availableComponents, Component.Type.RAM);
-        List<Component> motherboards = filterAndSortComponents(availableComponents, Component.Type.MOTHERBOARD);
-        List<Component> storages = filterAndSortComponents(availableComponents, Component.Type.HDD, Component.Type.SSD);
-        List<Component> psus = filterAndSortComponents(availableComponents, Component.Type.PSU);
-        List<Component> cases = filterAndSortComponents(availableComponents, Component.Type.CASE);
-        List<Component> keyboards = filterAndSortComponents(availableComponents, Component.Type.KEYBOARD);
-        List<Component> touchpads = filterAndSortComponents(availableComponents, Component.Type.TOUCHPAD);
-        List<Component> screens = filterAndSortComponents(availableComponents, Component.Type.SCREEN);
-        List<Component> batteries = filterAndSortComponents(availableComponents, Component.Type.BATTERY);
-
-        while (totalCost.compareTo(budget) > 0 || totalPowerConsumption > Objects.requireNonNull(psu)
-                .getPowerConsumption()) {
+        while (totalCost.compareTo(budget) > 0) {
             boolean downgraded = false;
 
             for (int i = 0; i < selectedComponents.size(); i++) {
                 Component component = selectedComponents.get(i);
-                List<Component> componentList = getComponentListByType(component.getType(),
-                        cpus, gpus, rams, motherboards, storages,
-                        psus, cases, keyboards, touchpads, screens, batteries);
+                List<Component> componentList = componentsByType.get(component.getType());
 
                 int index = componentList.indexOf(component);
                 if (index + 1 < componentList.size()) {
@@ -206,7 +176,7 @@ public class Factory {
                     selectedComponents.set(i, nextBestComponent);
 
                     if (totalCost.compareTo(budget) <= 0 && totalPowerConsumption
-                            <= selectedComponents.get(5).getPowerConsumption()) {
+                            <= selectedComponents.get(6).getPowerConsumption()) {
                         return;
                     }
 
@@ -216,8 +186,7 @@ public class Factory {
             }
 
             if (!downgraded) {
-                throw new IllegalArgumentException("Cannot assemble a computer"
-                        + " within the given budget and power constraints");
+                throw new IllegalArgumentException("Cannot assemble a computer within the given budget and power constraints");
             }
         }
     }
@@ -232,55 +201,30 @@ public class Factory {
      */
     private static Computer createComputer(EComputerType type, List<Component> components, EUseCase useCase) {
         if (type == EComputerType.PC) {
-            if (useCase == EUseCase.GAMING) {
-                return new Pc(components.get(4), components.get(5), components.get(3),
-                        components.get(2), components.get(1), components.get(6), components.get(0));
-            } else {
-                return new Pc(components.get(5), components.get(4), components.get(3),
-                        components.get(2), components.get(1), components.get(6), components.get(0));
-            }
+            Pc.PcBuilder pcBuilder = new Pc.PcBuilder();
+            pcBuilder.setCpu(components.get(5));
+            pcBuilder.setGpu(components.get(4));
+            pcBuilder.setRam(components.get(3));
+            pcBuilder.setMotherboard(components.get(2));
+            pcBuilder.setStorage(components.get(1));
+            pcBuilder.setPsu(components.get(6));
+            pcBuilder.setPcCase(components.get(0));
+            return pcBuilder.build();
         } else {
-            return new Laptop(components.get(9), components.get(8), components.get(7),
-                    components.get(6), components.get(5), components.get(10), components.get(4),
-                    components.get(0), components.get(1), components.get(2), components.get(3));
+            Laptop.LaptopBuilder laptopBuilder = new Laptop.LaptopBuilder();
+            laptopBuilder.setCpu(components.get(9));
+            laptopBuilder.setGpu(components.get(8));
+            laptopBuilder.setRam(components.get(7));
+            laptopBuilder.setMotherboard(components.get(6));
+            laptopBuilder.setStorage(components.get(5));
+            laptopBuilder.setPsu(components.get(10));
+            laptopBuilder.setPcCase(components.get(4));
+            laptopBuilder.setKeyboard(components.get(0));
+            laptopBuilder.setTouchpad(components.get(1));
+            laptopBuilder.setScreen(components.get(2));
+            laptopBuilder.setBattery(components.get(3));
+            return laptopBuilder.build();
         }
     }
 
-    /**
-     * Retrieves a list of components based on the specified component type.
-     *
-     * @param type        The type of component to retrieve.
-     * @param cpus        List of available CPUs.
-     * @param gpus        List of available GPUs.
-     * @param rams        List of available RAMs.
-     * @param motherboards List of available motherboards.
-     * @param storages    List of available storages (HDDs or SSDs).
-     * @param psus        List of available PSUs.
-     * @param cases       List of available computer cases.
-     * @param keyboards   List of available keyboards.
-     * @param touchpads   List of available touchpads.
-     * @param screens     List of available screens.
-     * @param batteries   List of available batteries.
-     * @return A list of components based on the specified type.
-     */
-    private static List<Component> getComponentListByType(Component.Type type, List<Component> cpus,
-                                                          List<Component> gpus, List<Component> rams,
-                                                          List<Component> motherboards, List<Component> storages,
-                                                          List<Component> psus, List<Component> cases,
-                                                          List<Component> keyboards, List<Component> touchpads,
-                                                          List<Component> screens, List<Component> batteries) {
-        return switch (type) {
-            case CPU -> cpus;
-            case GPU -> gpus;
-            case RAM -> rams;
-            case MOTHERBOARD -> motherboards;
-            case HDD, SSD -> storages;
-            case PSU -> psus;
-            case CASE -> cases;
-            case KEYBOARD -> keyboards;
-            case TOUCHPAD -> touchpads;
-            case SCREEN -> screens;
-            case BATTERY -> batteries;
-        };
-    }
 }

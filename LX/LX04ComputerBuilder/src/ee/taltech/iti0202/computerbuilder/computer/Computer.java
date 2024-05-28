@@ -1,7 +1,6 @@
 package ee.taltech.iti0202.computerbuilder.computer;
 
 import ee.taltech.iti0202.computerbuilder.components.Component;
-
 import java.math.BigDecimal;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,26 +15,14 @@ public abstract class Computer {
     Component pcCase;
     List<Component> components;
 
-    /**
-     * Constructs a Computer with the specified components.
-     *
-     * @param cpu the CPU component
-     * @param gpu the GPU component
-     * @param ram the RAM component
-     * @param motherboard the motherboard component
-     * @param storage the storage component
-     * @param psu the power supply unit component
-     * @param pcCase the case component
-     */
-    public Computer(Component cpu, Component gpu, Component ram, Component motherboard,
-                    Component storage, Component psu, Component pcCase) {
-        this.cpu = cpu;
-        this.gpu = gpu;
-        this.ram = ram;
-        this.motherboard = motherboard;
-        this.storage = storage;
-        this.psu = psu;
-        this.pcCase = pcCase;
+    protected Computer(Builder<?> builder) {
+        this.cpu = builder.cpu;
+        this.gpu = builder.gpu;
+        this.ram = builder.ram;
+        this.motherboard = builder.motherboard;
+        this.storage = builder.storage;
+        this.psu = builder.psu;
+        this.pcCase = builder.pcCase;
         this.components = new LinkedList<>();
         this.components.add(cpu);
         this.components.add(gpu);
@@ -46,28 +33,65 @@ public abstract class Computer {
         this.components.add(pcCase);
     }
 
-    /**
-     * Calculates the total performance of the computer.
-     * @return the total performance points of all components
-     */
+    public static abstract class Builder<T extends Builder<T>> {
+        private Component cpu;
+        private Component gpu;
+        private Component ram;
+        private Component motherboard;
+        private Component storage;
+        private Component psu;
+        private Component pcCase;
+
+        public T setCpu(Component cpu) {
+            this.cpu = cpu;
+            return self();
+        }
+
+        public T setGpu(Component gpu) {
+            this.gpu = gpu;
+            return self();
+        }
+
+        public T setRam(Component ram) {
+            this.ram = ram;
+            return self();
+        }
+
+        public T setMotherboard(Component motherboard) {
+            this.motherboard = motherboard;
+            return self();
+        }
+
+        public T setStorage(Component storage) {
+            this.storage = storage;
+            return self();
+        }
+
+        public T setPsu(Component psu) {
+            this.psu = psu;
+            return self();
+        }
+
+        public T setPcCase(Component pcCase) {
+            this.pcCase = pcCase;
+            return self();
+        }
+
+        protected abstract T self();
+
+        public abstract Computer build();
+    }
+
     public int calculateTotalPerformance() {
         return cpu.getPerformancePoints() + gpu.getPerformancePoints()
                 + ram.getPerformancePoints() + motherboard.getPerformancePoints() + storage.getPerformancePoints();
     }
 
-    /**
-     * Calculates the total power consumption of the computer.
-     * @return the total power consumption of all components
-     */
     public int calculateTotalPower() {
         return cpu.getPowerConsumption() + gpu.getPowerConsumption()
                 + ram.getPowerConsumption() + motherboard.getPowerConsumption() + storage.getPowerConsumption();
     }
 
-    /**
-     * Calculates the total price of the computer.
-     * @return the total price of all components
-     */
     public BigDecimal calculateTotalPrice() {
         return cpu.getPrice()
                 .add(gpu.getPrice())
@@ -78,10 +102,6 @@ public abstract class Computer {
                 .add(pcCase.getPrice());
     }
 
-    /**
-     * Returns the list of all components in the computer.
-     * @return the list of components
-     */
     public List<Component> getComponents() {
         return components;
     }

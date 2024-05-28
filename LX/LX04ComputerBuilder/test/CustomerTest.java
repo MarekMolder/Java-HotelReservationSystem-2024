@@ -48,7 +48,16 @@ public class CustomerTest {
 
     @Test
     void getComputer() {
-        Pc computer = new Pc(cpu, gpu, ram, motherboard, hdd, psu, pcCase);
+        Pc computer = new Pc.PcBuilder()
+                .setCpu(cpu)
+                .setGpu(gpu)
+                .setRam(ram)
+                .setMotherboard(motherboard)
+                .setStorage(hdd)
+                .setPsu(psu)
+                .setPcCase(pcCase)
+                .build();
+
         mari.addComputer(computer);
         assertEquals(List.of(computer), mari.getComputer());
     }

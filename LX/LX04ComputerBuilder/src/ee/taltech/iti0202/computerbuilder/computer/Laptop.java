@@ -1,7 +1,6 @@
 package ee.taltech.iti0202.computerbuilder.computer;
 
 import ee.taltech.iti0202.computerbuilder.components.Component;
-
 import java.math.BigDecimal;
 
 public class Laptop extends Computer {
@@ -10,32 +9,53 @@ public class Laptop extends Computer {
     Component screen;
     Component battery;
 
-    /**
-     * Constructs a new laptop.
-     * @param cpu
-     * @param gpu
-     * @param ram
-     * @param motherboard
-     * @param storage
-     * @param psu
-     * @param pcCase
-     * @param keyboard
-     * @param touchpad
-     * @param screen
-     * @param battery
-     */
-    public Laptop(Component cpu, Component gpu, Component ram, Component motherboard,
-                  Component storage, Component psu, Component pcCase,
-                  Component keyboard, Component touchpad, Component screen, Component battery) {
-        super(cpu, gpu, ram, motherboard, storage, psu, pcCase);
-        this.keyboard = keyboard;
-        this.touchpad = touchpad;
-        this.screen = screen;
-        this.battery = battery;
+    private Laptop(LaptopBuilder builder) {
+        super(builder);
+        this.keyboard = builder.keyboard;
+        this.touchpad = builder.touchpad;
+        this.screen = builder.screen;
+        this.battery = builder.battery;
         this.components.add(keyboard);
         this.components.add(touchpad);
         this.components.add(screen);
         this.components.add(battery);
+    }
+
+    public static class LaptopBuilder extends Builder<LaptopBuilder> {
+        private Component keyboard;
+        private Component touchpad;
+        private Component screen;
+        private Component battery;
+
+        public LaptopBuilder setKeyboard(Component keyboard) {
+            this.keyboard = keyboard;
+            return this;
+        }
+
+        public LaptopBuilder setTouchpad(Component touchpad) {
+            this.touchpad = touchpad;
+            return this;
+        }
+
+        public LaptopBuilder setScreen(Component screen) {
+            this.screen = screen;
+            return this;
+        }
+
+        public LaptopBuilder setBattery(Component battery) {
+            this.battery = battery;
+            return this;
+        }
+
+        @Override
+        protected LaptopBuilder self() {
+            return this;
+        }
+
+        @Override
+        public Laptop build() {
+            return new Laptop(this);
+        }
     }
 
     @Override
