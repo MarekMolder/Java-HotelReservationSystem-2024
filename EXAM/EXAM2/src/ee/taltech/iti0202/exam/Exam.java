@@ -1,6 +1,9 @@
 package ee.taltech.iti0202.exam;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 public class Exam {
     /**
