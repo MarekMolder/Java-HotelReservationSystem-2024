@@ -45,7 +45,7 @@ public abstract class Computer {
      *
      * @param <T> the type of the builder
      */
-    public static abstract class Builder<T extends Builder<T>> {
+    public abstract static class Builder<T extends Builder<T>> {
 
         private Component cpu;
         private Component gpu;
