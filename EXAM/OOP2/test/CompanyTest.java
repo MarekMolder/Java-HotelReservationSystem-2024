@@ -8,7 +8,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CompanyTest {
     private Bus bus1;
@@ -54,7 +56,7 @@ public class CompanyTest {
     }
 
     @Test
-    void FindBusesForStartPointAndDestination() {
+    void findBusesForStartPointAndDestination() {
         Company company = new Company();
 
         company.addBus(bus1);
@@ -102,7 +104,7 @@ public class CompanyTest {
     }
 
     @Test
-    void ClientIsUnder6GetsFreeRide() {
+    void clientIsUnder6GetsFreeRide() {
         Company company = new Company();
 
         company.addBus(bus1);
@@ -116,7 +118,7 @@ public class CompanyTest {
     }
 
     @Test
-    void ClientIsUnder6ButSeatsAreTakenSoNoRide() {
+    void clientIsUnder6ButSeatsAreTakenSoNoRide() {
         Company company = new Company();
 
         company.addBus(bus1);
@@ -135,7 +137,7 @@ public class CompanyTest {
     }
 
     @Test
-    void ClientGet10Discount() {
+    void clientGet10Discount() {
         Company company = new Company();
 
         company.addBus(bus1);
@@ -150,7 +152,7 @@ public class CompanyTest {
     }
 
     @Test
-    void ClientGet35Discount() {
+    void clientGet35Discount() {
         Company company = new Company();
 
         company.addBus(bus1);
@@ -169,7 +171,7 @@ public class CompanyTest {
     }
 
     @Test
-    void ClientDoesNotHaveEnoughMoneySoNoRide() {
+    void clientDoesNotHaveEnoughMoneySoNoRide() {
         Company company = new Company();
 
         company.addBus(bus1);
@@ -183,7 +185,7 @@ public class CompanyTest {
     }
 
     @Test
-    void CheckIfAllFieldsAreCorrect() {
+    void checkIfAllFieldsAreCorrect() {
         Company company = new Company();
 
         company.addBus(bus1);
@@ -199,6 +201,5 @@ public class CompanyTest {
         assertEquals(Map.of(company, 1), client2.getCompanies());
         assertEquals(1, client2.getTickets().size());
         assertEquals(1, bus1.getSeatsTaken());
-
     }
 }

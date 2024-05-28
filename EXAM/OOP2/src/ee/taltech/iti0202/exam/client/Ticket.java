@@ -11,6 +11,9 @@ public class Ticket {
     private final String startPoint;
     private final String endPoint;
 
+    /**
+     * Constructs a new ticket.
+     */
     public Ticket(Company company, Bus bus, double price, Client client, String startPoint, String endPoint) {
         this.company = company;
         this.bus = bus;

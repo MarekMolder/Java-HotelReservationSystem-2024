@@ -7,6 +7,9 @@ public class Bus {
     private final double price;
     private int seatsTaken;
 
+    /**
+     * Constructs a new bus.
+     */
     public Bus(String startPoint, String destination, int maxSeats, Double price) {
         this.startPoint = startPoint;
         this.destination = destination;
@@ -31,6 +34,9 @@ public class Bus {
         return price;
     }
 
+    /**
+     * Adds a takenSeat to bus.
+     */
     public void takeSeat() {
         if (seatsTaken < maxSeats) {
             seatsTaken++;

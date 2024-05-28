@@ -14,6 +14,12 @@ public class Client {
     private final List<Ticket> tickets;
     private final Map<Company, Integer> companies;
 
+    /**
+     * Constructs a new client.
+     * @param name
+     * @param age
+     * @param balance
+     */
     public Client(String name, int age, double balance) {
         this.name = name;
         this.age = age;
@@ -38,6 +44,9 @@ public class Client {
         return tickets;
     }
 
+    /**
+     * Adds a ticket to client's list.
+     */
     public void addTicket(Ticket ticket) {
         this.tickets.add(ticket);
     }
@@ -46,10 +55,17 @@ public class Client {
         return companies;
     }
 
+    /**
+     * Everytime client buys a ticket from a company, it increases a company number.
+     */
     public void increaseCompany(Company company) {
         this.companies.merge(company, 1, Integer::sum);
     }
 
+    /**
+     * Subtracts price from client's balance.
+     * @param price
+     */
     public void setBalance(double price) {
         this.balance -= price;
     }
