@@ -30,7 +30,7 @@ public class Exam {
             sorted2.add(num);
         }
 
-        for (int i = 0; i < nums2.size(); i++) {
+        for (int i = 0; i < nums2.size() - 1; i++) {
             if (Objects.equals(nums2.get(i), sorted2.get(i))) {
                 sorted2.remove(sorted2.get(i));
             }
