@@ -57,10 +57,10 @@ public class ClientTest {
         client.increaseCompany(company);
 
         assertEquals(1, client.getCompanies().size());
-        assertEquals(Map.of(company,1), client.getCompanies());
+        assertEquals(Map.of(company, 1), client.getCompanies());
 
         client.increaseCompany(company);
         assertEquals(1, client.getCompanies().size());
-        assertEquals(Map.of(company,2), client.getCompanies());
+        assertEquals(Map.of(company, 2), client.getCompanies());
     }
 }
