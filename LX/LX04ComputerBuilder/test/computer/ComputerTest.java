@@ -24,17 +24,28 @@ public class ComputerTest {
 
     @BeforeEach
     void setUp() {
-        cpu = new Component("cpu", Component.Type.CPU, BigDecimal.valueOf(100), "ArvutiTark", 200, 110);
-        gpu = new Component("gpu", Component.Type.GPU, BigDecimal.valueOf(100), "ArvutiTark", 200, 250);
-        ram = new Component("ram", Component.Type.RAM, BigDecimal.valueOf(100), "ArvutiTark", 200, 10);
-        motherboard = new Component("motherboard", Component.Type.MOTHERBOARD, BigDecimal.valueOf(100), "ArvutiTark", 200, 0);
-        hdd = new Component("hdd", Component.Type.HDD, BigDecimal.valueOf(100), "ArvutiTark", 200, 5);
-        psu = new Component("psu", Component.Type.PSU, BigDecimal.valueOf(100), "ArvutiTark", 0, 500);
-        pcCase = new Component("case", Component.Type.CASE, BigDecimal.valueOf(100), "ArvutiTark", 0, 0);
-        keyboard = new Component("keyboard", Component.Type.KEYBOARD, BigDecimal.valueOf(100), "ArvutiTark", 200, 20);
-        touchpad = new Component("touchpad", Component.Type.TOUCHPAD, BigDecimal.valueOf(100), "ArvutiTark", 200, 20);
-        screen = new Component("screen", Component.Type.SCREEN, BigDecimal.valueOf(100), "ArvutiTark", 200, 20);
-        battery = new Component("battery", Component.Type.BATTERY, BigDecimal.valueOf(100), "ArvutiTark", 200, 20);
+        cpu = new Component("cpu", Component.Type.CPU, BigDecimal.valueOf(100),
+                "ArvutiTark", 200, 110);
+        gpu = new Component("gpu", Component.Type.GPU, BigDecimal.valueOf(100),
+                "ArvutiTark", 200, 250);
+        ram = new Component("ram", Component.Type.RAM, BigDecimal.valueOf(100),
+                "ArvutiTark", 200, 10);
+        motherboard = new Component("motherboard", Component.Type.MOTHERBOARD,
+                BigDecimal.valueOf(100), "ArvutiTark", 200, 0);
+        hdd = new Component("hdd", Component.Type.HDD, BigDecimal.valueOf(100),
+                "ArvutiTark", 200, 5);
+        psu = new Component("psu", Component.Type.PSU, BigDecimal.valueOf(100),
+                "ArvutiTark", 0, 500);
+        pcCase = new Component("case", Component.Type.CASE, BigDecimal.valueOf(100),
+                "ArvutiTark", 0, 0);
+        keyboard = new Component("keyboard", Component.Type.KEYBOARD, BigDecimal.valueOf(100),
+                "ArvutiTark", 200, 20);
+        touchpad = new Component("touchpad", Component.Type.TOUCHPAD, BigDecimal.valueOf(100),
+                "ArvutiTark", 200, 20);
+        screen = new Component("screen", Component.Type.SCREEN, BigDecimal.valueOf(100),
+                "ArvutiTark", 200, 20);
+        battery = new Component("battery", Component.Type.BATTERY, BigDecimal.valueOf(100),
+                "ArvutiTark", 200, 20);
     }
 
     @Test
@@ -154,6 +165,7 @@ public class ComputerTest {
                 .build();
 
         assertEquals(List.of(cpu, gpu, ram, motherboard, hdd, psu, pcCase), computer.getComponents());
-        assertEquals(List.of(cpu, gpu, ram, motherboard, hdd, psu, pcCase, keyboard, touchpad, screen, battery), computer2.getComponents());
+        assertEquals(List.of(cpu, gpu, ram, motherboard, hdd, psu, pcCase,
+                keyboard, touchpad, screen, battery), computer2.getComponents());
     }
 }

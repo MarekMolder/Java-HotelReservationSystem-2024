@@ -9,7 +9,14 @@ import ee.taltech.iti0202.computerbuilder.store.EUseCase;
 import ee.taltech.iti0202.computerbuilder.store.Store;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class Factory {
@@ -79,7 +86,8 @@ public class Factory {
         );
     }
 
-    private static List<Component> selectPcComponents(Map<Component.Type, List<Component>> componentsByType, EUseCase useCase) {
+    private static List<Component> selectPcComponents(Map<Component.Type,
+            List<Component>> componentsByType, EUseCase useCase) {
         List<Component> selectedComponents;
 
         if (useCase == EUseCase.GAMING) {
@@ -109,13 +117,15 @@ public class Factory {
         return selectedComponents;
     }
 
-    private static Component getBestComponent(Map<Component.Type, List<Component>> componentsByType, Component.Type... types) {
+    private static Component getBestComponent(Map<Component.Type,
+            List<Component>> componentsByType, Component.Type... types) {
         return Arrays.stream(types)
                 .map(componentsByType::get)
                 .filter(Objects::nonNull)
                 .flatMap(Collection::stream)
                 .max(Comparator.comparingInt(Component::getPerformancePoints))
-                .orElseThrow(() -> new IllegalArgumentException("No components available for types: " + Arrays.toString(types)));
+                .orElseThrow(() -> new IllegalArgumentException("No components available for types: "
+                        + Arrays.toString(types)));
     }
 
     /**
@@ -140,7 +150,8 @@ public class Factory {
      */
     private static int calculateTotalPowerConsumption(List<Component> components) {
         return components.stream()
-                .filter(component -> component.getType() != Component.Type.PSU && component.getType() != Component.Type.BATTERY)
+                .filter(component -> component.getType() != Component.Type.PSU && component.getType()
+                        != Component.Type.BATTERY)
                 .mapToInt(Component::getPowerConsumption)
                 .sum();
     }
@@ -186,7 +197,8 @@ public class Factory {
             }
 
             if (!downgraded) {
-                throw new IllegalArgumentException("Cannot assemble a computer within the given budget and power constraints");
+                throw new IllegalArgumentException("Cannot assemble a computer within"
+                        + " the given budget and power constraints");
             }
         }
     }

@@ -1,8 +1,6 @@
 package ee.taltech.iti0202.computerbuilder.computer;
 
-import ee.taltech.iti0202.computerbuilder.components.Component;
-
-public class Pc extends Computer {
+public final class Pc extends Computer {
 
     private Pc(PcBuilder builder) {
         super(builder);
