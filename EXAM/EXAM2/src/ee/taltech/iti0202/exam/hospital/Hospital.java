@@ -1,7 +1,9 @@
 package ee.taltech.iti0202.exam.hospital;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Hospital {
     private List<Doctor> doctors;
@@ -12,7 +14,10 @@ public class Hospital {
      * @param doctors  The list of doctors in the hospital.
      */
     public Hospital(List<Doctor> doctors) {
-        this.doctors = doctors;
+        Set<Doctor> doctors1 = new HashSet<>(doctors);
+        List<Doctor> doctors2 = new ArrayList<>(doctors1);
+
+        this.doctors = doctors2;
         this.patients = new ArrayList<>();
     }
 
