@@ -21,6 +21,7 @@ public class Exam {
 
         List<Integer> nums2 = new LinkedList<>();
         List<Integer> sorted2 = new LinkedList<>();
+        List<Integer> result = new LinkedList<>();
 
         for (Integer num: nums) {
             nums2.add(num);
@@ -28,14 +29,15 @@ public class Exam {
 
         for (Integer num: sorted) {
             sorted2.add(num);
+            result.add(num);
         }
 
-        for (int i = 0; i < nums2.size() - 1; i++) {
+        for (int i = 0; i < nums2.size(); i++) {
             if (Objects.equals(nums2.get(i), sorted2.get(i))) {
-                sorted2.remove(sorted2.get(i));
+                result.remove(sorted2.get(i));
             }
         }
-        return sorted2.size();
+        return result.size();
     }
 
     /**
