@@ -87,7 +87,7 @@ public class Hospital {
         for (Doctor doctor1: doctors) {
             if (doctor == null) {
                 doctor = doctor1;
-            }else if (doctor1.getHealedPatientsAmount() < doctor.getHealedPatientsAmount()) {
+            } else if (doctor1.getHealedPatientsAmount() > doctor.getHealedPatientsAmount()) {
                 doctor = doctor1;
             } else if (doctor1.getHealedPatientsAmount() == doctor.getHealedPatientsAmount()) {
                 if (doctor1.getSpecialties().size() > doctor.getSpecialties().size()) {
