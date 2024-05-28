@@ -33,8 +33,11 @@ public class Exam {
         }
 
         for (int i = 0; i < nums2.size(); i++) {
-            if (Objects.equals(nums2.get(i), sorted2.get(i))) {
+            if (Objects.equals(nums2.get(i), sorted2.get(i)) && Objects.equals(nums2.get(nums2.size() - 1 - i), sorted2.get(sorted2.size() - 1 - i))) {
                 result.remove(sorted2.get(i));
+                result.remove(sorted2.get(sorted2.size() - i - 1));
+            } else {
+                return result.size();
             }
         }
         return result.size();
