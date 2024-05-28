@@ -31,13 +31,28 @@ public class Exam {
             sorted2.add(num);
             result.add(num);
         }
+        boolean dontReadFront = false;
+        boolean dontReadBack = false;
 
         for (int i = 0; i < nums2.size(); i++) {
-            if (Objects.equals(nums2.get(i), sorted2.get(i)) && Objects.equals(nums2.get(nums2.size() - 1 - i), sorted2.get(sorted2.size() - 1 - i))) {
+
+            if (dontReadFront && dontReadBack) {
+                return result.size();
+            }
+
+            if (Objects.equals(nums2.get(i), sorted2.get(i)) && Objects.equals(nums2.get(nums2.size() - 1 - i), sorted2.get(sorted2.size() - 1 - i))
+            && !dontReadBack && !dontReadFront) {
                 result.remove(sorted2.get(i));
                 result.remove(sorted2.get(sorted2.size() - i - 1));
-            } else {
-                return result.size();
+            } else if (!Objects.equals(nums2.get(i), sorted2.get(i)) && Objects.equals(nums2.get(nums2.size() - 1 - i), sorted2.get(sorted2.size() - 1 - i))) {
+                result.remove(sorted2.get(sorted2.size() - i - 1));
+                dontReadFront = true;
+            } else if (Objects.equals(nums2.get(i), sorted2.get(i)) && !Objects.equals(nums2.get(nums2.size() - 1 - i), sorted2.get(sorted2.size() - 1 - i))) {
+                result.remove(sorted2.get(i));
+                dontReadBack = true;
+            } else if (!Objects.equals(nums2.get(i), sorted2.get(i)) && !Objects.equals(nums2.get(nums2.size() - 1 - i), sorted2.get(sorted2.size() - 1 - i))) {
+                dontReadBack = true;
+                dontReadFront = true;
             }
         }
         return result.size();
@@ -69,6 +84,7 @@ public class Exam {
         System.out.println(findUnsortedSubarray(new int[]{2, 6, 4, 8, 10, 9, 15}));
         System.out.println(findUnsortedSubarray(new int[]{1, 2, 3, 4}));
         System.out.println(findUnsortedSubarray(new int[]{1, 2, 4, 6, 11, 7, 12, 13}));
+
 
         System.out.println(repeatSeparator("Word", "X", 3));
         System.out.println(repeatSeparator("This", "And", 2));
