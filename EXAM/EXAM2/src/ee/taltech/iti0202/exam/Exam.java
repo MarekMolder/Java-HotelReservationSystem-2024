@@ -37,7 +37,7 @@ public class Exam {
                 result.remove(sorted2.get(i));
             }
         }
-        return result.size() + 2;
+        return result.size() + 1;
     }
 
     /**
