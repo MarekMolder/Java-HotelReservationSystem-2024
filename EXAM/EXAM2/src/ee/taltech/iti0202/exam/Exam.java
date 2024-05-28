@@ -40,6 +40,8 @@ public class Exam {
         for (int i = 0; i < nums2.size(); i++) {
 
             if (dontReadFront && dontReadBack) {
+                dontReadBack = false;
+                dontReadFront = false;
                 return result.size();
             }
 
