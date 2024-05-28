@@ -26,11 +26,11 @@ public class Exam {
         List<Integer> sorted2 = new LinkedList<>();
         List<Integer> result = new LinkedList<>();
 
-        for (Integer num: nums) {
+        for (Integer num : nums) {
             nums2.add(num);
         }
 
-        for (Integer num: sorted) {
+        for (Integer num : sorted) {
             sorted2.add(num);
             result.add(num);
         }
@@ -40,14 +40,12 @@ public class Exam {
         for (int i = 0; i < nums2.size(); i++) {
 
             if (dontReadFront && dontReadBack) {
-                dontReadBack = false;
-                dontReadFront = false;
                 return result.size();
             }
 
             if (Objects.equals(nums2.get(i), sorted2.get(i))
                     && Objects.equals(nums2.get(nums2.size() - 1 - i), sorted2.get(sorted2.size() - 1 - i))
-            && !dontReadBack && !dontReadFront) {
+                    && !dontReadBack && !dontReadFront) {
 
                 result.remove(sorted2.get(i));
                 result.remove(sorted2.get(sorted2.size() - i - 1));
@@ -71,6 +69,18 @@ public class Exam {
 
                 dontReadBack = true;
                 dontReadFront = true;
+            } else if (!Objects.equals(nums2.get(i), sorted2.get(i))
+                    && Objects.equals(nums2.get(nums2.size() - 1 - i), sorted2.get(sorted2.size() - 1 - i))
+                    && dontReadBack) {
+
+                return result.size();
+
+            } else if (Objects.equals(nums2.get(i), sorted2.get(i))
+                    && !Objects.equals(nums2.get(nums2.size() - 1 - i), sorted2.get(sorted2.size() - 1 - i))
+                    && dontReadFront) {
+
+                return result.size();
+
             }
         }
         return result.size();
