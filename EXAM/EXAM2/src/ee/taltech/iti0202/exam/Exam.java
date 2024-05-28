@@ -1,6 +1,6 @@
 package ee.taltech.iti0202.exam;
 
-import java.util.Arrays;
+import java.util.*;
 
 public class Exam {
     /**
@@ -19,7 +19,23 @@ public class Exam {
             return 0;
         }
 
-        return 5;
+        List<Integer> nums2 = new LinkedList<>();
+        List<Integer> sorted2 = new LinkedList<>();
+
+        for (Integer num: nums) {
+            nums2.add(num);
+        }
+
+        for (Integer num: sorted) {
+            sorted2.add(num);
+        }
+
+        for (int i = 0; i < nums2.size(); i++) {
+            if (Objects.equals(nums2.get(i), sorted2.get(i))) {
+                sorted2.remove(sorted2.get(i));
+            }
+        }
+        return sorted2.size();
     }
 
     /**
