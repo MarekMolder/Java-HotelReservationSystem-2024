@@ -21,7 +21,11 @@ import java.util.stream.Collectors;
 
 public class Factory {
 
-    public static final int psu = 6;
+    public static final int PSU = 6;
+    public static final int CASE = 9;
+    public static final int BATTERY = 8;
+    public static final int TOUCHPAD = 7;
+    public static final int KEYBOARD = 6;
 
     /**
      * Assembles a computer based on optional budget, optional use case, and required type.
@@ -189,7 +193,7 @@ public class Factory {
                     selectedComponents.set(i, nextBestComponent);
 
                     if (totalCost.compareTo(budget) <= 0 && totalPowerConsumption
-                            <= selectedComponents.get(psu).getPowerConsumption()) {
+                            <= selectedComponents.get(PSU).getPowerConsumption()) {
                         return;
                     }
 
@@ -221,15 +225,15 @@ public class Factory {
             pcBuilder.setRam(components.get(3));
             pcBuilder.setMotherboard(components.get(2));
             pcBuilder.setStorage(components.get(1));
-            pcBuilder.setPsu(components.get(6));
+            pcBuilder.setPsu(components.get(PSU));
             pcBuilder.setPcCase(components.get(0));
             return pcBuilder.build();
         } else {
             Laptop.LaptopBuilder laptopBuilder = new Laptop.LaptopBuilder();
-            laptopBuilder.setCpu(components.get(9));
-            laptopBuilder.setGpu(components.get(8));
-            laptopBuilder.setRam(components.get(7));
-            laptopBuilder.setMotherboard(components.get(6));
+            laptopBuilder.setCpu(components.get(CASE));
+            laptopBuilder.setGpu(components.get(BATTERY));
+            laptopBuilder.setRam(components.get(TOUCHPAD));
+            laptopBuilder.setMotherboard(components.get(KEYBOARD));
             laptopBuilder.setStorage(components.get(5));
             laptopBuilder.setPsu(components.get(10));
             laptopBuilder.setPcCase(components.get(4));
