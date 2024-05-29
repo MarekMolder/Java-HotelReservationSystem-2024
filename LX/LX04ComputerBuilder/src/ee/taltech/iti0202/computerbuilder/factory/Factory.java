@@ -21,6 +21,8 @@ import java.util.stream.Collectors;
 
 public class Factory {
 
+    public static final int psu = 6;
+
     /**
      * Assembles a computer based on optional budget, optional use case, and required type.
      *
@@ -187,7 +189,7 @@ public class Factory {
                     selectedComponents.set(i, nextBestComponent);
 
                     if (totalCost.compareTo(budget) <= 0 && totalPowerConsumption
-                            <= selectedComponents.get(6).getPowerConsumption()) {
+                            <= selectedComponents.get(psu).getPowerConsumption()) {
                         return;
                     }
 
