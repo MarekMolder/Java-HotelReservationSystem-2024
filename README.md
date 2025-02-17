@@ -45,9 +45,3 @@
 - Implement booking cancellation functionality.
 - Enable customers to leave reviews after a stay.
 - Sort customers based on booking count and review scores.
-
-## Future Improvements
-- Implement a graphical user interface (GUI).
-- Add payment processing for bookings.
-- Introduce room availability calendars.
-- Implement user authentication for customers and hotel administrators.
